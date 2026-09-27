@@ -21,12 +21,30 @@ what changed and why an ordinary person might care. No jargon, no hedging, no pr
 Title: {title}
 Details: {body}"""
 
-_SENT = re.compile(r"(?<=[.!?])\s+")
+_SENT = re.compile(r"(?<=[.!?])\s+(?=[A-Z0-9\"“(])")
+# Abbreviations whose trailing period must not end a sentence
+_ABBR = re.compile(
+    r"\b(Mr|Mrs|Ms|Dr|Prof|Shri|Smt|Hon|No|Nos|Rs|vs|Jr|Sr|St|Lt|Gen|Col|Sec|Art|Cl|Para|Sch|Vol|approx|etc|viz|i\.e|e\.g|U\.S|U\.K|[A-Z])\.",
+    re.I,
+)
+_DOT = "\u2024"  # one-dot leader, restored after splitting
 
 
-def extractive(title: str, body: str) -> str:
-    first = _SENT.split(body.strip(), maxsplit=1)[0] if body.strip() else title
-    return first[:240].rstrip(" .") + "."
+def _sentences(text: str) -> list[str]:
+    protected = _ABBR.sub(lambda m: m.group(0)[:-1] + _DOT, text.strip())
+    return [s.replace(_DOT, ".").strip() for s in _SENT.split(protected) if s.strip()]
+
+
+def extractive(title: str, body: str, target: int = 240) -> str:
+    sents = _sentences(body) or [title]
+    out = sents[0]
+    # A very short opener ("The Bill was passed.") is padded with the next sentence
+    if len(out) < 90 and len(sents) > 1 and len(out) + len(sents[1]) + 1 <= target:
+        out = f"{out} {sents[1]}"
+    if len(out) > target:
+        cut = out[:target].rsplit(" ", 1)[0]
+        out = cut.rstrip(",;:") + "…"
+    return out
 
 
 def _claude(title: str, body: str, client) -> str:

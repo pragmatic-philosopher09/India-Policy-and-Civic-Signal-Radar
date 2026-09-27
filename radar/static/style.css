@@ -100,3 +100,53 @@ footer p { margin: .25rem 0; }
   .topic-head { flex-direction: column-reverse; }
   .bigscore { align-self: flex-start; }
 }
+
+/* --- signal card v2 --- */
+.hero .meta { margin-top: .6rem; }
+.hero .meta a { color: var(--muted); }
+.conf { font-size: .72rem; font-weight: 600; color: var(--muted); }
+.conf-low { color: #b45309; } .conf-medium { color: #2563eb; } .conf-high { color: #059669; }
+.stat strong.muted { color: var(--muted); }
+.why { list-style: none; margin: .7rem 0 0; padding: .7rem 0 0; border-top: 1px dashed var(--line); font-size: .82rem; color: var(--fg); }
+.why li { display: flex; gap: .5rem; align-items: baseline; margin: .25rem 0; line-height: 1.35; }
+.why li span { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); transform: translateY(-1px); }
+.why-empty { margin: .7rem 0 0; padding: .7rem 0 0; border-top: 1px dashed var(--line); font-size: .8rem; color: var(--muted); }
+.linkish { color: var(--accent); }
+.hint.center { text-align: center; max-width: 720px; margin: -1rem auto 2.5rem; }
+.hint a { color: var(--muted); }
+
+.signalbox { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 12px; padding: .7rem 1rem; min-width: 230px; background: var(--card); font-size: .9rem; }
+.signalbox .row { display: flex; justify-content: space-between; gap: 1.5rem; padding: .25rem 0; border-bottom: 1px solid var(--line); }
+.signalbox .row:last-child { border-bottom: 0; }
+.signalbox .row span { color: var(--muted); }
+.signalbox .conf { font-size: .9rem; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+.why-box, .caveat-box { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1.1rem 1.3rem; }
+.caveat-box { border-left: 4px solid #d97706; }
+.why-box { border-left: 4px solid var(--accent); }
+.plain { list-style: none; padding: 0; margin: .5rem 0 0; }
+.plain li { padding: .4rem 0; border-bottom: 1px solid var(--line); font-size: .93rem; line-height: 1.45; }
+.plain li:last-child { border-bottom: 0; }
+.plain.small li { font-size: .82rem; color: var(--muted); padding: .2rem 0; border: 0; }
+.plain small { color: var(--muted); }
+details summary { cursor: pointer; color: var(--muted); font-size: .85rem; margin-top: .6rem; }
+details.legend { margin: .5rem 0 1rem; }
+dl { margin: .5rem 0; }
+dl dt { margin-top: .5rem; }
+dl dd { margin: .15rem 0 0; font-size: .88rem; color: var(--muted); }
+.glossary dd { color: var(--fg); }
+
+.tag.due { --accent: #059669; }
+.tag.due-soon { --accent: #dc2626; }
+.tag.due-unknown { --accent: #b45309; }
+.tag.due-closed { --accent: #78716c; }
+.muted-list li { opacity: .75; }
+.empty { color: var(--muted); font-style: italic; }
+details.closed { margin-top: 1rem; }
+.pill[title], .tag[title] { cursor: help; }
+
+@media (max-width: 700px) {
+  .two-col { grid-template-columns: 1fr; }
+  .signalbox { min-width: 0; width: 100%; }
+}

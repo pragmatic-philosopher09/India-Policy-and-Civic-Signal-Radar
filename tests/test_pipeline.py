@@ -48,3 +48,23 @@ def test_tag_topics():
     tags = tag_topics(it)
     assert "education-and-exams" in tags
     assert "gig-work-and-labour-codes" not in tags
+
+
+def test_extractive_summary_respects_abbreviations():
+    from radar.summarize import extractive
+    body = ("The Committee (Chair: Dr. A. Sharma) presented its report on Cyber Crimes. "
+            "It recommended Rs. 500 crore. Third sentence.")
+    out = extractive("t", body)
+    assert out.startswith("The Committee (Chair: Dr. A. Sharma) presented its report on Cyber Crimes.")
+    assert not out.endswith("Dr.")
+
+
+def test_parse_deadline_variants():
+    from datetime import date
+    from radar.build_site import parse_deadline, _deadline
+    assert parse_deadline("September 4, 2026") == date(2026, 9, 4)
+    assert parse_deadline("4 September 2026") == date(2026, 9, 4)
+    assert parse_deadline("4th September, 2026") == date(2026, 9, 4)
+    assert parse_deadline(None) is None
+    assert _deadline("Comments are invited till August 7, 2026.") == "August 7, 2026"
+    assert _deadline("The draft was released.") is None

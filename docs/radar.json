@@ -4,11 +4,15 @@
   {
    "slug": "criminal-law-and-justice",
    "name": "Criminal law & justice",
-   "score": 50,
    "status": "heating",
+   "confidence": "medium",
    "change_pct": 94,
    "recent_avg": 2.2,
    "baseline_avg": 1.1,
+   "total_actions": 9,
+   "recent_actions": 3,
+   "breadth": 2,
+   "sort_score": 50,
    "months": [
     "2025-04",
     "2025-05",
@@ -70,11 +74,15 @@
   {
    "slug": "personal-finance-and-tax",
    "name": "Personal finance & taxes",
-   "score": 41,
    "status": "steady",
+   "confidence": "medium",
    "change_pct": -20,
    "recent_avg": 4.7,
    "baseline_avg": 5.9,
+   "total_actions": 62,
+   "recent_actions": 9,
+   "breadth": 2,
+   "sort_score": 41,
    "months": [
     "2025-04",
     "2025-05",
@@ -136,11 +144,15 @@
   {
    "slug": "education-and-exams",
    "name": "Education & exam integrity",
-   "score": 40,
    "status": "steady",
+   "confidence": "medium",
    "change_pct": 22,
    "recent_avg": 1.6,
    "baseline_avg": 1.3,
+   "total_actions": 12,
+   "recent_actions": 2,
+   "breadth": 2,
+   "sort_score": 40,
    "months": [
     "2025-04",
     "2025-05",
@@ -202,11 +214,15 @@
   {
    "slug": "jobs-and-employment",
    "name": "Jobs & employment",
-   "score": 36,
    "status": "steady",
+   "confidence": "medium",
    "change_pct": 4,
    "recent_avg": 1.5,
    "baseline_avg": 1.4,
+   "total_actions": 13,
+   "recent_actions": 3,
+   "breadth": 2,
+   "sort_score": 36,
    "months": [
     "2025-04",
     "2025-05",
@@ -268,11 +284,15 @@
   {
    "slug": "digital-and-data",
    "name": "Digital rights & data protection",
-   "score": 20,
    "status": "quiet",
+   "confidence": "low",
    "change_pct": -32,
    "recent_avg": 0.7,
    "baseline_avg": 1.0,
+   "total_actions": 17,
+   "recent_actions": 1,
+   "breadth": 1,
+   "sort_score": 20,
    "months": [
     "2025-04",
     "2025-05",
@@ -334,11 +354,15 @@
   {
    "slug": "ai-regulation",
    "name": "AI regulation",
-   "score": 15,
    "status": "quiet",
+   "confidence": "low",
    "change_pct": -46,
    "recent_avg": 0.3,
    "baseline_avg": 0.6,
+   "total_actions": 6,
+   "recent_actions": 1,
+   "breadth": 1,
+   "sort_score": 15,
    "months": [
     "2025-04",
     "2025-05",
@@ -400,11 +424,15 @@
   {
    "slug": "gig-work-and-labour-codes",
    "name": "Gig work & labour codes",
-   "score": 0,
    "status": "quiet",
+   "confidence": "low",
    "change_pct": -100,
    "recent_avg": 0.0,
    "baseline_avg": 1.6,
+   "total_actions": 9,
+   "recent_actions": 0,
+   "breadth": 0,
+   "sort_score": 0,
    "months": [
     "2025-04",
     "2025-05",
@@ -462,6 +490,40 @@
     0,
     0
    ]
+  }
+ ],
+ "consultations": [
+  {
+   "title": "Draft National Pharmacy Commission Bill, 2026 released",
+   "sector": "Health and Family Welfare",
+   "deadline": null,
+   "status": "unknown",
+   "source": "https://prsindia.org/policy/monthly-policy-review/july-2026",
+   "links": []
+  },
+  {
+   "title": "Draft Advocate (Amendment) Bill released for comments",
+   "sector": "Law and Justice",
+   "deadline": null,
+   "status": "unknown",
+   "source": "https://prsindia.org/policy/monthly-policy-review/july-2026",
+   "links": []
+  },
+  {
+   "title": "Comments invited on the draft Rules and Regulations under the SHANTI Act, 2025",
+   "sector": "Energy",
+   "deadline": "2026-09-04",
+   "status": "closed",
+   "source": "https://prsindia.org/policy/monthly-policy-review/august-2026",
+   "links": []
+  },
+  {
+   "title": "Draft amendments to Establishment of New Medical Institution Regulations, 2023 released",
+   "sector": "Health and Family Welfare",
+   "deadline": "2026-08-07",
+   "status": "closed",
+   "source": "https://prsindia.org/policy/monthly-policy-review/july-2026",
+   "links": []
   }
  ],
  "attribution": "Source data \u00a9 PRS Legislative Research (prsindia.org), licensed under CC BY 4.0. Summaries and scores are our own."

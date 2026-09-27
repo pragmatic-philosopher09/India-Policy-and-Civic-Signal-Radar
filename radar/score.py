@@ -81,13 +81,21 @@ class TopicScore:
     baseline_avg: float
     change_pct: float | None                # None when baseline is ~0
     breadth: int                            # distinct PRS sectors in recent window
-    score: int                              # 0-100 composite
+    score: int                              # 0-100 composite (used for ordering only)
     status: str                             # heating / steady / cooling / quiet
     evidence: list[Evidence] = field(default_factory=list)
+    confidence: str = "low"                 # low / medium / high
+    confidence_reasons: list[str] = field(default_factory=list)
+    caveats: list[str] = field(default_factory=list)   # "what this does NOT mean"
+    why: list[Evidence] = field(default_factory=list)  # top recent actions driving the signal
 
     @property
     def total_items(self) -> int:
         return sum(self.counts)
+
+    @property
+    def recent_items(self) -> int:
+        return sum(self.counts[-RECENT_WINDOW:])
 
 
 def _status(recent: float, change: float | None) -> str:
@@ -98,6 +106,59 @@ def _status(recent: float, change: float | None) -> str:
     if change <= -33:
         return "cooling"
     return "steady"
+
+
+def _confidence(ts: TopicScore) -> tuple[str, list[str]]:
+    """How much should a reader trust this signal? Deliberately conservative."""
+    reasons: list[str] = []
+    n_total, n_recent = ts.total_items, ts.recent_items
+    recent = ts.activity[-RECENT_WINDOW:]
+    busiest = max(recent) if recent else 0.0
+    concentration = busiest / sum(recent) if sum(recent) else 0.0
+    active_months = sum(1 for v in recent if v > 0)
+
+    reasons.append(f"{n_total} tagged action{'s' if n_total != 1 else ''} across {len(ts.months)} months")
+    reasons.append(f"{n_recent} in the last {RECENT_WINDOW} months, spread over {active_months} month{'s' if active_months != 1 else ''}")
+    reasons.append(f"{ts.breadth} ministr{'ies' if ts.breadth != 1 else 'y'} active recently")
+    reasons.append("single source (PRS) — no independent cross-check yet")
+
+    level = "high"
+    if n_total < 8 or n_recent < 2:
+        level = "low"
+    elif n_total < 20 or ts.breadth < 3 or concentration > 0.8:
+        level = "medium"
+    if concentration > 0.8 and n_recent >= 2:
+        reasons.append("recent activity concentrated in a single month")
+    return level, reasons
+
+
+def _caveats(ts: TopicScore) -> list[str]:
+    out: list[str] = []
+    recent = ts.activity[-RECENT_WINDOW:]
+    if ts.status == "quiet":
+        n = ts.recent_items
+        opener = (f"Only {n} tagged action{'s' if n != 1 else ''}" if n else "Zero tagged actions")
+        out.append(
+            f"{opener} in the last {RECENT_WINDOW} months. This radar measures formal government "
+            "action recorded by PRS — bills, rules, committee reports, drafts. It does not see implementation, "
+            "court challenges, strikes or news coverage. \"Quiet\" can mean dormant, or happening outside the "
+            "legislative pipeline."
+        )
+    if ts.status == "heating" and ts.recent_items <= 4:
+        out.append(
+            f"The rise rests on just {ts.recent_items} action{'s' if ts.recent_items != 1 else ''}. One or two "
+            "documents can swing this number. Read it as \"worth watching\", not \"reform is accelerating\"."
+        )
+    if sum(recent) and max(recent) / sum(recent) > 0.8 and ts.recent_items >= 2:
+        busiest = ts.months[-RECENT_WINDOW:][recent.index(max(recent))]
+        out.append(
+            f"Almost all recent activity fell in one month ({busiest}). Parliament sits in bursts, so a session "
+            "month looks like a surge even when the underlying attention is steady."
+        )
+    if ts.change_pct is None and ts.status == "heating":
+        out.append("There was almost no comparable activity in the baseline period, so no percentage change is shown.")
+    out.append("Activity is not importance. A topic with three high-stakes actions can matter more than one with ten routine ones.")
+    return out
 
 
 def _composite(recent: float, change: float | None, breadth: int) -> int:
@@ -145,13 +206,18 @@ def score_topics(conn: sqlite3.Connection) -> list[TopicScore]:
         recent_months = set(months[-RECENT_WINDOW:])
         breadth = len({e.sector for e in evidence if e.month in recent_months})
 
-        results.append(TopicScore(
+        ts = TopicScore(
             topic=topic, months=months, activity=activity, counts=counts,
             recent_avg=round(recent_avg, 1), baseline_avg=round(baseline_avg, 1),
             change_pct=change, breadth=breadth,
             score=_composite(recent_avg, change, breadth),
             status=_status(recent_avg, change), evidence=evidence,
-        ))
+        )
+        ts.confidence, ts.confidence_reasons = _confidence(ts)
+        ts.caveats = _caveats(ts)
+        ts.why = sorted((e for e in evidence if e.month in recent_months),
+                        key=lambda e: (-e.weight, e.month))[:3]
+        results.append(ts)
 
     results.sort(key=lambda t: t.score, reverse=True)
     return results
