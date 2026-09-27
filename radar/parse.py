@@ -124,10 +124,12 @@ def _extract_links(tag: Tag) -> list[str]:
     out = []
     for a in tag.find_all("a", href=True):
         href = a["href"]
-        if href.startswith("#"):
+        if href.startswith("#") or href.startswith("mailto:"):
             continue
         if href.startswith("/"):
             href = PRS_BASE + href
+        if not href.startswith(("http://", "https://")):
+            continue
         out.append(href)
     return out
 
