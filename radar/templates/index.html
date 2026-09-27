@@ -1,9 +1,10 @@
 {% extends "base.html" %}
+{% set L = '' if lang == 'en' else lang ~ '/' %}
 {% block body %}
 <section class="hero">
-  <h1>What's changing in Indian policy — and why should you care?</h1>
-  <p class="lede">News tells you what happened today. This shows what has been <em>building</em> for months — and links every signal back to the government documents behind it.</p>
-  <p class="meta">{{ n_items }} government actions · {{ n_months }} months · source: <a href="https://prsindia.org/policy/monthly-policy-review">PRS Legislative Research</a> · updated {{ today }}</p>
+  <h1>{{ t('hero_h1') }}</h1>
+  <p class="lede">{{ t('hero_lede') }}</p>
+  <p class="meta">{{ t('hero_meta', n=n_items, m=n_months, d=today) }}</p>
 </section>
 
 <section class="radar">
@@ -11,76 +12,77 @@
   <a class="card status-{{ ts.status }}" href="topic/{{ ts.topic.slug }}.html" style="--accent: {{ ts.topic.color }}">
     <div class="card-head">
       <span class="pill" title="{{ ts.status | status_help }}">{{ ts.status | status }}</span>
-      <span class="conf conf-{{ ts.confidence }}" title="How much to trust this signal: {{ ts.confidence_reasons | join('; ') }}">{{ ts.confidence | confidence }} confidence</span>
+      <span class="conf conf-{{ ts.confidence }}" title="{{ t('conf_title') }}: {% for r in ts.confidence_reasons %}{{ r | msg }}{{ '; ' if not loop.last }}{% endfor %}">{{ ts.confidence | confidence }} {{ t('confidence_word') }}</span>
     </div>
-    <h2>{{ ts.topic.name }}</h2>
-    <p class="tagline">{{ ts.topic.tagline }}</p>
+    <h2>{{ ts.topic.label(lang) }}</h2>
+    <p class="tagline">{{ ts.topic.tag(lang) }}</p>
     <div class="card-foot">
       {{ ts.activity | spark }}
       <div class="stat">
         {% if ts.status == 'quiet' %}
-          <strong class="muted">{{ ts.recent_items }}</strong><small>action{{ 's' if ts.recent_items != 1 }} in {{ recent_window }} mo</small>
+          <strong class="muted">{{ ts.recent_items }}</strong><small>{{ t('actions_in', n=recent_window) }}</small>
         {% elif ts.change_pct is not none %}
           <strong class="{{ 'up' if ts.change_pct > 0 else 'down' if ts.change_pct < 0 else '' }}">
             {{ '+' if ts.change_pct > 0 else '' }}{{ ts.change_pct }}%</strong>
-          <small>vs prior {{ baseline_window }} mo</small>
+          <small>{{ t('vs_prior', n=baseline_window) }}</small>
         {% else %}
-          <strong>New</strong><small>little prior activity</small>
+          <strong>{{ t('new') }}</strong><small>{{ t('little_prior') }}</small>
         {% endif %}
       </div>
     </div>
-    <p class="meta">{{ ts.recent_items }} action{{ 's' if ts.recent_items != 1 }} recently · {{ ts.total_items }} total · {{ ts.breadth }} ministr{{ 'ies' if ts.breadth != 1 else 'y' }}</p>
+    <p class="meta">{{ t('card_meta', r=ts.recent_items, t=ts.total_items, b=ts.breadth) }}</p>
     {% if ts.why %}
     <ul class="why">
-      {% for e in ts.why[:2] %}<li><span class="dot-{{ e.action }}"></span>{{ e.title | truncate(90) }}</li>{% endfor %}
+      {% for e in ts.why[:2] %}<li><span class="dot-{{ e.action }}"></span>{{ (e.title_l or e.title) | truncate(90) }}{% if lang != 'en' and not e.title_l %} <small class="en-tag">{{ t('english_only') }}</small>{% endif %}</li>{% endfor %}
     </ul>
     {% elif ts.status == 'quiet' %}
-    <p class="why-empty">{{ "Almost no" if ts.recent_items else "No" }} formal action recorded by PRS recently. That can mean dormant — or happening outside the legislative pipeline (courts, implementation, protests). <span class="linkish">Read the caveat →</span></p>
+    <p class="why-empty">{{ t('why_empty_some' if ts.recent_items else 'why_empty_none') }} <span class="linkish">{{ t('read_caveat') }}</span></p>
     {% endif %}
   </a>
   {% endfor %}
 </section>
-<p class="hint center">Ordered by a combination of momentum, recent volume and breadth. Activity is not importance — a topic with three high-stakes actions can matter more than one with ten routine ones. <a href="method.html">How this works</a></p>
+<p class="hint center">{{ t('ordered_hint') }} <a href="method.html">{{ t('how_this_works') }}</a></p>
 
 {% set open = consultations.open %}{% set unknown = consultations.unknown %}{% set closed = consultations.closed %}
 {% if open or unknown or closed %}
 <section class="consult">
-  <h2>You can actually respond to these</h2>
-  <p class="lede small">Drafts the government has published for public comment. Anyone can send feedback before the deadline — this is the window where citizen input gets read.</p>
+  <h2>{{ t('consult_h2') }}</h2>
+  <p class="lede small">{{ t('consult_lede') }}</p>
 
   {% if open or unknown %}
   <ul class="evidence">
     {% for e in open + unknown %}
     <li>
-      {% if e.topic %}<span class="tag" style="--accent: {{ e.topic.color }}">{{ e.topic.name }}</span>
-      {% else %}<span class="tag action-other">{{ e.sector }}</span>{% endif %}
+      {% if e.topic %}<span class="tag" style="--accent: {{ e.topic.color }}">{{ e.topic.label(lang) }}</span>
+      {% else %}<span class="tag action-other">{{ e.sector | sector }}</span>{% endif %}
       {% if e.deadline %}
         <span class="tag due {{ 'due-soon' if e.days_left <= 7 else '' }}">
-          {% if e.days_left == 0 %}Closes today{% elif e.days_left == 1 %}1 day left{% else %}{{ e.days_left }} days left{% endif %} · {{ e.deadline | nice_date }}
+          {% if e.days_left == 0 %}{{ t('closes_today') }}{% elif e.days_left == 1 %}{{ t('one_day_left') }}{% else %}{{ t('days_left', n=e.days_left) }}{% endif %} · {{ e.deadline | nice_date }}
         </span>
       {% else %}
-        <span class="tag due-unknown" title="PRS's summary didn't state a deadline. Check the source document.">Deadline not stated — check source</span>
+        <span class="tag due-unknown" title="{{ t('deadline_unknown_help') }}">{{ t('deadline_unknown') }}</span>
       {% endif %}
-      <strong>{{ e.title }}</strong>
-      {% if e.summary %}<p>{{ e.summary }}</p>{% endif %}
-      <small><a href="{{ e.source_url }}">PRS, {{ e.month | month }}</a>
-      {% for l in e.links[:2] %} · <a href="{{ l }}">read the draft</a>{% endfor %}</small>
+      <strong>{{ e.title_l or e.title }}{% if lang != 'en' and not e.title_l %} <small class="en-tag">{{ t('english_only') }}</small>{% endif %}</strong>
+      {% set sm = e.summary_l if lang != 'en' else e.summary %}
+      {% if sm %}<p>{{ sm }}</p>{% endif %}
+      <small><a href="{{ e.source_url }}">{{ t('prs_month', m=(e.month | month)) }}</a>
+      {% for l in e.links[:2] %} · <a href="{{ l }}">{{ t('read_draft') }}</a>{% endfor %}</small>
     </li>
     {% endfor %}
   </ul>
   {% else %}
-  <p class="empty">Nothing we can confirm is open right now. Deadlines below have passed.</p>
+  <p class="empty">{{ t('nothing_open') }}</p>
   {% endif %}
 
   {% if closed %}
   <details class="closed">
-    <summary>Recently closed ({{ closed | length }})</summary>
+    <summary>{{ t('recently_closed', n=closed | length) }}</summary>
     <ul class="evidence muted-list">
       {% for e in closed %}
       <li>
-        <span class="tag due-closed">Closed {{ e.deadline | nice_date }}</span>
-        <strong>{{ e.title }}</strong>
-        <small>{{ e.sector }} · <a href="{{ e.source_url }}">PRS, {{ e.month | month }}</a></small>
+        <span class="tag due-closed">{{ t('closed_on', d=(e.deadline | nice_date)) }}</span>
+        <strong>{{ e.title_l or e.title }}{% if lang != 'en' and not e.title_l %} <small class="en-tag">{{ t('english_only') }}</small>{% endif %}</strong>
+        <small>{{ e.sector | sector }} · <a href="{{ e.source_url }}">{{ t('prs_month', m=(e.month | month)) }}</a></small>
       </li>
       {% endfor %}
     </ul>
@@ -90,8 +92,8 @@
 {% endif %}
 
 <section class="about">
-  <h2>How to read this</h2>
-  <p>Each card is one topic. <strong>Heating up / Steady / Cooling / Quiet</strong> compares the last {{ recent_window }} months of government action to the {{ baseline_window }} before. <strong>Confidence</strong> tells you how much evidence sits behind that label — a handful of documents can swing a percentage, and we currently rely on one source. Open a topic to see every action that produced the signal, and what the signal does <em>not</em> mean.</p>
-  <p><a href="method.html">Full method &amp; glossary →</a> · <a href="radar.json">Download the data (JSON)</a></p>
+  <h2>{{ t('about_h2') }}</h2>
+  <p>{{ t('about_p', w=recent_window, b=baseline_window) }}</p>
+  <p><a href="method.html">{{ t('method_link') }}</a> · <a href="{{ root }}radar.json">{{ t('json_link') }}</a></p>
 </section>
 {% endblock %}

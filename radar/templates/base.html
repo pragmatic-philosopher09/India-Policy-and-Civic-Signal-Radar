@@ -1,21 +1,33 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ lang }}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% block title %}Policy Signal Radar{% endblock %}</title>
-<meta name="description" content="{% block desc %}Which Indian policy issues are gaining momentum right now — with the evidence, not just a score.{% endblock %}">
-<link rel="stylesheet" href="{{ root | default('') }}static/style.css">
+<title>{% block title %}{{ t('site_title') }}{% endblock %}</title>
+<meta name="description" content="{% block desc %}{{ t('site_desc') }}{% endblock %}">
+{% for l in langs %}<link rel="alternate" hreflang="{{ l }}" href="{{ root }}{{ '' if l == 'en' else l ~ '/' }}{{ page }}">
+{% endfor %}<link rel="stylesheet" href="{{ root }}static/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600{% if lang == 'hi' %}&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600{% endif %}&display=swap" rel="stylesheet">
+<script>
+(function(){try{
+  var pref=localStorage.getItem('radar-lang'), here='{{ lang }}';
+  var q=new URLSearchParams(location.search);
+  if(q.get('lang')){localStorage.setItem('radar-lang',q.get('lang'));return;}
+  if(pref&&pref!==here&&here==='en'&&pref==='hi'){location.replace('{{ root }}hi/{{ page }}');}
+}catch(e){}})();
+</script>
 </head>
-<body>
+<body class="lang-{{ lang }}">
 <header class="top">
-  <a class="brand" href="{{ root | default('') }}index.html">
-    <span class="dot"></span> Policy Signal Radar <span class="beta">beta</span>
+  <a class="brand" href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}index.html">
+    <span class="dot"></span> {{ t('site_title') }} <span class="beta">{{ t('beta') }}</span>
   </a>
   <nav>
-    <a href="{{ root | default('') }}method.html">How scoring works</a>
+    <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}method.html">{{ t('nav_method') }}</a>
+    {% for l in other_langs %}
+    <a class="lang-toggle" lang="{{ l }}" href="{{ root }}{{ '' if l == 'en' else l ~ '/' }}{{ page }}?lang={{ l }}" onclick="try{localStorage.setItem('radar-lang','{{ l }}')}catch(e){}">{{ langs[l] }}</a>
+    {% endfor %}
   </nav>
 </header>
 <main>
@@ -23,7 +35,7 @@
 </main>
 <footer>
   <p>{{ attribution }}</p>
-  <p>Updated {{ today }} · Open source · No ads, no tracking, no login.</p>
+  <p>{{ t('footer_line', d=today) }}</p>
 </footer>
 </body>
 </html>

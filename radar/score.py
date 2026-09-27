@@ -69,6 +69,8 @@ class Evidence:
     summary: str | None
     links: list[str]
     source_url: str
+    title_l: str | None = None    # localised title (set at build time)
+    summary_l: str | None = None
 
 
 @dataclass
@@ -85,8 +87,8 @@ class TopicScore:
     status: str                             # heating / steady / cooling / quiet
     evidence: list[Evidence] = field(default_factory=list)
     confidence: str = "low"                 # low / medium / high
-    confidence_reasons: list[str] = field(default_factory=list)
-    caveats: list[str] = field(default_factory=list)   # "what this does NOT mean"
+    confidence_reasons: list[tuple[str, dict]] = field(default_factory=list)
+    caveats: list[tuple[str, dict]] = field(default_factory=list)  # (key, params) — rendered per language
     why: list[Evidence] = field(default_factory=list)  # top recent actions driving the signal
 
     @property
@@ -108,19 +110,22 @@ def _status(recent: float, change: float | None) -> str:
     return "steady"
 
 
-def _confidence(ts: TopicScore) -> tuple[str, list[str]]:
-    """How much should a reader trust this signal? Deliberately conservative."""
-    reasons: list[str] = []
+def _confidence(ts: TopicScore) -> tuple[str, list[tuple[str, dict]]]:
+    """How much should a reader trust this signal? Deliberately conservative.
+
+    Reasons are returned as (message_key, params) so they can be rendered in any language.
+    """
+    reasons: list[tuple[str, dict]] = []
     n_total, n_recent = ts.total_items, ts.recent_items
     recent = ts.activity[-RECENT_WINDOW:]
     busiest = max(recent) if recent else 0.0
     concentration = busiest / sum(recent) if sum(recent) else 0.0
     active_months = sum(1 for v in recent if v > 0)
 
-    reasons.append(f"{n_total} tagged action{'s' if n_total != 1 else ''} across {len(ts.months)} months")
-    reasons.append(f"{n_recent} in the last {RECENT_WINDOW} months, spread over {active_months} month{'s' if active_months != 1 else ''}")
-    reasons.append(f"{ts.breadth} ministr{'ies' if ts.breadth != 1 else 'y'} active recently")
-    reasons.append("single source (PRS) — no independent cross-check yet")
+    reasons.append(("conf_total", dict(n=n_total, m=len(ts.months))))
+    reasons.append(("conf_recent", dict(n=n_recent, w=RECENT_WINDOW, a=active_months)))
+    reasons.append(("conf_breadth", dict(b=ts.breadth)))
+    reasons.append(("conf_single_source", {}))
 
     level = "high"
     if n_total < 8 or n_recent < 2:
@@ -128,36 +133,23 @@ def _confidence(ts: TopicScore) -> tuple[str, list[str]]:
     elif n_total < 20 or ts.breadth < 3 or concentration > 0.8:
         level = "medium"
     if concentration > 0.8 and n_recent >= 2:
-        reasons.append("recent activity concentrated in a single month")
+        reasons.append(("conf_concentrated", {}))
     return level, reasons
 
 
-def _caveats(ts: TopicScore) -> list[str]:
-    out: list[str] = []
+def _caveats(ts: TopicScore) -> list[tuple[str, dict]]:
+    out: list[tuple[str, dict]] = []
     recent = ts.activity[-RECENT_WINDOW:]
     if ts.status == "quiet":
-        n = ts.recent_items
-        opener = (f"Only {n} tagged action{'s' if n != 1 else ''}" if n else "Zero tagged actions")
-        out.append(
-            f"{opener} in the last {RECENT_WINDOW} months. This radar measures formal government "
-            "action recorded by PRS — bills, rules, committee reports, drafts. It does not see implementation, "
-            "court challenges, strikes or news coverage. \"Quiet\" can mean dormant, or happening outside the "
-            "legislative pipeline."
-        )
+        out.append(("caveat_quiet", dict(n=ts.recent_items, w=RECENT_WINDOW)))
     if ts.status == "heating" and ts.recent_items <= 4:
-        out.append(
-            f"The rise rests on just {ts.recent_items} action{'s' if ts.recent_items != 1 else ''}. One or two "
-            "documents can swing this number. Read it as \"worth watching\", not \"reform is accelerating\"."
-        )
+        out.append(("caveat_few_actions", dict(n=ts.recent_items)))
     if sum(recent) and max(recent) / sum(recent) > 0.8 and ts.recent_items >= 2:
         busiest = ts.months[-RECENT_WINDOW:][recent.index(max(recent))]
-        out.append(
-            f"Almost all recent activity fell in one month ({busiest}). Parliament sits in bursts, so a session "
-            "month looks like a surge even when the underlying attention is steady."
-        )
+        out.append(("caveat_concentrated", dict(month=busiest)))
     if ts.change_pct is None and ts.status == "heating":
-        out.append("There was almost no comparable activity in the baseline period, so no percentage change is shown.")
-    out.append("Activity is not importance. A topic with three high-stakes actions can matter more than one with ten routine ones.")
+        out.append(("caveat_no_baseline", {}))
+    out.append(("caveat_not_importance", {}))
     return out
 
 

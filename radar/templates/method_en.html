@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %}How scoring works — Policy Signal Radar{% endblock %}
+{% block title %}How scoring works — {{ t('site_title') }}{% endblock %}
 {% block body %}
 <article class="prose">
-  <a class="back" href="index.html">← All topics</a>
+  <a class="back" href="index.html">{{ t('back') }}</a>
   <h1>How the momentum score works</h1>
   <p class="lede">No black box. Here is the whole method; you can recompute any number on the site from the evidence lists.</p>
 
@@ -18,7 +18,7 @@
     <thead><tr><th>Action</th><th>Weight</th></tr></thead>
     <tbody>
     {% for k, w in action_weights | dictsort(by='value', reverse=true) %}
-      <tr><td>{{ action_labels[k] }}</td><td>×{{ w }}</td></tr>
+      <tr><td>{{ k | action }}</td><td>×{{ w }}</td></tr>
     {% endfor %}
     </tbody>
   </table>
@@ -43,7 +43,7 @@
 
   <h2>Glossary</h2>
   <dl class="glossary">
-    {% for k, label in action_labels.items() %}<dt><span class="tag action-{{ k }}">{{ label }}</span></dt><dd>{{ action_glossary[k] }}</dd>{% endfor %}
+    {% for k in actions %}<dt><span class="tag action-{{ k }}">{{ k | action }}</span></dt><dd>{{ k | action_help }}</dd>{% endfor %}
   </dl>
 
   <h2>Known limits</h2>

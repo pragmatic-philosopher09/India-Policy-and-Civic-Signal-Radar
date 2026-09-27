@@ -1,0 +1,234 @@
+"""UI strings for every supported language.
+
+Content (item titles/summaries) is translated separately and cached in the DB;
+this module only covers the interface, labels, glossary and generated caveats.
+Add a language by adding a key to LANGS and a dict to STRINGS.
+"""
+
+from __future__ import annotations
+
+LANGS = {"en": "English", "hi": "हिन्दी"}
+DEFAULT_LANG = "en"
+
+MONTHS_SHORT = {
+    "en": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "hi": ["जन", "फ़र", "मार्च", "अप्रै", "मई", "जून", "जुला", "अग", "सित", "अक्टू", "नव", "दिस"],
+}
+MONTHS_LONG = {
+    "en": ["January", "February", "March", "April", "May", "June", "July", "August",
+           "September", "October", "November", "December"],
+    "hi": ["जनवरी", "फ़रवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त",
+           "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"],
+}
+
+STRINGS: dict[str, dict[str, str]] = {
+    "en": {
+        "site_title": "Policy Signal Radar",
+        "site_desc": "Which Indian policy issues are gaining momentum right now — with the evidence, not just a score.",
+        "beta": "beta",
+        "nav_method": "How scoring works",
+        "hero_h1": "What's changing in Indian policy — and why should you care?",
+        "hero_lede": "News tells you what happened today. This shows what has been <em>building</em> for months — and links every signal back to the government documents behind it.",
+        "hero_meta": "{n} government actions · {m} months · source: <a href=\"https://prsindia.org/policy/monthly-policy-review\">PRS Legislative Research</a> · updated {d}",
+        # statuses
+        "status_heating": "Heating up", "status_steady": "Steady", "status_cooling": "Cooling", "status_quiet": "Quiet",
+        "status_help_heating": "Recent activity is at least 50% above the prior six-month average.",
+        "status_help_steady": "Recent activity is roughly in line with the prior six months.",
+        "status_help_cooling": "Recent activity is at least a third below the prior six-month average.",
+        "status_help_quiet": "Almost no tagged government action in the last three months.",
+        # confidence
+        "conf_low": "Low", "conf_medium": "Medium", "conf_high": "High",
+        "confidence_word": "confidence",
+        "conf_title": "How much to trust this signal",
+        "conf_total": "{n} tagged actions across {m} months",
+        "conf_recent": "{n} in the last {w} months, spread over {a} month(s)",
+        "conf_breadth": "{b} ministries active recently",
+        "conf_single_source": "single source (PRS) — no independent cross-check yet",
+        "conf_concentrated": "recent activity concentrated in a single month",
+        # actions
+        "act_enacted": "Law passed", "act_introduced": "Bill introduced", "act_rules": "Rules notified",
+        "act_cabinet": "Cabinet approval", "act_consultation": "Open for comment", "act_committee": "Committee report",
+        "act_scheme": "Scheme / programme", "act_court": "Court ruling", "act_other": "Update",
+        "gl_enacted": "Parliament passed it (or it got the President's assent). It is now law, though it may take effect later.",
+        "gl_introduced": "A Bill was tabled in Parliament. It can still change, be sent to a committee, or lapse.",
+        "gl_rules": "The government issued binding rules, regulations or a notification under an existing law. No vote needed.",
+        "gl_cabinet": "The Union Cabinet approved a proposal — usually the step before a Bill is introduced or a scheme launches.",
+        "gl_consultation": "A draft was published for public comment. Anyone can respond before the deadline.",
+        "gl_committee": "A parliamentary committee of MPs from all parties examined an issue and made recommendations. Not binding.",
+        "gl_scheme": "A government programme was launched, approved or expanded.",
+        "gl_court": "A court ruling or stay that changes how a law works in practice.",
+        "gl_other": "A statement, report or development that doesn't fit the categories above.",
+        # cards
+        "vs_prior": "vs prior {n} mo", "actions_in": "actions in {n} mo", "new": "New", "little_prior": "little prior activity",
+        "card_meta": "{r} actions recently · {t} total · {b} ministries",
+        "why_empty_none": "No formal action recorded by PRS recently. That can mean dormant — or happening outside the legislative pipeline (courts, implementation, protests).",
+        "why_empty_some": "Almost no formal action recorded by PRS recently. That can mean dormant — or happening outside the legislative pipeline (courts, implementation, protests).",
+        "read_caveat": "Read the caveat →",
+        "ordered_hint": "Ordered by a combination of momentum, recent volume and breadth. Activity is not importance — a topic with three high-stakes actions can matter more than one with ten routine ones.",
+        "how_this_works": "How this works",
+        # consultations
+        "consult_h2": "You can actually respond to these",
+        "consult_lede": "Drafts the government has published for public comment. Anyone can send feedback before the deadline — this is the window where citizen input gets read.",
+        "closes_today": "Closes today", "one_day_left": "1 day left", "days_left": "{n} days left",
+        "deadline_unknown": "Deadline not stated — check source",
+        "deadline_unknown_help": "PRS's summary didn't state a deadline. Check the source document.",
+        "read_draft": "read the draft", "prs_month": "PRS, {m}",
+        "nothing_open": "Nothing we can confirm is open right now. Deadlines below have passed.",
+        "recently_closed": "Recently closed ({n})", "closed_on": "Closed {d}",
+        # about
+        "about_h2": "How to read this",
+        "about_p": "Each card is one topic. <strong>Heating up / Steady / Cooling / Quiet</strong> compares the last {w} months of government action to the {b} before. <strong>Confidence</strong> tells you how much evidence sits behind that label — a handful of documents can swing a percentage, and we currently rely on one source. Open a topic to see every action that produced the signal, and what the signal does <em>not</em> mean.",
+        "method_link": "Full method &amp; glossary →", "json_link": "Download the data (JSON)",
+        "footer_line": "Updated {d} · Open source · No ads, no tracking, no login.",
+        # topic page
+        "back": "← All topics",
+        "activity": "Activity", "evidence": "Evidence", "breadth": "Breadth", "confidence": "Confidence",
+        "none_recently": "none recently", "minimal": "minimal", "actions_per_months": "{n} actions / {m} mo", "ministries_n": "{n} ministries",
+        "what_changed": "What changed",
+        "story": "Over the last {w} months, government activity on this topic averaged <strong>{r}</strong> weighted points a month",
+        "story_change": "— <strong class=\"{cls}\">{pct}</strong> compared with the {b} months before that ({base}/month).",
+        "story_nobase": "— with almost no comparable activity in the {b} months before.",
+        "story_breadth": "{n} different ministries acted on it recently.",
+        "chart_hint": "Bars = evidence-weighted activity per month. Highlighted bars are the recent window that drives the label.",
+        "why_h2": "Why you're seeing this",
+        "why_none": "No tagged government action in the last {w} months. The label reflects absence of formal activity in our source, not a judgement about the issue.",
+        "not_mean_h2": "What this does <em>not</em> mean",
+        "why_conf": "Why confidence is {c}",
+        "evidence_h2": "Evidence, month by month",
+        "labels_mean": "What the labels mean",
+        "n_actions": "{n} actions",
+        "prs_review": "PRS review", "source_n": "source {n}",
+        "english_only": "English",
+        # caveats
+        "caveat_quiet": "Only {n} tagged action(s) in the last {w} months. This radar measures formal government action recorded by PRS — bills, rules, committee reports, drafts. It does not see implementation, court challenges, strikes or news coverage. \"Quiet\" can mean dormant, or happening outside the legislative pipeline.",
+        "caveat_quiet_zero": "Zero tagged actions in the last {w} months. This radar measures formal government action recorded by PRS — bills, rules, committee reports, drafts. It does not see implementation, court challenges, strikes or news coverage. \"Quiet\" can mean dormant, or happening outside the legislative pipeline.",
+        "caveat_few_actions": "The rise rests on just {n} action(s). One or two documents can swing this number. Read it as \"worth watching\", not \"reform is accelerating\".",
+        "caveat_concentrated": "Almost all recent activity fell in one month ({month}). Parliament sits in bursts, so a session month looks like a surge even when the underlying attention is steady.",
+        "caveat_no_baseline": "There was almost no comparable activity in the baseline period, so no percentage change is shown.",
+        "caveat_not_importance": "Activity is not importance. A topic with three high-stakes actions can matter more than one with ten routine ones.",
+        "lang_switch": "हिन्दी में पढ़ें",
+    },
+    "hi": {
+        "site_title": "पॉलिसी सिग्नल रडार",
+        "site_desc": "भारत में कौन-से नीतिगत मुद्दे अभी ज़ोर पकड़ रहे हैं — सिर्फ़ स्कोर नहीं, सबूत के साथ।",
+        "beta": "बीटा",
+        "nav_method": "स्कोरिंग कैसे होती है",
+        "hero_h1": "भारत की नीतियों में क्या बदल रहा है — और आपको क्यों परवाह करनी चाहिए?",
+        "hero_lede": "ख़बरें बताती हैं कि आज क्या हुआ। यह दिखाता है कि महीनों से क्या <em>बन रहा</em> है — और हर संकेत को उसके पीछे के सरकारी दस्तावेज़ों से जोड़ता है।",
+        "hero_meta": "{n} सरकारी कार्रवाइयाँ · {m} महीने · स्रोत: <a href=\"https://prsindia.org/policy/monthly-policy-review\">PRS Legislative Research</a> · अपडेट {d}",
+        "status_heating": "तेज़ हो रहा", "status_steady": "स्थिर", "status_cooling": "धीमा पड़ रहा", "status_quiet": "शांत",
+        "status_help_heating": "हाल की गतिविधि पिछले छह महीनों के औसत से कम-से-कम 50% ज़्यादा है।",
+        "status_help_steady": "हाल की गतिविधि पिछले छह महीनों के लगभग बराबर है।",
+        "status_help_cooling": "हाल की गतिविधि पिछले छह महीनों के औसत से कम-से-कम एक-तिहाई कम है।",
+        "status_help_quiet": "पिछले तीन महीनों में लगभग कोई टैग की गई सरकारी कार्रवाई नहीं।",
+        "conf_low": "कम", "conf_medium": "मध्यम", "conf_high": "उच्च",
+        "confidence_word": "भरोसा",
+        "conf_title": "इस संकेत पर कितना भरोसा करें",
+        "conf_total": "{m} महीनों में {n} टैग की गई कार्रवाइयाँ",
+        "conf_recent": "पिछले {w} महीनों में {n}, जो {a} महीने/महीनों में फैली हैं",
+        "conf_breadth": "हाल में {b} मंत्रालय सक्रिय",
+        "conf_single_source": "एक ही स्रोत (PRS) — अभी कोई स्वतंत्र पुष्टि नहीं",
+        "conf_concentrated": "हाल की गतिविधि एक ही महीने में केंद्रित",
+        "act_enacted": "क़ानून पास", "act_introduced": "विधेयक पेश", "act_rules": "नियम अधिसूचित",
+        "act_cabinet": "कैबिनेट मंज़ूरी", "act_consultation": "राय के लिए खुला", "act_committee": "समिति रिपोर्ट",
+        "act_scheme": "योजना / कार्यक्रम", "act_court": "अदालत का फ़ैसला", "act_other": "अपडेट",
+        "gl_enacted": "संसद ने इसे पास कर दिया (या राष्ट्रपति की मंज़ूरी मिल गई)। अब यह क़ानून है, हालाँकि लागू बाद में हो सकता है।",
+        "gl_introduced": "संसद में एक विधेयक रखा गया। यह अभी बदल सकता है, समिति को जा सकता है, या रद्द हो सकता है।",
+        "gl_rules": "सरकार ने किसी मौजूदा क़ानून के तहत बाध्यकारी नियम, विनियम या अधिसूचना जारी की। इसके लिए वोट की ज़रूरत नहीं।",
+        "gl_cabinet": "केंद्रीय कैबिनेट ने एक प्रस्ताव मंज़ूर किया — आम तौर पर विधेयक पेश होने या योजना शुरू होने से पहले का क़दम।",
+        "gl_consultation": "एक मसौदा जनता की राय के लिए प्रकाशित हुआ। समय-सीमा से पहले कोई भी जवाब दे सकता है।",
+        "gl_committee": "सभी दलों के सांसदों की संसदीय समिति ने किसी मुद्दे की जाँच कर सिफ़ारिशें दीं। बाध्यकारी नहीं।",
+        "gl_scheme": "कोई सरकारी कार्यक्रम शुरू, मंज़ूर या विस्तारित हुआ।",
+        "gl_court": "अदालत का ऐसा फ़ैसला या रोक जो क़ानून के अमल को बदल देता है।",
+        "gl_other": "कोई बयान, रिपोर्ट या घटनाक्रम जो ऊपर की श्रेणियों में नहीं आता।",
+        "vs_prior": "पिछले {n} महीनों की तुलना में", "actions_in": "कार्रवाइयाँ {n} महीनों में", "new": "नया", "little_prior": "पहले बहुत कम गतिविधि",
+        "card_meta": "हाल में {r} कार्रवाइयाँ · कुल {t} · {b} मंत्रालय",
+        "why_empty_none": "PRS ने हाल में कोई औपचारिक कार्रवाई दर्ज नहीं की। इसका मतलब ठहराव हो सकता है — या फिर हलचल विधायी प्रक्रिया के बाहर हो रही है (अदालतें, अमल, विरोध)।",
+        "why_empty_some": "PRS ने हाल में लगभग कोई औपचारिक कार्रवाई दर्ज नहीं की। इसका मतलब ठहराव हो सकता है — या फिर हलचल विधायी प्रक्रिया के बाहर हो रही है (अदालतें, अमल, विरोध)।",
+        "read_caveat": "चेतावनी पढ़ें →",
+        "ordered_hint": "क्रम गति, हाल की मात्रा और विस्तार के मेल से तय होता है। गतिविधि का मतलब महत्व नहीं — तीन बड़े फ़ैसलों वाला विषय दस मामूली कार्रवाइयों वाले विषय से ज़्यादा अहम हो सकता है।",
+        "how_this_works": "यह कैसे काम करता है",
+        "consult_h2": "इन पर आप सच में अपनी राय दे सकते हैं",
+        "consult_lede": "ऐसे मसौदे जो सरकार ने जनता की राय के लिए प्रकाशित किए हैं। समय-सीमा से पहले कोई भी अपनी प्रतिक्रिया भेज सकता है — यही वह मौक़ा है जब नागरिकों की बात पढ़ी जाती है।",
+        "closes_today": "आज बंद", "one_day_left": "1 दिन बाक़ी", "days_left": "{n} दिन बाक़ी",
+        "deadline_unknown": "समय-सीमा नहीं बताई — स्रोत देखें",
+        "deadline_unknown_help": "PRS के सार में समय-सीमा नहीं थी। मूल दस्तावेज़ देखें।",
+        "read_draft": "मसौदा पढ़ें", "prs_month": "PRS, {m}",
+        "nothing_open": "अभी ऐसा कुछ नहीं जिसे हम खुला होने की पुष्टि कर सकें। नीचे की समय-सीमाएँ बीत चुकी हैं।",
+        "recently_closed": "हाल में बंद ({n})", "closed_on": "{d} को बंद",
+        "about_h2": "इसे कैसे पढ़ें",
+        "about_p": "हर कार्ड एक विषय है। <strong>तेज़ हो रहा / स्थिर / धीमा पड़ रहा / शांत</strong> पिछले {w} महीनों की सरकारी कार्रवाई की तुलना उससे पहले के {b} महीनों से करता है। <strong>भरोसा</strong> बताता है कि उस लेबल के पीछे कितने सबूत हैं — मुट्ठी भर दस्तावेज़ प्रतिशत को हिला सकते हैं, और अभी हमारा एक ही स्रोत है। किसी विषय को खोलकर देखें कि किन कार्रवाइयों से यह संकेत बना, और इसका क्या मतलब <em>नहीं</em> है।",
+        "method_link": "पूरी पद्धति और शब्दावली →", "json_link": "डेटा डाउनलोड करें (JSON)",
+        "footer_line": "अपडेट {d} · ओपन सोर्स · न विज्ञापन, न ट्रैकिंग, न लॉगइन।",
+        "back": "← सभी विषय",
+        "activity": "गतिविधि", "evidence": "सबूत", "breadth": "विस्तार", "confidence": "भरोसा",
+        "none_recently": "हाल में कुछ नहीं", "minimal": "बहुत कम", "actions_per_months": "{n} कार्रवाइयाँ / {m} माह", "ministries_n": "{n} मंत्रालय",
+        "what_changed": "क्या बदला",
+        "story": "पिछले {w} महीनों में इस विषय पर सरकारी गतिविधि औसतन <strong>{r}</strong> भारित अंक प्रति माह रही",
+        "story_change": "— उससे पहले के {b} महीनों ({base}/माह) की तुलना में <strong class=\"{cls}\">{pct}</strong>।",
+        "story_nobase": "— उससे पहले के {b} महीनों में लगभग कोई तुलनीय गतिविधि नहीं थी।",
+        "story_breadth": "हाल में {n} अलग-अलग मंत्रालयों ने इस पर कार्रवाई की।",
+        "chart_hint": "बार = हर महीने की सबूत-भारित गतिविधि। हाइलाइट किए बार वह हालिया अवधि हैं जिससे लेबल तय होता है।",
+        "why_h2": "यह आपको क्यों दिख रहा है",
+        "why_none": "पिछले {w} महीनों में कोई टैग की गई सरकारी कार्रवाई नहीं। यह लेबल हमारे स्रोत में औपचारिक गतिविधि की कमी दिखाता है, मुद्दे पर कोई राय नहीं।",
+        "not_mean_h2": "इसका क्या मतलब <em>नहीं</em> है",
+        "why_conf": "भरोसा {c} क्यों है",
+        "evidence_h2": "सबूत, महीने-दर-महीने",
+        "labels_mean": "लेबल का मतलब",
+        "n_actions": "{n} कार्रवाइयाँ",
+        "prs_review": "PRS समीक्षा", "source_n": "स्रोत {n}",
+        "english_only": "अंग्रेज़ी में",
+        "caveat_quiet": "पिछले {w} महीनों में सिर्फ़ {n} टैग की गई कार्रवाई। यह रडार PRS द्वारा दर्ज औपचारिक सरकारी कार्रवाई मापता है — विधेयक, नियम, समिति रिपोर्ट, मसौदे। यह अमल, अदालती चुनौतियाँ, हड़तालें या ख़बरें नहीं देखता। \"शांत\" का मतलब ठहराव हो सकता है, या विधायी प्रक्रिया के बाहर हलचल।",
+        "caveat_quiet_zero": "पिछले {w} महीनों में शून्य टैग की गई कार्रवाइयाँ। यह रडार PRS द्वारा दर्ज औपचारिक सरकारी कार्रवाई मापता है — विधेयक, नियम, समिति रिपोर्ट, मसौदे। यह अमल, अदालती चुनौतियाँ, हड़तालें या ख़बरें नहीं देखता। \"शांत\" का मतलब ठहराव हो सकता है, या विधायी प्रक्रिया के बाहर हलचल।",
+        "caveat_few_actions": "यह बढ़त सिर्फ़ {n} कार्रवाई/कार्रवाइयों पर टिकी है। एक-दो दस्तावेज़ इस संख्या को हिला सकते हैं। इसे \"नज़र रखने लायक\" पढ़ें, \"सुधार तेज़ हो रहा है\" नहीं।",
+        "caveat_concentrated": "हाल की लगभग सारी गतिविधि एक ही महीने ({month}) में हुई। संसद झटकों में बैठती है, इसलिए सत्र वाला महीना उछाल जैसा दिखता है, भले ही असल ध्यान स्थिर हो।",
+        "caveat_no_baseline": "आधार अवधि में लगभग कोई तुलनीय गतिविधि नहीं थी, इसलिए प्रतिशत बदलाव नहीं दिखाया गया।",
+        "caveat_not_importance": "गतिविधि का मतलब महत्व नहीं। तीन बड़े फ़ैसलों वाला विषय दस मामूली कार्रवाइयों वाले विषय से ज़्यादा अहम हो सकता है।",
+        "lang_switch": "Read in English",
+    },
+}
+
+
+SECTORS_HI = {
+    "Finance": "वित्त", "Commerce and Industry": "वाणिज्य और उद्योग", "Macroeconomic Development": "समष्टि अर्थव्यवस्था",
+    "Transport": "परिवहन", "Agriculture": "कृषि", "External Affairs": "विदेश मामले", "Environment": "पर्यावरण",
+    "Education": "शिक्षा", "Law and Justice": "क़ानून और न्याय", "Mining": "खनन", "Energy": "ऊर्जा", "Parliament": "संसद",
+    "Power": "बिजली", "Labour and Employment": "श्रम और रोज़गार", "Labour": "श्रम", "Home Affairs": "गृह मामले",
+    "Communications": "संचार", "Communication": "संचार", "Rural Development": "ग्रामीण विकास", "Sports": "खेल",
+    "Health and Family Welfare": "स्वास्थ्य और परिवार कल्याण", "Health": "स्वास्थ्य", "Electronics and IT": "इलेक्ट्रॉनिक्स और IT",
+    "Electronics & IT": "इलेक्ट्रॉनिक्स और IT", "Information Technology": "सूचना प्रौद्योगिकी", "Defence": "रक्षा",
+    "Mining and Coal": "खनन और कोयला", "Coal and Mining": "कोयला और खनन", "Coal": "कोयला", "Sports and Gaming": "खेल और गेमिंग",
+    "Shipping and Ports": "जहाज़रानी और बंदरगाह", "Shipping": "जहाज़रानी", "Pharmaceuticals": "फ़ार्मास्यूटिकल्स", "Industry": "उद्योग",
+    "Environment and Water": "पर्यावरण और जल", "Consumer Affairs": "उपभोक्ता मामले", "Youth Affairs and Sports": "युवा मामले और खेल",
+    "Urban Development": "शहरी विकास", "Housing and Urban Affairs": "आवास और शहरी मामले", "Social Justice and Empowerment": "सामाजिक न्याय और अधिकारिता",
+    "Social Justice": "सामाजिक न्याय", "Science and Technology": "विज्ञान और प्रौद्योगिकी", "Minority Affairs": "अल्पसंख्यक मामले",
+    "Food and Public Distribution": "खाद्य और सार्वजनिक वितरण", "Cooperation": "सहकारिता", "Chemical and Fertilisers": "रसायन और उर्वरक",
+    "Textiles": "कपड़ा", "Steel": "इस्पात", "Railways": "रेलवे", "North-Eastern Region": "पूर्वोत्तर क्षेत्र", "Irrigation": "सिंचाई",
+    "Economy": "अर्थव्यवस्था", "Civil Aviation": "नागरिक उड्डयन", "Women and Child Development": "महिला एवं बाल विकास",
+    "Skill Development": "कौशल विकास", "Corporate Affairs": "कॉरपोरेट मामले", "Tribal Affairs": "जनजातीय मामले",
+    "Petroleum and Natural Gas": "पेट्रोलियम और प्राकृतिक गैस", "Culture": "संस्कृति", "Tourism": "पर्यटन", "General": "सामान्य",
+}
+
+
+def sector_label(name: str, lang: str = "en") -> str:
+    if lang == "hi":
+        return SECTORS_HI.get(name, name)
+    return name
+
+
+def t(lang: str, key: str, **params) -> str:
+    table = STRINGS.get(lang) or STRINGS[DEFAULT_LANG]
+    s = table.get(key) or STRINGS[DEFAULT_LANG].get(key, key)
+    return s.format(**params) if params else s
+
+
+def pretty_month(ym: str, lang: str = "en") -> str:
+    y, m = ym.split("-")
+    return f"{MONTHS_SHORT[lang if lang in MONTHS_SHORT else 'en'][int(m) - 1]} {y}"
+
+
+def nice_date(d, lang: str = "en") -> str:
+    if not d:
+        return ""
+    names = MONTHS_LONG[lang if lang in MONTHS_LONG else "en"]
+    return f"{d.day} {names[d.month - 1][:3] if lang == 'en' else names[d.month - 1]} {d.year}"

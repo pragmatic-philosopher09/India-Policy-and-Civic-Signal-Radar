@@ -4,6 +4,7 @@
   {
    "slug": "criminal-law-and-justice",
    "name": "Criminal law & justice",
+   "name_hi": "आपराधिक क़ानून और न्याय",
    "status": "heating",
    "confidence": "medium",
    "change_pct": 94,
@@ -74,6 +75,7 @@
   {
    "slug": "personal-finance-and-tax",
    "name": "Personal finance & taxes",
+   "name_hi": "व्यक्तिगत वित्त और टैक्स",
    "status": "steady",
    "confidence": "medium",
    "change_pct": -20,
@@ -144,6 +146,7 @@
   {
    "slug": "education-and-exams",
    "name": "Education & exam integrity",
+   "name_hi": "शिक्षा और परीक्षा की शुचिता",
    "status": "steady",
    "confidence": "medium",
    "change_pct": 22,
@@ -214,6 +217,7 @@
   {
    "slug": "jobs-and-employment",
    "name": "Jobs & employment",
+   "name_hi": "नौकरियाँ और रोज़गार",
    "status": "steady",
    "confidence": "medium",
    "change_pct": 4,
@@ -284,6 +288,7 @@
   {
    "slug": "digital-and-data",
    "name": "Digital rights & data protection",
+   "name_hi": "डिजिटल अधिकार और डेटा सुरक्षा",
    "status": "quiet",
    "confidence": "low",
    "change_pct": -32,
@@ -354,6 +359,7 @@
   {
    "slug": "ai-regulation",
    "name": "AI regulation",
+   "name_hi": "AI का नियमन",
    "status": "quiet",
    "confidence": "low",
    "change_pct": -46,
@@ -424,6 +430,7 @@
   {
    "slug": "gig-work-and-labour-codes",
    "name": "Gig work & labour codes",
+   "name_hi": "गिग वर्क और श्रम संहिताएँ",
    "status": "quiet",
    "confidence": "low",
    "change_pct": -100,
@@ -526,5 +533,5 @@
    "links": []
   }
  ],
- "attribution": "Source data \u00a9 PRS Legislative Research (prsindia.org), licensed under CC BY 4.0. Summaries and scores are our own."
+ "attribution": "Source data © PRS Legislative Research (prsindia.org), licensed under CC BY 4.0. Summaries and scores are our own."
 }

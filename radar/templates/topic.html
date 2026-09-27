@@ -1,99 +1,97 @@
 {% extends "base.html" %}
-{% set root = "../" %}
-{% block title %}{{ ts.topic.name }} — Policy Signal Radar{% endblock %}
-{% block desc %}{{ ts.topic.tagline }} Signal: {{ ts.status | status }}, {{ ts.confidence | confidence }} confidence.{% endblock %}
+{% block title %}{{ ts.topic.label(lang) }} — {{ t('site_title') }}{% endblock %}
+{% block desc %}{{ ts.topic.tag(lang) }} {{ ts.status | status }}, {{ ts.confidence | confidence }} {{ t('confidence_word') }}.{% endblock %}
 {% block body %}
 <article class="topic" style="--accent: {{ ts.topic.color }}">
-  <a class="back" href="../index.html">← All topics</a>
+  <a class="back" href="../index.html">{{ t('back') }}</a>
   <div class="topic-head">
     <div>
       <span class="pill status-{{ ts.status }}" title="{{ ts.status | status_help }}">{{ ts.status | status }}</span>
-      <h1>{{ ts.topic.name }}</h1>
-      <p class="lede">{{ ts.topic.tagline }}</p>
+      <h1>{{ ts.topic.label(lang) }}</h1>
+      <p class="lede">{{ ts.topic.tag(lang) }}</p>
     </div>
     <div class="signalbox">
-      <div class="row"><span>Activity</span>
+      <div class="row"><span>{{ t('activity') }}</span>
         <strong class="{{ 'up' if ts.change_pct and ts.change_pct > 0 else 'down' if ts.change_pct and ts.change_pct < 0 else '' }}">
-        {% if ts.status == 'quiet' %}{{ 'minimal' if ts.recent_items else 'none recently' }}{% elif ts.change_pct is not none %}{{ '+' if ts.change_pct > 0 else '' }}{{ ts.change_pct }}%{% else %}new{% endif %}</strong></div>
-      <div class="row"><span>Evidence</span><strong>{{ ts.total_items }} action{{ 's' if ts.total_items != 1 }} / {{ ts.months | length }} mo</strong></div>
-      <div class="row"><span>Breadth</span><strong>{{ ts.breadth }} ministr{{ 'ies' if ts.breadth != 1 else 'y' }}</strong></div>
-      <div class="row"><span>Confidence</span><strong class="conf conf-{{ ts.confidence }}">{{ ts.confidence | confidence }}</strong></div>
+        {% if ts.status == 'quiet' %}{{ t('minimal') if ts.recent_items else t('none_recently') }}{% elif ts.change_pct is not none %}{{ '+' if ts.change_pct > 0 else '' }}{{ ts.change_pct }}%{% else %}{{ t('new') | lower }}{% endif %}</strong></div>
+      <div class="row"><span>{{ t('evidence') }}</span><strong>{{ t('actions_per_months', n=ts.total_items, m=ts.months | length) }}</strong></div>
+      <div class="row"><span>{{ t('breadth') }}</span><strong>{{ t('ministries_n', n=ts.breadth) }}</strong></div>
+      <div class="row"><span>{{ t('confidence') }}</span><strong class="conf conf-{{ ts.confidence }}">{{ ts.confidence | confidence }}</strong></div>
     </div>
   </div>
 
   <section class="story">
-    <h2>What changed</h2>
+    <h2>{{ t('what_changed') }}</h2>
     <p>
-      Over the last {{ recent_window }} months, government activity on this topic averaged
-      <strong>{{ ts.recent_avg }}</strong> weighted points a month
+      {{ t('story', w=recent_window, r=ts.recent_avg) }}
       {% if ts.change_pct is not none %}
-        — <strong class="{{ 'up' if ts.change_pct > 0 else 'down' if ts.change_pct < 0 else '' }}">{{ '+' if ts.change_pct > 0 else '' }}{{ ts.change_pct }}%</strong>
-        compared with the {{ baseline_window }} months before that ({{ ts.baseline_avg }}/month).
+        {{ t('story_change', cls=('up' if ts.change_pct > 0 else 'down' if ts.change_pct < 0 else ''), pct=(('+' if ts.change_pct > 0 else '') ~ ts.change_pct ~ '%'), b=baseline_window, base=ts.baseline_avg) }}
       {% else %}
-        — with almost no comparable activity in the {{ baseline_window }} months before.
+        {{ t('story_nobase', b=baseline_window) }}
       {% endif %}
-      {{ ts.breadth }} different ministr{{ 'ies' if ts.breadth != 1 else 'y' }} acted on it recently.
+      {{ t('story_breadth', n=ts.breadth) }}
     </p>
     <div class="chart">
       {% set mx = (ts.activity | max) if ts.activity else 1 %}
       {% for m in ts.months %}
         {% set v = ts.activity[loop.index0] %}
-        <div class="bar" title="{{ m | month }}: {{ ts.counts[loop.index0] }} actions, {{ v }} weighted">
+        <div class="bar" title="{{ m | month }}: {{ ts.counts[loop.index0] }} / {{ v }}">
           <div class="fill {{ 'recent' if loop.index > (ts.months | length) - recent_window else '' }}" style="height: {{ (100 * v / mx) if mx else 0 }}%"></div>
-          <small>{{ (m | month)[:3] }}</small>
+          <small>{{ (m | month).split(' ')[0] }}</small>
         </div>
       {% endfor %}
     </div>
-    <p class="hint">Bars = evidence-weighted activity per month. Highlighted bars are the recent window that drives the label.</p>
+    <p class="hint">{{ t('chart_hint') }}</p>
   </section>
 
   <div class="two-col">
     <section class="why-box">
-      <h2>Why you're seeing this</h2>
+      <h2>{{ t('why_h2') }}</h2>
       {% if ts.why %}
       <ul class="plain">
         {% for e in ts.why %}
-        <li><span class="tag action-{{ e.action }}" title="{{ e.action | action_help }}">{{ e.action | action }}</span> {{ e.title }} <small>({{ e.month | month }})</small></li>
+        <li><span class="tag action-{{ e.action }}" title="{{ e.action | action_help }}">{{ e.action | action }}</span> {{ e.title_l or e.title }}{% if lang != 'en' and not e.title_l %} <small class="en-tag">{{ t('english_only') }}</small>{% endif %} <small>({{ e.month | month }})</small></li>
         {% endfor %}
       </ul>
       {% else %}
-      <p>No tagged government action in the last {{ recent_window }} months. The label reflects absence of formal activity in our source, not a judgement about the issue.</p>
+      <p>{{ t('why_none', w=recent_window) }}</p>
       {% endif %}
     </section>
     <section class="caveat-box">
-      <h2>What this does <em>not</em> mean</h2>
+      <h2>{{ t('not_mean_h2') }}</h2>
       <ul class="plain">
-        {% for c in ts.caveats %}<li>{{ c }}</li>{% endfor %}
+        {% for c in ts.caveats %}<li>{{ c | msg }}</li>{% endfor %}
       </ul>
       <details>
-        <summary>Why confidence is {{ ts.confidence | confidence | lower }}</summary>
+        <summary>{{ t('why_conf', c=(ts.confidence | confidence)) }}</summary>
         <ul class="plain small">
-          {% for r in ts.confidence_reasons %}<li>{{ r }}</li>{% endfor %}
+          {% for r in ts.confidence_reasons %}<li>{{ r | msg }}</li>{% endfor %}
         </ul>
       </details>
     </section>
   </div>
 
   <section class="timeline">
-    <h2>Evidence, month by month</h2>
+    <h2>{{ t('evidence_h2') }}</h2>
     <details class="legend">
-      <summary>What the labels mean</summary>
+      <summary>{{ t('labels_mean') }}</summary>
       <dl>
-        {% for k, label in action_labels.items() %}<dt><span class="tag action-{{ k }}">{{ label }}</span></dt><dd>{{ action_glossary[k] }}</dd>{% endfor %}
+        {% for k in actions %}<dt><span class="tag action-{{ k }}">{{ k | action }}</span></dt><dd>{{ k | action_help }}</dd>{% endfor %}
       </dl>
     </details>
     {% for m, items in timeline %}
       {% if items %}
       <div class="month">
-        <h3>{{ m | month }} <small>{{ items | length }} action{{ 's' if items | length != 1 }}</small></h3>
+        <h3>{{ m | month }} <small>{{ t('n_actions', n=items | length) }}</small></h3>
         <ul class="evidence">
           {% for e in items %}
           <li>
             <span class="tag action-{{ e.action }}" title="{{ e.action | action_help }}">{{ e.action | action }} <em>×{{ e.weight }}</em></span>
-            <strong>{{ e.title }}</strong>
-            {% if e.summary %}<p>{{ e.summary }}</p>{% endif %}
-            <small>{{ e.sector }} · <a href="{{ e.source_url }}">PRS review</a>
-            {% for l in e.links[:3] %} · <a href="{{ l }}">source {{ loop.index }}</a>{% endfor %}</small>
+            <strong>{{ e.title_l or e.title }}{% if lang != 'en' and not e.title_l %} <small class="en-tag">{{ t('english_only') }}</small>{% endif %}</strong>
+            {% set sm = e.summary_l if lang != 'en' else e.summary %}
+            {% if sm %}<p>{{ sm }}</p>{% endif %}
+            <small>{{ e.sector | sector }} · <a href="{{ e.source_url }}">{{ t('prs_review') }}</a>
+            {% for l in e.links[:3] %} · <a href="{{ l }}">{{ t('source_n', n=loop.index) }}</a>{% endfor %}</small>
           </li>
           {% endfor %}
         </ul>

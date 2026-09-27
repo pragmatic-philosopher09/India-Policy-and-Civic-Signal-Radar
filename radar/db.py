@@ -37,6 +37,15 @@ CREATE TABLE IF NOT EXISTS months (
     fetched_at TEXT NOT NULL DEFAULT (datetime('now')),
     n_items    INTEGER NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS translations (
+    uid     TEXT NOT NULL REFERENCES items(uid) ON DELETE CASCADE,
+    lang    TEXT NOT NULL,
+    title   TEXT,
+    summary TEXT,
+    source  TEXT NOT NULL DEFAULT 'llm',   -- llm | seed
+    PRIMARY KEY (uid, lang)
+);
 """
 
 
@@ -57,6 +66,9 @@ def upsert_month(conn: sqlite3.Connection, month: str, source_url: str, items: l
             r["uid"]: r["summary"]
             for r in conn.execute("SELECT uid, summary FROM items WHERE month = ?", (month,))
         }
+        old_translations = conn.execute(
+            "SELECT t.uid, t.lang, t.title, t.summary, t.source FROM translations t "
+            "JOIN items i ON i.uid = t.uid WHERE i.month = ?", (month,)).fetchall()
         conn.execute("DELETE FROM items WHERE month = ?", (month,))
         for it in items:
             conn.execute(
@@ -66,6 +78,10 @@ def upsert_month(conn: sqlite3.Connection, month: str, source_url: str, items: l
             )
             for topic, hits in topics.get(it.uid, {}).items():
                 conn.execute("INSERT INTO item_topics VALUES (?,?,?)", (it.uid, topic, hits))
+        new_uids = {it.uid for it in items}
+        for r in old_translations:
+            if r["uid"] in new_uids:
+                conn.execute("INSERT OR REPLACE INTO translations VALUES (?,?,?,?,?)", tuple(r))
         conn.execute(
             "INSERT OR REPLACE INTO months (month, source_url, n_items) VALUES (?,?,?)",
             (month, source_url, len(items)),

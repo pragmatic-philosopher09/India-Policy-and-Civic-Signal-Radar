@@ -2,6 +2,7 @@
 
   python -m radar ingest --months 18      # backfill / refresh PRS monthly reviews
   python -m radar summarise               # fill missing plain-English summaries
+  python -m radar translate               # Hindi (etc.) titles/summaries via Claude, cached
   python -m radar build                   # render static site into docs/
   python -m radar run --months 18         # all three
 """
@@ -17,6 +18,7 @@ from .fetch import fetch
 from .parse import iso_month, month_url, parse_month
 from .score import classify_action, tag_topics
 from .summarize import summarise_missing
+from .translate import translate_missing
 
 log = logging.getLogger("radar")
 
@@ -66,6 +68,7 @@ def main(argv: list[str] | None = None) -> None:
         s.add_argument("--months", type=int, default=18)
     sub.add_parser("retag", help="re-apply topic/action rules to stored items")
     sub.add_parser("summarise")
+    sub.add_parser("translate", help="translate visible items into other languages (needs ANTHROPIC_API_KEY)")
     sub.add_parser("build")
     args = p.parse_args(argv)
 
@@ -76,6 +79,12 @@ def main(argv: list[str] | None = None) -> None:
     if args.cmd in ("summarise", "run"):
         n = summarise_missing(db.connect())
         log.info("summarised %d items", n)
+    if args.cmd in ("translate", "run"):
+        from .i18n import DEFAULT_LANG, LANGS
+        conn = db.connect()
+        for lang in LANGS:
+            if lang != DEFAULT_LANG:
+                log.info("translated %d items into %s", translate_missing(conn, lang), lang)
     if args.cmd in ("build", "run"):
         from .build_site import build
         build()

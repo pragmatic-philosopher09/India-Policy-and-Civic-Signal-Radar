@@ -5,17 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How scoring works — Policy Signal Radar</title>
 <meta name="description" content="Which Indian policy issues are gaining momentum right now — with the evidence, not just a score.">
+<link rel="alternate" hreflang="en" href="method.html">
+<link rel="alternate" hreflang="hi" href="hi/method.html">
 <link rel="stylesheet" href="static/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+<script>
+(function(){try{
+  var pref=localStorage.getItem('radar-lang'), here='en';
+  var q=new URLSearchParams(location.search);
+  if(q.get('lang')){localStorage.setItem('radar-lang',q.get('lang'));return;}
+  if(pref&&pref!==here&&here==='en'&&pref==='hi'){location.replace('hi/method.html');}
+}catch(e){}})();
+</script>
 </head>
-<body>
+<body class="lang-en">
 <header class="top">
   <a class="brand" href="index.html">
     <span class="dot"></span> Policy Signal Radar <span class="beta">beta</span>
   </a>
   <nav>
     <a href="method.html">How scoring works</a>
+    
+    <a class="lang-toggle" lang="hi" href="hi/method.html?lang=hi" onclick="try{localStorage.setItem('radar-lang','hi')}catch(e){}">हिन्दी</a>
+    
   </nav>
 </header>
 <main>

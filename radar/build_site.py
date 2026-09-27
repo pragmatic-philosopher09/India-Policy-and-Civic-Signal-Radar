@@ -1,4 +1,8 @@
-"""Render the static site into docs/ (served by GitHub Pages)."""
+"""Render the static site into docs/ (served by GitHub Pages), once per language.
+
+    docs/index.html, docs/topic/<slug>.html, docs/method.html      -> English
+    docs/hi/index.html, docs/hi/topic/<slug>.html, docs/hi/method.html -> Hindi
+"""
 
 from __future__ import annotations
 
@@ -13,68 +17,29 @@ from markupsafe import Markup
 
 from . import db
 from .config import ACTION_WEIGHTS, BASELINE_WINDOW, PRS_ATTRIBUTION, RECENT_WINDOW, TOPIC_BY_SLUG
+from .i18n import DEFAULT_LANG, LANGS, nice_date, pretty_month, sector_label, t
 from .score import score_topics
+from .translate import lookup as translations_for
 
 OUT = Path("docs")
 HERE = Path(__file__).parent
 
-ACTION_LABELS = {
-    "enacted": "Law passed",
-    "introduced": "Bill introduced",
-    "rules": "Rules notified",
-    "cabinet": "Cabinet approval",
-    "consultation": "Open for comment",
-    "committee": "Committee report",
-    "scheme": "Scheme / programme",
-    "court": "Court ruling",
-    "other": "Update",
-}
-# Plain-English glossary shown as tooltips and on the method page
-ACTION_GLOSSARY = {
-    "enacted": "Parliament passed it (or it got the President's assent). It is now law, though it may take effect later.",
-    "introduced": "A Bill was tabled in Parliament. It can still change, be sent to a committee, or lapse.",
-    "rules": "The government issued binding rules, regulations or a notification under an existing law. No vote needed.",
-    "cabinet": "The Union Cabinet approved a proposal — usually the step before a Bill is introduced or a scheme launches.",
-    "consultation": "A draft was published for public comment. Anyone can respond before the deadline.",
-    "committee": "A parliamentary committee of MPs from all parties examined an issue and made recommendations. Not binding.",
-    "scheme": "A government programme was launched, approved or expanded.",
-    "court": "A court ruling or stay that changes how a law works in practice.",
-    "other": "A statement, report or development that doesn't fit the categories above.",
-}
-STATUS_LABELS = {
-    "heating": "Heating up",
-    "steady": "Steady",
-    "cooling": "Cooling",
-    "quiet": "Quiet",
-}
-STATUS_GLOSSARY = {
-    "heating": "Recent activity is at least 50% above the prior six-month average.",
-    "steady": "Recent activity is roughly in line with the prior six months.",
-    "cooling": "Recent activity is at least a third below the prior six-month average.",
-    "quiet": "Almost no tagged government action in the last three months.",
-}
-CONFIDENCE_LABELS = {"low": "Low", "medium": "Medium", "high": "High"}
+ACTIONS = ("enacted", "introduced", "rules", "cabinet", "consultation", "committee", "scheme", "court", "other")
 
-_MONTHS = "January|February|March|April|May|June|July|August|September|October|November|December"
 _DATE_FORMATS = ("%B %d, %Y", "%B %d %Y", "%d %B %Y", "%d %B, %Y")
 
 
 def parse_deadline(text: str | None) -> date | None:
     if not text:
         return None
-    t = re.sub(r"\s+", " ", text.replace(",", ", ")).replace(" ,", ",").strip()
-    t = re.sub(r"(\d)(st|nd|rd|th)\b", r"\1", t)
+    s = re.sub(r"\s+", " ", text.replace(",", ", ")).replace(" ,", ",").strip()
+    s = re.sub(r"(\d)(st|nd|rd|th)\b", r"\1", s)
     for fmt in _DATE_FORMATS:
         try:
-            return datetime.strptime(t, fmt).date()
+            return datetime.strptime(s, fmt).date()
         except ValueError:
             continue
     return None
-
-
-def pretty_month(ym: str) -> str:
-    y, m = ym.split("-")
-    return date(int(y), int(m), 1).strftime("%b %Y")
 
 
 def sparkline(values: list[float], w: int = 160, h: int = 36) -> Markup:
@@ -92,18 +57,33 @@ def sparkline(values: list[float], w: int = 160, h: int = 36) -> Markup:
     )
 
 
-def _env() -> Environment:
+def _env(lang: str) -> Environment:
     env = Environment(loader=FileSystemLoader(HERE / "templates"),
                       autoescape=select_autoescape(["html"]))
-    env.filters["month"] = pretty_month
+    env.globals["lang"] = lang
+    env.globals["langs"] = LANGS
+    env.globals["t"] = lambda key, **kw: Markup(t(lang, key, **kw))
+    env.filters["month"] = lambda ym: pretty_month(ym, lang)
+    env.filters["nice_date"] = lambda d: nice_date(d, lang)
+    env.filters["sector"] = lambda x: sector_label(x, lang)
     env.filters["spark"] = sparkline
-    env.filters["action"] = lambda a: ACTION_LABELS.get(a, a)
-    env.filters["action_help"] = lambda a: ACTION_GLOSSARY.get(a, "")
-    env.filters["status"] = lambda s: STATUS_LABELS.get(s, s)
-    env.filters["status_help"] = lambda s: STATUS_GLOSSARY.get(s, "")
-    env.filters["confidence"] = lambda c: CONFIDENCE_LABELS.get(c, c)
-    env.filters["nice_date"] = lambda d: d.strftime("%-d %b %Y") if d else ""
+    env.filters["action"] = lambda a: t(lang, f"act_{a}")
+    env.filters["action_help"] = lambda a: t(lang, f"gl_{a}")
+    env.filters["status"] = lambda s: t(lang, f"status_{s}")
+    env.filters["status_help"] = lambda s: t(lang, f"status_help_{s}")
+    env.filters["confidence"] = lambda c: t(lang, f"conf_{c}")
+    env.filters["msg"] = lambda pair: Markup(_render_msg(lang, pair))
     return env
+
+
+def _render_msg(lang: str, pair: tuple[str, dict]) -> str:
+    key, params = pair
+    params = dict(params)
+    if key == "caveat_quiet" and params.get("n") == 0:
+        key = "caveat_quiet_zero"
+    if "month" in params:
+        params["month"] = pretty_month(params["month"], lang)
+    return t(lang, key, **params)
 
 
 _DEADLINE = re.compile(
@@ -121,8 +101,9 @@ def _deadline(body: str) -> str | None:
 
 def _consultations(conn, months: list[str], topic_of: dict[str, str], today: date) -> dict[str, list[dict]]:
     """Drafts released for comment in the last two reviews, split into open / unknown-deadline / closed."""
+    buckets: dict[str, list[dict]] = {"open": [], "unknown": [], "closed": []}
     if not months:
-        return {"open": [], "unknown": [], "closed": []}
+        return buckets
     window = months[-2:]
     rows = conn.execute(
         f"""SELECT uid, month, sector, title, body, summary, links, source_url FROM items
@@ -130,14 +111,13 @@ def _consultations(conn, months: list[str], topic_of: dict[str, str], today: dat
             ORDER BY month DESC, sector""",
         window,
     ).fetchall()
-    buckets: dict[str, list[dict]] = {"open": [], "unknown": [], "closed": []}
     for r in rows:
         slug = topic_of.get(r["uid"])
         raw = _deadline(r["body"])
         due = parse_deadline(raw)
         days_left = (due - today).days if due else None
         entry = dict(
-            title=r["title"], month=r["month"], sector=r["sector"], summary=r["summary"],
+            uid=r["uid"], title=r["title"], month=r["month"], sector=r["sector"], summary=r["summary"],
             links=json.loads(r["links"]), source_url=r["source_url"],
             deadline=due, deadline_raw=raw, days_left=days_left,
             topic=TOPIC_BY_SLUG.get(slug) if slug else None,
@@ -153,21 +133,57 @@ def _consultations(conn, months: list[str], topic_of: dict[str, str], today: dat
     return buckets
 
 
+def _localise(scores, consultations, tr: dict[str, dict]) -> None:
+    """Attach translated title/summary (or None) to every evidence row and consultation."""
+    for ts in scores:
+        for e in ts.evidence:
+            x = tr.get(e.uid) or {}
+            e.title_l = x.get("title")
+            e.summary_l = x.get("summary")
+    for bucket in consultations.values():
+        for c in bucket:
+            x = tr.get(c["uid"]) or {}
+            c["title_l"] = x.get("title")
+            c["summary_l"] = x.get("summary")
+
+
+def _render_lang(lang: str, conn, scores, consultations, ctx: dict, n_items: int, n_months: int) -> None:
+    env = _env(lang)
+    out = OUT if lang == DEFAULT_LANG else OUT / lang
+    (out / "topic").mkdir(parents=True, exist_ok=True)
+    top = "" if lang == DEFAULT_LANG else "../"          # from a top-level page back to docs/
+    ctx = dict(ctx, other_langs=[l for l in LANGS if l != lang])
+
+    (out / "index.html").write_text(env.get_template("index.html").render(
+        scores=scores, consultations=consultations, n_months=n_months, n_items=n_items,
+        page="index.html", root=top, **ctx), encoding="utf-8")
+
+    for ts in scores:
+        by_month: dict[str, list] = {}
+        for e in ts.evidence:
+            by_month.setdefault(e.month, []).append(e)
+        timeline = [(m, by_month.get(m, [])) for m in reversed(ts.months)]
+        (out / "topic" / f"{ts.topic.slug}.html").write_text(
+            env.get_template("topic.html").render(ts=ts, timeline=timeline, root=top + "../",
+                                                  page=f"topic/{ts.topic.slug}.html", **ctx), encoding="utf-8")
+
+    (out / "method.html").write_text(env.get_template(f"method_{lang}.html").render(
+        page="method.html", root=top, **ctx), encoding="utf-8")
+
+
 def build() -> None:
     conn = db.connect()
     scores = score_topics(conn)
-    env = _env()
     today_d = date.today()
     today = today_d.isoformat()
     ctx = dict(
         attribution=PRS_ATTRIBUTION, today=today, recent_window=RECENT_WINDOW,
-        baseline_window=BASELINE_WINDOW, action_weights=ACTION_WEIGHTS, action_labels=ACTION_LABELS,
-        action_glossary=ACTION_GLOSSARY, status_glossary=STATUS_GLOSSARY, status_labels=STATUS_LABELS,
+        baseline_window=BASELINE_WINDOW, action_weights=ACTION_WEIGHTS, actions=ACTIONS,
     )
 
     if OUT.exists():
         shutil.rmtree(OUT)
-    (OUT / "topic").mkdir(parents=True)
+    OUT.mkdir(parents=True)
     shutil.copytree(HERE / "static", OUT / "static")
     (OUT / ".nojekyll").write_text("")
 
@@ -177,25 +193,16 @@ def build() -> None:
     topic_of = {r["uid"]: r["topic"] for r in conn.execute(
         "SELECT uid, topic FROM item_topics ORDER BY hits")}  # highest-hit topic wins
     consultations = _consultations(conn, months, topic_of, today_d)
-    (OUT / "index.html").write_text(env.get_template("index.html").render(
-        scores=scores, consultations=consultations,
-        n_months=n_months, n_items=n_items, **ctx), encoding="utf-8")
 
-    for ts in scores:
-        by_month: dict[str, list] = {}
-        for e in ts.evidence:
-            by_month.setdefault(e.month, []).append(e)
-        timeline = [(m, by_month.get(m, [])) for m in reversed(ts.months)]
-        (OUT / "topic" / f"{ts.topic.slug}.html").write_text(
-            env.get_template("topic.html").render(ts=ts, timeline=timeline, **ctx), encoding="utf-8")
-
-    (OUT / "method.html").write_text(env.get_template("method.html").render(**ctx), encoding="utf-8")
+    for lang in LANGS:
+        _localise(scores, consultations, {} if lang == DEFAULT_LANG else translations_for(conn, lang))
+        _render_lang(lang, conn, scores, consultations, ctx, n_items, n_months)
 
     # Machine-readable export for anyone who wants to build on top
     (OUT / "radar.json").write_text(json.dumps({
         "generated": today,
         "topics": [{
-            "slug": ts.topic.slug, "name": ts.topic.name, "status": ts.status,
+            "slug": ts.topic.slug, "name": ts.topic.name, "name_hi": ts.topic.name_hi, "status": ts.status,
             "confidence": ts.confidence, "change_pct": ts.change_pct,
             "recent_avg": ts.recent_avg, "baseline_avg": ts.baseline_avg,
             "total_actions": ts.total_items, "recent_actions": ts.recent_items, "breadth": ts.breadth,
@@ -206,5 +213,5 @@ def build() -> None:
             "status": k, "source": c["source_url"], "links": c["links"],
         } for k in ("open", "unknown", "closed") for c in consultations[k]],
         "attribution": PRS_ATTRIBUTION,
-    }, indent=1), encoding="utf-8")
-    print(f"built {len(scores)} topic pages -> {OUT}/")
+    }, indent=1, ensure_ascii=False), encoding="utf-8")
+    print(f"built {len(scores)} topic pages x {len(LANGS)} languages -> {OUT}/")

@@ -21,6 +21,14 @@ class Topic:
     keywords: tuple[str, ...]
     sectors: tuple[str, ...] = field(default_factory=tuple)
     color: str = "#2563eb"
+    name_hi: str = ""
+    tagline_hi: str = ""
+
+    def label(self, lang: str) -> str:
+        return self.name_hi if lang == "hi" and self.name_hi else self.name
+
+    def tag(self, lang: str) -> str:
+        return self.tagline_hi if lang == "hi" and self.tagline_hi else self.tagline
 
 
 TOPICS: list[Topic] = [
@@ -38,6 +46,8 @@ TOPICS: list[Topic] = [
         ),
         sectors=("Information Technology", "Electronics", "Communications", "Telecom"),
         color="#7c3aed",
+        name_hi="डिजिटल अधिकार और डेटा सुरक्षा",
+        tagline_hi="आपका डेटा, आपकी फ़ीड, आपका फ़ोन — नियम कौन तय करता है।",
     ),
     Topic(
         slug="ai-regulation",
@@ -52,6 +62,8 @@ TOPICS: list[Topic] = [
         ),
         sectors=("Information Technology", "Electronics"),
         color="#db2777",
+        name_hi="AI का नियमन",
+        tagline_hi="डीपफ़ेक, मॉडल के नियम, कंप्यूट मिशन — भारत AI को कैसे संभालेगा।",
     ),
     Topic(
         slug="criminal-law-and-justice",
@@ -71,6 +83,8 @@ TOPICS: list[Topic] = [
         ),
         sectors=("Law and Justice", "Home Affairs"),
         color="#4f46e5",
+        name_hi="आपराधिक क़ानून और न्याय",
+        tagline_hi="नई आपराधिक संहिताएँ, पुलिसिंग, ज़मानत, जेल और अदालतें कितनी तेज़ चलती हैं।",
     ),
     Topic(
         slug="jobs-and-employment",
@@ -84,6 +98,8 @@ TOPICS: list[Topic] = [
         ),
         sectors=("Labour and Employment", "Skill Development"),
         color="#059669",
+        name_hi="नौकरियाँ और रोज़गार",
+        tagline_hi="भर्ती, छँटनी, अप्रेंटिसशिप और रोज़गार बनाने वाली योजनाएँ।",
     ),
     Topic(
         slug="education-and-exams",
@@ -98,6 +114,8 @@ TOPICS: list[Topic] = [
         ),
         sectors=("Education",),
         color="#d97706",
+        name_hi="शिक्षा और परीक्षा की शुचिता",
+        tagline_hi="प्रवेश परीक्षाएँ, पेपर लीक, विश्वविद्यालय और उन्हें कौन नियंत्रित करता है।",
     ),
     Topic(
         slug="personal-finance-and-tax",
@@ -113,6 +131,8 @@ TOPICS: list[Topic] = [
         ),
         sectors=("Finance", "Corporate Affairs"),
         color="#dc2626",
+        name_hi="व्यक्तिगत वित्त और टैक्स",
+        tagline_hi="इनकम टैक्स, GST, UPI, लोन और वह छोटा प्रिंट जो आपकी जेब पर असर डालता है।",
     ),
     Topic(
         slug="gig-work-and-labour-codes",
@@ -127,6 +147,8 @@ TOPICS: list[Topic] = [
         ),
         sectors=("Labour and Employment",),
         color="#0891b2",
+        name_hi="गिग वर्क और श्रम संहिताएँ",
+        tagline_hi="प्लेटफ़ॉर्म वर्कर, सामाजिक सुरक्षा और चार श्रम संहिताएँ।",
     ),
 ]
 

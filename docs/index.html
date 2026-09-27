@@ -5,17 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Policy Signal Radar</title>
 <meta name="description" content="Which Indian policy issues are gaining momentum right now — with the evidence, not just a score.">
+<link rel="alternate" hreflang="en" href="index.html">
+<link rel="alternate" hreflang="hi" href="hi/index.html">
 <link rel="stylesheet" href="static/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+<script>
+(function(){try{
+  var pref=localStorage.getItem('radar-lang'), here='en';
+  var q=new URLSearchParams(location.search);
+  if(q.get('lang')){localStorage.setItem('radar-lang',q.get('lang'));return;}
+  if(pref&&pref!==here&&here==='en'&&pref==='hi'){location.replace('hi/index.html');}
+}catch(e){}})();
+</script>
 </head>
-<body>
+<body class="lang-en">
 <header class="top">
   <a class="brand" href="index.html">
     <span class="dot"></span> Policy Signal Radar <span class="beta">beta</span>
   </a>
   <nav>
     <a href="method.html">How scoring works</a>
+    
+    <a class="lang-toggle" lang="hi" href="hi/index.html?lang=hi" onclick="try{localStorage.setItem('radar-lang','hi')}catch(e){}">हिन्दी</a>
+    
   </nav>
 </header>
 <main>
@@ -31,7 +44,7 @@
   <a class="card status-heating" href="topic/criminal-law-and-justice.html" style="--accent: #4f46e5">
     <div class="card-head">
       <span class="pill" title="Recent activity is at least 50% above the prior six-month average.">Heating up</span>
-      <span class="conf conf-medium" title="How much to trust this signal: 9 tagged actions across 17 months; 3 in the last 3 months, spread over 1 month; 2 ministries active recently; single source (PRS) — no independent cross-check yet; recent activity concentrated in a single month">Medium confidence</span>
+      <span class="conf conf-medium" title="How much to trust this signal: 9 tagged actions across 17 months; 3 in the last 3 months, spread over 1 month(s); 2 ministries active recently; single source (PRS) — no independent cross-check yet; recent activity concentrated in a single month">Medium confidence</span>
     </div>
     <h2>Criminal law &amp; justice</h2>
     <p class="tagline">New criminal codes, policing, bail, prisons and how fast courts actually move.</p>
@@ -56,7 +69,7 @@
   <a class="card status-steady" href="topic/personal-finance-and-tax.html" style="--accent: #dc2626">
     <div class="card-head">
       <span class="pill" title="Recent activity is roughly in line with the prior six months.">Steady</span>
-      <span class="conf conf-medium" title="How much to trust this signal: 62 tagged actions across 17 months; 9 in the last 3 months, spread over 3 months; 2 ministries active recently; single source (PRS) — no independent cross-check yet">Medium confidence</span>
+      <span class="conf conf-medium" title="How much to trust this signal: 62 tagged actions across 17 months; 9 in the last 3 months, spread over 3 month(s); 2 ministries active recently; single source (PRS) — no independent cross-check yet">Medium confidence</span>
     </div>
     <h2>Personal finance &amp; taxes</h2>
     <p class="tagline">Income tax, GST, UPI, loans and the fine print that hits your wallet.</p>
@@ -81,7 +94,7 @@
   <a class="card status-steady" href="topic/education-and-exams.html" style="--accent: #d97706">
     <div class="card-head">
       <span class="pill" title="Recent activity is roughly in line with the prior six months.">Steady</span>
-      <span class="conf conf-medium" title="How much to trust this signal: 12 tagged actions across 17 months; 2 in the last 3 months, spread over 1 month; 2 ministries active recently; single source (PRS) — no independent cross-check yet; recent activity concentrated in a single month">Medium confidence</span>
+      <span class="conf conf-medium" title="How much to trust this signal: 12 tagged actions across 17 months; 2 in the last 3 months, spread over 1 month(s); 2 ministries active recently; single source (PRS) — no independent cross-check yet; recent activity concentrated in a single month">Medium confidence</span>
     </div>
     <h2>Education &amp; exam integrity</h2>
     <p class="tagline">Entrance exams, paper leaks, universities and who regulates them.</p>
@@ -106,7 +119,7 @@
   <a class="card status-steady" href="topic/jobs-and-employment.html" style="--accent: #059669">
     <div class="card-head">
       <span class="pill" title="Recent activity is roughly in line with the prior six months.">Steady</span>
-      <span class="conf conf-medium" title="How much to trust this signal: 13 tagged actions across 17 months; 3 in the last 3 months, spread over 2 months; 2 ministries active recently; single source (PRS) — no independent cross-check yet">Medium confidence</span>
+      <span class="conf conf-medium" title="How much to trust this signal: 13 tagged actions across 17 months; 3 in the last 3 months, spread over 2 month(s); 2 ministries active recently; single source (PRS) — no independent cross-check yet">Medium confidence</span>
     </div>
     <h2>Jobs &amp; employment</h2>
     <p class="tagline">Hiring, layoffs, apprenticeships and the schemes meant to create work.</p>
@@ -131,7 +144,7 @@
   <a class="card status-quiet" href="topic/digital-and-data.html" style="--accent: #7c3aed">
     <div class="card-head">
       <span class="pill" title="Almost no tagged government action in the last three months.">Quiet</span>
-      <span class="conf conf-low" title="How much to trust this signal: 17 tagged actions across 17 months; 1 in the last 3 months, spread over 1 month; 1 ministry active recently; single source (PRS) — no independent cross-check yet">Low confidence</span>
+      <span class="conf conf-low" title="How much to trust this signal: 17 tagged actions across 17 months; 1 in the last 3 months, spread over 1 month(s); 1 ministries active recently; single source (PRS) — no independent cross-check yet">Low confidence</span>
     </div>
     <h2>Digital rights &amp; data protection</h2>
     <p class="tagline">Your data, your feed, your device — who gets to set the rules.</p>
@@ -139,11 +152,11 @@
       <svg viewBox="0 0 160 36" width="160" height="36" class="spark" aria-hidden="true"><polyline points="0.0,27.6 10.0,27.6 20.0,24.4 30.0,2.0 40.0,14.8 50.0,11.6 60.0,11.6 70.0,21.2 80.0,34.0 90.0,34.0 100.0,34.0 110.0,9.0 120.0,21.2 130.0,34.0 140.0,34.0 150.0,34.0 160.0,21.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
       <div class="stat">
         
-          <strong class="muted">1</strong><small>action in 3 mo</small>
+          <strong class="muted">1</strong><small>actions in 3 mo</small>
         
       </div>
     </div>
-    <p class="meta">1 action recently · 17 total · 1 ministry</p>
+    <p class="meta">1 actions recently · 17 total · 1 ministries</p>
     
     <ul class="why">
       <li><span class="dot-rules"></span>Rules for telecommunication user identification notified</li>
@@ -154,7 +167,7 @@
   <a class="card status-quiet" href="topic/ai-regulation.html" style="--accent: #db2777">
     <div class="card-head">
       <span class="pill" title="Almost no tagged government action in the last three months.">Quiet</span>
-      <span class="conf conf-low" title="How much to trust this signal: 6 tagged actions across 17 months; 1 in the last 3 months, spread over 1 month; 1 ministry active recently; single source (PRS) — no independent cross-check yet">Low confidence</span>
+      <span class="conf conf-low" title="How much to trust this signal: 6 tagged actions across 17 months; 1 in the last 3 months, spread over 1 month(s); 1 ministries active recently; single source (PRS) — no independent cross-check yet">Low confidence</span>
     </div>
     <h2>AI regulation</h2>
     <p class="tagline">Deepfakes, model rules, compute missions — how India decides to govern AI.</p>
@@ -162,11 +175,11 @@
       <svg viewBox="0 0 160 36" width="160" height="36" class="spark" aria-hidden="true"><polyline points="0.0,34.0 10.0,34.0 20.0,34.0 30.0,34.0 40.0,12.7 50.0,34.0 60.0,2.0 70.0,34.0 80.0,2.0 90.0,34.0 100.0,12.7 110.0,8.4 120.0,34.0 130.0,34.0 140.0,34.0 150.0,12.7 160.0,34.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
       <div class="stat">
         
-          <strong class="muted">1</strong><small>action in 3 mo</small>
+          <strong class="muted">1</strong><small>actions in 3 mo</small>
         
       </div>
     </div>
-    <p class="meta">1 action recently · 6 total · 1 ministry</p>
+    <p class="meta">1 actions recently · 6 total · 1 ministries</p>
     
     <ul class="why">
       <li><span class="dot-other"></span>Several bilateral visits held</li>
@@ -177,7 +190,7 @@
   <a class="card status-quiet" href="topic/gig-work-and-labour-codes.html" style="--accent: #0891b2">
     <div class="card-head">
       <span class="pill" title="Almost no tagged government action in the last three months.">Quiet</span>
-      <span class="conf conf-low" title="How much to trust this signal: 9 tagged actions across 17 months; 0 in the last 3 months, spread over 0 months; 0 ministries active recently; single source (PRS) — no independent cross-check yet">Low confidence</span>
+      <span class="conf conf-low" title="How much to trust this signal: 9 tagged actions across 17 months; 0 in the last 3 months, spread over 0 month(s); 0 ministries active recently; single source (PRS) — no independent cross-check yet">Low confidence</span>
     </div>
     <h2>Gig work &amp; labour codes</h2>
     <p class="tagline">Platform workers, social security and the four labour codes.</p>
@@ -213,6 +226,7 @@
         <span class="tag due-unknown" title="PRS's summary didn't state a deadline. Check the source document.">Deadline not stated — check source</span>
       
       <strong>Draft National Pharmacy Commission Bill, 2026 released</strong>
+      
       <p>The Ministry of Health and Family Welfare released a draft of the National Pharmacy Commission Bill, 2026.</p>
       <small><a href="https://prsindia.org/policy/monthly-policy-review/july-2026">PRS, Jul 2026</a>
       </small>
@@ -225,6 +239,7 @@
         <span class="tag due-unknown" title="PRS's summary didn't state a deadline. Check the source document.">Deadline not stated — check source</span>
       
       <strong>Draft Advocate (Amendment) Bill released for comments</strong>
+      
       <p>The Ministry of Law and Justice released the draft Advocates (Amendment) Bill, 2026. It amends the Advocates Act, 1961.</p>
       <small><a href="https://prsindia.org/policy/monthly-policy-review/july-2026">PRS, Jul 2026</a>
       </small>

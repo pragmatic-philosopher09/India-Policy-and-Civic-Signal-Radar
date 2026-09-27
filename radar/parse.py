@@ -53,12 +53,14 @@ def iso_month(d: date) -> str:
     return f"{d.year:04d}-{d.month:02d}"
 
 
-_FOOTNOTE = re.compile(r"\[\d+\]")
+_FOOTNOTE = re.compile(r"\[\d+\](?:\s*,\s*\[\d+\])*")
+_ORPHAN_COMMA = re.compile(r"(?<=[.!?)])\s*(?:,\s*)+(?=\s*[A-Z\"“(])")
 _WS = re.compile(r"[ \t\u00a0]+")
 
 
 def _clean(text: str) -> str:
     text = _FOOTNOTE.sub("", text)
+    text = _ORPHAN_COMMA.sub(" ", text)   # leftovers of "[1],[2]" footnote chains
     text = _WS.sub(" ", text)
     return re.sub(r"\s*\n\s*", "\n", text).strip()
 
@@ -162,7 +164,12 @@ def parse_month(html: str, month: date, source_url: str = "") -> list[Item]:
             break
         if _is_sector_heading(child):
             flush()
-            sector = _clean(child.get_text(" ", strip=True)) or sector or "General"
+            name = _clean(child.get_text(" ", strip=True))
+            if len(name) > 60:  # heading div that swallowed body text: use its last bold run
+                bolds = [_clean(b.get_text(" ", strip=True)) for b in child.find_all("strong")]
+                bolds = [b for b in bolds if b and looks_like_sector(b)]
+                name = bolds[-1] if bolds else ""
+            sector = name or sector or "General"
             continue
         heading = _blue_heading_text(child)
         if heading is not None:
