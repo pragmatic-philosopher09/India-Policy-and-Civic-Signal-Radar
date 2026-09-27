@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block body %}
+<section class="hero">
+  <h1>What's actually moving in Indian policy right now?</h1>
+  <p class="lede">We track {{ n_items }} government actions across {{ n_months }} months of
+  <a href="https://prsindia.org/policy/monthly-policy-review">PRS Legislative Research</a> reviews,
+  and score which everyday issues are picking up momentum — showing every piece of evidence behind the number.</p>
+</section>
+
+<section class="radar">
+  {% for ts in scores %}
+  <a class="card status-{{ ts.status }}" href="topic/{{ ts.topic.slug }}.html" style="--accent: {{ ts.topic.color }}">
+    <div class="card-head">
+      <span class="pill">{{ ts.status | status }}</span>
+      <span class="score" title="Momentum score, 0–100">{{ ts.score }}</span>
+    </div>
+    <h2>{{ ts.topic.name }}</h2>
+    <p class="tagline">{{ ts.topic.tagline }}</p>
+    <div class="card-foot">
+      {{ ts.activity | spark }}
+      <div class="stat">
+        {% if ts.change_pct is not none %}
+          <strong class="{{ 'up' if ts.change_pct > 0 else 'down' if ts.change_pct < 0 else '' }}">
+            {{ '+' if ts.change_pct > 0 else '' }}{{ ts.change_pct }}%</strong>
+          <small>vs prior {{ baseline_window }} mo</small>
+        {% else %}
+          <strong>New</strong><small>little prior activity</small>
+        {% endif %}
+      </div>
+    </div>
+    <p class="meta">{{ ts.total_items }} actions tracked · {{ ts.breadth }} ministries active recently</p>
+  </a>
+  {% endfor %}
+</section>
+
+{% if consultations %}
+<section class="consult">
+  <h2>Open for your input right now</h2>
+  <p class="lede small">Drafts the government released for public comment in the last two reviews. This is the window where citizen feedback actually gets read. Deadlines may have passed — always check the source.</p>
+  <ul class="evidence">
+    {% for e in consultations %}
+    <li>
+      {% if e.topic %}<span class="tag" style="--accent: {{ e.topic.color }}">{{ e.topic.name }}</span>
+      {% else %}<span class="tag action-other">{{ e.sector }}</span>{% endif %}
+      {% if e.deadline %}<span class="tag action-consultation">Comments by {{ e.deadline }}</span>{% endif %}
+      <strong>{{ e.title }}</strong>
+      {% if e.summary %}<p>{{ e.summary }}</p>{% endif %}
+      <small><a href="{{ e.source_url }}">PRS, {{ e.month | month }}</a>
+      {% for l in e.links[:2] %} · <a href="{{ l }}">source</a>{% endfor %}</small>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<section class="about">
+  <h2>Why this exists</h2>
+  <p>News tells you what happened today. This shows you what has been <em>building</em> — a bill that went from committee report to draft rules to Parliament over six months is a signal, and you shouldn't need to read 18 policy reviews to see it. Every score links to the primary documents so you can disagree with us.</p>
+  <p><a href="method.html">Read how the score is computed →</a> · <a href="radar.json">Download the data (JSON)</a></p>
+</section>
+{% endblock %}

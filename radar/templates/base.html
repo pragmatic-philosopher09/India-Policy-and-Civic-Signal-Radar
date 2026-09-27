@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Policy Signal Radar{% endblock %}</title>
+<meta name="description" content="{% block desc %}Which Indian policy issues are gaining momentum right now — with the evidence, not just a score.{% endblock %}">
+<link rel="stylesheet" href="{{ root | default('') }}static/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="{{ root | default('') }}index.html">
+    <span class="dot"></span> Policy Signal Radar <span class="beta">beta</span>
+  </a>
+  <nav>
+    <a href="{{ root | default('') }}method.html">How scoring works</a>
+  </nav>
+</header>
+<main>
+{% block body %}{% endblock %}
+</main>
+<footer>
+  <p>{{ attribution }}</p>
+  <p>Updated {{ today }} · Open source · No ads, no tracking, no login.</p>
+</footer>
+</body>
+</html>

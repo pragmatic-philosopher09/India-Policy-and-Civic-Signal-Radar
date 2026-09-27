@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% set root = "../" %}
+{% block title %}{{ ts.topic.name }} — Policy Signal Radar{% endblock %}
+{% block desc %}{{ ts.topic.tagline }} Momentum score {{ ts.score }}/100.{% endblock %}
+{% block body %}
+<article class="topic" style="--accent: {{ ts.topic.color }}">
+  <a class="back" href="../index.html">← All topics</a>
+  <div class="topic-head">
+    <div>
+      <span class="pill status-{{ ts.status }}">{{ ts.status | status }}</span>
+      <h1>{{ ts.topic.name }}</h1>
+      <p class="lede">{{ ts.topic.tagline }}</p>
+    </div>
+    <div class="bigscore"><span>{{ ts.score }}</span><small>momentum</small></div>
+  </div>
+
+  <section class="story">
+    <h2>The story so far</h2>
+    <p>
+      Over the last {{ recent_window }} months, government activity on this topic averaged
+      <strong>{{ ts.recent_avg }}</strong> weighted points a month
+      {% if ts.change_pct is not none %}
+        — <strong class="{{ 'up' if ts.change_pct > 0 else 'down' if ts.change_pct < 0 else '' }}">{{ '+' if ts.change_pct > 0 else '' }}{{ ts.change_pct }}%</strong>
+        compared with the {{ baseline_window }} months before that ({{ ts.baseline_avg }}/month).
+      {% else %}
+        — with almost no comparable activity in the {{ baseline_window }} months before.
+      {% endif %}
+      {{ ts.breadth }} different ministries or departments acted on it recently.
+    </p>
+    <div class="chart">
+      {% set mx = (ts.activity | max) if ts.activity else 1 %}
+      {% for m in ts.months %}
+        {% set v = ts.activity[loop.index0] %}
+        <div class="bar" title="{{ m | month }}: {{ ts.counts[loop.index0] }} actions, {{ v }} weighted">
+          <div class="fill {{ 'recent' if loop.index > (ts.months | length) - recent_window else '' }}" style="height: {{ (100 * v / mx) if mx else 0 }}%"></div>
+          <small>{{ (m | month)[:3] }}</small>
+        </div>
+      {% endfor %}
+    </div>
+    <p class="hint">Bars = evidence-weighted activity per month. Highlighted bars are the recent window that drives the score.</p>
+  </section>
+
+  <section class="timeline">
+    <h2>Evidence, month by month</h2>
+    {% for m, items in timeline %}
+      {% if items %}
+      <div class="month">
+        <h3>{{ m | month }} <small>{{ items | length }} action{{ 's' if items | length != 1 }}</small></h3>
+        <ul class="evidence">
+          {% for e in items %}
+          <li>
+            <span class="tag action-{{ e.action }}">{{ e.action | action }} <em>×{{ e.weight }}</em></span>
+            <strong>{{ e.title }}</strong>
+            {% if e.summary %}<p>{{ e.summary }}</p>{% endif %}
+            <small>{{ e.sector }} · <a href="{{ e.source_url }}">PRS review</a>
+            {% for l in e.links[:3] %} · <a href="{{ l }}">source {{ loop.index }}</a>{% endfor %}</small>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    {% endfor %}
+  </section>
+</article>
+{% endblock %}

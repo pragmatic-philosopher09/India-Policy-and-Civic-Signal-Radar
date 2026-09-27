@@ -1,0 +1,53 @@
+name: Weekly radar update
+
+on:
+  schedule:
+    - cron: "30 3 * * 1"   # Mondays 09:00 IST
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["radar/**", "requirements.txt", ".github/workflows/radar.yml"]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: radar
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Ingest, summarise, build
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python -m radar run --months 18
+      - name: Commit data + site
+        run: |
+          git config user.name "radar-bot"
+          git config user.email "radar-bot@users.noreply.github.com"
+          git add data docs
+          git diff --cached --quiet || git commit -m "chore: weekly radar update $(date -u +%F)"
+          git push
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  deploy:
+    needs: update
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
