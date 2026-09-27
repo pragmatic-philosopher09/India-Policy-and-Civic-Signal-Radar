@@ -252,7 +252,7 @@ def _render_lang(lang: str, conn, scores, consultations, ctx: dict, n_items: int
         quiet=[ts.topic.name for ts in ctx["brief"]["quiet"]])
     ctx = dict(ctx, other_langs=[l for l in LANGS if l != lang], editor_note=editor_note(conn, week, lang, payload), week=week)
     recent_set = set(scores[0].months[-RECENT_WINDOW:]) if scores else set()
-    state = {"topics": {ts.topic.slug: dict(
+    state = {"today": ctx["today"], "topics": {ts.topic.slug: dict(
         name=ts.topic.label(lang), status=ts.status, status_label=t(lang, f"status_{ts.status}"),
         url=f"topic/{ts.topic.slug}.html",
         latest=sorted(e.uid for e in ts.evidence if e.month in recent_set)) for ts in scores}}

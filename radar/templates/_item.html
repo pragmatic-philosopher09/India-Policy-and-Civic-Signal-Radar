@@ -1,120 +1,127 @@
-{# Shared item anatomy: labels → hook → PRS title → summary → for you → also reported by → source #}
-{% macro headline(e) %}
-  {% set title = e.title_l or e.title %}
-  {% if lang == 'en' and e.hook %}
-    <strong class="hook">{{ e.hook }}</strong>
-    <span class="prs-title">{{ title }}</span>
-  {% else %}
-    <strong>{{ title }}{% if lang != 'en' and not e.title_l %} <small class="en-tag">{{ t('english_only') }}</small>{% endif %}</strong>
-  {% endif %}
+{# Shared macros — design v2. Every macro renders one idea; detail lives in accordions. #}
+
+{% macro sparkline(values, w=180, h=44) %}
+  {% set mx = [values | max, 1.0] | max %}
+  {% set n = values | length %}
+  {% set step = w / ([n - 1, 1] | max) %}
+  <svg viewBox="0 0 {{ w }} {{ h }}" width="{{ w }}" height="{{ h }}" class="spark" aria-hidden="true">
+    <polyline points="{% for v in values %}{{ '%.1f' % (loop.index0 * step) }},{{ '%.1f' % (h - (v / mx) * (h - 6) - 3) }} {% endfor %}" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
 {% endmacro %}
 
-{% macro for_you(e) %}
-  {% if lang == 'en' and e.so_what %}
-  <dl class="for-you">
-    <dt>{{ t('for_you') }} →</dt>
-    {% for k in personas if e.so_what.get(k) %}
-    <dd data-persona="{{ k }}"><b>{{ t('persona_' ~ k) }}:</b> {{ e.so_what[k] }}</dd>
-    {% endfor %}
-  </dl>
-  {% endif %}
-{% endmacro %}
-{% macro corroboration(hits) %}
-  {% set real = hits | selectattr('kind', 'ne', 'other') | list %}
-  {% if real %}
-    <small class="corr">{{ t('also_reported') }}:
-      {% for h in real[:4] %}<a href="{{ h.url }}" title="{{ h.title }}">{{ h.outlet }}</a>{{ ', ' if not loop.last }}{% endfor %}
-    </small>
-  {% endif %}
-{% endmacro %}
-
-{% macro respond_block(e) %}
-  <details class="respond">
-    <summary>{{ t('how_to_respond') }}</summary>
-    <div class="respond-body">
-      {% if e.route.body %}<p><strong>{{ t('respond_via', body=e.route.body) }}</strong>{% if e.route.url %} · <a href="{{ e.route.url }}">{{ e.route.body }} ↗</a>{% endif %}</p>{% endif %}
-      {% if e.route_note %}<p class="note">{{ e.route_note }}</p>{% endif %}
-      {% if e.email %}<p><b>{{ t('email_to') }}:</b> <a href="mailto:{{ e.email }}?subject={{ t('tpl_subject', title=e.title) | replace('Subject: ', '') | urlencode }}">{{ e.email }}</a></p>{% endif %}
-      {% if e.notice_excerpt %}<blockquote class="excerpt">“{{ e.notice_excerpt | truncate(320) }}”</blockquote>{% endif %}
-      <p>{{ t('route_' ~ e.route.how) }} {% if not e.email %}{{ t('respond_check') }}{% endif %}</p>
-      {% set tpl = t('tpl_subject', title=e.title) ~ '\n\n' ~ t('tpl_body', title=e.title, body=(e.route.body or '…')) %}
-      <pre class="tpl">{{ tpl }}</pre>
-      <button type="button" class="copy" data-copied="{{ t('copied') }}" onclick="navigator.clipboard&&navigator.clipboard.writeText(this.previousElementSibling.innerText).then(()=>{this.textContent=this.dataset.copied})">{{ t('copy_template') }}</button>
-    </div>
-  </details>
-{% endmacro %}
-
-{% macro deadline_tag(e) %}
-  {% if e.deadline and e.days_left >= 0 %}
-    <span class="tag due {{ 'due-soon' if e.days_left <= 7 else '' }}" {% if e.deadline_source and e.deadline_source not in ('prs', 'prs-announcements') %}title="{{ t('deadline_via', src=e.deadline_source) }}"{% endif %}>
-      {% if e.days_left == 0 %}{{ t('closes_today') }}{% elif e.days_left == 1 %}{{ t('one_day_left') }}{% else %}{{ t('days_left', n=e.days_left) }}{% endif %} · {{ e.deadline | nice_date }}{% if e.deadline_source and e.deadline_source not in ('prs', 'prs-announcements') %} <em>· {{ t('via', src=e.deadline_source) }}</em>{% endif %}
-    </span>
-  {% elif e.deadline %}
-    <span class="tag due-closed">{{ t('closed_on', d=(e.deadline | nice_date)) }}{% if e.deadline_source and e.deadline_source not in ('prs', 'prs-announcements') %} <em>· {{ t('via', src=e.deadline_source) }}</em>{% endif %}</span>
-  {% elif e.likely_closed %}
-    <span class="tag due-closed" title="{{ t('likely_closed_help') }}">{{ t('likely_closed', m=(e.month | month)) }}</span>
-  {% else %}
-    <span class="tag due-unknown" title="{{ t('deadline_unknown_help') }}">{{ t('deadline_unknown') }}</span>
-  {% endif %}
-{% endmacro %}
-
-{% macro consultation_item(e, with_respond=True) %}
-  <li class="item">
-    {% if e.topic %}<span class="tag" style="--accent: {{ e.topic.color }}">{{ e.topic.label(lang) }}</span>
-    {% else %}<span class="tag action-other">{{ e.sector | sector }}</span>{% endif %}
-    {{ deadline_tag(e) }}
-    {{ headline(e) }}
-    {% set sm = e.summary_l if lang != 'en' else e.summary %}
-    {% if sm %}<p>{{ sm }}</p>{% endif %}
-    {{ for_you(e) }}
-    {% if e.related %}<small class="related">{{ t('related_stage', title=e.related.title, m=(e.related.month | month)) }}</small>{% endif %}
-    <small>
-    {% if e.from_announcements %}
-      <a href="{{ e.source_url }}">{{ t('source_announcements') }}</a>
-      {% if e.draft_url %} · <a href="{{ e.draft_url }}">{{ t('read_draft') }}</a>{% endif %}
-      {% if e.press_url and e.press_url != e.draft_url %} · <a href="{{ e.press_url }}">{{ t('official_notice') }} ↗</a>{% endif %}
-    {% else %}
-      <a href="{{ e.source_url }}">{{ t('prs_month', m=(e.month | month)) }}</a>
-      {% for l in e.links[:2] %} · <a href="{{ l }}">{{ t('read_draft') }}</a>{% endfor %}
-    {% endif %}
-    </small>
-    {{ corroboration(e.corroborations) }}
-    {% if with_respond %}{{ respond_block(e) }}{% endif %}
-  </li>
+{% macro change(ts) %}
+  {% if ts.status == 'quiet' %}<span class="big num muted">{{ ts.recent_items }}</span>
+  {% elif ts.change_pct is not none %}<span class="big num {{ 'up' if ts.change_pct > 0 else 'down' if ts.change_pct < 0 else '' }}" data-count="{{ ts.change_pct }}" data-prefix="{{ '+' if ts.change_pct > 0 else '' }}" data-suffix="%">{{ '+' if ts.change_pct > 0 else '' }}{{ ts.change_pct }}%</span>
+  {% else %}<span class="big">{{ t('new') }}</span>{% endif %}
 {% endmacro %}
 
 {% macro follow_btn(ts) %}
   <button type="button" class="follow" data-slug="{{ ts.topic.slug }}" data-follow="{{ t('follow') }}" data-following="{{ t('following') }}" aria-pressed="false">{{ t('follow') }}</button>
 {% endmacro %}
 
-{% macro why_moving(ts, compact=False) %}
-  {% set wm = ts.why_moving %}
-  {% if not compact %}<h2>{{ t('why_moving_h2', status=(ts.status | status | lower)) }}</h2>{% endif %}
-  {% set active = wm.months | selectattr('n', 'gt', 0) | list %}
-  {% if active %}
-  <p class="why-count"><b>{{ t('actions_in_months', n=(active | sum(attribute='n')), months=(active | map(attribute='month') | map('month') | join(' & '))) }}</b>
-    {% if wm.institutions %} · {{ wm.institutions | map('sector') | join(', ') }}{% endif %}</p>
+{% macro labels(e) %}
+  <div class="labels">
+    {% if e.topic %}<span class="tag" style="--accent: {{ e.topic.color }}">{{ e.topic.label(lang) }}</span>{% else %}<span class="tag action-other">{{ e.sector | sector }}</span>{% endif %}
+    {% if e.corroborations and (e.corroborations | selectattr('kind', 'ne', 'other') | list) %}<span class="tag action-consultation" title="{{ t('corroborated') }}">✓ {{ t('corroborated') }}</span>{% endif %}
+  </div>
+{% endmacro %}
+
+{% macro headline(e) %}
+  {% set title = e.title_l or e.title %}
+  {% if lang == 'en' and e.hook %}<span class="hook">{{ e.hook }}</span><span class="prs-title">{{ title }}</span>
+  {% else %}<span class="hook">{{ title }}{% if lang != 'en' and not e.title_l %} <small class="en-tag">{{ t('english_only') }}</small>{% endif %}</span>{% endif %}
+{% endmacro %}
+
+{% macro for_you(e, accent=None) %}
+  {% if lang == 'en' and e.so_what %}
+  <ul class="fy-list" {% if accent %}style="--accent: {{ accent }}"{% endif %}>
+    {% for k in personas if e.so_what.get(k) %}<li data-persona="{{ k }}"><b>{{ t('persona_' ~ k) }}</b><span>{{ e.so_what[k] }}</span></li>{% endfor %}
+  </ul>
   {% endif %}
+{% endmacro %}
+
+{% macro corroboration(hits) %}
+  {% set real = hits | selectattr('kind', 'ne', 'other') | list %}
+  {% if real %}<small class="corr">{{ t('also_reported') }}: {% for h in real[:4] %}<a href="{{ h.url }}" title="{{ h.title }}">{{ h.outlet }}</a>{{ ', ' if not loop.last }}{% endfor %}</small>{% endif %}
+{% endmacro %}
+
+{% macro due_box(e) %}
+  {% if e.deadline and e.days_left >= 0 %}
+    <div class="due {{ 'soon' if e.days_left <= 7 else '' }}">
+      <b class="num">{% if e.days_left == 0 %}{{ t('today_short') }}{% else %}{{ e.days_left }}{% endif %}</b>
+      <small>{% if e.days_left == 0 %}{{ t('closes_today') }}{% elif e.days_left == 1 %}{{ t('day_left_label') }}{% else %}{{ t('days_left_label') }}{% endif %}</small>
+      <small class="muted">{{ e.deadline | nice_date }}</small>
+    </div>
+  {% elif e.deadline %}
+    <div class="due"><b>—</b><small>{{ t('closed') }}</small><small class="muted">{{ e.deadline | nice_date }}{% if e.deadline_source and e.deadline_source not in ('prs', 'prs-announcements') %} · {{ t('via', src=e.deadline_source) }}{% endif %}</small></div>
+  {% elif e.likely_closed %}
+    <div class="due"><b>?</b><small>{{ t('likely_closed_short') }}</small><small class="muted">{{ e.month | month }}</small></div>
+  {% else %}
+    <div class="due"><b>?</b><small>{{ t('deadline_unknown_short') }}</small><small class="muted">{{ t('check_source') }}</small></div>
+  {% endif %}
+{% endmacro %}
+
+{% macro respond_block(e) %}
+  <details class="acc">
+    <summary>{{ t('how_to_respond') }}</summary>
+    <div class="acc-body respond-body">
+      {% if e.route_note %}<p>{{ e.route_note }}</p>{% endif %}
+      {% if e.route.body %}<p><strong>{{ t('respond_via', body=e.route.body) }}</strong>{% if e.route.url %} · <a href="{{ e.route.url }}">{{ e.route.body }} ↗</a>{% endif %}</p>{% endif %}
+      {% if e.email %}<p><b>{{ t('email_to') }}:</b> <a href="mailto:{{ e.email }}?subject={{ t('tpl_subject', title=e.title) | replace('Subject: ', '') | urlencode }}">{{ e.email }}</a></p>{% endif %}
+      {% if e.notice_excerpt %}<blockquote class="excerpt">“{{ e.notice_excerpt | truncate(300) }}”</blockquote>{% endif %}
+      <p>{{ t('route_' ~ e.route.how) }} {% if not e.email %}{{ t('respond_check') }}{% endif %}</p>
+      {% set tpl = t('tpl_subject', title=e.title) ~ '\n\n' ~ t('tpl_body', title=e.title, body=(e.route.body or '…')) %}
+      <pre class="tpl">{{ tpl }}</pre>
+      <button type="button" class="copy" data-copied="{{ t('copied') }}">{{ t('copy_template') }}</button>
+    </div>
+  </details>
+{% endmacro %}
+
+{% macro respond_card(e, closed=False) %}
+  <article class="card rcard reveal {{ 'closed' if closed }}">
+    {{ due_box(e) }}
+    <div>
+      {{ labels(e) }}
+      <h3>{{ e.hook if lang == 'en' and e.hook else (e.title_l or e.title) }}</h3>
+      {% if lang == 'en' and e.hook %}<span class="prs">{{ e.title }}</span>{% endif %}
+      {% set sm = e.summary_l if lang != 'en' else e.summary %}
+      {% if sm %}<p class="summary">{{ sm }}</p>{% endif %}
+      {{ for_you(e, e.topic.color if e.topic else None) }}
+      <p class="links">
+        {% if e.from_announcements %}<a href="{{ e.source_url }}">{{ t('source_announcements') }}</a>{% if e.draft_url %} · <a href="{{ e.draft_url }}">{{ t('read_draft') }}</a>{% endif %}{% if e.press_url and e.press_url != e.draft_url %} · <a href="{{ e.press_url }}">{{ t('official_notice') }} ↗</a>{% endif %}
+        {% else %}<a href="{{ e.source_url }}">{{ t('prs_month', m=(e.month | month)) }}</a>{% for l in e.links[:2] %} · <a href="{{ l }}">{{ t('read_draft') }}</a>{% endfor %}{% endif %}
+      </p>
+      {{ corroboration(e.corroborations) }}
+      {% if not closed %}{{ respond_block(e) }}{% endif %}
+    </div>
+  </article>
+{% endmacro %}
+
+{% macro why_moving(ts, with_title=False) %}
+  {% set wm = ts.why_moving %}
+  {% if with_title %}<h3>{{ t('why_moving_h2', status=(ts.status | status | lower)) }}</h3>{% endif %}
+  <p class="interp"><b>{{ t('interpretation') }}.</b> {{ wm.interpretation | msg }}</p>
   {% if wm.steps %}
   <ol class="causal">
     {% for e in wm.steps[:4] %}
     <li class="action-{{ e.action }}">
-      <span class="when">{% if e.date_hint %}{{ t('approx') }}{{ e.date_hint[8:10] | int }} {{ (e.month | month).split(' ')[0] }}{% else %}{{ e.month | month }}{% endif %}</span>
+      <span class="when">{% if e.date_hint %}~{{ e.date_hint[8:10] | int }} {{ (e.month | month).split(' ')[0] }}{% else %}{{ e.month | month }}{% endif %}</span>
       <span class="tag action-{{ e.action }}" title="{{ e.action | action_help }}">{{ e.action | action }}</span>
-      <span class="what">{{ e.hook if lang == 'en' and e.hook else (e.title_l or e.title) }}{% if e.corroborated %} <span class="corr-check" title="{{ t('corroborated') }}">✓</span>{% endif %}</span>
+      <span class="what"><a href="{{ e.links[0] if e.links else e.source_url }}">{{ e.hook if lang == 'en' and e.hook else (e.title_l or e.title) }}</a>{% if e.corroborated %} <span class="check" title="{{ t('corroborated') }}">✓</span>{% endif %}</span>
     </li>
     {% endfor %}
   </ol>
   {% endif %}
-  <p class="interp"><b>{{ t('interpretation') }}:</b> {{ wm.interpretation | msg }}</p>
 {% endmacro %}
 
-{% macro stage_bar(chain) %}
-  {% set idx = chain.stage %}
-  {% if idx is not none %}
-  <ol class="stages" aria-label="{{ t('stage_h') }}">
-    {% for i in range(6) %}<li class="{{ 'done' if i < idx else 'now' if i == idx else '' }}">{{ t('stage_' ~ i) }}</li>{% endfor %}
-  </ol>
+{% macro persona_block(ts) %}
+  {% set lines = [] %}
+  {% for e in ts.why[:3] if e.so_what %}{% for k in personas if e.so_what.get(k) %}{% set _ = lines.append((k, e.so_what[k])) %}{% endfor %}{% endfor %}
+  {% if lang == 'en' and lines %}
+  <ul class="fy-list" style="--accent: {{ ts.topic.color }}">
+    {% for k, line in lines %}<li data-persona="{{ k }}"><b>{{ t('persona_' ~ k) }}</b><span>{{ line }}</span></li>{% endfor %}
+  </ul>
+  <p class="fy-empty">{{ t('fy_empty') }}</p>
   {% endif %}
 {% endmacro %}
 
@@ -123,39 +130,15 @@
   {% if sd and sd.bills %}
     {% set y = sd.by_year.keys() | max %}
     {% set names = sd.by_year_states[y].keys() | list %}
-    <p class="states-line">🏛 {% if ts.status == 'quiet' %}{{ t('centre_quiet_states', n=sd.by_year[y], y=y, names=(names[:3] | map('state') | join(', ')) ~ (' +' ~ (names | length - 3) if names | length > 3 else '')) }}{% else %}{{ t('states_line', n=sd.by_year[y], y=y, names=(names[:3] | map('state') | join(', ')) ~ (' +' ~ (names | length - 3) if names | length > 3 else '')) }}{% endif %}
+    <p class="states-line">🏛 <span>{% if ts.status == 'quiet' %}{{ t('centre_quiet_states', n=sd.by_year[y], y=y, names=(names[:3] | map('state') | join(', ')) ~ (' +' ~ (names | length - 3) if names | length > 3 else '')) }}{% else %}{{ t('states_line', n=sd.by_year[y], y=y, names=(names[:3] | map('state') | join(', ')) ~ (' +' ~ (names | length - 3) if names | length > 3 else '')) }}{% endif %}</span>
     <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}states.html#{{ ts.topic.slug }}">→</a></p>
   {% endif %}
 {% endmacro %}
 
-{% macro states_section(ts, states, states_totals) %}
-  {% set sd = states[ts.topic.slug] %}
-  <section class="states-box" id="states">
-    <h2>{{ t('states_h2') }}</h2>
-    <p class="hint">{{ t('states_note') }}</p>
-    {% if sd and sd.bills %}
-    <div class="state-stats">
-      {% for y, n in sd.by_year | dictsort(reverse=true) %}<span class="stat-pill"><b>{{ n }}</b> {{ y }}</span>{% endfor %}
-      <span class="state-chips">{% for st, n in sd.states.items() %}<span class="tag state-chip">{{ st | state }} <em>{{ n }}</em></span>{% endfor %}</span>
-    </div>
-    <ul class="evidence state-bills">
-      {% for b in sd.bills[:12] %}
-      <li>
-        <span class="tag state-chip">{{ b.state | state }}</span> <span class="tag action-introduced">{{ b.year }}</span>
-        <strong>{{ b.title }}</strong>
-        <small>{% if b.pdf_url %}<a href="{{ b.pdf_url }}">{{ t('bill_pdf') }}</a>{% endif %}{% if b.brief_url %} · <a href="{{ b.brief_url }}">{{ t('prs_brief') }}</a>{% endif %}</small>
-      </li>
-      {% endfor %}
-    </ul>
-    {% if sd.bills | length > 12 %}
-    <details class="more"><summary>{{ t('show_all', n=sd.bills | length) }}</summary>
-      <ul class="evidence state-bills muted-list">
-        {% for b in sd.bills[12:] %}<li><span class="tag state-chip">{{ b.state | state }}</span> <span class="tag action-introduced">{{ b.year }}</span> <strong>{{ b.title }}</strong> <small>{% if b.pdf_url %}<a href="{{ b.pdf_url }}">{{ t('bill_pdf') }}</a>{% endif %}</small></li>{% endfor %}
-      </ul>
-    </details>
-    {% endif %}
-    {% else %}
-    <p class="empty">{{ t('states_none', y0=states_totals.years[0], y1=states_totals.years[1]) }}</p>
-    {% endif %}
-  </section>
+{% macro stage_bar(chain) %}
+  {% if chain.stage is not none %}
+  <ol class="stages" aria-label="{{ t('stage_h') }}">
+    {% for i in range(6) %}<li class="{{ 'done' if i < chain.stage else 'now' if i == chain.stage else '' }}">{{ t('stage_' ~ i) }}</li>{% endfor %}
+  </ol>
+  {% endif %}
 {% endmacro %}

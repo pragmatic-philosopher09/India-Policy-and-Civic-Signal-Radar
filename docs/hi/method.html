@@ -5,32 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>स्कोरिंग कैसे होती है — पॉलिसी पल्स</title>
 <meta name="description" content="भारत में कौन-से नीतिगत मुद्दे अभी ज़ोर पकड़ रहे हैं — सिर्फ़ स्कोर नहीं, सबूत के साथ।">
+<meta name="theme-color" content="#f6f2ea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f0e0c" media="(prefers-color-scheme: dark)">
 <link rel="alternate" hreflang="en" href="../method.html">
 <link rel="alternate" hreflang="hi" href="../hi/method.html">
-<link rel="stylesheet" href="../static/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1&family=Manrope:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../static/style.css">
 <script>
 (function(){try{
-  var pref=localStorage.getItem('radar-lang'), here='hi';
+  var pref=JSON.parse(localStorage.getItem('radar-lang')||'null'), here='hi';
   var q=new URLSearchParams(location.search);
-  if(q.get('lang')){localStorage.setItem('radar-lang',q.get('lang'));return;}
+  if(q.get('lang')){localStorage.setItem('radar-lang',JSON.stringify(q.get('lang')));return;}
   if(pref&&pref!==here&&here==='en'&&pref==='hi'){location.replace('../hi/method.html');}
 }catch(e){}})();
 </script>
 </head>
 <body class="lang-hi">
+<div class="progress" aria-hidden="true"></div>
 <header class="top">
-  <a class="brand" href="../hi/index.html">
-    <span class="dot"></span> पॉलिसी पल्स <span class="beta">बीटा</span>
-  </a>
-  <nav>
-    <a href="../hi/states.html">राज्य</a>
-    <a href="../hi/method.html">स्कोरिंग कैसे होती है</a>
+  <div class="wrap top-inner">
+    <a class="brand" href="../hi/index.html"><span class="live" aria-hidden="true"></span>पॉलिसी पल्स</a>
     
-    <a class="lang-toggle" lang="en" href="../method.html?lang=en" onclick="try{localStorage.setItem('radar-lang','en')}catch(e){}">English</a>
-    
-  </nav>
+    <div class="tools">
+      <a class="tool" href="../hi/states.html">राज्य</a>
+      <a class="tool" href="../hi/method.html">पद्धति</a>
+      <a class="tool lang-toggle" lang="en" href="../method.html?lang=en">English</a>
+      <button type="button" class="tool" data-sound data-on="🔈 ध्वनि चालू" data-off="🔇 ध्वनि" aria-pressed="false" title="इंटरैक्शन पर हल्की सिंथेसाइज़्ड क्लिक। डिफ़ॉल्ट बंद; कुछ डाउनलोड नहीं होता।">🔇 ध्वनि</button>
+    </div>
+  </div>
 </header>
 <main>
 
@@ -114,8 +118,11 @@
 
 </main>
 <footer>
-  <p>Source data © PRS Legislative Research (prsindia.org), licensed under CC BY 4.0. Summaries and scores are our own.</p>
-  <p>अपडेट 2026-09-27 · ओपन सोर्स · न विज्ञापन, न ट्रैकिंग, न लॉगइन।</p>
+  <div class="wrap">
+    <p>Source data © PRS Legislative Research (prsindia.org), licensed under CC BY 4.0. Summaries and scores are our own.</p>
+    <p>अपडेट 2026-09-27 · ओपन सोर्स · न विज्ञापन, न ट्रैकिंग, न लॉगइन। · हुक, “आपके लिए” पंक्तियाँ और साप्ताहिक नोट मॉडल-प्रारूपित और स्रोत-लिंक्ड हैं; स्कोर और भरोसा नियम-आधारित हैं।</p>
+  </div>
 </footer>
+<script src="../static/app.js" defer></script>
 </body>
 </html>

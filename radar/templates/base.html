@@ -5,38 +5,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}{{ t('site_title') }}{% endblock %}</title>
 <meta name="description" content="{% block desc %}{{ t('site_desc') }}{% endblock %}">
+<meta name="theme-color" content="#f6f2ea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f0e0c" media="(prefers-color-scheme: dark)">
 {% for l in langs %}<link rel="alternate" hreflang="{{ l }}" href="{{ root }}{{ '' if l == 'en' else l ~ '/' }}{{ page }}">
-{% endfor %}<link rel="stylesheet" href="{{ root }}static/style.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600{% if lang == 'hi' %}&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600{% endif %}&display=swap" rel="stylesheet">
+{% endfor %}<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1&family=Manrope:wght@400;500;600;700;800{% if lang == 'hi' %}&family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@400;500;600;700{% endif %}&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ root }}static/style.css">
 <script>
 (function(){try{
-  var pref=localStorage.getItem('radar-lang'), here='{{ lang }}';
+  var pref=JSON.parse(localStorage.getItem('radar-lang')||'null'), here='{{ lang }}';
   var q=new URLSearchParams(location.search);
-  if(q.get('lang')){localStorage.setItem('radar-lang',q.get('lang'));return;}
+  if(q.get('lang')){localStorage.setItem('radar-lang',JSON.stringify(q.get('lang')));return;}
   if(pref&&pref!==here&&here==='en'&&pref==='hi'){location.replace('{{ root }}hi/{{ page }}');}
 }catch(e){}})();
 </script>
 </head>
 <body class="lang-{{ lang }}">
+<div class="progress" aria-hidden="true"></div>
 <header class="top">
-  <a class="brand" href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}index.html">
-    <span class="dot"></span> {{ t('site_title') }} <span class="beta">{{ t('beta') }}</span>
-  </a>
-  <nav>
-    <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}states.html">{{ t('nav_states') }}</a>
-    <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}method.html">{{ t('nav_method') }}</a>
-    {% for l in other_langs %}
-    <a class="lang-toggle" lang="{{ l }}" href="{{ root }}{{ '' if l == 'en' else l ~ '/' }}{{ page }}?lang={{ l }}" onclick="try{localStorage.setItem('radar-lang','{{ l }}')}catch(e){}">{{ langs[l] }}</a>
-    {% endfor %}
-  </nav>
+  <div class="wrap top-inner">
+    <a class="brand" href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}index.html"><span class="live" aria-hidden="true"></span>{{ t('site_title') }}</a>
+    {% block nav %}
+    <nav class="chapters" aria-label="{{ t('this_week') }}">
+      <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}index.html#respond"><span>01</span>{{ t('ch_respond') }}</a>
+      <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}index.html#moving"><span>02</span>{{ t('ch_moving') }}</a>
+      <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}index.html#quiet"><span>03</span>{{ t('ch_quiet') }}</a>
+      <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}index.html#all"><span>04</span>{{ t('ch_all') }}</a>
+    </nav>
+    {% endblock %}
+    <div class="tools">
+      <a class="tool" href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}states.html">{{ t('nav_states') }}</a>
+      <a class="tool" href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}method.html">{{ t('nav_method_short') }}</a>
+      {% for l in other_langs %}<a class="tool lang-toggle" lang="{{ l }}" href="{{ root }}{{ '' if l == 'en' else l ~ '/' }}{{ page }}?lang={{ l }}">{{ langs[l] }}</a>{% endfor %}
+      <button type="button" class="tool" data-sound data-on="{{ t('sound_on') }}" data-off="{{ t('sound_off') }}" aria-pressed="false" title="{{ t('sound_help') }}">{{ t('sound_off') }}</button>
+    </div>
+  </div>
 </header>
 <main>
 {% block body %}{% endblock %}
 </main>
 <footer>
-  <p>{{ attribution }}</p>
-  <p>{{ t('footer_line', d=today) }}</p>
+  <div class="wrap">
+    <p>{{ attribution }}</p>
+    <p>{{ t('footer_line', d=today) }} · {{ t('editorial_note') }}</p>
+  </div>
 </footer>
+<script src="{{ root }}static/app.js" defer></script>
 </body>
 </html>

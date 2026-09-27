@@ -5,107 +5,121 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>पॉलिसी पल्स</title>
 <meta name="description" content="भारत में कौन-से नीतिगत मुद्दे अभी ज़ोर पकड़ रहे हैं — सिर्फ़ स्कोर नहीं, सबूत के साथ।">
+<meta name="theme-color" content="#f6f2ea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f0e0c" media="(prefers-color-scheme: dark)">
 <link rel="alternate" hreflang="en" href="../index.html">
 <link rel="alternate" hreflang="hi" href="../hi/index.html">
-<link rel="stylesheet" href="../static/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1&family=Manrope:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../static/style.css">
 <script>
 (function(){try{
-  var pref=localStorage.getItem('radar-lang'), here='hi';
+  var pref=JSON.parse(localStorage.getItem('radar-lang')||'null'), here='hi';
   var q=new URLSearchParams(location.search);
-  if(q.get('lang')){localStorage.setItem('radar-lang',q.get('lang'));return;}
+  if(q.get('lang')){localStorage.setItem('radar-lang',JSON.stringify(q.get('lang')));return;}
   if(pref&&pref!==here&&here==='en'&&pref==='hi'){location.replace('../hi/index.html');}
 }catch(e){}})();
 </script>
 </head>
 <body class="lang-hi">
+<div class="progress" aria-hidden="true"></div>
 <header class="top">
-  <a class="brand" href="../hi/index.html">
-    <span class="dot"></span> पॉलिसी पल्स <span class="beta">बीटा</span>
-  </a>
-  <nav>
-    <a href="../hi/states.html">राज्य</a>
-    <a href="../hi/method.html">स्कोरिंग कैसे होती है</a>
+  <div class="wrap top-inner">
+    <a class="brand" href="../hi/index.html"><span class="live" aria-hidden="true"></span>पॉलिसी पल्स</a>
     
-    <a class="lang-toggle" lang="en" href="../index.html?lang=en" onclick="try{localStorage.setItem('radar-lang','en')}catch(e){}">English</a>
+    <nav class="chapters" aria-label="इस हफ़्ते">
+      <a href="../hi/index.html#respond"><span>01</span>राय दें</a>
+      <a href="../hi/index.html#moving"><span>02</span>हलचल</a>
+      <a href="../hi/index.html#quiet"><span>03</span>शांत</a>
+      <a href="../hi/index.html#all"><span>04</span>सब कुछ</a>
+    </nav>
     
-  </nav>
+    <div class="tools">
+      <a class="tool" href="../hi/states.html">राज्य</a>
+      <a class="tool" href="../hi/method.html">पद्धति</a>
+      <a class="tool lang-toggle" lang="en" href="../index.html?lang=en">English</a>
+      <button type="button" class="tool" data-sound data-on="🔈 ध्वनि चालू" data-off="🔇 ध्वनि" aria-pressed="false" title="इंटरैक्शन पर हल्की सिंथेसाइज़्ड क्लिक। डिफ़ॉल्ट बंद; कुछ डाउनलोड नहीं होता।">🔇 ध्वनि</button>
+    </div>
+  </div>
 </header>
 <main>
 
-<section class="hero compact">
+<section class="hero wrap">
+  <p class="eyebrow"><span class="live" aria-hidden="true"></span>साप्ताहिक ब्रीफ़ · 2026-09-27</p>
   <h1>देखिए कौन-से नीतिगत मुद्दे ज़ोर पकड़ रहे हैं — सुर्खियाँ बनने से पहले।</h1>
   <p class="lede">हर संकेत के पीछे के सबूत ट्रैक करें, संसद से अमल तक। ख़बरें बताती हैं कि आज क्या हुआ; यह दिखाता है कि महीनों से क्या <em>बन रहा</em> है।</p>
-  <p class="cta-row">
-    <span class="cta muted">✈ साप्ताहिक Telegram ब्रीफ़ — जल्द</span>
-    <span class="meta">471 सरकारी कार्रवाइयाँ · 17 महीने · स्रोत: <a href="https://prsindia.org/policy/monthly-policy-review">PRS Legislative Research</a> · अपडेट 2026-09-27</span>
+  <p class="meta">
+    <span class="cta ghost">✈ साप्ताहिक Telegram ब्रीफ़ — जल्द</span>
+    <span>471 सरकारी कार्रवाइयाँ · 17 महीने · स्रोत: <a href="https://prsindia.org/policy/monthly-policy-review">PRS Legislative Research</a> · अपडेट 2026-09-27</span>
   </p>
 </section>
 
-<section class="week">
-  <h2 class="kicker">इस हफ़्ते</h2>
 
+<section class="note narrow reveal">
+  <p class="kicker">इस हफ़्ते, 60 सेकंड में <span class="ai" title="इस पेज की कार्रवाइयों से भाषा मॉडल द्वारा तैयार, फिर उनसे जाँचा गया। हर दावा किसी सरकारी दस्तावेज़ से जुड़ा है।">AI-प्रारूपित · स्रोत-लिंक्ड</span></p>
+  <p class="text">इस हफ़्ते एक काम जो आप अब भी कर सकते हैं: वित्त संबंधी स्थायी समिति रविवार 28 सितंबर तक भारतीय सांख्यिकी संस्थान विधेयक पर राय ले रही है — comfinance@lss.sansad.in पर ईमेल करें। बाक़ी विधायी प्रक्रिया सत्र के बाद की सुस्ती में है। सिर्फ़ आपराधिक क़ानून और न्याय सच में तेज़ हो रहा है — जुलाई की तीन कार्रवाइयों से: पेपर लीक विरोधी क़ानून पास, सुप्रीम कोर्ट में जज बढ़ाने का विधेयक, और अधिवक्ता अधिनियम में संशोधन का बार काउंसिल का मसौदा। व्यक्तिगत वित्त स्थिर पर व्यस्त है — कर क़ानून संशोधन पास, IRDAI के बीमा विनियम लागू, और रेपो रेट लगातार पाँचवीं बैठक में 5.25% पर। गिग वर्क, AI और डिजिटल अधिकारों पर कोई नई औपचारिक कार्रवाई नहीं; श्रम संहिता के नियम अब अमल के चरण में हैं, जहाँ PRS देखना बंद करता है और यूनियनें शुरू करती हैं।</p>
+</section>
+
+
+<div class="narrow">
   
-  <div class="block note-block">
-    <p class="note-kicker">इस हफ़्ते, 60 सेकंड में <span class="ai-tag" title="इस पेज की कार्रवाइयों से भाषा मॉडल द्वारा तैयार, फिर उनसे जाँचा गया। हर दावा किसी सरकारी दस्तावेज़ से जुड़ा है।">AI-प्रारूपित · स्रोत-लिंक्ड</span></p>
-    <p class="note">इस हफ़्ते एक काम जो आप अब भी कर सकते हैं: वित्त संबंधी स्थायी समिति रविवार 28 सितंबर तक भारतीय सांख्यिकी संस्थान विधेयक पर राय ले रही है — comfinance@lss.sansad.in पर ईमेल करें। बाक़ी विधायी प्रक्रिया सत्र के बाद की सुस्ती में है। सिर्फ़ आपराधिक क़ानून और न्याय सच में तेज़ हो रहा है — जुलाई की तीन कार्रवाइयों से: पेपर लीक विरोधी क़ानून पास, सुप्रीम कोर्ट में जज बढ़ाने का विधेयक, और अधिवक्ता अधिनियम में संशोधन का बार काउंसिल का मसौदा। व्यक्तिगत वित्त स्थिर पर व्यस्त है — कर क़ानून संशोधन पास, IRDAI के बीमा विनियम लागू, और रेपो रेट लगातार पाँचवीं बैठक में 5.25% पर। गिग वर्क, AI और डिजिटल अधिकारों पर कोई नई औपचारिक कार्रवाई नहीं; श्रम संहिता के नियम अब अमल के चरण में हैं, जहाँ PRS देखना बंद करता है और यूनियनें शुरू करती हैं।</p>
+  <div class="since reveal" id="since" hidden>
+    <p class="kicker"></p>
+    <ul></ul>
+    <p class="hint"></p>
   </div>
-  
+</div>
 
-  <div class="block since-block" id="since" hidden>
-    <p class="note-kicker" id="since-h"></p>
-    <ul class="since" id="since-list"></ul>
-    <p class="hint" id="since-hint"></p>
-  </div>
 
-  
-
-  <div class="block respond-block">
-    <h3>🗣 आप अब भी राय दे सकते हैं</h3>
-    
-    <ul class="evidence">
+<section class="chapter chapter-act" id="respond">
+  <div class="wrap">
+    <div class="chapter-head reveal">
+      <span class="chapter-num">01</span>
+      <div><h2>आप अब भी राय दे सकते हैं</h2><p class="lede">ऐसे मसौदे जो सरकार ने जनता की राय के लिए प्रकाशित किए हैं। समय-सीमा से पहले कोई भी अपनी प्रतिक्रिया भेज सकता है — यही वह मौक़ा है जब नागरिकों की बात पढ़ी जाती है।</p></div>
+    </div>
+    <div class="respond">
       
-  <li class="item">
+  <article class="card rcard reveal ">
+    
+  
+    <div class="due soon">
+      <b class="num">1</b>
+      <small>दिन बाक़ी</small>
+      <small class="muted">28 सितंबर 2026</small>
+    </div>
+  
+
+    <div>
+      
+  <div class="labels">
     <span class="tag action-other">संसद</span>
     
-  
-    <span class="tag due due-soon" >
-      1 दिन बाक़ी · 28 सितंबर 2026
-    </span>
-  
+  </div>
 
-    
-  
-  
-    <strong>The Indian Statistical Institute Bill, 2026 <small class="en-tag">अंग्रेज़ी में</small></strong>
-  
-
-    
-    
-    
-  
-
-    <small class="related">संबंधित: Bill introduced to replace Indian Statistical Institute Act, 1959 (अग 2026)</small>
-    <small>
-    
-      <a href="https://prsindia.org/announcements">PRS घोषणाएँ</a>
-       · <a href="https://prsindia.org/files/parliamentry-announcement/2026-09-28/Press release for ISI Bill, 2026.pdf">मसौदा पढ़ें</a>
+      <h3>The Indian Statistical Institute Bill, 2026</h3>
       
-    
-    </small>
-    
+      
+      
+      
+  
+
+      <p class="links">
+        <a href="https://prsindia.org/announcements">PRS घोषणाएँ</a> · <a href="https://prsindia.org/files/parliamentry-announcement/2026-09-28/Press release for ISI Bill, 2026.pdf">मसौदा पढ़ें</a>
+        
+      </p>
+      
   
   
 
-    
-  <details class="respond">
+      
+  <details class="acc">
     <summary>राय कैसे दें</summary>
-    <div class="respond-body">
-      <p><strong>टिप्पणियाँ आम तौर पर Parliamentary Standing Committee on Finance को जाती हैं</strong></p>
+    <div class="acc-body respond-body">
       
+      <p><strong>टिप्पणियाँ आम तौर पर Parliamentary Standing Committee on Finance को जाती हैं</strong></p>
       <p><b>ईमेल:</b> <a href="mailto:comfinance@lss.sansad.in?subject=%E0%A4%B5%E0%A4%BF%E0%A4%B7%E0%A4%AF%3A%20%E0%A4%AE%E0%A4%B8%E0%A5%8C%E0%A4%A6%E0%A4%BE%20The%20Indian%20Statistical%20Institute%20Bill%2C%202026%20%E0%A4%AA%E0%A4%B0%20%E0%A4%9F%E0%A4%BF%E0%A4%AA%E0%A5%8D%E0%A4%AA%E0%A4%A3%E0%A4%BF%E0%A4%AF%E0%A4%BE%E0%A4%81">comfinance@lss.sansad.in</a></p>
-      <blockquote class="excerpt">“14th September, 2026 Parliamentary Standing Committee on Finance headed by Shri Bhartruhari Mahtab, MP have decided to invite views/suggestions on the Indian Statistical Institute Bill, 2026 from associations/ organizations/stakeholders/experts. Copy of the Bill can be accessed at https://sansad.in/ls → Committees...”</blockquote>
+      <blockquote class="excerpt">“14th September, 2026 Parliamentary Standing Committee on Finance headed by Shri Bhartruhari Mahtab, MP have decided to invite views/suggestions on the Indian Statistical Institute Bill, 2026 from associations/ organizations/stakeholders/experts. Copy of the Bill can be accessed at...”</blockquote>
       <p>मंत्रालयों के मसौदे आम तौर पर नोटिस में दिए ईमेल पर, कभी-कभी MyGov के ज़रिए टिप्पणियाँ माँगते हैं। </p>
       
       <pre class="tpl">विषय: मसौदा The Indian Statistical Institute Bill, 2026 पर टिप्पणियाँ
@@ -119,571 +133,654 @@
 3. मेरा सुझाव: …
 
 नाम · शहर · संपर्क</pre>
-      <button type="button" class="copy" data-copied="कॉपी हो गया" onclick="navigator.clipboard&&navigator.clipboard.writeText(this.previousElementSibling.innerText).then(()=>{this.textContent=this.dataset.copied})">टेम्पलेट कॉपी करें</button>
+      <button type="button" class="copy" data-copied="कॉपी हो गया">टेम्पलेट कॉपी करें</button>
     </div>
   </details>
 
-  </li>
+    </div>
+  </article>
 
-    </ul>
+      
+    </div>
     
-    
-    <details class="closed">
+    <details class="acc reveal">
       <summary>हाल में बंद (6)</summary>
-      <ul class="evidence muted-list">
-        
-        <li>
-          
+      <div class="acc-body"><div class="respond">
+  <article class="card rcard reveal closed">
+    
   
-    <span class="tag due-closed">25 सितंबर 2026 को बंद</span>
-  
-
-          <strong>The Foreign Contribution (Regulation) Amendment Bill, 2026</strong>
-          <small>संसद · <a href="https://prsindia.org/announcements">PRS, मार्च 2026</a></small>
-        </li>
-        
-        <li>
-          
-  
-    <span class="tag due-closed">4 सितंबर 2026 को बंद</span>
+    <div class="due"><b>—</b><small>बंद</small><small class="muted">25 सितंबर 2026</small></div>
   
 
-          <strong>SHANTI अधिनियम, 2025 के तहत मसौदा नियमों और विनियमों पर राय माँगी</strong>
-          <small>ऊर्जा · <a href="https://prsindia.org/policy/monthly-policy-review/august-2026">PRS, अग 2026</a></small>
-        </li>
-        
-        <li>
-          
-  
-    <span class="tag due-closed">7 अगस्त 2026 को बंद</span>
-  
-
-          <strong>नए मेडिकल संस्थान स्थापना विनियम, 2023 में मसौदा संशोधन जारी</strong>
-          <small>स्वास्थ्य और परिवार कल्याण · <a href="https://prsindia.org/policy/monthly-policy-review/july-2026">PRS, जुला 2026</a></small>
-        </li>
-        
-        <li>
-          
-  
-    <span class="tag due-closed">31 जुलाई 2026 को बंद</span>
-  
-
-          <strong>अधिवक्ता (संशोधन) विधेयक का मसौदा राय के लिए जारी</strong>
-          <small>क़ानून और न्याय · <a href="https://prsindia.org/policy/monthly-policy-review/july-2026">PRS, जुला 2026</a></small>
-        </li>
-        
-        <li>
-          
-  
-    <span class="tag due-closed">31 जुलाई 2026 को बंद</span>
-  
-
-          <strong>राष्ट्रीय फ़ार्मेसी आयोग विधेयक, 2026 का मसौदा जारी</strong>
-          <small>स्वास्थ्य और परिवार कल्याण · <a href="https://prsindia.org/policy/monthly-policy-review/july-2026">PRS, जुला 2026</a></small>
-        </li>
-        
-        <li>
-          
-  
-    <span class="tag due-closed">13 जुलाई 2026 को बंद</span>
-  
-
-          <strong>The Draft National Food Security (Amendment) Bill, 2026</strong>
-          <small>संसद · <a href="https://prsindia.org/announcements">PRS, सित 2026</a></small>
-        </li>
-        
-      </ul>
-    </details>
+    <div>
+      
+  <div class="labels">
+    <span class="tag action-other">संसद</span>
     
   </div>
 
-  <div class="block moving-block">
-    <h3>🔥 नज़र रखने लायक तीन संकेत</h3>
-    <ol class="signals">
+      <h3>The Foreign Contribution (Regulation) Amendment Bill, 2026</h3>
       
-      <li class="signal" style="--accent: #4f46e5" data-slug="criminal-law-and-justice">
-        <div class="signal-head">
-          <span class="rank">1</span>
-          <div class="signal-title">
-            <a href="topic/criminal-law-and-justice.html"><strong>आपराधिक क़ानून और न्याय</strong></a>
-            <span class="pill status-heating" title="हाल की गतिविधि पिछले छह महीनों के औसत से कम-से-कम 50% ज़्यादा है।">तेज़ हो रहा</span>
-          </div>
+      
+      
+      
+  
+
+      <p class="links">
+        <a href="https://prsindia.org/announcements">PRS घोषणाएँ</a> · <a href="https://prsindia.org/files/parliamentry-announcement/2026-09-25/FCRA_press release.pdf">मसौदा पढ़ें</a>
+        
+      </p>
+      
+  
+  
+
+      
+    </div>
+  </article>
+
+  <article class="card rcard reveal closed">
+    
+  
+    <div class="due"><b>—</b><small>बंद</small><small class="muted">4 सितंबर 2026</small></div>
+  
+
+    <div>
+      
+  <div class="labels">
+    <span class="tag action-other">ऊर्जा</span>
+    
+  </div>
+
+      <h3>SHANTI अधिनियम, 2025 के तहत मसौदा नियमों और विनियमों पर राय माँगी</h3>
+      
+      
+      <p class="summary">परमाणु ऊर्जा विभाग ने SHANTI (Sustainable Harnessing and Advancement of Nuclear Energy for Transforming India) नियम, 2026 और SHANTI विनियम, 2026 के मसौदे जारी किए।</p>
+      
+  
+
+      <p class="links">
+        <a href="https://prsindia.org/policy/monthly-policy-review/august-2026">PRS घोषणाएँ</a> · <a href="https://dae.gov.in/public-consultation-on-draft-shanti-rules-and-draft-shanti-regulations/">मसौदा पढ़ें</a>
+        
+      </p>
+      
+  
+  
+
+      
+    </div>
+  </article>
+
+  <article class="card rcard reveal closed">
+    
+  
+    <div class="due"><b>—</b><small>बंद</small><small class="muted">7 अगस्त 2026</small></div>
+  
+
+    <div>
+      
+  <div class="labels">
+    <span class="tag action-other">स्वास्थ्य और परिवार कल्याण</span>
+    <span class="tag action-consultation" title="स्वतंत्र रूप से पुष्ट">✓ स्वतंत्र रूप से पुष्ट</span>
+  </div>
+
+      <h3>नए मेडिकल संस्थान स्थापना विनियम, 2023 में मसौदा संशोधन जारी</h3>
+      
+      
+      <p class="summary">राष्ट्रीय चिकित्सा आयोग (NMC) ने नए मेडिकल संस्थानों के आकलन और रेटिंग (संशोधन) विनियम, 2026 का मसौदा जारी किया।</p>
+      
+  
+
+      <p class="links">
+        <a href="https://prsindia.org/policy/monthly-policy-review/july-2026">PRS, जुला 2026</a>
+      </p>
+      
+  
+  <small class="corr">इन्होंने भी रिपोर्ट किया: <a href="https://news.google.com/rss/articles/CBMixwFBVV95cUxPUVZuc2xHdmRKN0ZBQjdET2hLNjRrc1NoLXZ4LTRxNjFtb3FwUDh5UkFXZWRfcEE2dUtMRHMzNzVqN085Ti1IVUdMeTk2YUJLZjMyVTNCN0FnN1o3bk1hNE9uaE1tTWtwdUozMGE2bWpZZGdVZWtRVnc0VnlvSzIzNFBKLTZpN05HY3NBbEFUanVSWFE2czZuSFZGMXRQN2p4ZGY4aEpmUVY5TXEzSjNlTW1aT0hwOHFQbUstdE5PdHlOZk9DVWl30gHMAUFVX3lxTE9MMVVrcFF2d2ZqUkxDWE1jOWxyR1VPeHJ5ZDNId2VjWWxudTdtbFJFYVBreVU4N1JCaHBUdVRGWHEycV9uRlpINGoxSV92Nmx4MTlwb0RqUlFvY2xScUdCRHltSGdqVGd1NEJXUjE5ak10czdpVHRIZTkwT3ZNbEFqVmtJUmZFSG1UeXFUQlBhcGFSZndwbmdURHFxZ3VTbmxoVktyUlVqTGdxd05oTVI0aGJuRnNTRi16akw0QVpNbzF2S0VjM3NjUzIwSg?oc=5" title="The AIIMS Delhi exodus: Why top faculty &amp; HODs are leaving India’s most prestigious medical institution">ThePrint</a></small>
+
+      
+    </div>
+  </article>
+
+  <article class="card rcard reveal closed">
+    
+  
+    <div class="due"><b>—</b><small>बंद</small><small class="muted">31 जुलाई 2026</small></div>
+  
+
+    <div>
+      
+  <div class="labels">
+    <span class="tag" style="--accent: #4f46e5">आपराधिक क़ानून और न्याय</span>
+    
+  </div>
+
+      <h3>अधिवक्ता (संशोधन) विधेयक का मसौदा राय के लिए जारी</h3>
+      
+      
+      <p class="summary">क़ानून और न्याय मंत्रालय ने अधिवक्ता (संशोधन) विधेयक, 2026 का मसौदा जारी किया। यह अधिवक्ता अधिनियम, 1961 में संशोधन करता है।</p>
+      
+  
+
+      <p class="links">
+        <a href="https://prsindia.org/policy/monthly-policy-review/july-2026">PRS घोषणाएँ</a> · <a href="https://prsindia.org/files/parliamentry-announcement/2026-07-31/Draft_Advocate_(A)_Bill_2026.pdf">मसौदा पढ़ें</a> · <a href="https://www.barcouncilofindia.org/info/req-for-su-ch2hbe">आधिकारिक नोटिस ↗</a>
+        
+      </p>
+      
+  
+  
+
+      
+    </div>
+  </article>
+
+  <article class="card rcard reveal closed">
+    
+  
+    <div class="due"><b>—</b><small>बंद</small><small class="muted">31 जुलाई 2026</small></div>
+  
+
+    <div>
+      
+  <div class="labels">
+    <span class="tag action-other">स्वास्थ्य और परिवार कल्याण</span>
+    <span class="tag action-consultation" title="स्वतंत्र रूप से पुष्ट">✓ स्वतंत्र रूप से पुष्ट</span>
+  </div>
+
+      <h3>राष्ट्रीय फ़ार्मेसी आयोग विधेयक, 2026 का मसौदा जारी</h3>
+      
+      
+      <p class="summary">स्वास्थ्य और परिवार कल्याण मंत्रालय ने राष्ट्रीय फ़ार्मेसी आयोग विधेयक, 2026 का मसौदा जारी किया।</p>
+      
+  
+
+      <p class="links">
+        <a href="https://prsindia.org/policy/monthly-policy-review/july-2026">PRS घोषणाएँ</a> · <a href="https://prsindia.org/files/parliamentry-announcement/2026-07-31/Draft_National_Pharmacy_Commission_(NPC)_Bill_2026.pdf">मसौदा पढ़ें</a> · <a href="https://www.mohfw-dohfw.gov.in/static/uploads/2026/07/e09761311aa45a6e996226aa33b2d87f.pdf">आधिकारिक नोटिस ↗</a>
+        
+      </p>
+      
+  
+  <small class="corr">इन्होंने भी रिपोर्ट किया: <a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxOTU5SMnQ3c3hjTXNLc1NjQm14LWtXejVMazBBTDRJM0tEY1RXWkpZRUlFMHFwMEZfUnFlbG5zM0lvN3ZVSDNOSFpLQnJ4bHVvNmtSSTM3aHUtd3owckxCcU1nYkV0ZUhEWVRVSVZJV281UjdYQlZTbWNQakpjLTV4S0JTdm1kQ0tCU09seWpDRjF1MTVxV3NaTTFZUFgyaUxCTWtFMjMxdGMtUXlHU0w4eUJpekVqNHJKZlhDLWdBbXhyTDREbF9JT1pxd2NVZw?oc=5" title="Draft National Pharmacy Commission Bill proposes sweeping overhaul of pharmacy education and regulation">Express Pharma</a>, <a href="https://news.google.com/rss/articles/CBMi8gFBVV95cUxPSGl4VWhwX1phS1hkM21sR0pXN0E1N0E1X3J1dHJPMmhQR2F1V2lqUkwzTjlzNzJiaTVET2sxd1RKZlpYNERCMWZyMG9uMERoLVVTNUxUQ210TWFRc1RCOEZsT2pjRGhtYV9STzI4a2dINmZMTE9fdTZGczZlSVpVSnBtNG9ZMjFocnpia0c3bDllZEZaMU96T0dKU01pVExOT0l5dUw4V1RRZ3owNXAxcVBITVd5OTQ0SXNUZGI2OU5xaVhMQ2NHVHhPZkYzVWVOOVFTSldMcFZmbFhnYlNsczd6QmZiU2RLc0ZiUzlkNmxyQdIB9wFBVV95cUxOVDJ1SzJPbzhSaDRibGtUQzJXelRZWHVLWTJqQ1JtTERUM3BwaXBkWDNzTFl2R01TVS1oTVhUX2c0Ul8xZHBnX2hMaEJsVDZOdk1xbEN0dmxOZ2NhOEFDNzZKTk5hWFVMRWVacExJV1g1WTVRMmVkWFkyaE5WX3p5RVVncWNDNURRUm9hczNVR25YN0NTRTNSMmhkNHlFRnozSEVuZjJvNXcwRzlFWWExTm1KXzE4X29FeFNjMkt4VkY3LUNwYmFnTGtvel9wcnZ1NFlsRDVLeVRESXd5VmZuVGt5MXVvR1NOTVRhRG91TS1qWnQweEpB?oc=5" title="Explainer: Why govt plans to repeal Pharmacy Act 1948, and replace it with National Pharmacy Commission Bill">Mint</a></small>
+
+      
+    </div>
+  </article>
+
+  <article class="card rcard reveal closed">
+    
+  
+    <div class="due"><b>—</b><small>बंद</small><small class="muted">13 जुलाई 2026</small></div>
+  
+
+    <div>
+      
+  <div class="labels">
+    <span class="tag action-other">संसद</span>
+    
+  </div>
+
+      <h3>The Draft National Food Security (Amendment) Bill, 2026</h3>
+      
+      
+      
+      
+  
+
+      <p class="links">
+        <a href="https://prsindia.org/announcements">PRS घोषणाएँ</a> · <a href="https://prsindia.org/files/parliamentry-announcement/2026-07-13/National_Food_Security_(Amendment)_Bill_2026.pdf">मसौदा पढ़ें</a> · <a href="https://dfpd.gov.in/WriteReadData/Notices/87b4c79f-0200-4a16-b6c4-1b841d8cb1bb_Inviting%20comments%20on%20NFS%20(Amendment)%20Bill,%202026.pdf">आधिकारिक नोटिस ↗</a>
+        
+      </p>
+      
+  
+  
+
+      
+    </div>
+  </article>
+</div></div>
+    </details>
+    
+  </div>
+</section>
+
+
+<section class="chapter" id="moving">
+  <div class="wrap">
+    <div class="chapter-head reveal">
+      <span class="chapter-num">02</span>
+      <div><h2>नज़र रखने लायक तीन संकेत</h2><p class="lede">वे विषय जहाँ पिछले 3 महीनों में औपचारिक सरकारी कार्रवाई उससे पहले के 6 महीनों की तुलना में सबसे ज़्यादा बढ़ी। हर संख्या अपने दस्तावेज़ों से जुड़ी है।</p></div>
+    </div>
+    <div class="signals">
+      
+      <article class="card sig reveal" style="--accent: #4f46e5" data-slug="criminal-law-and-justice">
+        <div class="sig-head">
+          <span class="sig-num">01</span>
+          <h3><a href="topic/criminal-law-and-justice.html">आपराधिक क़ानून और न्याय</a></h3>
+          <span class="pill heating" title="हाल की गतिविधि पिछले छह महीनों के औसत से कम-से-कम 50% ज़्यादा है।">तेज़ हो रहा</span>
           
   <button type="button" class="follow" data-slug="criminal-law-and-justice" data-follow="☆ फ़ॉलो" data-following="★ फ़ॉलो कर रहे हैं" aria-pressed="false">☆ फ़ॉलो</button>
 
         </div>
-        <div class="signal-metrics">
-          <span><b class="up">+94%</b> <small>पिछले 6 महीनों की तुलना में</small></span>
-          <span><b>10</b> <small>कार्रवाइयाँ 17 महीनों में</small></span>
-          <span><b>2</b> <small>मंत्रालय हाल में</small></span>
-          <span class="conf conf-medium">मध्यम भरोसा</span>
-        </div>
-        <div class="signal-why">
-          <p class="label">क्यों हिल रहा है</p>
+        <div class="sig-hero">
+          
+  <span class="big num up" data-count="94" data-prefix="+" data-suffix="%">+94%</span>
+  
+
+          <p class="sub">पिछले 6 महीनों की तुलना में · <b>3</b> हालिया कार्रवाइयाँ · <span class="conf conf-medium">मध्यम भरोसा</span></p>
           
   
   
   
+  <svg viewBox="0 0 180 44" width="180" height="44" class="spark" aria-hidden="true">
+    <polyline points="0.0,41.0 11.2,41.0 22.5,41.0 33.8,41.0 45.0,4.8 56.2,41.0 67.5,41.0 78.8,41.0 90.0,41.0 101.2,41.0 112.5,41.0 123.8,10.6 135.0,41.0 146.2,32.2 157.5,41.0 168.8,3.0 180.0,41.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </div>
+        
   
-  <p class="why-count"><b>जुला 2026 में 3 औपचारिक कार्रवाइयाँ</b>
-     · शिक्षा, क़ानून और न्याय</p>
   
+  <p class="interp"><b>संकेत की व्याख्या.</b> गतिविधि इसलिए बढ़ी क्योंकि 2 अलग मंत्रालयों/संस्थाओं (Education, Law and Justice) ने 2026-07 में इस विषय के अलग-अलग हिस्सों पर कार्रवाई की।</p>
   
   <ol class="causal">
     
     <li class="action-introduced">
       <span class="when">~19 जुला</span>
       <span class="tag action-introduced" title="संसद में एक विधेयक रखा गया। यह अभी बदल सकता है, समिति को जा सकता है, या रद्द हो सकता है।">विधेयक पेश</span>
-      <span class="what">सुप्रीम कोर्ट में जजों की संख्या बढ़ाने का विधेयक पेश <span class="corr-check" title="स्वतंत्र रूप से पुष्ट">✓</span></span>
+      <span class="what"><a href="https://prsindia.org/files/bills_acts/bills_parliament/2026/Bill_Summary_Supreme_Court_(Number_of_Judges)_A_Bill_2026.pdf">सुप्रीम कोर्ट में जजों की संख्या बढ़ाने का विधेयक पेश</a> <span class="check" title="स्वतंत्र रूप से पुष्ट">✓</span></span>
     </li>
     
     <li class="action-enacted">
       <span class="when">~28 जुला</span>
       <span class="tag action-enacted" title="संसद ने इसे पास कर दिया (या राष्ट्रपति की मंज़ूरी मिल गई)। अब यह क़ानून है, हालाँकि लागू बाद में हो सकता है।">क़ानून पास</span>
-      <span class="what">संसद ने सार्वजनिक परीक्षा (अनुचित साधनों की रोकथाम) संशोधन विधेयक, 2026 पास किया <span class="corr-check" title="स्वतंत्र रूप से पुष्ट">✓</span></span>
+      <span class="what"><a href="https://prsindia.org/policy/monthly-policy-review/july-2026">संसद ने सार्वजनिक परीक्षा (अनुचित साधनों की रोकथाम) संशोधन विधेयक, 2026 पास किया</a> <span class="check" title="स्वतंत्र रूप से पुष्ट">✓</span></span>
     </li>
     
     <li class="action-consultation">
       <span class="when">जुला 2026</span>
       <span class="tag action-consultation" title="एक मसौदा जनता की राय के लिए प्रकाशित हुआ। समय-सीमा से पहले कोई भी जवाब दे सकता है।">राय के लिए खुला</span>
-      <span class="what">अधिवक्ता (संशोधन) विधेयक का मसौदा राय के लिए जारी</span>
+      <span class="what"><a href="https://prsindia.org/policy/monthly-policy-review/july-2026">अधिवक्ता (संशोधन) विधेयक का मसौदा राय के लिए जारी</a></span>
     </li>
     
   </ol>
   
-  <p class="interp"><b>संकेत की व्याख्या:</b> गतिविधि इसलिए बढ़ी क्योंकि 2 अलग मंत्रालयों/संस्थाओं (Education, Law and Justice) ने 2026-07 में इस विषय के अलग-अलग हिस्सों पर कार्रवाई की।</p>
 
-        </div>
-        <ul class="why">
-          
-          <li class="action-enacted"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/policy/monthly-policy-review/july-2026">संसद ने सार्वजनिक परीक्षा (अनुचित साधनों की रोकथाम) संशोधन विधेयक, 2026 पास किया</a> <span class="corr-check" title="स्वतंत्र रूप से पुष्ट">✓</span>
-              
-            </span></li>
-          
-          <li class="action-introduced"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/files/bills_acts/bills_parliament/2026/Bill_Summary_Supreme_Court_(Number_of_Judges)_A_Bill_2026.pdf">सुप्रीम कोर्ट में जजों की संख्या बढ़ाने का विधेयक पेश</a> <span class="corr-check" title="स्वतंत्र रूप से पुष्ट">✓</span>
-              
-            </span></li>
-          
-          <li class="action-consultation"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/policy/monthly-policy-review/july-2026">अधिवक्ता (संशोधन) विधेयक का मसौदा राय के लिए जारी</a>
-              
-            </span></li>
-          
-        </ul>
         
+        
+        
+        <details class="acc"><summary>राज्यों में <span class="count">· 50 विधेयक</span></summary>
+          <div class="acc-body">
   
   
     
     
-    <p class="states-line">🏛 राज्य: 2026 में 24 विधेयक (महाराष्ट्र, आंध्र प्रदेश, बिहार +13)
+    <p class="states-line">🏛 <span>राज्य: 2026 में 24 विधेयक (महाराष्ट्र, आंध्र प्रदेश, बिहार +13)</span>
     <a href="hi/states.html#criminal-law-and-justice">→</a></p>
   
 
-        <p class="connections"><span class="label">साथ में छूता है:</span> <a href="topic/education-and-exams.html" class="tag" style="--accent: #d97706">शिक्षा और परीक्षा की शुचिता</a></p>
-        <a class="explore" href="topic/criminal-law-and-justice.html">संकेत देखें →</a>
-      </li>
+            <ul class="blist"><li><span class="tag state-chip">आंध्र प्रदेश</span><span class="t">The Andhra Pradesh Prisons and Correctional Services Bill, 2026</span></li><li><span class="tag state-chip">आंध्र प्रदेश</span><span class="t">The Andhra Pradesh Jan Vishwas (Amendment of Provisions) Bill, 2026</span></li><li><span class="tag state-chip">अरुणाचल प्रदेश</span><span class="t">The Arunachal Pradesh Jan Vishwas (Amendment of Provisions) Bill, 2026</span></li><li><span class="tag state-chip">असम</span><span class="t">The Assam Jan Vishwas (Amendment of Provisions) Bill, 2026</span></li></ul>
+          </div></details>
+        
+        <p class="connections">साथ में छूता है: <a href="topic/education-and-exams.html" class="tag" style="--accent: #d97706">शिक्षा और परीक्षा की शुचिता</a></p>
+        <a class="more" href="topic/criminal-law-and-justice.html">संकेत देखें →</a>
+      </article>
       
-      <li class="signal" style="--accent: #dc2626" data-slug="personal-finance-and-tax">
-        <div class="signal-head">
-          <span class="rank">2</span>
-          <div class="signal-title">
-            <a href="topic/personal-finance-and-tax.html"><strong>व्यक्तिगत वित्त और टैक्स</strong></a>
-            <span class="pill status-steady" title="हाल की गतिविधि पिछले छह महीनों के लगभग बराबर है।">स्थिर</span>
-          </div>
+      <article class="card sig reveal" style="--accent: #dc2626" data-slug="personal-finance-and-tax">
+        <div class="sig-head">
+          <span class="sig-num">02</span>
+          <h3><a href="topic/personal-finance-and-tax.html">व्यक्तिगत वित्त और टैक्स</a></h3>
+          <span class="pill steady" title="हाल की गतिविधि पिछले छह महीनों के लगभग बराबर है।">स्थिर</span>
           
   <button type="button" class="follow" data-slug="personal-finance-and-tax" data-follow="☆ फ़ॉलो" data-following="★ फ़ॉलो कर रहे हैं" aria-pressed="false">☆ फ़ॉलो</button>
 
         </div>
-        <div class="signal-metrics">
-          <span><b class="up">+37%</b> <small>पिछले 6 महीनों की तुलना में</small></span>
-          <span><b>40</b> <small>कार्रवाइयाँ 17 महीनों में</small></span>
-          <span><b>2</b> <small>मंत्रालय हाल में</small></span>
-          <span class="conf conf-high">उच्च भरोसा</span>
-        </div>
-        <div class="signal-why">
-          <p class="label">क्यों हिल रहा है</p>
+        <div class="sig-hero">
+          
+  <span class="big num up" data-count="37" data-prefix="+" data-suffix="%">+37%</span>
+  
+
+          <p class="sub">पिछले 6 महीनों की तुलना में · <b>8</b> हालिया कार्रवाइयाँ · <span class="conf conf-high">उच्च भरोसा</span></p>
           
   
   
   
+  <svg viewBox="0 0 180 44" width="180" height="44" class="spark" aria-hidden="true">
+    <polyline points="0.0,37.6 11.2,34.3 22.5,34.3 33.8,23.5 45.0,3.0 56.2,37.0 67.5,19.1 78.8,37.0 90.0,20.8 101.2,34.9 112.5,34.3 123.8,30.9 135.0,32.6 146.2,32.6 157.5,30.9 168.8,23.5 180.0,27.5 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </div>
+        
   
-  <p class="why-count"><b>जून 2026 & जुला 2026 & अग 2026 में 8 औपचारिक कार्रवाइयाँ</b>
-     · वित्त, समष्टि अर्थव्यवस्था</p>
   
+  <p class="interp"><b>संकेत की व्याख्या.</b> गतिविधि पहले जैसी रफ़्तार से चली — पिछले 3 महीनों में 8 कार्रवाइयाँ, 6-माह के आधार के अनुरूप।</p>
   
   <ol class="causal">
     
     <li class="action-other">
       <span class="when">~5 जून</span>
       <span class="tag action-other" title="कोई बयान, रिपोर्ट या घटनाक्रम जो ऊपर की श्रेणियों में नहीं आता।">अपडेट</span>
-      <span class="what">रेपो रेट 5.25% पर अपरिवर्तित <span class="corr-check" title="स्वतंत्र रूप से पुष्ट">✓</span></span>
+      <span class="what"><a href="https://prsindia.org/policy/monthly-policy-review/june-2026">रेपो रेट 5.25% पर अपरिवर्तित</a> <span class="check" title="स्वतंत्र रूप से पुष्ट">✓</span></span>
     </li>
     
     <li class="action-other">
       <span class="when">~18 जून</span>
       <span class="tag action-other" title="कोई बयान, रिपोर्ट या घटनाक्रम जो ऊपर की श्रेणियों में नहीं आता।">अपडेट</span>
-      <span class="what">SEBI ने मार्जिन ट्रेडिंग सुविधा ढाँचे में संशोधन पर राय माँगी <span class="corr-check" title="स्वतंत्र रूप से पुष्ट">✓</span></span>
+      <span class="what"><a href="https://prsindia.org/policy/monthly-policy-review/june-2026">SEBI ने मार्जिन ट्रेडिंग सुविधा ढाँचे में संशोधन पर राय माँगी</a> <span class="check" title="स्वतंत्र रूप से पुष्ट">✓</span></span>
     </li>
     
     <li class="action-other">
       <span class="when">जून 2026</span>
       <span class="tag action-other" title="कोई बयान, रिपोर्ट या घटनाक्रम जो ऊपर की श्रेणियों में नहीं आता।">अपडेट</span>
-      <span class="what">RBI ने ज़िम्मेदार कारोबारी आचरण के निर्देशों में संशोधन किया</span>
+      <span class="what"><a href="https://prsindia.org/policy/monthly-policy-review/june-2026">RBI ने ज़िम्मेदार कारोबारी आचरण के निर्देशों में संशोधन किया</a></span>
     </li>
     
     <li class="action-rules">
       <span class="when">~23 जुला</span>
       <span class="tag action-rules" title="सरकार ने किसी मौजूदा क़ानून के तहत बाध्यकारी नियम, विनियम या अधिसूचना जारी की। इसके लिए वोट की ज़रूरत नहीं।">नियम अधिसूचित</span>
-      <span class="what">SEBI ने पोर्टफ़ोलियो मैनेजर विनियमों में संशोधन पर राय माँगी <span class="corr-check" title="स्वतंत्र रूप से पुष्ट">✓</span></span>
+      <span class="what"><a href="https://prsindia.org/policy/monthly-policy-review/july-2026">SEBI ने पोर्टफ़ोलियो मैनेजर विनियमों में संशोधन पर राय माँगी</a> <span class="check" title="स्वतंत्र रूप से पुष्ट">✓</span></span>
     </li>
     
   </ol>
   
-  <p class="interp"><b>संकेत की व्याख्या:</b> गतिविधि पहले जैसी रफ़्तार से चली — पिछले 3 महीनों में 8 कार्रवाइयाँ, 6-माह के आधार के अनुरूप।</p>
 
-        </div>
-        <ul class="why">
-          
-          <li class="action-enacted"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/files/bills_acts/bills_parliament/2026/Summary_Taxation_Bill_2026.pdf">संसद ने कराधान और अन्य क़ानून (संशोधन) विधेयक, 2026 पास किया</a> <span class="corr-check" title="स्वतंत्र रूप से पुष्ट">✓</span>
-              
-            </span></li>
-          
-          <li class="action-rules"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/policy/monthly-policy-review/july-2026">IRDAI ने बीमा क़ानूनों के 2025 संशोधनों को लागू करने के लिए विनियम अधिसूचित किए</a>
-              
-            </span></li>
-          
-          <li class="action-rules"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/policy/monthly-policy-review/july-2026">SEBI ने पोर्टफ़ोलियो मैनेजर विनियमों में संशोधन पर राय माँगी</a> <span class="corr-check" title="स्वतंत्र रूप से पुष्ट">✓</span>
-              
-            </span></li>
-          
-        </ul>
         
+        
+        
+        <details class="acc"><summary>राज्यों में <span class="count">· 81 विधेयक</span></summary>
+          <div class="acc-body">
   
   
     
     
-    <p class="states-line">🏛 राज्य: 2026 में 32 विधेयक (नागालैंड, पश्चिम बंगाल, अरुणाचल प्रदेश +19)
+    <p class="states-line">🏛 <span>राज्य: 2026 में 32 विधेयक (नागालैंड, पश्चिम बंगाल, अरुणाचल प्रदेश +19)</span>
     <a href="hi/states.html#personal-finance-and-tax">→</a></p>
   
 
+            <ul class="blist"><li><span class="tag state-chip">आंध्र प्रदेश</span><span class="t">The Andhra Pradesh Payment of Salaries and Pension and Removal of Disqualifications (Amendment) Bill, 2026</span></li><li><span class="tag state-chip">अरुणाचल प्रदेश</span><span class="t">The Arunachal Pradesh Salary, Allowances and Pension of Members of (Amendment) Bill, 2026</span></li><li><span class="tag state-chip">अरुणाचल प्रदेश</span><span class="t">The Arunachal Pradesh Goods and Services Tax (Amendment) Bill, 2026</span></li><li><span class="tag state-chip">असम</span><span class="t">The Assam Goods and Services Tax (Amendment) Bill, 2026</span></li></ul>
+          </div></details>
         
-        <a class="explore" href="topic/personal-finance-and-tax.html">संकेत देखें →</a>
-      </li>
+        
+        <a class="more" href="topic/personal-finance-and-tax.html">संकेत देखें →</a>
+      </article>
       
-      <li class="signal" style="--accent: #059669" data-slug="jobs-and-employment">
-        <div class="signal-head">
-          <span class="rank">3</span>
-          <div class="signal-title">
-            <a href="topic/jobs-and-employment.html"><strong>नौकरियाँ और रोज़गार</strong></a>
-            <span class="pill status-steady" title="हाल की गतिविधि पिछले छह महीनों के लगभग बराबर है।">स्थिर</span>
-          </div>
+      <article class="card sig reveal" style="--accent: #059669" data-slug="jobs-and-employment">
+        <div class="sig-head">
+          <span class="sig-num">03</span>
+          <h3><a href="topic/jobs-and-employment.html">नौकरियाँ और रोज़गार</a></h3>
+          <span class="pill steady" title="हाल की गतिविधि पिछले छह महीनों के लगभग बराबर है।">स्थिर</span>
           
   <button type="button" class="follow" data-slug="jobs-and-employment" data-follow="☆ फ़ॉलो" data-following="★ फ़ॉलो कर रहे हैं" aria-pressed="false">☆ फ़ॉलो</button>
 
         </div>
-        <div class="signal-metrics">
-          <span><b class="up">+17%</b> <small>पिछले 6 महीनों की तुलना में</small></span>
-          <span><b>12</b> <small>कार्रवाइयाँ 17 महीनों में</small></span>
-          <span><b>2</b> <small>मंत्रालय हाल में</small></span>
-          <span class="conf conf-medium">मध्यम भरोसा</span>
-        </div>
-        <div class="signal-why">
-          <p class="label">क्यों हिल रहा है</p>
+        <div class="sig-hero">
+          
+  <span class="big num up" data-count="17" data-prefix="+" data-suffix="%">+17%</span>
+  
+
+          <p class="sub">पिछले 6 महीनों की तुलना में · <b>3</b> हालिया कार्रवाइयाँ · <span class="conf conf-medium">मध्यम भरोसा</span></p>
           
   
   
   
+  <svg viewBox="0 0 180 44" width="180" height="44" class="spark" aria-hidden="true">
+    <polyline points="0.0,41.0 11.2,22.9 22.5,41.0 33.8,11.1 45.0,27.4 56.2,41.0 67.5,27.4 78.8,41.0 90.0,3.0 101.2,41.0 112.5,24.7 123.8,41.0 135.0,41.0 146.2,27.4 157.5,41.0 168.8,22.9 180.0,19.3 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </div>
+        
   
-  <p class="why-count"><b>जुला 2026 & अग 2026 में 3 औपचारिक कार्रवाइयाँ</b>
-     · वाणिज्य और उद्योग, ग्रामीण विकास</p>
   
+  <p class="interp"><b>संकेत की व्याख्या.</b> गतिविधि पहले जैसी रफ़्तार से चली — पिछले 3 महीनों में 3 कार्रवाइयाँ, 6-माह के आधार के अनुरूप।</p>
   
   <ol class="causal">
     
     <li class="action-rules">
       <span class="when">जुला 2026</span>
       <span class="tag action-rules" title="सरकार ने किसी मौजूदा क़ानून के तहत बाध्यकारी नियम, विनियम या अधिसूचना जारी की। इसके लिए वोट की ज़रूरत नहीं।">नियम अधिसूचित</span>
-      <span class="what">VB-G RAM G अधिनियम, 2025 के तहत नियम अधिसूचित <span class="corr-check" title="स्वतंत्र रूप से पुष्ट">✓</span></span>
+      <span class="what"><a href="https://prsindia.org/policy/monthly-policy-review/july-2026">VB-G RAM G अधिनियम, 2025 के तहत नियम अधिसूचित</a> <span class="check" title="स्वतंत्र रूप से पुष्ट">✓</span></span>
     </li>
     
     <li class="action-committee">
       <span class="when">~22 अग</span>
       <span class="tag action-committee" title="सभी दलों के सांसदों की संसदीय समिति ने किसी मुद्दे की जाँच कर सिफ़ारिशें दीं। बाध्यकारी नहीं।">समिति रिपोर्ट</span>
-      <span class="what">स्थायी समिति ने स्टार्टअप इकोसिस्टम पर रिपोर्ट सौंपी <span class="corr-check" title="स्वतंत्र रूप से पुष्ट">✓</span></span>
+      <span class="what"><a href="https://prsindia.org/policy/monthly-policy-review/august-2026">स्थायी समिति ने स्टार्टअप इकोसिस्टम पर रिपोर्ट सौंपी</a> <span class="check" title="स्वतंत्र रूप से पुष्ट">✓</span></span>
     </li>
     
     <li class="action-committee">
       <span class="when">अग 2026</span>
       <span class="tag action-committee" title="सभी दलों के सांसदों की संसदीय समिति ने किसी मुद्दे की जाँच कर सिफ़ारिशें दीं। बाध्यकारी नहीं।">समिति रिपोर्ट</span>
-      <span class="what">स्थायी समिति ने ग्रामीण कौशल योजनाओं के प्रभाव अध्ययन पर रिपोर्ट सौंपी</span>
+      <span class="what"><a href="https://prsindia.org/files/policy/policy_committee_reports/SCR_Summary_Rural_Skilling_and_Migration.pdf">स्थायी समिति ने ग्रामीण कौशल योजनाओं के प्रभाव अध्ययन पर रिपोर्ट सौंपी</a></span>
     </li>
     
   </ol>
   
-  <p class="interp"><b>संकेत की व्याख्या:</b> गतिविधि पहले जैसी रफ़्तार से चली — पिछले 3 महीनों में 3 कार्रवाइयाँ, 6-माह के आधार के अनुरूप।</p>
 
-        </div>
-        <ul class="why">
-          
-          <li class="action-rules"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/policy/monthly-policy-review/july-2026">VB-G RAM G अधिनियम, 2025 के तहत नियम अधिसूचित</a> <span class="corr-check" title="स्वतंत्र रूप से पुष्ट">✓</span>
-              
-            </span></li>
-          
-          <li class="action-committee"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/policy/monthly-policy-review/august-2026">स्थायी समिति ने स्टार्टअप इकोसिस्टम पर रिपोर्ट सौंपी</a> <span class="corr-check" title="स्वतंत्र रूप से पुष्ट">✓</span>
-              
-            </span></li>
-          
-          <li class="action-committee"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/files/policy/policy_committee_reports/SCR_Summary_Rural_Skilling_and_Migration.pdf">स्थायी समिति ने ग्रामीण कौशल योजनाओं के प्रभाव अध्ययन पर रिपोर्ट सौंपी</a>
-              
-            </span></li>
-          
-        </ul>
         
+        
+        
+        <details class="acc"><summary>राज्यों में <span class="count">· 20 विधेयक</span></summary>
+          <div class="acc-body">
   
   
     
     
-    <p class="states-line">🏛 राज्य: 2026 में 10 विधेयक (बिहार, महाराष्ट्र, मणिपुर +4)
+    <p class="states-line">🏛 <span>राज्य: 2026 में 10 विधेयक (बिहार, महाराष्ट्र, मणिपुर +4)</span>
     <a href="hi/states.html#jobs-and-employment">→</a></p>
   
 
+            <ul class="blist"><li><span class="tag state-chip">बिहार</span><span class="t">The Bihar Shops and Establishments (Employment Regulation and Terms of Service) (Repeal) Bill, 2026</span></li><li><span class="tag state-chip">बिहार</span><span class="t">The Bihar Shops and Establishments (Regulation of Employment and Conditions of Service) (Repeal) Ordinance, 2026</span></li><li><span class="tag state-chip">गुजरात</span><span class="t">The Gujarat Shops and Establishments (Regulation of Employment and Conditions of Service) (Amendment) Bill, 2026</span></li><li><span class="tag state-chip">कर्नाटक</span><span class="t">The Karnataka Tax on Profession, Trades, Callings and Employments (Amendment) Bill, 2026</span></li></ul>
+          </div></details>
         
-        <a class="explore" href="topic/jobs-and-employment.html">संकेत देखें →</a>
-      </li>
+        
+        <a class="more" href="topic/jobs-and-employment.html">संकेत देखें →</a>
+      </article>
       
-    </ol>
+    </div>
   </div>
+</section>
 
-  
-  <div class="block quiet-block">
-    <h3>😴 पुष्ट रूप से शांत</h3>
-    <p class="quiet-list"><a href="topic/digital-and-data.html">डिजिटल अधिकार और डेटा सुरक्षा</a> · <a href="topic/ai-regulation.html">AI का नियमन</a> · <a href="topic/gig-work-and-labour-codes.html">गिग वर्क और श्रम संहिताएँ</a></p>
-    
+
+
+<section class="chapter chapter-quiet" id="quiet">
+  <div class="wrap">
+    <div class="chapter-head reveal">
+      <span class="chapter-num">03</span>
+      <div><h2>पुष्ट रूप से शांत</h2><p class="lede">इन पर कोई नई औपचारिक सरकारी कार्रवाई दर्ज नहीं। यह भी जानकारी है — मतलब विधायी प्रक्रिया में कुछ नहीं हिला, न कि कुछ हो ही नहीं रहा।</p></div>
+    </div>
+    <div class="quiet-grid">
+      
+      <article class="card qcard reveal" style="--accent: #7c3aed">
+        <h3><a href="topic/digital-and-data.html">डिजिटल अधिकार और डेटा सुरक्षा</a></h3>
+        <p class="q">पिछले 3 महीनों में 1 औपचारिक कार्रवाइयाँ।</p>
+        
   
   
 
+        
+  <button type="button" class="follow" data-slug="digital-and-data" data-follow="☆ फ़ॉलो" data-following="★ फ़ॉलो कर रहे हैं" aria-pressed="false">☆ फ़ॉलो</button>
+
+      </article>
+      
+      <article class="card qcard reveal" style="--accent: #db2777">
+        <h3><a href="topic/ai-regulation.html">AI का नियमन</a></h3>
+        <p class="q">पिछले 3 महीनों में 0 औपचारिक कार्रवाइयाँ।</p>
+        
   
   
     
     
-    <p class="states-line">🏛 केंद्र शांत — पर 2026 में 1 राज्य विधेयक: बिहार
+    <p class="states-line">🏛 <span>केंद्र शांत — पर 2026 में 1 राज्य विधेयक: बिहार</span>
     <a href="hi/states.html#ai-regulation">→</a></p>
   
 
+        
+  <button type="button" class="follow" data-slug="ai-regulation" data-follow="☆ फ़ॉलो" data-following="★ फ़ॉलो कर रहे हैं" aria-pressed="false">☆ फ़ॉलो</button>
+
+      </article>
+      
+      <article class="card qcard reveal" style="--accent: #0891b2">
+        <h3><a href="topic/gig-work-and-labour-codes.html">गिग वर्क और श्रम संहिताएँ</a></h3>
+        <p class="q">पिछले 3 महीनों में 0 औपचारिक कार्रवाइयाँ।</p>
+        
   
   
     
     
-    <p class="states-line">🏛 केंद्र शांत — पर 2026 में 2 राज्य विधेयक: मध्य प्रदेश, तेलंगाना
+    <p class="states-line">🏛 <span>केंद्र शांत — पर 2026 में 2 राज्य विधेयक: मध्य प्रदेश, तेलंगाना</span>
     <a href="hi/states.html#gig-work-and-labour-codes">→</a></p>
   
 
-    <p class="hint">इन पर कोई नई औपचारिक सरकारी कार्रवाई दर्ज नहीं। यह भी जानकारी है — मतलब विधायी प्रक्रिया में कुछ नहीं हिला, न कि कुछ हो ही नहीं रहा।</p>
+        
+  <button type="button" class="follow" data-slug="gig-work-and-labour-codes" data-follow="☆ फ़ॉलो" data-following="★ फ़ॉलो कर रहे हैं" aria-pressed="false">☆ फ़ॉलो</button>
+
+      </article>
+      
+    </div>
   </div>
-  
-  <p class="hint brief-footer">हर पंक्ति मूल सरकारी दस्तावेज़ से जुड़ी है। न विज्ञापन, न ट्रैकिंग, न लॉगइन। हुक, “आपके लिए” पंक्तियाँ और साप्ताहिक नोट मॉडल-प्रारूपित और स्रोत-लिंक्ड हैं; स्कोर और भरोसा नियम-आधारित हैं। <a href="method.html">यह कैसे काम करता है</a></p>
 </section>
-<script type="application/json" id="pulse-state">{"topics": {"criminal-law-and-justice": {"name": "आपराधिक क़ानून और न्याय", "status": "heating", "status_label": "तेज़ हो रहा", "url": "topic/criminal-law-and-justice.html", "latest": ["2026-07:2", "2026-07:4", "2026-07:5"]}, "personal-finance-and-tax": {"name": "व्यक्तिगत वित्त और टैक्स", "status": "steady", "status_label": "स्थिर", "url": "topic/personal-finance-and-tax.html", "latest": ["2026-06:1", "2026-06:5", "2026-06:6", "2026-07:14", "2026-07:15", "2026-07:16", "2026-08:14", "2026-08:3"]}, "jobs-and-employment": {"name": "नौकरियाँ और रोज़गार", "status": "steady", "status_label": "स्थिर", "url": "topic/jobs-and-employment.html", "latest": ["2026-07:8", "2026-08:13", "2026-08:42"]}, "education-and-exams": {"name": "शिक्षा और परीक्षा की शुचिता", "status": "steady", "status_label": "स्थिर", "url": "topic/education-and-exams.html", "latest": ["2026-07:2"]}, "digital-and-data": {"name": "डिजिटल अधिकार और डेटा सुरक्षा", "status": "quiet", "status_label": "शांत", "url": "topic/digital-and-data.html", "latest": ["2026-08:34"]}, "ai-regulation": {"name": "AI का नियमन", "status": "quiet", "status_label": "शांत", "url": "topic/ai-regulation.html", "latest": []}, "gig-work-and-labour-codes": {"name": "गिग वर्क और श्रम संहिताएँ", "status": "quiet", "status_label": "शांत", "url": "topic/gig-work-and-labour-codes.html", "latest": []}}}</script>
-<script>
-(function(){
-  var S=JSON.parse(document.getElementById('pulse-state').textContent), L={"since_h": "आपकी पिछली विज़िट ({d}) के बाद", "since_new": "{n} नई कार्रवाई/कार्रवाइयाँ", "since_status": "अब {status}, पहले {old}", "since_same": "कोई बदलाव नहीं", "since_none_followed": "विषयों को फ़ॉलो करें — अगली बार यह बॉक्स बताएगा कि उनमें क्या बदला। कुछ भी आपके ब्राउज़र से बाहर नहीं जाता।", "since_first": "स्वागत है। अगली विज़िट पर यह बॉक्स दिखाएगा कि आज के बाद क्या बदला।"};
-  var FK='pulse-follow', SK='pulse-snapshot';
-  function get(k,d){try{return JSON.parse(localStorage.getItem(k))||d;}catch(e){return d;}}
-  function put(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
-  var follows=get(FK,[]);
-  function paint(){document.querySelectorAll('.follow').forEach(function(b){var on=follows.indexOf(b.dataset.slug)>=0;b.textContent=on?b.dataset.following:b.dataset.follow;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);});}
-  document.querySelectorAll('.follow').forEach(function(b){b.addEventListener('click',function(){var i=follows.indexOf(b.dataset.slug);if(i>=0){follows.splice(i,1);}else{follows.push(b.dataset.slug);}put(FK,follows);paint();});});
-  paint();
-  var box=document.getElementById('since'), list=document.getElementById('since-list'), h=document.getElementById('since-h'), hint=document.getElementById('since-hint');
-  var snap=get(SK,null);
-  if(box){
-    box.hidden=false;
-    if(!snap){ h.textContent=L.since_first; hint.textContent=L.since_none_followed; }
-    else{
-      h.textContent=L.since_h.replace('{d}', snap.date);
-      var slugs=follows.length?follows:Object.keys(S.topics), any=false;
-      slugs.forEach(function(sl){var now=S.topics[sl], was=snap.topics[sl]; if(!now) return;
-        var newN=was?now.latest.filter(function(u){return was.latest.indexOf(u)<0;}).length:0;
-        var parts=[]; if(newN) parts.push(L.since_new.replace('{n}',newN));
-        if(was&&was.status!==now.status) parts.push(L.since_status.replace('{status}',now.status_label).replace('{old}',was.status_label));
-        if(!parts.length){ if(follows.length){parts.push(L.since_same);} else return; }
-        any=true; var li=document.createElement('li'); li.innerHTML='<a href="'+now.url+'"><b>'+now.name+'</b></a> — '+parts.join(' · '); list.appendChild(li);});
-      if(!any){ var li=document.createElement('li'); li.textContent=L.since_same; list.appendChild(li); }
-      hint.textContent=follows.length?'':L.since_none_followed;
-    }
-    var today="2026-09-27"; var t={}; Object.keys(S.topics).forEach(function(k){t[k]={status:S.topics[k].status,status_label:S.topics[k].status_label,latest:S.topics[k].latest};});
-    put(SK,{date:today,topics:t});
-  }
-})();
-</script>
 
 
-<section class="all-topics">
-  <h2 class="kicker">सभी विषय</h2>
-  <p class="lede small">हर विषय जिस पर हम नज़र रखते हैं, पूरे 17 महीनों के सबूतों के साथ।</p>
-  <div class="radar">
+
+<section class="chapter chapter-all" id="all">
+  <div class="wrap">
+    <div class="chapter-head reveal">
+      <span class="chapter-num">04</span>
+      <div><h2>सभी विषय</h2><p class="lede">हर विषय जिस पर हम नज़र रखते हैं, पूरे 17 महीनों के सबूतों के साथ। क्रम गति, हाल की मात्रा और विस्तार के मेल से तय होता है। गतिविधि का मतलब महत्व नहीं — तीन बड़े फ़ैसलों वाला विषय दस मामूली कार्रवाइयों वाले विषय से ज़्यादा अहम हो सकता है।</p></div>
+    </div>
+    <div class="grid">
+      
+      <a class="card tile reveal" href="topic/criminal-law-and-justice.html" style="--accent: #4f46e5">
+        <span class="pill heating">तेज़ हो रहा</span>
+        <span class="name">आपराधिक क़ानून और न्याय</span>
+        <span class="row">
+          <span class="pct num up">+94%</span>
+          
   
-  <a class="card status-heating" href="topic/criminal-law-and-justice.html" style="--accent: #4f46e5">
-    <div class="card-head">
-      <span class="pill" title="हाल की गतिविधि पिछले छह महीनों के औसत से कम-से-कम 50% ज़्यादा है।">तेज़ हो रहा</span>
-      <span class="conf conf-medium" title="इस संकेत पर कितना भरोसा करें: 17 महीनों में 10 टैग की गई कार्रवाइयाँ; पिछले 3 महीनों में 3, जो 1 महीने/महीनों में फैली हैं; हाल में 2 मंत्रालय सक्रिय; हाल की 3 में से 2 कार्रवाइयों की स्वतंत्र रिपोर्टिंग मिली (PIB, News On AIR, The Hindu, LiveLaw); हाल की गतिविधि एक ही महीने में केंद्रित">मध्यम भरोसा</span>
-    </div>
-    <h2>आपराधिक क़ानून और न्याय</h2>
-    <p class="tagline">नई आपराधिक संहिताएँ, पुलिसिंग, ज़मानत, जेल और अदालतें कितनी तेज़ चलती हैं।</p>
-    <div class="card-foot">
-      <svg viewBox="0 0 160 36" width="160" height="36" class="spark" aria-hidden="true"><polyline points="0.0,34.0 10.0,34.0 20.0,34.0 30.0,34.0 40.0,3.5 50.0,34.0 60.0,34.0 70.0,34.0 80.0,34.0 90.0,34.0 100.0,34.0 110.0,8.4 120.0,34.0 130.0,26.6 140.0,34.0 150.0,2.0 160.0,34.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      <div class="stat">
-        
-          <strong class="up">+94%</strong>
-          <small>पिछले 6 महीनों की तुलना में</small>
-        
-      </div>
-    </div>
-    <p class="meta">हाल में 3 कार्रवाइयाँ · कुल 10 · 2 मंत्रालय</p>
-  </a>
   
-  <a class="card status-steady" href="topic/personal-finance-and-tax.html" style="--accent: #dc2626">
-    <div class="card-head">
-      <span class="pill" title="हाल की गतिविधि पिछले छह महीनों के लगभग बराबर है।">स्थिर</span>
-      <span class="conf conf-high" title="इस संकेत पर कितना भरोसा करें: 17 महीनों में 40 टैग की गई कार्रवाइयाँ; पिछले 3 महीनों में 8, जो 3 महीने/महीनों में फैली हैं; हाल में 2 मंत्रालय सक्रिय; हाल की 8 में से 6 कार्रवाइयों की स्वतंत्र रिपोर्टिंग मिली (News On AIR, The Hindu, NDTV, Business Standard); ज़्यादातर हालिया सबूतों की स्वतंत्र पुष्टि होने से भरोसा एक स्तर बढ़ाया गया">उच्च भरोसा</span>
-    </div>
-    <h2>व्यक्तिगत वित्त और टैक्स</h2>
-    <p class="tagline">इनकम टैक्स, GST, UPI, लोन और वह छोटा प्रिंट जो आपकी जेब पर असर डालता है।</p>
-    <div class="card-foot">
-      <svg viewBox="0 0 160 36" width="160" height="36" class="spark" aria-hidden="true"><polyline points="0.0,31.2 10.0,28.3 20.0,28.3 30.0,19.3 40.0,2.0 50.0,30.6 60.0,15.6 70.0,30.6 80.0,17.0 90.0,28.9 100.0,28.3 110.0,25.5 120.0,26.9 130.0,26.9 140.0,25.5 150.0,19.3 160.0,22.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      <div class="stat">
-        
-          <strong class="up">+37%</strong>
-          <small>पिछले 6 महीनों की तुलना में</small>
-        
-      </div>
-    </div>
-    <p class="meta">हाल में 8 कार्रवाइयाँ · कुल 40 · 2 मंत्रालय</p>
-  </a>
   
-  <a class="card status-steady" href="topic/jobs-and-employment.html" style="--accent: #059669">
-    <div class="card-head">
-      <span class="pill" title="हाल की गतिविधि पिछले छह महीनों के लगभग बराबर है।">स्थिर</span>
-      <span class="conf conf-medium" title="इस संकेत पर कितना भरोसा करें: 17 महीनों में 12 टैग की गई कार्रवाइयाँ; पिछले 3 महीनों में 3, जो 2 महीने/महीनों में फैली हैं; हाल में 2 मंत्रालय सक्रिय; हाल की 3 में से 2 कार्रवाइयों की स्वतंत्र रिपोर्टिंग मिली (News On AIR, Times of India, Economic Times, Business Standard)">मध्यम भरोसा</span>
-    </div>
-    <h2>नौकरियाँ और रोज़गार</h2>
-    <p class="tagline">भर्ती, छँटनी, अप्रेंटिसशिप और रोज़गार बनाने वाली योजनाएँ।</p>
-    <div class="card-foot">
-      <svg viewBox="0 0 160 36" width="160" height="36" class="spark" aria-hidden="true"><polyline points="0.0,34.0 10.0,18.8 20.0,34.0 30.0,8.9 40.0,22.6 50.0,34.0 60.0,22.6 70.0,34.0 80.0,2.0 90.0,34.0 100.0,20.3 110.0,34.0 120.0,34.0 130.0,22.6 140.0,34.0 150.0,18.8 160.0,15.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      <div class="stat">
-        
-          <strong class="up">+17%</strong>
-          <small>पिछले 6 महीनों की तुलना में</small>
-        
-      </div>
-    </div>
-    <p class="meta">हाल में 3 कार्रवाइयाँ · कुल 12 · 2 मंत्रालय</p>
-  </a>
+  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
+    <polyline points="0.0,23.0 5.6,23.0 11.2,23.0 16.9,23.0 22.5,3.9 28.1,23.0 33.8,23.0 39.4,23.0 45.0,23.0 50.6,23.0 56.2,23.0 61.9,7.0 67.5,23.0 73.1,18.4 78.8,23.0 84.4,3.0 90.0,23.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </span>
+        <span class="foot">हाल में 3 कार्रवाइयाँ · कुल 10 · 2 मंत्रालय · <span class="conf conf-medium">मध्यम</span></span>
+      </a>
+      
+      <a class="card tile reveal" href="topic/personal-finance-and-tax.html" style="--accent: #dc2626">
+        <span class="pill steady">स्थिर</span>
+        <span class="name">व्यक्तिगत वित्त और टैक्स</span>
+        <span class="row">
+          <span class="pct num up">+37%</span>
+          
   
-  <a class="card status-steady" href="topic/education-and-exams.html" style="--accent: #d97706">
-    <div class="card-head">
-      <span class="pill" title="हाल की गतिविधि पिछले छह महीनों के लगभग बराबर है।">स्थिर</span>
-      <span class="conf conf-low" title="इस संकेत पर कितना भरोसा करें: 17 महीनों में 11 टैग की गई कार्रवाइयाँ; पिछले 3 महीनों में 1, जो 1 महीने/महीनों में फैली हैं; हाल में 1 मंत्रालय सक्रिय; हाल की 1 में से 1 कार्रवाइयों की स्वतंत्र रिपोर्टिंग मिली (PIB, News On AIR, The Hindu)">कम भरोसा</span>
-    </div>
-    <h2>शिक्षा और परीक्षा की शुचिता</h2>
-    <p class="tagline">प्रवेश परीक्षाएँ, पेपर लीक, विश्वविद्यालय और उन्हें कौन नियंत्रित करता है।</p>
-    <div class="card-foot">
-      <svg viewBox="0 0 160 36" width="160" height="36" class="spark" aria-hidden="true"><polyline points="0.0,2.0 10.0,34.0 20.0,34.0 30.0,34.0 40.0,16.7 50.0,21.2 60.0,34.0 70.0,34.0 80.0,5.8 90.0,11.6 100.0,34.0 110.0,34.0 120.0,34.0 130.0,34.0 140.0,34.0 150.0,14.8 160.0,34.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      <div class="stat">
-        
-          <strong class="down">-24%</strong>
-          <small>पिछले 6 महीनों की तुलना में</small>
-        
-      </div>
-    </div>
-    <p class="meta">हाल में 1 कार्रवाइयाँ · कुल 11 · 1 मंत्रालय</p>
-  </a>
   
-  <a class="card status-quiet" href="topic/digital-and-data.html" style="--accent: #7c3aed">
-    <div class="card-head">
-      <span class="pill" title="पिछले तीन महीनों में लगभग कोई टैग की गई सरकारी कार्रवाई नहीं।">शांत</span>
-      <span class="conf conf-low" title="इस संकेत पर कितना भरोसा करें: 17 महीनों में 15 टैग की गई कार्रवाइयाँ; पिछले 3 महीनों में 1, जो 1 महीने/महीनों में फैली हैं; हाल में 1 मंत्रालय सक्रिय; हाल की 1 कार्रवाइयों में से कोई भी अभी स्वतंत्र कवरेज में नहीं मिली">कम भरोसा</span>
-    </div>
-    <h2>डिजिटल अधिकार और डेटा सुरक्षा</h2>
-    <p class="tagline">आपका डेटा, आपकी फ़ीड, आपका फ़ोन — नियम कौन तय करता है।</p>
-    <div class="card-foot">
-      <svg viewBox="0 0 160 36" width="160" height="36" class="spark" aria-hidden="true"><polyline points="0.0,34.0 10.0,34.0 20.0,24.4 30.0,2.0 40.0,14.8 50.0,11.6 60.0,11.6 70.0,21.2 80.0,34.0 90.0,34.0 100.0,34.0 110.0,9.0 120.0,21.2 130.0,34.0 140.0,34.0 150.0,34.0 160.0,21.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      <div class="stat">
-        
-          <strong class="muted">1</strong><small>कार्रवाइयाँ 3 महीनों में</small>
-        
-      </div>
-    </div>
-    <p class="meta">हाल में 1 कार्रवाइयाँ · कुल 15 · 1 मंत्रालय</p>
-  </a>
   
-  <a class="card status-quiet" href="topic/ai-regulation.html" style="--accent: #db2777">
-    <div class="card-head">
-      <span class="pill" title="पिछले तीन महीनों में लगभग कोई टैग की गई सरकारी कार्रवाई नहीं।">शांत</span>
-      <span class="conf conf-low" title="इस संकेत पर कितना भरोसा करें: 17 महीनों में 5 टैग की गई कार्रवाइयाँ; पिछले 3 महीनों में 0, जो 0 महीने/महीनों में फैली हैं; हाल में 0 मंत्रालय सक्रिय; एक ही स्रोत (PRS) — अभी कोई स्वतंत्र पुष्टि नहीं">कम भरोसा</span>
-    </div>
-    <h2>AI का नियमन</h2>
-    <p class="tagline">डीपफ़ेक, मॉडल के नियम, कंप्यूट मिशन — भारत AI को कैसे संभालेगा।</p>
-    <div class="card-foot">
-      <svg viewBox="0 0 160 36" width="160" height="36" class="spark" aria-hidden="true"><polyline points="0.0,34.0 10.0,34.0 20.0,34.0 30.0,34.0 40.0,12.7 50.0,34.0 60.0,2.0 70.0,34.0 80.0,2.0 90.0,34.0 100.0,12.7 110.0,8.4 120.0,34.0 130.0,34.0 140.0,34.0 150.0,34.0 160.0,34.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      <div class="stat">
-        
-          <strong class="muted">0</strong><small>कार्रवाइयाँ 3 महीनों में</small>
-        
-      </div>
-    </div>
-    <p class="meta">हाल में 0 कार्रवाइयाँ · कुल 5 · 0 मंत्रालय</p>
-  </a>
+  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
+    <polyline points="0.0,21.2 5.6,19.5 11.2,19.5 16.9,13.8 22.5,3.0 28.1,20.9 33.8,11.5 39.4,20.9 45.0,12.4 50.6,19.8 56.2,19.5 61.9,17.7 67.5,18.6 73.1,18.6 78.8,17.7 84.4,13.8 90.0,15.9 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </span>
+        <span class="foot">हाल में 8 कार्रवाइयाँ · कुल 40 · 2 मंत्रालय · <span class="conf conf-high">उच्च</span></span>
+      </a>
+      
+      <a class="card tile reveal" href="topic/jobs-and-employment.html" style="--accent: #059669">
+        <span class="pill steady">स्थिर</span>
+        <span class="name">नौकरियाँ और रोज़गार</span>
+        <span class="row">
+          <span class="pct num up">+17%</span>
+          
   
-  <a class="card status-quiet" href="topic/gig-work-and-labour-codes.html" style="--accent: #0891b2">
-    <div class="card-head">
-      <span class="pill" title="पिछले तीन महीनों में लगभग कोई टैग की गई सरकारी कार्रवाई नहीं।">शांत</span>
-      <span class="conf conf-low" title="इस संकेत पर कितना भरोसा करें: 17 महीनों में 7 टैग की गई कार्रवाइयाँ; पिछले 3 महीनों में 0, जो 0 महीने/महीनों में फैली हैं; हाल में 0 मंत्रालय सक्रिय; एक ही स्रोत (PRS) — अभी कोई स्वतंत्र पुष्टि नहीं">कम भरोसा</span>
-    </div>
-    <h2>गिग वर्क और श्रम संहिताएँ</h2>
-    <p class="tagline">प्लेटफ़ॉर्म वर्कर, सामाजिक सुरक्षा और चार श्रम संहिताएँ।</p>
-    <div class="card-foot">
-      <svg viewBox="0 0 160 36" width="160" height="36" class="spark" aria-hidden="true"><polyline points="0.0,34.0 10.0,34.0 20.0,34.0 30.0,19.8 40.0,34.0 50.0,34.0 60.0,23.3 70.0,12.7 80.0,23.3 90.0,34.0 100.0,2.0 110.0,34.0 120.0,34.0 130.0,19.8 140.0,34.0 150.0,34.0 160.0,34.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      <div class="stat">
-        
-          <strong class="muted">0</strong><small>कार्रवाइयाँ 3 महीनों में</small>
-        
-      </div>
-    </div>
-    <p class="meta">हाल में 0 कार्रवाइयाँ · कुल 7 · 0 मंत्रालय</p>
-  </a>
   
+  
+  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
+    <polyline points="0.0,23.0 5.6,13.5 11.2,23.0 16.9,7.3 22.5,15.9 28.1,23.0 33.8,15.9 39.4,23.0 45.0,3.0 50.6,23.0 56.2,14.4 61.9,23.0 67.5,23.0 73.1,15.9 78.8,23.0 84.4,13.5 90.0,11.6 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </span>
+        <span class="foot">हाल में 3 कार्रवाइयाँ · कुल 12 · 2 मंत्रालय · <span class="conf conf-medium">मध्यम</span></span>
+      </a>
+      
+      <a class="card tile reveal" href="topic/education-and-exams.html" style="--accent: #d97706">
+        <span class="pill steady">स्थिर</span>
+        <span class="name">शिक्षा और परीक्षा की शुचिता</span>
+        <span class="row">
+          <span class="pct num down">-24%</span>
+          
+  
+  
+  
+  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
+    <polyline points="0.0,3.0 5.6,23.0 11.2,23.0 16.9,23.0 22.5,12.2 28.1,15.0 33.8,23.0 39.4,23.0 45.0,5.4 50.6,9.0 56.2,23.0 61.9,23.0 67.5,23.0 73.1,23.0 78.8,23.0 84.4,11.0 90.0,23.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </span>
+        <span class="foot">हाल में 1 कार्रवाइयाँ · कुल 11 · 1 मंत्रालय · <span class="conf conf-low">कम</span></span>
+      </a>
+      
+      <a class="card tile reveal" href="topic/digital-and-data.html" style="--accent: #7c3aed">
+        <span class="pill quiet">शांत</span>
+        <span class="name">डिजिटल अधिकार और डेटा सुरक्षा</span>
+        <span class="row">
+          <span class="pct num down">1</span>
+          
+  
+  
+  
+  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
+    <polyline points="0.0,23.0 5.6,23.0 11.2,17.0 16.9,3.0 22.5,11.0 28.1,9.0 33.8,9.0 39.4,15.0 45.0,23.0 50.6,23.0 56.2,23.0 61.9,7.4 67.5,15.0 73.1,23.0 78.8,23.0 84.4,23.0 90.0,15.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </span>
+        <span class="foot">हाल में 1 कार्रवाइयाँ · कुल 15 · 1 मंत्रालय · <span class="conf conf-low">कम</span></span>
+      </a>
+      
+      <a class="card tile reveal" href="topic/ai-regulation.html" style="--accent: #db2777">
+        <span class="pill quiet">शांत</span>
+        <span class="name">AI का नियमन</span>
+        <span class="row">
+          <span class="pct num down">0</span>
+          
+  
+  
+  
+  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
+    <polyline points="0.0,23.0 5.6,23.0 11.2,23.0 16.9,23.0 22.5,9.7 28.1,23.0 33.8,3.0 39.4,23.0 45.0,3.0 50.6,23.0 56.2,9.7 61.9,7.0 67.5,23.0 73.1,23.0 78.8,23.0 84.4,23.0 90.0,23.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </span>
+        <span class="foot">हाल में 0 कार्रवाइयाँ · कुल 5 · 0 मंत्रालय · <span class="conf conf-low">कम</span></span>
+      </a>
+      
+      <a class="card tile reveal" href="topic/gig-work-and-labour-codes.html" style="--accent: #0891b2">
+        <span class="pill quiet">शांत</span>
+        <span class="name">गिग वर्क और श्रम संहिताएँ</span>
+        <span class="row">
+          <span class="pct num down">0</span>
+          
+  
+  
+  
+  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
+    <polyline points="0.0,23.0 5.6,23.0 11.2,23.0 16.9,14.1 22.5,23.0 28.1,23.0 33.8,16.3 39.4,9.7 45.0,16.3 50.6,23.0 56.2,3.0 61.9,23.0 67.5,23.0 73.1,14.1 78.8,23.0 84.4,23.0 90.0,23.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </span>
+        <span class="foot">हाल में 0 कार्रवाइयाँ · कुल 7 · 0 मंत्रालय · <span class="conf conf-low">कम</span></span>
+      </a>
+      
+    </div>
+    <p class="lede reveal" style="margin-top:2rem;font-size:.95rem">हर कार्ड एक विषय है। <strong>तेज़ हो रहा / स्थिर / धीमा पड़ रहा / शांत</strong> पिछले 3 महीनों की सरकारी कार्रवाई की तुलना उससे पहले के 6 महीनों से करता है। <strong>भरोसा</strong> बताता है कि उस लेबल के पीछे कितने सबूत हैं — मुट्ठी भर दस्तावेज़ प्रतिशत को हिला सकते हैं, और अभी हमारा एक ही स्रोत है। किसी विषय को खोलकर देखें कि किन कार्रवाइयों से यह संकेत बना, और इसका क्या मतलब <em>नहीं</em> है। <a href="method.html">पूरी पद्धति और शब्दावली →</a> · <a href="../radar.json">डेटा डाउनलोड करें (JSON)</a></p>
   </div>
-  <p class="hint center">क्रम गति, हाल की मात्रा और विस्तार के मेल से तय होता है। गतिविधि का मतलब महत्व नहीं — तीन बड़े फ़ैसलों वाला विषय दस मामूली कार्रवाइयों वाले विषय से ज़्यादा अहम हो सकता है।</p>
 </section>
 
-<section class="about">
-  <h2>इसे कैसे पढ़ें</h2>
-  <p>हर कार्ड एक विषय है। <strong>तेज़ हो रहा / स्थिर / धीमा पड़ रहा / शांत</strong> पिछले 3 महीनों की सरकारी कार्रवाई की तुलना उससे पहले के 6 महीनों से करता है। <strong>भरोसा</strong> बताता है कि उस लेबल के पीछे कितने सबूत हैं — मुट्ठी भर दस्तावेज़ प्रतिशत को हिला सकते हैं, और अभी हमारा एक ही स्रोत है। किसी विषय को खोलकर देखें कि किन कार्रवाइयों से यह संकेत बना, और इसका क्या मतलब <em>नहीं</em> है।</p>
-  <p><a href="method.html">पूरी पद्धति और शब्दावली →</a> · <a href="../radar.json">डेटा डाउनलोड करें (JSON)</a></p>
-</section>
+<script type="application/json" id="pulse-state">{"today": "2026-09-27", "topics": {"criminal-law-and-justice": {"name": "आपराधिक क़ानून और न्याय", "status": "heating", "status_label": "तेज़ हो रहा", "url": "topic/criminal-law-and-justice.html", "latest": ["2026-07:2", "2026-07:4", "2026-07:5"]}, "personal-finance-and-tax": {"name": "व्यक्तिगत वित्त और टैक्स", "status": "steady", "status_label": "स्थिर", "url": "topic/personal-finance-and-tax.html", "latest": ["2026-06:1", "2026-06:5", "2026-06:6", "2026-07:14", "2026-07:15", "2026-07:16", "2026-08:14", "2026-08:3"]}, "jobs-and-employment": {"name": "नौकरियाँ और रोज़गार", "status": "steady", "status_label": "स्थिर", "url": "topic/jobs-and-employment.html", "latest": ["2026-07:8", "2026-08:13", "2026-08:42"]}, "education-and-exams": {"name": "शिक्षा और परीक्षा की शुचिता", "status": "steady", "status_label": "स्थिर", "url": "topic/education-and-exams.html", "latest": ["2026-07:2"]}, "digital-and-data": {"name": "डिजिटल अधिकार और डेटा सुरक्षा", "status": "quiet", "status_label": "शांत", "url": "topic/digital-and-data.html", "latest": ["2026-08:34"]}, "ai-regulation": {"name": "AI का नियमन", "status": "quiet", "status_label": "शांत", "url": "topic/ai-regulation.html", "latest": []}, "gig-work-and-labour-codes": {"name": "गिग वर्क और श्रम संहिताएँ", "status": "quiet", "status_label": "शांत", "url": "topic/gig-work-and-labour-codes.html", "latest": []}}}</script>
+<script type="application/json" id="pulse-strings">{"since_h": "आपकी पिछली विज़िट ({d}) के बाद", "since_new": "{n} नई कार्रवाई/कार्रवाइयाँ", "since_status": "अब {status}, पहले {old}", "since_same": "कोई बदलाव नहीं", "since_none_followed": "विषयों को फ़ॉलो करें — अगली बार यह बॉक्स बताएगा कि उनमें क्या बदला। कुछ भी आपके ब्राउज़र से बाहर नहीं जाता।", "since_first": "स्वागत है। अगली विज़िट पर यह बॉक्स दिखाएगा कि आज के बाद क्या बदला।"}</script>
 
 </main>
 <footer>
-  <p>Source data © PRS Legislative Research (prsindia.org), licensed under CC BY 4.0. Summaries and scores are our own.</p>
-  <p>अपडेट 2026-09-27 · ओपन सोर्स · न विज्ञापन, न ट्रैकिंग, न लॉगइन।</p>
+  <div class="wrap">
+    <p>Source data © PRS Legislative Research (prsindia.org), licensed under CC BY 4.0. Summaries and scores are our own.</p>
+    <p>अपडेट 2026-09-27 · ओपन सोर्स · न विज्ञापन, न ट्रैकिंग, न लॉगइन। · हुक, “आपके लिए” पंक्तियाँ और साप्ताहिक नोट मॉडल-प्रारूपित और स्रोत-लिंक्ड हैं; स्कोर और भरोसा नियम-आधारित हैं।</p>
+  </div>
 </footer>
+<script src="../static/app.js" defer></script>
 </body>
 </html>

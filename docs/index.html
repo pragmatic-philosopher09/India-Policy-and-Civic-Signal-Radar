@@ -5,123 +5,131 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Policy Pulse</title>
 <meta name="description" content="Which Indian policy issues are gaining momentum right now — with the evidence, not just a score.">
+<meta name="theme-color" content="#f6f2ea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f0e0c" media="(prefers-color-scheme: dark)">
 <link rel="alternate" hreflang="en" href="index.html">
 <link rel="alternate" hreflang="hi" href="hi/index.html">
-<link rel="stylesheet" href="static/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/style.css">
 <script>
 (function(){try{
-  var pref=localStorage.getItem('radar-lang'), here='en';
+  var pref=JSON.parse(localStorage.getItem('radar-lang')||'null'), here='en';
   var q=new URLSearchParams(location.search);
-  if(q.get('lang')){localStorage.setItem('radar-lang',q.get('lang'));return;}
+  if(q.get('lang')){localStorage.setItem('radar-lang',JSON.stringify(q.get('lang')));return;}
   if(pref&&pref!==here&&here==='en'&&pref==='hi'){location.replace('hi/index.html');}
 }catch(e){}})();
 </script>
 </head>
 <body class="lang-en">
+<div class="progress" aria-hidden="true"></div>
 <header class="top">
-  <a class="brand" href="index.html">
-    <span class="dot"></span> Policy Pulse <span class="beta">beta</span>
-  </a>
-  <nav>
-    <a href="states.html">States</a>
-    <a href="method.html">How scoring works</a>
+  <div class="wrap top-inner">
+    <a class="brand" href="index.html"><span class="live" aria-hidden="true"></span>Policy Pulse</a>
     
-    <a class="lang-toggle" lang="hi" href="hi/index.html?lang=hi" onclick="try{localStorage.setItem('radar-lang','hi')}catch(e){}">हिन्दी</a>
+    <nav class="chapters" aria-label="This week">
+      <a href="index.html#respond"><span>01</span>Respond</a>
+      <a href="index.html#moving"><span>02</span>Moving</a>
+      <a href="index.html#quiet"><span>03</span>Quiet</a>
+      <a href="index.html#all"><span>04</span>Everything</a>
+    </nav>
     
-  </nav>
+    <div class="tools">
+      <a class="tool" href="states.html">States</a>
+      <a class="tool" href="method.html">Method</a>
+      <a class="tool lang-toggle" lang="hi" href="hi/index.html?lang=hi">हिन्दी</a>
+      <button type="button" class="tool" data-sound data-on="🔈 Sound on" data-off="🔇 Sound" aria-pressed="false" title="Tiny synthesized clicks on interactions. Off by default; nothing is downloaded.">🔇 Sound</button>
+    </div>
+  </div>
 </header>
 <main>
 
-<section class="hero compact">
+<section class="hero wrap">
+  <p class="eyebrow"><span class="live" aria-hidden="true"></span>The weekly brief · 2026-09-27</p>
   <h1>See which policy issues are gaining momentum — before they become headlines.</h1>
   <p class="lede">Track the evidence behind each signal, from Parliament to implementation. News tells you what happened today; this shows what has been <em>building</em> for months.</p>
-  <p class="cta-row">
-    <span class="cta muted">✈ Weekly Telegram brief — coming soon</span>
-    <span class="meta">471 government actions · 17 months · source: <a href="https://prsindia.org/policy/monthly-policy-review">PRS Legislative Research</a> · updated 2026-09-27</span>
+  <p class="meta">
+    <span class="cta ghost">✈ Weekly Telegram brief — coming soon</span>
+    <span>471 government actions · 17 months · source: <a href="https://prsindia.org/policy/monthly-policy-review">PRS Legislative Research</a> · updated 2026-09-27</span>
   </p>
 </section>
 
-<section class="week">
-  <h2 class="kicker">This week</h2>
 
-  
-  <div class="block note-block">
-    <p class="note-kicker">This week in 60 seconds <span class="ai-tag" title="Drafted by a language model from the items on this page, then checked against them. Every claim links to a government document.">AI-drafted · source-linked</span></p>
-    <p class="note">One thing you can still do this week: the Standing Committee on Finance is taking views on the Indian Statistical Institute Bill until Sunday, 28 September — email comfinance@lss.sansad.in. Otherwise the pipeline is in its post-session lull. Criminal law and justice is the only topic genuinely heating up, driven by three actions in July: the anti-paper-leak law passing, a Bill to add Supreme Court judges, and the Bar Council&#39;s draft to amend the Advocates Act. Personal finance is steady but busy — a tax-law amendment passed, IRDAI&#39;s insurance regulations went live, and the repo rate stayed at 5.25% for the fifth meeting running. Gig work, AI and digital rights recorded no new formal action; the labour-code rules are now in the implementation phase, where PRS stops watching and unions start.</p>
-  </div>
-  
+<section class="note narrow reveal">
+  <p class="kicker">This week in 60 seconds <span class="ai" title="Drafted by a language model from the items on this page, then checked against them. Every claim links to a government document.">AI-drafted · source-linked</span></p>
+  <p class="text">One thing you can still do this week: the Standing Committee on Finance is taking views on the Indian Statistical Institute Bill until Sunday, 28 September — email comfinance@lss.sansad.in. Otherwise the pipeline is in its post-session lull. Criminal law and justice is the only topic genuinely heating up, driven by three actions in July: the anti-paper-leak law passing, a Bill to add Supreme Court judges, and the Bar Council&#39;s draft to amend the Advocates Act. Personal finance is steady but busy — a tax-law amendment passed, IRDAI&#39;s insurance regulations went live, and the repo rate stayed at 5.25% for the fifth meeting running. Gig work, AI and digital rights recorded no new formal action; the labour-code rules are now in the implementation phase, where PRS stops watching and unions start.</p>
+</section>
 
-  <div class="block since-block" id="since" hidden>
-    <p class="note-kicker" id="since-h"></p>
-    <ul class="since" id="since-list"></ul>
-    <p class="hint" id="since-hint"></p>
-  </div>
 
+<div class="narrow">
   
-  <div class="persona-bar" role="group" aria-label="I'm a…">
-    <span class="persona-prompt">I'm a…</span>
-    <button type="button" class="chip" data-persona="student">Student</button><button type="button" class="chip" data-persona="gig">Gig worker</button><button type="button" class="chip" data-persona="founder">Founder / small business</button><button type="button" class="chip" data-persona="salaried">Salaried</button>
+  <div class="strip reveal" role="group" aria-label="I'm a…">
+    <span class="label">Reading as</span>
     <button type="button" class="chip" data-persona="">Everyone</button>
+    <button type="button" class="chip" data-persona="student">Student</button><button type="button" class="chip" data-persona="gig">Gig worker</button><button type="button" class="chip" data-persona="founder">Founder / small business</button><button type="button" class="chip" data-persona="salaried">Salaried</button>
   </div>
   
+  <div class="since reveal" id="since" hidden>
+    <p class="kicker"></p>
+    <ul></ul>
+    <p class="hint"></p>
+  </div>
+</div>
 
-  <div class="block respond-block">
-    <h3>🗣 You can still respond</h3>
-    
-    <ul class="evidence">
+
+<section class="chapter chapter-act" id="respond">
+  <div class="wrap">
+    <div class="chapter-head reveal">
+      <span class="chapter-num">01</span>
+      <div><h2>You can still respond</h2><p class="lede">Drafts the government has published for public comment. Anyone can send feedback before the deadline — this is the window where citizen input gets read.</p></div>
+    </div>
+    <div class="respond">
       
-  <li class="item">
+  <article class="card rcard reveal ">
+    
+  
+    <div class="due soon">
+      <b class="num">1</b>
+      <small>day left</small>
+      <small class="muted">28 Sep 2026</small>
+    </div>
+  
+
+    <div>
+      
+  <div class="labels">
     <span class="tag action-other">Parliament</span>
     
-  
-    <span class="tag due due-soon" >
-      1 day left · 28 Sep 2026
-    </span>
-  
+  </div>
 
-    
-  
-  
-    <strong class="hook">Parliament&#39;s finance committee wants your views on the new ISI Bill — closes 28 September.</strong>
-    <span class="prs-title">The Indian Statistical Institute Bill, 2026</span>
-  
-
-    
-    
-    
-  
-  <dl class="for-you">
-    <dt>For you →</dt>
-    
-    <dd data-persona="student"><b>Student:</b> Statistics, maths and data-science students: this Bill rewrites how the Indian Statistical Institute is governed and what degrees it grants.</dd>
-    
-    <dd data-persona="founder"><b>Founder / small business:</b> Data and AI companies that hire from ISI: governance and autonomy of the institute are on the table.</dd>
-    
-  </dl>
-  
-
-    <small class="related">Related: Bill introduced to replace Indian Statistical Institute Act, 1959 (Aug 2026)</small>
-    <small>
-    
-      <a href="https://prsindia.org/announcements">PRS Announcements</a>
-       · <a href="https://prsindia.org/files/parliamentry-announcement/2026-09-28/Press release for ISI Bill, 2026.pdf">read the draft</a>
+      <h3>Parliament&#39;s finance committee wants your views on the new ISI Bill — closes 28 September.</h3>
+      <span class="prs">The Indian Statistical Institute Bill, 2026</span>
       
-    
-    </small>
-    
+      
+      
+  
+  <ul class="fy-list" >
+    <li data-persona="student"><b>Student</b><span>Statistics, maths and data-science students: this Bill rewrites how the Indian Statistical Institute is governed and what degrees it grants.</span></li><li data-persona="founder"><b>Founder / small business</b><span>Data and AI companies that hire from ISI: governance and autonomy of the institute are on the table.</span></li>
+  </ul>
+  
+
+      <p class="links">
+        <a href="https://prsindia.org/announcements">PRS Announcements</a> · <a href="https://prsindia.org/files/parliamentry-announcement/2026-09-28/Press release for ISI Bill, 2026.pdf">read the draft</a>
+        
+      </p>
+      
   
   
 
-    
-  <details class="respond">
+      
+  <details class="acc">
     <summary>How to respond</summary>
-    <div class="respond-body">
-      <p><strong>Comments normally go to Parliamentary Standing Committee on Finance</strong></p>
+    <div class="acc-body respond-body">
       
+      <p><strong>Comments normally go to Parliamentary Standing Committee on Finance</strong></p>
       <p><b>Email:</b> <a href="mailto:comfinance@lss.sansad.in?subject=Comments%20on%20the%20draft%20The%20Indian%20Statistical%20Institute%20Bill%2C%202026">comfinance@lss.sansad.in</a></p>
-      <blockquote class="excerpt">“14th September, 2026 Parliamentary Standing Committee on Finance headed by Shri Bhartruhari Mahtab, MP have decided to invite views/suggestions on the Indian Statistical Institute Bill, 2026 from associations/ organizations/stakeholders/experts. Copy of the Bill can be accessed at https://sansad.in/ls → Committees...”</blockquote>
+      <blockquote class="excerpt">“14th September, 2026 Parliamentary Standing Committee on Finance headed by Shri Bhartruhari Mahtab, MP have decided to invite views/suggestions on the Indian Statistical Institute Bill, 2026 from associations/ organizations/stakeholders/experts. Copy of the Bill can be accessed at...”</blockquote>
       <p>Ministry drafts usually ask for comments by email to an address in the notice, sometimes via MyGov. </p>
       
       <pre class="tpl">Subject: Comments on the draft The Indian Statistical Institute Bill, 2026
@@ -135,582 +143,707 @@ I am writing as a [student / gig worker / small business owner / salaried taxpay
 3. What I suggest instead: …
 
 Name · City · Contact</pre>
-      <button type="button" class="copy" data-copied="Copied" onclick="navigator.clipboard&&navigator.clipboard.writeText(this.previousElementSibling.innerText).then(()=>{this.textContent=this.dataset.copied})">Copy a template</button>
+      <button type="button" class="copy" data-copied="Copied">Copy a template</button>
     </div>
   </details>
 
-  </li>
+    </div>
+  </article>
 
-    </ul>
+      
+    </div>
     
-    
-    <details class="closed">
+    <details class="acc reveal">
       <summary>Recently closed (6)</summary>
-      <ul class="evidence muted-list">
-        
-        <li>
-          
+      <div class="acc-body"><div class="respond">
+  <article class="card rcard reveal closed">
+    
   
-    <span class="tag due-closed">Closed 25 Sep 2026</span>
-  
-
-          <strong>Foreign funding rules for NGOs are being tightened again — a joint committee took suggestions till 25 September.</strong>
-          <small>Parliament · <a href="https://prsindia.org/announcements">PRS, Mar 2026</a></small>
-        </li>
-        
-        <li>
-          
-  
-    <span class="tag due-closed">Closed 4 Sep 2026</span>
+    <div class="due"><b>—</b><small>Closed</small><small class="muted">25 Sep 2026</small></div>
   
 
-          <strong>India is writing the rulebook for private nuclear power. You had until 4 September to weigh in.</strong>
-          <small>Energy · <a href="https://prsindia.org/policy/monthly-policy-review/august-2026">PRS, Aug 2026</a></small>
-        </li>
-        
-        <li>
-          
-  
-    <span class="tag due-closed">Closed 7 Aug 2026</span>
-  
-
-          <strong>The rules for opening new medical colleges are being tweaked.</strong>
-          <small>Health and Family Welfare · <a href="https://prsindia.org/policy/monthly-policy-review/july-2026">PRS, Jul 2026</a></small>
-        </li>
-        
-        <li>
-          
-  
-    <span class="tag due-closed">Closed 31 Jul 2026</span>
-  
-
-          <strong>The law governing lawyers is being amended — and you can comment.</strong>
-          <small>Law and Justice · <a href="https://prsindia.org/policy/monthly-policy-review/july-2026">PRS, Jul 2026</a></small>
-        </li>
-        
-        <li>
-          
-  
-    <span class="tag due-closed">Closed 31 Jul 2026</span>
-  
-
-          <strong>A new regulator for pharmacy education and practice is on the drawing board.</strong>
-          <small>Health and Family Welfare · <a href="https://prsindia.org/policy/monthly-policy-review/july-2026">PRS, Jul 2026</a></small>
-        </li>
-        
-        <li>
-          
-  
-    <span class="tag due-closed">Closed 13 Jul 2026</span>
-  
-
-          <strong>The Draft National Food Security (Amendment) Bill, 2026</strong>
-          <small>Parliament · <a href="https://prsindia.org/announcements">PRS, Sep 2026</a></small>
-        </li>
-        
-      </ul>
-    </details>
+    <div>
+      
+  <div class="labels">
+    <span class="tag action-other">Parliament</span>
     
   </div>
 
-  <div class="block moving-block">
-    <h3>🔥 Three signals worth watching</h3>
-    <ol class="signals">
+      <h3>Foreign funding rules for NGOs are being tightened again — a joint committee took suggestions till 25 September.</h3>
+      <span class="prs">The Foreign Contribution (Regulation) Amendment Bill, 2026</span>
       
-      <li class="signal" style="--accent: #4f46e5" data-slug="criminal-law-and-justice">
-        <div class="signal-head">
-          <span class="rank">1</span>
-          <div class="signal-title">
-            <a href="topic/criminal-law-and-justice.html"><strong>Criminal law &amp; justice</strong></a>
-            <span class="pill status-heating" title="Recent activity is at least 50% above the prior six-month average.">Heating up</span>
-          </div>
+      
+      
+  
+  <ul class="fy-list" >
+    <li data-persona="student"><b>Student</b><span>If you volunteer or intern with an NGO that gets foreign grants, its funding rules may change.</span></li><li data-persona="founder"><b>Founder / small business</b><span>Non-profit founders and social enterprises: FCRA compliance is about to get stricter.</span></li>
+  </ul>
+  
+
+      <p class="links">
+        <a href="https://prsindia.org/announcements">PRS Announcements</a> · <a href="https://prsindia.org/files/parliamentry-announcement/2026-09-25/FCRA_press release.pdf">read the draft</a>
+        
+      </p>
+      
+  
+  
+
+      
+    </div>
+  </article>
+
+  <article class="card rcard reveal closed">
+    
+  
+    <div class="due"><b>—</b><small>Closed</small><small class="muted">4 Sep 2026</small></div>
+  
+
+    <div>
+      
+  <div class="labels">
+    <span class="tag action-other">Energy</span>
+    
+  </div>
+
+      <h3>India is writing the rulebook for private nuclear power. You had until 4 September to weigh in.</h3>
+      <span class="prs">Draft SHANTI Rules and Draft SHANTI Regulations</span>
+      
+      <p class="summary">The Department of Atomic Energy released the draft Sustainable Harnessing and Advancement of Nuclear Energy for Transforming India (SHANTI) Rules, 2026 and draft SHANTI Regulations, 2026.</p>
+      
+  
+  <ul class="fy-list" >
+    <li data-persona="student"><b>Student</b><span>Relevant if you study energy, engineering or law — this is a whole new regulatory field opening up.</span></li><li data-persona="founder"><b>Founder / small business</b><span>Energy and deep-tech founders: liability and licensing rules here decide who can play.</span></li>
+  </ul>
+  
+
+      <p class="links">
+        <a href="https://prsindia.org/policy/monthly-policy-review/august-2026">PRS Announcements</a> · <a href="https://dae.gov.in/public-consultation-on-draft-shanti-rules-and-draft-shanti-regulations/">read the draft</a>
+        
+      </p>
+      
+  
+  
+
+      
+    </div>
+  </article>
+
+  <article class="card rcard reveal closed">
+    
+  
+    <div class="due"><b>—</b><small>Closed</small><small class="muted">7 Aug 2026</small></div>
+  
+
+    <div>
+      
+  <div class="labels">
+    <span class="tag action-other">Health and Family Welfare</span>
+    <span class="tag action-consultation" title="Independently confirmed">✓ Independently confirmed</span>
+  </div>
+
+      <h3>The rules for opening new medical colleges are being tweaked.</h3>
+      <span class="prs">Draft amendments to Establishment of New Medical Institution Regulations, 2023 released</span>
+      
+      <p class="summary">The National Medical Commission (NMC) released the draft Establishment of New Medical Institutions Assessment and Rating (Amendment) Regulations, 2026.</p>
+      
+  
+  <ul class="fy-list" >
+    <li data-persona="student"><b>Student</b><span>Affects how many MBBS seats appear and how colleges are rated — indirectly, your NEET odds.</span></li><li data-persona="founder"><b>Founder / small business</b><span>Healthcare education founders: assessment and rating norms change.</span></li>
+  </ul>
+  
+
+      <p class="links">
+        <a href="https://prsindia.org/policy/monthly-policy-review/july-2026">PRS, Jul 2026</a>
+      </p>
+      
+  
+  <small class="corr">Also reported by: <a href="https://news.google.com/rss/articles/CBMixwFBVV95cUxPUVZuc2xHdmRKN0ZBQjdET2hLNjRrc1NoLXZ4LTRxNjFtb3FwUDh5UkFXZWRfcEE2dUtMRHMzNzVqN085Ti1IVUdMeTk2YUJLZjMyVTNCN0FnN1o3bk1hNE9uaE1tTWtwdUozMGE2bWpZZGdVZWtRVnc0VnlvSzIzNFBKLTZpN05HY3NBbEFUanVSWFE2czZuSFZGMXRQN2p4ZGY4aEpmUVY5TXEzSjNlTW1aT0hwOHFQbUstdE5PdHlOZk9DVWl30gHMAUFVX3lxTE9MMVVrcFF2d2ZqUkxDWE1jOWxyR1VPeHJ5ZDNId2VjWWxudTdtbFJFYVBreVU4N1JCaHBUdVRGWHEycV9uRlpINGoxSV92Nmx4MTlwb0RqUlFvY2xScUdCRHltSGdqVGd1NEJXUjE5ak10czdpVHRIZTkwT3ZNbEFqVmtJUmZFSG1UeXFUQlBhcGFSZndwbmdURHFxZ3VTbmxoVktyUlVqTGdxd05oTVI0aGJuRnNTRi16akw0QVpNbzF2S0VjM3NjUzIwSg?oc=5" title="The AIIMS Delhi exodus: Why top faculty &amp; HODs are leaving India’s most prestigious medical institution">ThePrint</a></small>
+
+      
+    </div>
+  </article>
+
+  <article class="card rcard reveal closed">
+    
+  
+    <div class="due"><b>—</b><small>Closed</small><small class="muted">31 Jul 2026</small></div>
+  
+
+    <div>
+      
+  <div class="labels">
+    <span class="tag" style="--accent: #4f46e5">Criminal law &amp; justice</span>
+    
+  </div>
+
+      <h3>The law governing lawyers is being amended — and you can comment.</h3>
+      <span class="prs">Draft Advocates (Amendment) Bill, 2026</span>
+      
+      <p class="summary">The Ministry of Law and Justice released the draft Advocates (Amendment) Bill, 2026. It amends the Advocates Act, 1961.</p>
+      
+  
+  <ul class="fy-list" style="--accent: #4f46e5">
+    <li data-persona="student"><b>Student</b><span>Law students and juniors: enrolment, discipline and practice rules may change; read the draft.</span></li><li data-persona="salaried"><b>Salaried</b><span>Affects how complaints against lawyers are handled.</span></li>
+  </ul>
+  
+
+      <p class="links">
+        <a href="https://prsindia.org/policy/monthly-policy-review/july-2026">PRS Announcements</a> · <a href="https://prsindia.org/files/parliamentry-announcement/2026-07-31/Draft_Advocate_(A)_Bill_2026.pdf">read the draft</a> · <a href="https://www.barcouncilofindia.org/info/req-for-su-ch2hbe">official notice ↗</a>
+        
+      </p>
+      
+  
+  
+
+      
+    </div>
+  </article>
+
+  <article class="card rcard reveal closed">
+    
+  
+    <div class="due"><b>—</b><small>Closed</small><small class="muted">31 Jul 2026</small></div>
+  
+
+    <div>
+      
+  <div class="labels">
+    <span class="tag action-other">Health and Family Welfare</span>
+    <span class="tag action-consultation" title="Independently confirmed">✓ Independently confirmed</span>
+  </div>
+
+      <h3>A new regulator for pharmacy education and practice is on the drawing board.</h3>
+      <span class="prs">The Draft National Pharmacy Commission Bill, 2026</span>
+      
+      <p class="summary">The Ministry of Health and Family Welfare released a draft of the National Pharmacy Commission Bill, 2026.</p>
+      
+  
+  <ul class="fy-list" >
+    <li data-persona="student"><b>Student</b><span>Pharmacy students: the body that will license you is being redesigned — comment while you can.</span></li><li data-persona="founder"><b>Founder / small business</b><span>Pharmacy chains and colleges: the regulatory structure changes.</span></li>
+  </ul>
+  
+
+      <p class="links">
+        <a href="https://prsindia.org/policy/monthly-policy-review/july-2026">PRS Announcements</a> · <a href="https://prsindia.org/files/parliamentry-announcement/2026-07-31/Draft_National_Pharmacy_Commission_(NPC)_Bill_2026.pdf">read the draft</a> · <a href="https://www.mohfw-dohfw.gov.in/static/uploads/2026/07/e09761311aa45a6e996226aa33b2d87f.pdf">official notice ↗</a>
+        
+      </p>
+      
+  
+  <small class="corr">Also reported by: <a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxOTU5SMnQ3c3hjTXNLc1NjQm14LWtXejVMazBBTDRJM0tEY1RXWkpZRUlFMHFwMEZfUnFlbG5zM0lvN3ZVSDNOSFpLQnJ4bHVvNmtSSTM3aHUtd3owckxCcU1nYkV0ZUhEWVRVSVZJV281UjdYQlZTbWNQakpjLTV4S0JTdm1kQ0tCU09seWpDRjF1MTVxV3NaTTFZUFgyaUxCTWtFMjMxdGMtUXlHU0w4eUJpekVqNHJKZlhDLWdBbXhyTDREbF9JT1pxd2NVZw?oc=5" title="Draft National Pharmacy Commission Bill proposes sweeping overhaul of pharmacy education and regulation">Express Pharma</a>, <a href="https://news.google.com/rss/articles/CBMi8gFBVV95cUxPSGl4VWhwX1phS1hkM21sR0pXN0E1N0E1X3J1dHJPMmhQR2F1V2lqUkwzTjlzNzJiaTVET2sxd1RKZlpYNERCMWZyMG9uMERoLVVTNUxUQ210TWFRc1RCOEZsT2pjRGhtYV9STzI4a2dINmZMTE9fdTZGczZlSVpVSnBtNG9ZMjFocnpia0c3bDllZEZaMU96T0dKU01pVExOT0l5dUw4V1RRZ3owNXAxcVBITVd5OTQ0SXNUZGI2OU5xaVhMQ2NHVHhPZkYzVWVOOVFTSldMcFZmbFhnYlNsczd6QmZiU2RLc0ZiUzlkNmxyQdIB9wFBVV95cUxOVDJ1SzJPbzhSaDRibGtUQzJXelRZWHVLWTJqQ1JtTERUM3BwaXBkWDNzTFl2R01TVS1oTVhUX2c0Ul8xZHBnX2hMaEJsVDZOdk1xbEN0dmxOZ2NhOEFDNzZKTk5hWFVMRWVacExJV1g1WTVRMmVkWFkyaE5WX3p5RVVncWNDNURRUm9hczNVR25YN0NTRTNSMmhkNHlFRnozSEVuZjJvNXcwRzlFWWExTm1KXzE4X29FeFNjMkt4VkY3LUNwYmFnTGtvel9wcnZ1NFlsRDVLeVRESXd5VmZuVGt5MXVvR1NOTVRhRG91TS1qWnQweEpB?oc=5" title="Explainer: Why govt plans to repeal Pharmacy Act 1948, and replace it with National Pharmacy Commission Bill">Mint</a></small>
+
+      
+    </div>
+  </article>
+
+  <article class="card rcard reveal closed">
+    
+  
+    <div class="due"><b>—</b><small>Closed</small><small class="muted">13 Jul 2026</small></div>
+  
+
+    <div>
+      
+  <div class="labels">
+    <span class="tag action-other">Parliament</span>
+    
+  </div>
+
+      <h3>The Draft National Food Security (Amendment) Bill, 2026</h3>
+      
+      
+      
+      
+  
+
+      <p class="links">
+        <a href="https://prsindia.org/announcements">PRS Announcements</a> · <a href="https://prsindia.org/files/parliamentry-announcement/2026-07-13/National_Food_Security_(Amendment)_Bill_2026.pdf">read the draft</a> · <a href="https://dfpd.gov.in/WriteReadData/Notices/87b4c79f-0200-4a16-b6c4-1b841d8cb1bb_Inviting%20comments%20on%20NFS%20(Amendment)%20Bill,%202026.pdf">official notice ↗</a>
+        
+      </p>
+      
+  
+  
+
+      
+    </div>
+  </article>
+</div></div>
+    </details>
+    
+  </div>
+</section>
+
+
+<section class="chapter" id="moving">
+  <div class="wrap">
+    <div class="chapter-head reveal">
+      <span class="chapter-num">02</span>
+      <div><h2>Three signals worth watching</h2><p class="lede">The topics where formal government action picked up most in the last 3 months against the 6 before. Every number links to the documents behind it.</p></div>
+    </div>
+    <div class="signals">
+      
+      <article class="card sig reveal" style="--accent: #4f46e5" data-slug="criminal-law-and-justice">
+        <div class="sig-head">
+          <span class="sig-num">01</span>
+          <h3><a href="topic/criminal-law-and-justice.html">Criminal law &amp; justice</a></h3>
+          <span class="pill heating" title="Recent activity is at least 50% above the prior six-month average.">Heating up</span>
           
   <button type="button" class="follow" data-slug="criminal-law-and-justice" data-follow="☆ Follow" data-following="★ Following" aria-pressed="false">☆ Follow</button>
 
         </div>
-        <div class="signal-metrics">
-          <span><b class="up">+94%</b> <small>vs prior 6 mo</small></span>
-          <span><b>10</b> <small>actions in 17 months</small></span>
-          <span><b>2</b> <small>ministries recently</small></span>
-          <span class="conf conf-medium">Medium confidence</span>
-        </div>
-        <div class="signal-why">
-          <p class="label">Why it's moving</p>
+        <div class="sig-hero">
+          
+  <span class="big num up" data-count="94" data-prefix="+" data-suffix="%">+94%</span>
+  
+
+          <p class="sub">vs prior 6 mo · <b>3</b> recent actions · <span class="conf conf-medium">Medium confidence</span></p>
           
   
   
   
+  <svg viewBox="0 0 180 44" width="180" height="44" class="spark" aria-hidden="true">
+    <polyline points="0.0,41.0 11.2,41.0 22.5,41.0 33.8,41.0 45.0,4.8 56.2,41.0 67.5,41.0 78.8,41.0 90.0,41.0 101.2,41.0 112.5,41.0 123.8,10.6 135.0,41.0 146.2,32.2 157.5,41.0 168.8,3.0 180.0,41.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </div>
+        
   
-  <p class="why-count"><b>3 formal actions in Jul 2026</b>
-     · Education, Law and Justice</p>
   
+  <p class="interp"><b>Signal interpretation.</b> Activity rose because 2 different ministries or bodies (Education, Law and Justice) acted on separate parts of this topic within 2026-07.</p>
   
   <ol class="causal">
     
     <li class="action-introduced">
       <span class="when">~19 Jul</span>
       <span class="tag action-introduced" title="A Bill was tabled in Parliament. It can still change, be sent to a committee, or lapse.">Bill introduced</span>
-      <span class="what">Parliament wants more Supreme Court judges. Would that speed up your case? <span class="corr-check" title="Independently confirmed">✓</span></span>
+      <span class="what"><a href="https://prsindia.org/files/bills_acts/bills_parliament/2026/Bill_Summary_Supreme_Court_(Number_of_Judges)_A_Bill_2026.pdf">Parliament wants more Supreme Court judges. Would that speed up your case?</a> <span class="check" title="Independently confirmed">✓</span></span>
     </li>
     
     <li class="action-enacted">
       <span class="when">~28 Jul</span>
       <span class="tag action-enacted" title="Parliament passed it (or it got the President&#39;s assent). It is now law, though it may take effect later.">Law passed</span>
-      <span class="what">Paper leaks just became a much bigger crime. <span class="corr-check" title="Independently confirmed">✓</span></span>
+      <span class="what"><a href="https://prsindia.org/policy/monthly-policy-review/july-2026">Paper leaks just became a much bigger crime.</a> <span class="check" title="Independently confirmed">✓</span></span>
     </li>
     
     <li class="action-consultation">
       <span class="when">Jul 2026</span>
       <span class="tag action-consultation" title="A draft was published for public comment. Anyone can respond before the deadline.">Open for comment</span>
-      <span class="what">The law governing lawyers is being amended — and you can comment.</span>
+      <span class="what"><a href="https://prsindia.org/policy/monthly-policy-review/july-2026">The law governing lawyers is being amended — and you can comment.</a></span>
     </li>
     
   </ol>
   
-  <p class="interp"><b>Signal interpretation:</b> Activity rose because 2 different ministries or bodies (Education, Law and Justice) acted on separate parts of this topic within 2026-07.</p>
 
-        </div>
-        <ul class="why">
-          
-          <li class="action-enacted"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/policy/monthly-policy-review/july-2026">Paper leaks just became a much bigger crime.</a> <span class="corr-check" title="Independently confirmed">✓</span>
-              <span class="fy" data-persona="student"><b>Student:</b> Tougher penalties and faster probes for cheating in NEET, UPSC and other public exams — protects honest candidates.</span><span class="fy" data-persona="founder"><b>Founder / small business:</b> Coaching and exam-services businesses face new liability.</span>
-            </span></li>
-          
-          <li class="action-introduced"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/files/bills_acts/bills_parliament/2026/Bill_Summary_Supreme_Court_(Number_of_Judges)_A_Bill_2026.pdf">Parliament wants more Supreme Court judges. Would that speed up your case?</a> <span class="corr-check" title="Independently confirmed">✓</span>
-              <span class="fy" data-persona="student"><b>Student:</b> Law students: this is the ordinance-to-Bill route in action.</span><span class="fy" data-persona="salaried"><b>Salaried:</b> More judges means marginally faster disposal at the top court — a slow-burn fix for pendency.</span>
-            </span></li>
-          
-          <li class="action-consultation"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/policy/monthly-policy-review/july-2026">The law governing lawyers is being amended — and you can comment.</a>
-              <span class="fy" data-persona="student"><b>Student:</b> Law students and juniors: enrolment, discipline and practice rules may change; read the draft.</span><span class="fy" data-persona="salaried"><b>Salaried:</b> Affects how complaints against lawyers are handled.</span>
-            </span></li>
-          
-        </ul>
         
+        <details class="acc"><summary>For you</summary><div class="acc-body">
+  
+  
+  
+  <ul class="fy-list" style="--accent: #4f46e5">
+    <li data-persona="student"><b>Student</b><span>Tougher penalties and faster probes for cheating in NEET, UPSC and other public exams — protects honest candidates.</span></li><li data-persona="founder"><b>Founder / small business</b><span>Coaching and exam-services businesses face new liability.</span></li><li data-persona="student"><b>Student</b><span>Law students: this is the ordinance-to-Bill route in action.</span></li><li data-persona="salaried"><b>Salaried</b><span>More judges means marginally faster disposal at the top court — a slow-burn fix for pendency.</span></li><li data-persona="student"><b>Student</b><span>Law students and juniors: enrolment, discipline and practice rules may change; read the draft.</span></li><li data-persona="salaried"><b>Salaried</b><span>Affects how complaints against lawyers are handled.</span></li>
+  </ul>
+  <p class="fy-empty">Nothing specific for this persona in the recent actions.</p>
+  
+</div></details>
+        
+        
+        
+        <details class="acc"><summary>In the states <span class="count">· 50 Bills</span></summary>
+          <div class="acc-body">
   
   
     
     
-    <p class="states-line">🏛 States: 24 Bills in 2026 (Maharashtra, Andhra Pradesh, Bihar +13)
+    <p class="states-line">🏛 <span>States: 24 Bills in 2026 (Maharashtra, Andhra Pradesh, Bihar +13)</span>
     <a href="states.html#criminal-law-and-justice">→</a></p>
   
 
-        <p class="connections"><span class="label">Also touches:</span> <a href="topic/education-and-exams.html" class="tag" style="--accent: #d97706">Education &amp; exam integrity</a></p>
-        <a class="explore" href="topic/criminal-law-and-justice.html">Explore signal →</a>
-      </li>
+            <ul class="blist"><li><span class="tag state-chip">Andhra Pradesh</span><span class="t">The Andhra Pradesh Prisons and Correctional Services Bill, 2026</span></li><li><span class="tag state-chip">Andhra Pradesh</span><span class="t">The Andhra Pradesh Jan Vishwas (Amendment of Provisions) Bill, 2026</span></li><li><span class="tag state-chip">Arunachal Pradesh</span><span class="t">The Arunachal Pradesh Jan Vishwas (Amendment of Provisions) Bill, 2026</span></li><li><span class="tag state-chip">Assam</span><span class="t">The Assam Jan Vishwas (Amendment of Provisions) Bill, 2026</span></li></ul>
+          </div></details>
+        
+        <p class="connections">Also touches: <a href="topic/education-and-exams.html" class="tag" style="--accent: #d97706">Education &amp; exam integrity</a></p>
+        <a class="more" href="topic/criminal-law-and-justice.html">Explore signal →</a>
+      </article>
       
-      <li class="signal" style="--accent: #dc2626" data-slug="personal-finance-and-tax">
-        <div class="signal-head">
-          <span class="rank">2</span>
-          <div class="signal-title">
-            <a href="topic/personal-finance-and-tax.html"><strong>Personal finance &amp; taxes</strong></a>
-            <span class="pill status-steady" title="Recent activity is roughly in line with the prior six months.">Steady</span>
-          </div>
+      <article class="card sig reveal" style="--accent: #dc2626" data-slug="personal-finance-and-tax">
+        <div class="sig-head">
+          <span class="sig-num">02</span>
+          <h3><a href="topic/personal-finance-and-tax.html">Personal finance &amp; taxes</a></h3>
+          <span class="pill steady" title="Recent activity is roughly in line with the prior six months.">Steady</span>
           
   <button type="button" class="follow" data-slug="personal-finance-and-tax" data-follow="☆ Follow" data-following="★ Following" aria-pressed="false">☆ Follow</button>
 
         </div>
-        <div class="signal-metrics">
-          <span><b class="up">+37%</b> <small>vs prior 6 mo</small></span>
-          <span><b>40</b> <small>actions in 17 months</small></span>
-          <span><b>2</b> <small>ministries recently</small></span>
-          <span class="conf conf-high">High confidence</span>
-        </div>
-        <div class="signal-why">
-          <p class="label">Why it's moving</p>
+        <div class="sig-hero">
+          
+  <span class="big num up" data-count="37" data-prefix="+" data-suffix="%">+37%</span>
+  
+
+          <p class="sub">vs prior 6 mo · <b>8</b> recent actions · <span class="conf conf-high">High confidence</span></p>
           
   
   
   
+  <svg viewBox="0 0 180 44" width="180" height="44" class="spark" aria-hidden="true">
+    <polyline points="0.0,37.6 11.2,34.3 22.5,34.3 33.8,23.5 45.0,3.0 56.2,37.0 67.5,19.1 78.8,37.0 90.0,20.8 101.2,34.9 112.5,34.3 123.8,30.9 135.0,32.6 146.2,32.6 157.5,30.9 168.8,23.5 180.0,27.5 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </div>
+        
   
-  <p class="why-count"><b>8 formal actions in Jun 2026 & Jul 2026 & Aug 2026</b>
-     · Finance, Macroeconomic Development</p>
   
+  <p class="interp"><b>Signal interpretation.</b> Activity continued at roughly the prior pace — 8 actions in the last 3 months, in line with the 6-month baseline.</p>
   
   <ol class="causal">
     
     <li class="action-other">
       <span class="when">~5 Jun</span>
       <span class="tag action-other" title="A statement, report or development that doesn&#39;t fit the categories above.">Update</span>
-      <span class="what">Repo rate stays at 5.25% — no change to your loan costs. <span class="corr-check" title="Independently confirmed">✓</span></span>
+      <span class="what"><a href="https://prsindia.org/policy/monthly-policy-review/june-2026">Repo rate stays at 5.25% — no change to your loan costs.</a> <span class="check" title="Independently confirmed">✓</span></span>
     </li>
     
     <li class="action-other">
       <span class="when">~18 Jun</span>
       <span class="tag action-other" title="A statement, report or development that doesn&#39;t fit the categories above.">Update</span>
-      <span class="what">SEBI is reviewing margin trading — borrowing to buy stocks. <span class="corr-check" title="Independently confirmed">✓</span></span>
+      <span class="what"><a href="https://prsindia.org/policy/monthly-policy-review/june-2026">SEBI is reviewing margin trading — borrowing to buy stocks.</a> <span class="check" title="Independently confirmed">✓</span></span>
     </li>
     
     <li class="action-other">
       <span class="when">Jun 2026</span>
       <span class="tag action-other" title="A statement, report or development that doesn&#39;t fit the categories above.">Update</span>
-      <span class="what">RBI tightens how banks are allowed to sell you products.</span>
+      <span class="what"><a href="https://prsindia.org/policy/monthly-policy-review/june-2026">RBI tightens how banks are allowed to sell you products.</a></span>
     </li>
     
     <li class="action-rules">
       <span class="when">~23 Jul</span>
       <span class="tag action-rules" title="The government issued binding rules, regulations or a notification under an existing law. No vote needed.">Rules notified</span>
-      <span class="what">SEBI wants to rewrite the rules for people who manage rich clients&#39; money. <span class="corr-check" title="Independently confirmed">✓</span></span>
+      <span class="what"><a href="https://prsindia.org/policy/monthly-policy-review/july-2026">SEBI wants to rewrite the rules for people who manage rich clients&#39; money.</a> <span class="check" title="Independently confirmed">✓</span></span>
     </li>
     
   </ol>
   
-  <p class="interp"><b>Signal interpretation:</b> Activity continued at roughly the prior pace — 8 actions in the last 3 months, in line with the 6-month baseline.</p>
 
-        </div>
-        <ul class="why">
-          
-          <li class="action-enacted"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/files/bills_acts/bills_parliament/2026/Summary_Taxation_Bill_2026.pdf">A tax-law amendment just passed. Which of your deductions or deadlines changed?</a> <span class="corr-check" title="Independently confirmed">✓</span>
-              <span class="fy" data-persona="gig"><b>Gig worker:</b> If you file as a freelancer, look for changes to presumptive taxation or TDS on payouts.</span><span class="fy" data-persona="founder"><b>Founder / small business:</b> Amendments to tax procedure usually mean new compliance dates — check with your CA.</span><span class="fy" data-persona="salaried"><b>Salaried:</b> Check whether any filing timelines, TDS provisions or deductions you use were touched.</span>
-            </span></li>
-          
-          <li class="action-rules"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/policy/monthly-policy-review/july-2026">The 2025 insurance overhaul is now live in the fine print.</a>
-              <span class="fy" data-persona="founder"><b>Founder / small business:</b> Insurtech founders: entry, capital and shareholding rules just got detailed.</span><span class="fy" data-persona="salaried"><b>Salaried:</b> New regulations on who can own insurers and how they merge — long-run effect on choice and pricing.</span>
-            </span></li>
-          
-          <li class="action-rules"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/policy/monthly-policy-review/july-2026">SEBI wants to rewrite the rules for people who manage rich clients&#39; money.</a> <span class="corr-check" title="Independently confirmed">✓</span>
-              <span class="fy" data-persona="founder"><b>Founder / small business:</b> Fintechs building PMS products: read the consultation paper.</span><span class="fy" data-persona="salaried"><b>Salaried:</b> Only matters if you use a portfolio manager (₹50 lakh+ minimum); mutual fund investors unaffected.</span>
-            </span></li>
-          
-        </ul>
         
+        <details class="acc"><summary>For you</summary><div class="acc-body">
+  
+  
+  
+  <ul class="fy-list" style="--accent: #dc2626">
+    <li data-persona="gig"><b>Gig worker</b><span>If you file as a freelancer, look for changes to presumptive taxation or TDS on payouts.</span></li><li data-persona="founder"><b>Founder / small business</b><span>Amendments to tax procedure usually mean new compliance dates — check with your CA.</span></li><li data-persona="salaried"><b>Salaried</b><span>Check whether any filing timelines, TDS provisions or deductions you use were touched.</span></li><li data-persona="founder"><b>Founder / small business</b><span>Insurtech founders: entry, capital and shareholding rules just got detailed.</span></li><li data-persona="salaried"><b>Salaried</b><span>New regulations on who can own insurers and how they merge — long-run effect on choice and pricing.</span></li><li data-persona="founder"><b>Founder / small business</b><span>Fintechs building PMS products: read the consultation paper.</span></li><li data-persona="salaried"><b>Salaried</b><span>Only matters if you use a portfolio manager (₹50 lakh+ minimum); mutual fund investors unaffected.</span></li>
+  </ul>
+  <p class="fy-empty">Nothing specific for this persona in the recent actions.</p>
+  
+</div></details>
+        
+        
+        
+        <details class="acc"><summary>In the states <span class="count">· 81 Bills</span></summary>
+          <div class="acc-body">
   
   
     
     
-    <p class="states-line">🏛 States: 32 Bills in 2026 (Nagaland, West Bengal, Arunachal Pradesh +19)
+    <p class="states-line">🏛 <span>States: 32 Bills in 2026 (Nagaland, West Bengal, Arunachal Pradesh +19)</span>
     <a href="states.html#personal-finance-and-tax">→</a></p>
   
 
+            <ul class="blist"><li><span class="tag state-chip">Andhra Pradesh</span><span class="t">The Andhra Pradesh Payment of Salaries and Pension and Removal of Disqualifications (Amendment) Bill, 2026</span></li><li><span class="tag state-chip">Arunachal Pradesh</span><span class="t">The Arunachal Pradesh Salary, Allowances and Pension of Members of (Amendment) Bill, 2026</span></li><li><span class="tag state-chip">Arunachal Pradesh</span><span class="t">The Arunachal Pradesh Goods and Services Tax (Amendment) Bill, 2026</span></li><li><span class="tag state-chip">Assam</span><span class="t">The Assam Goods and Services Tax (Amendment) Bill, 2026</span></li></ul>
+          </div></details>
         
-        <a class="explore" href="topic/personal-finance-and-tax.html">Explore signal →</a>
-      </li>
+        
+        <a class="more" href="topic/personal-finance-and-tax.html">Explore signal →</a>
+      </article>
       
-      <li class="signal" style="--accent: #059669" data-slug="jobs-and-employment">
-        <div class="signal-head">
-          <span class="rank">3</span>
-          <div class="signal-title">
-            <a href="topic/jobs-and-employment.html"><strong>Jobs &amp; employment</strong></a>
-            <span class="pill status-steady" title="Recent activity is roughly in line with the prior six months.">Steady</span>
-          </div>
+      <article class="card sig reveal" style="--accent: #059669" data-slug="jobs-and-employment">
+        <div class="sig-head">
+          <span class="sig-num">03</span>
+          <h3><a href="topic/jobs-and-employment.html">Jobs &amp; employment</a></h3>
+          <span class="pill steady" title="Recent activity is roughly in line with the prior six months.">Steady</span>
           
   <button type="button" class="follow" data-slug="jobs-and-employment" data-follow="☆ Follow" data-following="★ Following" aria-pressed="false">☆ Follow</button>
 
         </div>
-        <div class="signal-metrics">
-          <span><b class="up">+17%</b> <small>vs prior 6 mo</small></span>
-          <span><b>12</b> <small>actions in 17 months</small></span>
-          <span><b>2</b> <small>ministries recently</small></span>
-          <span class="conf conf-medium">Medium confidence</span>
-        </div>
-        <div class="signal-why">
-          <p class="label">Why it's moving</p>
+        <div class="sig-hero">
+          
+  <span class="big num up" data-count="17" data-prefix="+" data-suffix="%">+17%</span>
+  
+
+          <p class="sub">vs prior 6 mo · <b>3</b> recent actions · <span class="conf conf-medium">Medium confidence</span></p>
           
   
   
   
+  <svg viewBox="0 0 180 44" width="180" height="44" class="spark" aria-hidden="true">
+    <polyline points="0.0,41.0 11.2,22.9 22.5,41.0 33.8,11.1 45.0,27.4 56.2,41.0 67.5,27.4 78.8,41.0 90.0,3.0 101.2,41.0 112.5,24.7 123.8,41.0 135.0,41.0 146.2,27.4 157.5,41.0 168.8,22.9 180.0,19.3 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </div>
+        
   
-  <p class="why-count"><b>3 formal actions in Jul 2026 & Aug 2026</b>
-     · Commerce and Industry, Rural Development</p>
   
+  <p class="interp"><b>Signal interpretation.</b> Activity continued at roughly the prior pace — 3 actions in the last 3 months, in line with the 6-month baseline.</p>
   
   <ol class="causal">
     
     <li class="action-rules">
       <span class="when">Jul 2026</span>
       <span class="tag action-rules" title="The government issued binding rules, regulations or a notification under an existing law. No vote needed.">Rules notified</span>
-      <span class="what">The scheme replacing MGNREGA now has operating rules. <span class="corr-check" title="Independently confirmed">✓</span></span>
+      <span class="what"><a href="https://prsindia.org/policy/monthly-policy-review/july-2026">The scheme replacing MGNREGA now has operating rules.</a> <span class="check" title="Independently confirmed">✓</span></span>
     </li>
     
     <li class="action-committee">
       <span class="when">~22 Aug</span>
       <span class="tag action-committee" title="A parliamentary committee of MPs from all parties examined an issue and made recommendations. Not binding.">Committee report</span>
-      <span class="what">What does Parliament&#39;s own committee think is wrong with India&#39;s startup ecosystem? <span class="corr-check" title="Independently confirmed">✓</span></span>
+      <span class="what"><a href="https://prsindia.org/policy/monthly-policy-review/august-2026">What does Parliament&#39;s own committee think is wrong with India&#39;s startup ecosystem?</a> <span class="check" title="Independently confirmed">✓</span></span>
     </li>
     
     <li class="action-committee">
       <span class="when">Aug 2026</span>
       <span class="tag action-committee" title="A parliamentary committee of MPs from all parties examined an issue and made recommendations. Not binding.">Committee report</span>
-      <span class="what">Do rural skilling schemes actually lead to jobs? Parliament&#39;s committee checked.</span>
+      <span class="what"><a href="https://prsindia.org/files/policy/policy_committee_reports/SCR_Summary_Rural_Skilling_and_Migration.pdf">Do rural skilling schemes actually lead to jobs? Parliament&#39;s committee checked.</a></span>
     </li>
     
   </ol>
   
-  <p class="interp"><b>Signal interpretation:</b> Activity continued at roughly the prior pace — 3 actions in the last 3 months, in line with the 6-month baseline.</p>
 
-        </div>
-        <ul class="why">
-          
-          <li class="action-rules"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/policy/monthly-policy-review/july-2026">The scheme replacing MGNREGA now has operating rules.</a> <span class="corr-check" title="Independently confirmed">✓</span>
-              <span class="fy" data-persona="student"><b>Student:</b> Rural households: check what changed from MGNREGA&#39;s guarantees.</span><span class="fy" data-persona="gig"><b>Gig worker:</b> If you or your family rely on rural wage work, these rules decide days, wages and payment timelines.</span>
-            </span></li>
-          
-          <li class="action-committee"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/policy/monthly-policy-review/august-2026">What does Parliament&#39;s own committee think is wrong with India&#39;s startup ecosystem?</a> <span class="corr-check" title="Independently confirmed">✓</span>
-              <span class="fy" data-persona="student"><b>Student:</b> Useful context if you&#39;re eyeing a startup job or an entrepreneurship course.</span><span class="fy" data-persona="founder"><b>Founder / small business:</b> Committee recommendations often become the next scheme or compliance tweak — worth a skim if you&#39;re raising or hiring.</span>
-            </span></li>
-          
-          <li class="action-committee"><span class="dot"></span>
-            <span class="why-text">
-              <a class="why-link" href="https://prsindia.org/files/policy/policy_committee_reports/SCR_Summary_Rural_Skilling_and_Migration.pdf">Do rural skilling schemes actually lead to jobs? Parliament&#39;s committee checked.</a>
-              <span class="fy" data-persona="student"><b>Student:</b> If you&#39;re from a rural district, this is the audit of the training schemes meant for you.</span><span class="fy" data-persona="founder"><b>Founder / small business:</b> Placement partners of DDU-GKY: expect scrutiny of outcomes.</span>
-            </span></li>
-          
-        </ul>
         
+        <details class="acc"><summary>For you</summary><div class="acc-body">
+  
+  
+  
+  <ul class="fy-list" style="--accent: #059669">
+    <li data-persona="student"><b>Student</b><span>Rural households: check what changed from MGNREGA&#39;s guarantees.</span></li><li data-persona="gig"><b>Gig worker</b><span>If you or your family rely on rural wage work, these rules decide days, wages and payment timelines.</span></li><li data-persona="student"><b>Student</b><span>Useful context if you&#39;re eyeing a startup job or an entrepreneurship course.</span></li><li data-persona="founder"><b>Founder / small business</b><span>Committee recommendations often become the next scheme or compliance tweak — worth a skim if you&#39;re raising or hiring.</span></li><li data-persona="student"><b>Student</b><span>If you&#39;re from a rural district, this is the audit of the training schemes meant for you.</span></li><li data-persona="founder"><b>Founder / small business</b><span>Placement partners of DDU-GKY: expect scrutiny of outcomes.</span></li>
+  </ul>
+  <p class="fy-empty">Nothing specific for this persona in the recent actions.</p>
+  
+</div></details>
+        
+        
+        
+        <details class="acc"><summary>In the states <span class="count">· 20 Bills</span></summary>
+          <div class="acc-body">
   
   
     
     
-    <p class="states-line">🏛 States: 10 Bills in 2026 (Bihar, Maharashtra, Manipur +4)
+    <p class="states-line">🏛 <span>States: 10 Bills in 2026 (Bihar, Maharashtra, Manipur +4)</span>
     <a href="states.html#jobs-and-employment">→</a></p>
   
 
+            <ul class="blist"><li><span class="tag state-chip">Bihar</span><span class="t">The Bihar Shops and Establishments (Employment Regulation and Terms of Service) (Repeal) Bill, 2026</span></li><li><span class="tag state-chip">Bihar</span><span class="t">The Bihar Shops and Establishments (Regulation of Employment and Conditions of Service) (Repeal) Ordinance, 2026</span></li><li><span class="tag state-chip">Gujarat</span><span class="t">The Gujarat Shops and Establishments (Regulation of Employment and Conditions of Service) (Amendment) Bill, 2026</span></li><li><span class="tag state-chip">Karnataka</span><span class="t">The Karnataka Tax on Profession, Trades, Callings and Employments (Amendment) Bill, 2026</span></li></ul>
+          </div></details>
         
-        <a class="explore" href="topic/jobs-and-employment.html">Explore signal →</a>
-      </li>
+        
+        <a class="more" href="topic/jobs-and-employment.html">Explore signal →</a>
+      </article>
       
-    </ol>
+    </div>
   </div>
+</section>
 
-  
-  <div class="block quiet-block">
-    <h3>😴 Confirmed quiet</h3>
-    <p class="quiet-list"><a href="topic/digital-and-data.html">Digital rights &amp; data protection</a> · <a href="topic/ai-regulation.html">AI regulation</a> · <a href="topic/gig-work-and-labour-codes.html">Gig work &amp; labour codes</a></p>
-    
+
+
+<section class="chapter chapter-quiet" id="quiet">
+  <div class="wrap">
+    <div class="chapter-head reveal">
+      <span class="chapter-num">03</span>
+      <div><h2>Confirmed quiet</h2><p class="lede">No new formal government action recorded on these. That is information too — it means nothing has moved in the legislative pipeline, not that nothing is happening.</p></div>
+    </div>
+    <div class="quiet-grid">
+      
+      <article class="card qcard reveal" style="--accent: #7c3aed">
+        <h3><a href="topic/digital-and-data.html">Digital rights &amp; data protection</a></h3>
+        <p class="q">1 formal actions in the last 3 months.</p>
+        
   
   
 
+        
+  <button type="button" class="follow" data-slug="digital-and-data" data-follow="☆ Follow" data-following="★ Following" aria-pressed="false">☆ Follow</button>
+
+      </article>
+      
+      <article class="card qcard reveal" style="--accent: #db2777">
+        <h3><a href="topic/ai-regulation.html">AI regulation</a></h3>
+        <p class="q">0 formal actions in the last 3 months.</p>
+        
   
   
     
     
-    <p class="states-line">🏛 Centre quiet — but 1 state Bills in 2026: Bihar
+    <p class="states-line">🏛 <span>Centre quiet — but 1 state Bills in 2026: Bihar</span>
     <a href="states.html#ai-regulation">→</a></p>
   
 
+        
+  <button type="button" class="follow" data-slug="ai-regulation" data-follow="☆ Follow" data-following="★ Following" aria-pressed="false">☆ Follow</button>
+
+      </article>
+      
+      <article class="card qcard reveal" style="--accent: #0891b2">
+        <h3><a href="topic/gig-work-and-labour-codes.html">Gig work &amp; labour codes</a></h3>
+        <p class="q">0 formal actions in the last 3 months.</p>
+        
   
   
     
     
-    <p class="states-line">🏛 Centre quiet — but 2 state Bills in 2026: Madhya Pradesh, Telangana
+    <p class="states-line">🏛 <span>Centre quiet — but 2 state Bills in 2026: Madhya Pradesh, Telangana</span>
     <a href="states.html#gig-work-and-labour-codes">→</a></p>
   
 
-    <p class="hint">No new formal government action recorded on these. That is information too — it means nothing has moved in the legislative pipeline, not that nothing is happening.</p>
+        
+  <button type="button" class="follow" data-slug="gig-work-and-labour-codes" data-follow="☆ Follow" data-following="★ Following" aria-pressed="false">☆ Follow</button>
+
+      </article>
+      
+    </div>
   </div>
-  
-  <p class="hint brief-footer">Every line links to the original government document. No ads, no tracking, no login. Hooks, “For you” lines and the weekly note are model-drafted and source-linked; scores and confidence are rule-based. <a href="method.html">How this works</a></p>
 </section>
-<script type="application/json" id="pulse-state">{"topics": {"criminal-law-and-justice": {"name": "Criminal law & justice", "status": "heating", "status_label": "Heating up", "url": "topic/criminal-law-and-justice.html", "latest": ["2026-07:2", "2026-07:4", "2026-07:5"]}, "personal-finance-and-tax": {"name": "Personal finance & taxes", "status": "steady", "status_label": "Steady", "url": "topic/personal-finance-and-tax.html", "latest": ["2026-06:1", "2026-06:5", "2026-06:6", "2026-07:14", "2026-07:15", "2026-07:16", "2026-08:14", "2026-08:3"]}, "jobs-and-employment": {"name": "Jobs & employment", "status": "steady", "status_label": "Steady", "url": "topic/jobs-and-employment.html", "latest": ["2026-07:8", "2026-08:13", "2026-08:42"]}, "education-and-exams": {"name": "Education & exam integrity", "status": "steady", "status_label": "Steady", "url": "topic/education-and-exams.html", "latest": ["2026-07:2"]}, "digital-and-data": {"name": "Digital rights & data protection", "status": "quiet", "status_label": "Quiet", "url": "topic/digital-and-data.html", "latest": ["2026-08:34"]}, "ai-regulation": {"name": "AI regulation", "status": "quiet", "status_label": "Quiet", "url": "topic/ai-regulation.html", "latest": []}, "gig-work-and-labour-codes": {"name": "Gig work & labour codes", "status": "quiet", "status_label": "Quiet", "url": "topic/gig-work-and-labour-codes.html", "latest": []}}}</script>
-<script>
-(function(){
-  var S=JSON.parse(document.getElementById('pulse-state').textContent), L={"since_h": "Since your last visit ({d})", "since_new": "{n} new action(s)", "since_status": "now {status}, was {old}", "since_same": "no change", "since_none_followed": "Follow topics and this box will show what changed for them when you come back. Nothing leaves your browser.", "since_first": "Welcome. Next time you visit, this box will show what changed since today."};
-  var FK='pulse-follow', SK='pulse-snapshot';
-  function get(k,d){try{return JSON.parse(localStorage.getItem(k))||d;}catch(e){return d;}}
-  function put(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
-  var follows=get(FK,[]);
-  function paint(){document.querySelectorAll('.follow').forEach(function(b){var on=follows.indexOf(b.dataset.slug)>=0;b.textContent=on?b.dataset.following:b.dataset.follow;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);});}
-  document.querySelectorAll('.follow').forEach(function(b){b.addEventListener('click',function(){var i=follows.indexOf(b.dataset.slug);if(i>=0){follows.splice(i,1);}else{follows.push(b.dataset.slug);}put(FK,follows);paint();});});
-  paint();
-  var box=document.getElementById('since'), list=document.getElementById('since-list'), h=document.getElementById('since-h'), hint=document.getElementById('since-hint');
-  var snap=get(SK,null);
-  if(box){
-    box.hidden=false;
-    if(!snap){ h.textContent=L.since_first; hint.textContent=L.since_none_followed; }
-    else{
-      h.textContent=L.since_h.replace('{d}', snap.date);
-      var slugs=follows.length?follows:Object.keys(S.topics), any=false;
-      slugs.forEach(function(sl){var now=S.topics[sl], was=snap.topics[sl]; if(!now) return;
-        var newN=was?now.latest.filter(function(u){return was.latest.indexOf(u)<0;}).length:0;
-        var parts=[]; if(newN) parts.push(L.since_new.replace('{n}',newN));
-        if(was&&was.status!==now.status) parts.push(L.since_status.replace('{status}',now.status_label).replace('{old}',was.status_label));
-        if(!parts.length){ if(follows.length){parts.push(L.since_same);} else return; }
-        any=true; var li=document.createElement('li'); li.innerHTML='<a href="'+now.url+'"><b>'+now.name+'</b></a> — '+parts.join(' · '); list.appendChild(li);});
-      if(!any){ var li=document.createElement('li'); li.textContent=L.since_same; list.appendChild(li); }
-      hint.textContent=follows.length?'':L.since_none_followed;
-    }
-    var today="2026-09-27"; var t={}; Object.keys(S.topics).forEach(function(k){t[k]={status:S.topics[k].status,status_label:S.topics[k].status_label,latest:S.topics[k].latest};});
-    put(SK,{date:today,topics:t});
-  }
-})();
-</script>
-
-<script>
-(function(){
-  var KEY='pulse-persona', body=document.body;
-  function set(p){ if(p){body.setAttribute('data-persona',p);}else{body.removeAttribute('data-persona');}
-    document.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',(c.dataset.persona||'')===(p||''));});
-    try{ if(p){localStorage.setItem(KEY,p);}else{localStorage.removeItem(KEY);} }catch(e){} }
-  document.querySelectorAll('.chip').forEach(function(c){c.addEventListener('click',function(){set(c.dataset.persona);});});
-  try{ set(localStorage.getItem(KEY)||''); }catch(e){ set(''); }
-})();
-</script>
 
 
-<section class="all-topics">
-  <h2 class="kicker">All topics</h2>
-  <p class="lede small">Every topic we track, with the full 17-month evidence trail.</p>
-  <div class="radar">
+
+<section class="chapter chapter-all" id="all">
+  <div class="wrap">
+    <div class="chapter-head reveal">
+      <span class="chapter-num">04</span>
+      <div><h2>All topics</h2><p class="lede">Every topic we track, with the full 17-month evidence trail. Ordered by a combination of momentum, recent volume and breadth. Activity is not importance — a topic with three high-stakes actions can matter more than one with ten routine ones.</p></div>
+    </div>
+    <div class="grid">
+      
+      <a class="card tile reveal" href="topic/criminal-law-and-justice.html" style="--accent: #4f46e5">
+        <span class="pill heating">Heating up</span>
+        <span class="name">Criminal law &amp; justice</span>
+        <span class="row">
+          <span class="pct num up">+94%</span>
+          
   
-  <a class="card status-heating" href="topic/criminal-law-and-justice.html" style="--accent: #4f46e5">
-    <div class="card-head">
-      <span class="pill" title="Recent activity is at least 50% above the prior six-month average.">Heating up</span>
-      <span class="conf conf-medium" title="How much to trust this signal: 10 tagged actions across 17 months; 3 in the last 3 months, spread over 1 month(s); 2 ministries active recently; 2 of 3 recent actions independently reported (PIB, News On AIR, The Hindu, LiveLaw); recent activity concentrated in a single month">Medium confidence</span>
-    </div>
-    <h2>Criminal law &amp; justice</h2>
-    <p class="tagline">New criminal codes, policing, bail, prisons and how fast courts actually move.</p>
-    <div class="card-foot">
-      <svg viewBox="0 0 160 36" width="160" height="36" class="spark" aria-hidden="true"><polyline points="0.0,34.0 10.0,34.0 20.0,34.0 30.0,34.0 40.0,3.5 50.0,34.0 60.0,34.0 70.0,34.0 80.0,34.0 90.0,34.0 100.0,34.0 110.0,8.4 120.0,34.0 130.0,26.6 140.0,34.0 150.0,2.0 160.0,34.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      <div class="stat">
-        
-          <strong class="up">+94%</strong>
-          <small>vs prior 6 mo</small>
-        
-      </div>
-    </div>
-    <p class="meta">3 actions recently · 10 total · 2 ministries</p>
-  </a>
   
-  <a class="card status-steady" href="topic/personal-finance-and-tax.html" style="--accent: #dc2626">
-    <div class="card-head">
-      <span class="pill" title="Recent activity is roughly in line with the prior six months.">Steady</span>
-      <span class="conf conf-high" title="How much to trust this signal: 40 tagged actions across 17 months; 8 in the last 3 months, spread over 3 month(s); 2 ministries active recently; 6 of 8 recent actions independently reported (News On AIR, The Hindu, NDTV, Business Standard); confidence raised one step because most recent evidence is independently confirmed">High confidence</span>
-    </div>
-    <h2>Personal finance &amp; taxes</h2>
-    <p class="tagline">Income tax, GST, UPI, loans and the fine print that hits your wallet.</p>
-    <div class="card-foot">
-      <svg viewBox="0 0 160 36" width="160" height="36" class="spark" aria-hidden="true"><polyline points="0.0,31.2 10.0,28.3 20.0,28.3 30.0,19.3 40.0,2.0 50.0,30.6 60.0,15.6 70.0,30.6 80.0,17.0 90.0,28.9 100.0,28.3 110.0,25.5 120.0,26.9 130.0,26.9 140.0,25.5 150.0,19.3 160.0,22.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      <div class="stat">
-        
-          <strong class="up">+37%</strong>
-          <small>vs prior 6 mo</small>
-        
-      </div>
-    </div>
-    <p class="meta">8 actions recently · 40 total · 2 ministries</p>
-  </a>
   
-  <a class="card status-steady" href="topic/jobs-and-employment.html" style="--accent: #059669">
-    <div class="card-head">
-      <span class="pill" title="Recent activity is roughly in line with the prior six months.">Steady</span>
-      <span class="conf conf-medium" title="How much to trust this signal: 12 tagged actions across 17 months; 3 in the last 3 months, spread over 2 month(s); 2 ministries active recently; 2 of 3 recent actions independently reported (News On AIR, Times of India, Economic Times, Business Standard)">Medium confidence</span>
-    </div>
-    <h2>Jobs &amp; employment</h2>
-    <p class="tagline">Hiring, layoffs, apprenticeships and the schemes meant to create work.</p>
-    <div class="card-foot">
-      <svg viewBox="0 0 160 36" width="160" height="36" class="spark" aria-hidden="true"><polyline points="0.0,34.0 10.0,18.8 20.0,34.0 30.0,8.9 40.0,22.6 50.0,34.0 60.0,22.6 70.0,34.0 80.0,2.0 90.0,34.0 100.0,20.3 110.0,34.0 120.0,34.0 130.0,22.6 140.0,34.0 150.0,18.8 160.0,15.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      <div class="stat">
-        
-          <strong class="up">+17%</strong>
-          <small>vs prior 6 mo</small>
-        
-      </div>
-    </div>
-    <p class="meta">3 actions recently · 12 total · 2 ministries</p>
-  </a>
+  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
+    <polyline points="0.0,23.0 5.6,23.0 11.2,23.0 16.9,23.0 22.5,3.9 28.1,23.0 33.8,23.0 39.4,23.0 45.0,23.0 50.6,23.0 56.2,23.0 61.9,7.0 67.5,23.0 73.1,18.4 78.8,23.0 84.4,3.0 90.0,23.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </span>
+        <span class="foot">3 actions recently · 10 total · 2 ministries · <span class="conf conf-medium">Medium</span></span>
+      </a>
+      
+      <a class="card tile reveal" href="topic/personal-finance-and-tax.html" style="--accent: #dc2626">
+        <span class="pill steady">Steady</span>
+        <span class="name">Personal finance &amp; taxes</span>
+        <span class="row">
+          <span class="pct num up">+37%</span>
+          
   
-  <a class="card status-steady" href="topic/education-and-exams.html" style="--accent: #d97706">
-    <div class="card-head">
-      <span class="pill" title="Recent activity is roughly in line with the prior six months.">Steady</span>
-      <span class="conf conf-low" title="How much to trust this signal: 11 tagged actions across 17 months; 1 in the last 3 months, spread over 1 month(s); 1 ministries active recently; 1 of 1 recent actions independently reported (PIB, News On AIR, The Hindu)">Low confidence</span>
-    </div>
-    <h2>Education &amp; exam integrity</h2>
-    <p class="tagline">Entrance exams, paper leaks, universities and who regulates them.</p>
-    <div class="card-foot">
-      <svg viewBox="0 0 160 36" width="160" height="36" class="spark" aria-hidden="true"><polyline points="0.0,2.0 10.0,34.0 20.0,34.0 30.0,34.0 40.0,16.7 50.0,21.2 60.0,34.0 70.0,34.0 80.0,5.8 90.0,11.6 100.0,34.0 110.0,34.0 120.0,34.0 130.0,34.0 140.0,34.0 150.0,14.8 160.0,34.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      <div class="stat">
-        
-          <strong class="down">-24%</strong>
-          <small>vs prior 6 mo</small>
-        
-      </div>
-    </div>
-    <p class="meta">1 actions recently · 11 total · 1 ministries</p>
-  </a>
   
-  <a class="card status-quiet" href="topic/digital-and-data.html" style="--accent: #7c3aed">
-    <div class="card-head">
-      <span class="pill" title="Almost no tagged government action in the last three months.">Quiet</span>
-      <span class="conf conf-low" title="How much to trust this signal: 15 tagged actions across 17 months; 1 in the last 3 months, spread over 1 month(s); 1 ministries active recently; none of the 1 recent actions found in independent coverage yet">Low confidence</span>
-    </div>
-    <h2>Digital rights &amp; data protection</h2>
-    <p class="tagline">Your data, your feed, your device — who gets to set the rules.</p>
-    <div class="card-foot">
-      <svg viewBox="0 0 160 36" width="160" height="36" class="spark" aria-hidden="true"><polyline points="0.0,34.0 10.0,34.0 20.0,24.4 30.0,2.0 40.0,14.8 50.0,11.6 60.0,11.6 70.0,21.2 80.0,34.0 90.0,34.0 100.0,34.0 110.0,9.0 120.0,21.2 130.0,34.0 140.0,34.0 150.0,34.0 160.0,21.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      <div class="stat">
-        
-          <strong class="muted">1</strong><small>actions in 3 mo</small>
-        
-      </div>
-    </div>
-    <p class="meta">1 actions recently · 15 total · 1 ministries</p>
-  </a>
   
-  <a class="card status-quiet" href="topic/ai-regulation.html" style="--accent: #db2777">
-    <div class="card-head">
-      <span class="pill" title="Almost no tagged government action in the last three months.">Quiet</span>
-      <span class="conf conf-low" title="How much to trust this signal: 5 tagged actions across 17 months; 0 in the last 3 months, spread over 0 month(s); 0 ministries active recently; single source (PRS) — no independent cross-check yet">Low confidence</span>
-    </div>
-    <h2>AI regulation</h2>
-    <p class="tagline">Deepfakes, model rules, compute missions — how India decides to govern AI.</p>
-    <div class="card-foot">
-      <svg viewBox="0 0 160 36" width="160" height="36" class="spark" aria-hidden="true"><polyline points="0.0,34.0 10.0,34.0 20.0,34.0 30.0,34.0 40.0,12.7 50.0,34.0 60.0,2.0 70.0,34.0 80.0,2.0 90.0,34.0 100.0,12.7 110.0,8.4 120.0,34.0 130.0,34.0 140.0,34.0 150.0,34.0 160.0,34.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      <div class="stat">
-        
-          <strong class="muted">0</strong><small>actions in 3 mo</small>
-        
-      </div>
-    </div>
-    <p class="meta">0 actions recently · 5 total · 0 ministries</p>
-  </a>
+  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
+    <polyline points="0.0,21.2 5.6,19.5 11.2,19.5 16.9,13.8 22.5,3.0 28.1,20.9 33.8,11.5 39.4,20.9 45.0,12.4 50.6,19.8 56.2,19.5 61.9,17.7 67.5,18.6 73.1,18.6 78.8,17.7 84.4,13.8 90.0,15.9 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </span>
+        <span class="foot">8 actions recently · 40 total · 2 ministries · <span class="conf conf-high">High</span></span>
+      </a>
+      
+      <a class="card tile reveal" href="topic/jobs-and-employment.html" style="--accent: #059669">
+        <span class="pill steady">Steady</span>
+        <span class="name">Jobs &amp; employment</span>
+        <span class="row">
+          <span class="pct num up">+17%</span>
+          
   
-  <a class="card status-quiet" href="topic/gig-work-and-labour-codes.html" style="--accent: #0891b2">
-    <div class="card-head">
-      <span class="pill" title="Almost no tagged government action in the last three months.">Quiet</span>
-      <span class="conf conf-low" title="How much to trust this signal: 7 tagged actions across 17 months; 0 in the last 3 months, spread over 0 month(s); 0 ministries active recently; single source (PRS) — no independent cross-check yet">Low confidence</span>
-    </div>
-    <h2>Gig work &amp; labour codes</h2>
-    <p class="tagline">Platform workers, social security and the four labour codes.</p>
-    <div class="card-foot">
-      <svg viewBox="0 0 160 36" width="160" height="36" class="spark" aria-hidden="true"><polyline points="0.0,34.0 10.0,34.0 20.0,34.0 30.0,19.8 40.0,34.0 50.0,34.0 60.0,23.3 70.0,12.7 80.0,23.3 90.0,34.0 100.0,2.0 110.0,34.0 120.0,34.0 130.0,19.8 140.0,34.0 150.0,34.0 160.0,34.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
-      <div class="stat">
-        
-          <strong class="muted">0</strong><small>actions in 3 mo</small>
-        
-      </div>
-    </div>
-    <p class="meta">0 actions recently · 7 total · 0 ministries</p>
-  </a>
   
+  
+  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
+    <polyline points="0.0,23.0 5.6,13.5 11.2,23.0 16.9,7.3 22.5,15.9 28.1,23.0 33.8,15.9 39.4,23.0 45.0,3.0 50.6,23.0 56.2,14.4 61.9,23.0 67.5,23.0 73.1,15.9 78.8,23.0 84.4,13.5 90.0,11.6 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </span>
+        <span class="foot">3 actions recently · 12 total · 2 ministries · <span class="conf conf-medium">Medium</span></span>
+      </a>
+      
+      <a class="card tile reveal" href="topic/education-and-exams.html" style="--accent: #d97706">
+        <span class="pill steady">Steady</span>
+        <span class="name">Education &amp; exam integrity</span>
+        <span class="row">
+          <span class="pct num down">-24%</span>
+          
+  
+  
+  
+  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
+    <polyline points="0.0,3.0 5.6,23.0 11.2,23.0 16.9,23.0 22.5,12.2 28.1,15.0 33.8,23.0 39.4,23.0 45.0,5.4 50.6,9.0 56.2,23.0 61.9,23.0 67.5,23.0 73.1,23.0 78.8,23.0 84.4,11.0 90.0,23.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </span>
+        <span class="foot">1 actions recently · 11 total · 1 ministries · <span class="conf conf-low">Low</span></span>
+      </a>
+      
+      <a class="card tile reveal" href="topic/digital-and-data.html" style="--accent: #7c3aed">
+        <span class="pill quiet">Quiet</span>
+        <span class="name">Digital rights &amp; data protection</span>
+        <span class="row">
+          <span class="pct num down">1</span>
+          
+  
+  
+  
+  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
+    <polyline points="0.0,23.0 5.6,23.0 11.2,17.0 16.9,3.0 22.5,11.0 28.1,9.0 33.8,9.0 39.4,15.0 45.0,23.0 50.6,23.0 56.2,23.0 61.9,7.4 67.5,15.0 73.1,23.0 78.8,23.0 84.4,23.0 90.0,15.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </span>
+        <span class="foot">1 actions recently · 15 total · 1 ministries · <span class="conf conf-low">Low</span></span>
+      </a>
+      
+      <a class="card tile reveal" href="topic/ai-regulation.html" style="--accent: #db2777">
+        <span class="pill quiet">Quiet</span>
+        <span class="name">AI regulation</span>
+        <span class="row">
+          <span class="pct num down">0</span>
+          
+  
+  
+  
+  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
+    <polyline points="0.0,23.0 5.6,23.0 11.2,23.0 16.9,23.0 22.5,9.7 28.1,23.0 33.8,3.0 39.4,23.0 45.0,3.0 50.6,23.0 56.2,9.7 61.9,7.0 67.5,23.0 73.1,23.0 78.8,23.0 84.4,23.0 90.0,23.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </span>
+        <span class="foot">0 actions recently · 5 total · 0 ministries · <span class="conf conf-low">Low</span></span>
+      </a>
+      
+      <a class="card tile reveal" href="topic/gig-work-and-labour-codes.html" style="--accent: #0891b2">
+        <span class="pill quiet">Quiet</span>
+        <span class="name">Gig work &amp; labour codes</span>
+        <span class="row">
+          <span class="pct num down">0</span>
+          
+  
+  
+  
+  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
+    <polyline points="0.0,23.0 5.6,23.0 11.2,23.0 16.9,14.1 22.5,23.0 28.1,23.0 33.8,16.3 39.4,9.7 45.0,16.3 50.6,23.0 56.2,3.0 61.9,23.0 67.5,23.0 73.1,14.1 78.8,23.0 84.4,23.0 90.0,23.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>
+
+        </span>
+        <span class="foot">0 actions recently · 7 total · 0 ministries · <span class="conf conf-low">Low</span></span>
+      </a>
+      
+    </div>
+    <p class="lede reveal" style="margin-top:2rem;font-size:.95rem">Each card is one topic. <strong>Heating up / Steady / Cooling / Quiet</strong> compares the last 3 months of government action to the 6 before. <strong>Confidence</strong> tells you how much evidence sits behind that label — a handful of documents can swing a percentage, and we currently rely on one source. Open a topic to see every action that produced the signal, and what the signal does <em>not</em> mean. <a href="method.html">Full method &amp; glossary →</a> · <a href="radar.json">Download the data (JSON)</a></p>
   </div>
-  <p class="hint center">Ordered by a combination of momentum, recent volume and breadth. Activity is not importance — a topic with three high-stakes actions can matter more than one with ten routine ones.</p>
 </section>
 
-<section class="about">
-  <h2>How to read this</h2>
-  <p>Each card is one topic. <strong>Heating up / Steady / Cooling / Quiet</strong> compares the last 3 months of government action to the 6 before. <strong>Confidence</strong> tells you how much evidence sits behind that label — a handful of documents can swing a percentage, and we currently rely on one source. Open a topic to see every action that produced the signal, and what the signal does <em>not</em> mean.</p>
-  <p><a href="method.html">Full method &amp; glossary →</a> · <a href="radar.json">Download the data (JSON)</a></p>
-</section>
+<script type="application/json" id="pulse-state">{"today": "2026-09-27", "topics": {"criminal-law-and-justice": {"name": "Criminal law & justice", "status": "heating", "status_label": "Heating up", "url": "topic/criminal-law-and-justice.html", "latest": ["2026-07:2", "2026-07:4", "2026-07:5"]}, "personal-finance-and-tax": {"name": "Personal finance & taxes", "status": "steady", "status_label": "Steady", "url": "topic/personal-finance-and-tax.html", "latest": ["2026-06:1", "2026-06:5", "2026-06:6", "2026-07:14", "2026-07:15", "2026-07:16", "2026-08:14", "2026-08:3"]}, "jobs-and-employment": {"name": "Jobs & employment", "status": "steady", "status_label": "Steady", "url": "topic/jobs-and-employment.html", "latest": ["2026-07:8", "2026-08:13", "2026-08:42"]}, "education-and-exams": {"name": "Education & exam integrity", "status": "steady", "status_label": "Steady", "url": "topic/education-and-exams.html", "latest": ["2026-07:2"]}, "digital-and-data": {"name": "Digital rights & data protection", "status": "quiet", "status_label": "Quiet", "url": "topic/digital-and-data.html", "latest": ["2026-08:34"]}, "ai-regulation": {"name": "AI regulation", "status": "quiet", "status_label": "Quiet", "url": "topic/ai-regulation.html", "latest": []}, "gig-work-and-labour-codes": {"name": "Gig work & labour codes", "status": "quiet", "status_label": "Quiet", "url": "topic/gig-work-and-labour-codes.html", "latest": []}}}</script>
+<script type="application/json" id="pulse-strings">{"since_h": "Since your last visit ({d})", "since_new": "{n} new action(s)", "since_status": "now {status}, was {old}", "since_same": "no change", "since_none_followed": "Follow topics and this box will show what changed for them when you come back. Nothing leaves your browser.", "since_first": "Welcome. Next time you visit, this box will show what changed since today."}</script>
 
 </main>
 <footer>
-  <p>Source data © PRS Legislative Research (prsindia.org), licensed under CC BY 4.0. Summaries and scores are our own.</p>
-  <p>Updated 2026-09-27 · Open source · No ads, no tracking, no login.</p>
+  <div class="wrap">
+    <p>Source data © PRS Legislative Research (prsindia.org), licensed under CC BY 4.0. Summaries and scores are our own.</p>
+    <p>Updated 2026-09-27 · Open source · No ads, no tracking, no login. · Hooks, “For you” lines and the weekly note are model-drafted and source-linked; scores and confidence are rule-based.</p>
+  </div>
 </footer>
+<script src="static/app.js" defer></script>
 </body>
 </html>

@@ -1,36 +1,22 @@
 {% extends "base.html" %}
 {% block title %}{{ t('states_page_h1') }} — {{ t('site_title') }}{% endblock %}
+{% block nav %}{% endblock %}
 {% block body %}
 <article class="prose wide">
   <a class="back" href="index.html">{{ t('back') }}</a>
   <h1>{{ t('states_page_h1') }}</h1>
   <p class="lede">{{ t('states_page_lede', n=(states.values() | map(attribute='bills') | map('length') | sum), s=states_totals.states, y0=states_totals.years[0], y1=states_totals.years[1]) }}</p>
-  {% for ts in scores %}
-    {% set sd = states[ts.topic.slug] %}
-    {% if sd.bills %}
-    <section class="states-topic" id="{{ ts.topic.slug }}" style="--accent: {{ ts.topic.color }}">
-      <h2><a href="topic/{{ ts.topic.slug }}.html">{{ ts.topic.label(lang) }}</a> <span class="pill status-{{ ts.status }}">{{ ts.status | status }}</span></h2>
-      <div class="state-stats">
-        {% for y, n in sd.by_year | dictsort(reverse=true) %}<span class="stat-pill"><b>{{ n }}</b> {{ y }}</span>{% endfor %}
-        <span class="state-chips">{% for st, n in sd.states.items() %}<span class="tag state-chip">{{ st | state }} <em>{{ n }}</em></span>{% endfor %}</span>
-      </div>
-      <ul class="evidence state-bills">
-        {% for b in sd.bills[:12] %}
-        <li><span class="tag state-chip">{{ b.state | state }}</span> <span class="tag action-introduced">{{ b.year }}</span>
-          <strong>{{ b.title }}</strong>
-          <small>{% if b.pdf_url %}<a href="{{ b.pdf_url }}">{{ t('bill_pdf') }}</a>{% endif %}{% if b.brief_url %} · <a href="{{ b.brief_url }}">{{ t('prs_brief') }}</a>{% endif %}</small></li>
-        {% endfor %}
-      </ul>
-      {% if sd.bills | length > 12 %}
-      <details class="more"><summary>{{ t('show_all', n=sd.bills | length) }}</summary>
-        <ul class="evidence state-bills muted-list">
-          {% for b in sd.bills[12:] %}<li><span class="tag state-chip">{{ b.state | state }}</span> <span class="tag action-introduced">{{ b.year }}</span> <strong>{{ b.title }}</strong> <small>{% if b.pdf_url %}<a href="{{ b.pdf_url }}">{{ t('bill_pdf') }}</a>{% endif %}</small></li>{% endfor %}
-        </ul>
-      </details>
-      {% endif %}
-    </section>
-    {% endif %}
-  {% endfor %}
-  <p class="hint">{{ t('states_page_untagged') }} <a href="https://prsindia.org/bills/states">PRS →</a></p>
+  {% for ts in scores %}{% set sd = states[ts.topic.slug] %}{% if sd.bills %}
+  <section class="states-topic reveal" id="{{ ts.topic.slug }}" style="--accent: {{ ts.topic.color }}">
+    <h2><a href="topic/{{ ts.topic.slug }}.html">{{ ts.topic.label(lang) }}</a> <span class="pill {{ ts.status }}">{{ ts.status | status }}</span></h2>
+    <div class="state-stats">{% for y, n in sd.by_year | dictsort(reverse=true) %}<span class="stat-pill"><b>{{ n }}</b> {{ y }}</span>{% endfor %}
+      <span class="state-chips">{% for st, n in sd.states.items() %}<span class="tag state-chip">{{ st | state }} <em>{{ n }}</em></span>{% endfor %}</span></div>
+    <div class="card">
+      <ul class="blist">{% for b in sd.bills[:10] %}<li><span class="tag state-chip">{{ b.state | state }}</span><span class="tag action-introduced">{{ b.year }}</span><span class="t">{{ b.title }}</span><small>{% if b.pdf_url %}<a href="{{ b.pdf_url }}">{{ t('bill_pdf') }}</a>{% endif %}{% if b.brief_url %} · <a href="{{ b.brief_url }}">{{ t('prs_brief') }}</a>{% endif %}</small></li>{% endfor %}</ul>
+      {% if sd.bills | length > 10 %}<details class="acc"><summary>{{ t('show_all', n=sd.bills | length) }}</summary><div class="acc-body"><ul class="blist">{% for b in sd.bills[10:] %}<li><span class="tag state-chip">{{ b.state | state }}</span><span class="tag action-introduced">{{ b.year }}</span><span class="t">{{ b.title }}</span><small>{% if b.pdf_url %}<a href="{{ b.pdf_url }}">{{ t('bill_pdf') }}</a>{% endif %}</small></li>{% endfor %}</ul></div></details>{% endif %}
+    </div>
+  </section>
+  {% endif %}{% endfor %}
+  <p class="muted" style="margin-top:2rem">{{ t('states_page_untagged') }} <a href="https://prsindia.org/bills/states">PRS →</a></p>
 </article>
 {% endblock %}

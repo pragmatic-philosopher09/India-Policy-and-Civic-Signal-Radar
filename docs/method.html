@@ -5,32 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How scoring works — Policy Pulse</title>
 <meta name="description" content="Which Indian policy issues are gaining momentum right now — with the evidence, not just a score.">
+<meta name="theme-color" content="#f6f2ea" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f0e0c" media="(prefers-color-scheme: dark)">
 <link rel="alternate" hreflang="en" href="method.html">
 <link rel="alternate" hreflang="hi" href="hi/method.html">
-<link rel="stylesheet" href="static/style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/style.css">
 <script>
 (function(){try{
-  var pref=localStorage.getItem('radar-lang'), here='en';
+  var pref=JSON.parse(localStorage.getItem('radar-lang')||'null'), here='en';
   var q=new URLSearchParams(location.search);
-  if(q.get('lang')){localStorage.setItem('radar-lang',q.get('lang'));return;}
+  if(q.get('lang')){localStorage.setItem('radar-lang',JSON.stringify(q.get('lang')));return;}
   if(pref&&pref!==here&&here==='en'&&pref==='hi'){location.replace('hi/method.html');}
 }catch(e){}})();
 </script>
 </head>
 <body class="lang-en">
+<div class="progress" aria-hidden="true"></div>
 <header class="top">
-  <a class="brand" href="index.html">
-    <span class="dot"></span> Policy Pulse <span class="beta">beta</span>
-  </a>
-  <nav>
-    <a href="states.html">States</a>
-    <a href="method.html">How scoring works</a>
+  <div class="wrap top-inner">
+    <a class="brand" href="index.html"><span class="live" aria-hidden="true"></span>Policy Pulse</a>
     
-    <a class="lang-toggle" lang="hi" href="hi/method.html?lang=hi" onclick="try{localStorage.setItem('radar-lang','hi')}catch(e){}">हिन्दी</a>
-    
-  </nav>
+    <div class="tools">
+      <a class="tool" href="states.html">States</a>
+      <a class="tool" href="method.html">Method</a>
+      <a class="tool lang-toggle" lang="hi" href="hi/method.html?lang=hi">हिन्दी</a>
+      <button type="button" class="tool" data-sound data-on="🔈 Sound on" data-off="🔇 Sound" aria-pressed="false" title="Tiny synthesized clicks on interactions. Off by default; nothing is downloaded.">🔇 Sound</button>
+    </div>
+  </div>
 </header>
 <main>
 
@@ -112,8 +116,11 @@
 
 </main>
 <footer>
-  <p>Source data © PRS Legislative Research (prsindia.org), licensed under CC BY 4.0. Summaries and scores are our own.</p>
-  <p>Updated 2026-09-27 · Open source · No ads, no tracking, no login.</p>
+  <div class="wrap">
+    <p>Source data © PRS Legislative Research (prsindia.org), licensed under CC BY 4.0. Summaries and scores are our own.</p>
+    <p>Updated 2026-09-27 · Open source · No ads, no tracking, no login. · Hooks, “For you” lines and the weekly note are model-drafted and source-linked; scores and confidence are rule-based.</p>
+  </div>
 </footer>
+<script src="static/app.js" defer></script>
 </body>
 </html>
