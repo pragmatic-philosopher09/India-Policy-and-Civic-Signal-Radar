@@ -79,11 +79,12 @@
 {% endmacro %}
 
 {% macro respond_card(e, closed=False) %}
-  <article class="row rcard reveal {{ 'closed' if closed }}">
+  <article class="row rcard reveal {{ 'closed' if closed }}" data-impacts="{{ e.impacts | join(' ') }}">
     {{ due_box(e) }}
     <div>
       {{ labels(e) }}
       <h3>{{ e.hook if lang == 'en' and e.hook else (e.title_l or e.title) }}</h3>
+      {{ impact_chips(e.impacts) }}
       {% if lang == 'en' and e.hook %}<span class="prs">{{ e.title }}</span>{% endif %}
       {% set sm = e.summary_l if lang != 'en' else e.summary %}
       {% if sm %}<p class="summary">{{ sm }}</p>{% endif %}
@@ -105,7 +106,7 @@
   {% if wm.steps %}
   <ol class="causal">
     {% for e in wm.steps[:4] %}
-    <li class="action-{{ e.action }}">
+    <li class="action-{{ e.action }}" data-impacts="{{ e.impacts | join(' ') }}">
       <span class="when">{% if e.date_hint %}~{{ e.date_hint[8:10] | int }} {{ (e.month | month).split(' ')[0] }}{% else %}{{ e.month | month }}{% endif %}</span>
       <span class="tag action-{{ e.action }}" title="{{ e.action | action_help }}">{{ e.action | action }}</span>
       <span class="what"><a href="{{ e.links[0] if e.links else e.source_url }}">{{ e.hook if lang == 'en' and e.hook else (e.title_l or e.title) }}</a>{% if e.corroborated %} <span class="check" title="{{ t('corroborated') }}">✓</span>{% endif %}</span>
@@ -188,4 +189,8 @@
     </div>
     <figcaption>{{ caption }}</figcaption>
   </figure>
+{% endmacro %}
+
+{% macro impact_chips(slugs, counts=None) %}
+  {% if slugs %}<span class="impacts">{% for i in impacts if i.slug in slugs %}<span class="imp" data-impact="{{ i.slug }}" title="{{ i.name_hi if lang == 'hi' else i.name }}">{{ i.emoji }} {{ i.name_hi if lang == 'hi' else i.name }}{% if counts and counts.get(i.slug) %} <em>{{ counts[i.slug] }}</em>{% endif %}</span>{% endfor %}</span>{% endif %}
 {% endmacro %}

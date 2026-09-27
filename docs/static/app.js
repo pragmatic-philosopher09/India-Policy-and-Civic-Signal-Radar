@@ -116,6 +116,20 @@
   d.querySelectorAll('.chip[data-persona]').forEach(function (c) { c.addEventListener('click', function () { setPersona(c.dataset.persona); tick(700, 0.07, 0.06); }); });
   setPersona(get(PK, ''));
 
+  /* ---- impact lens ---- */
+  var LK = 'pulse-lens';
+  function setLens(l) {
+    if (l) body.setAttribute('data-lens', l); else body.removeAttribute('data-lens');
+    d.querySelectorAll('.chip[data-lens]').forEach(function (c) { c.classList.toggle('on', (c.dataset.lens || '') === (l || '')); });
+    d.querySelectorAll('[data-impacts]').forEach(function (el) {
+      var has = !l || (' ' + (el.dataset.impacts || '') + ' ').indexOf(' ' + l + ' ') >= 0;
+      el.classList.toggle('lens-out', !has);
+    });
+    if (l) put(LK, l); else del(LK);
+  }
+  d.querySelectorAll('.chip[data-lens]').forEach(function (c) { c.addEventListener('click', function () { setLens(c.dataset.lens); tick(560, 0.07, 0.06); }); });
+  setLens(get(LK, ''));
+
   /* ---- follow + since your last visit ---- */
   var stateEl = d.getElementById('pulse-state');
   var S = stateEl ? JSON.parse(stateEl.textContent) : null;

@@ -31,6 +31,12 @@ CREATE TABLE IF NOT EXISTS item_topics (
     PRIMARY KEY (uid, topic)
 );
 
+CREATE TABLE IF NOT EXISTS item_impacts (
+    uid    TEXT NOT NULL REFERENCES items(uid) ON DELETE CASCADE,
+    impact TEXT NOT NULL,
+    PRIMARY KEY (uid, impact)
+);
+
 CREATE TABLE IF NOT EXISTS months (
     month      TEXT PRIMARY KEY,
     source_url TEXT NOT NULL,
@@ -102,21 +108,38 @@ def load_overrides(path: Path = OVERRIDES_PATH) -> dict:
     return {"remove": data.get("remove", {}), "add": data.get("add", {})}
 
 
-def retag_all(conn: sqlite3.Connection, classify, tag) -> int:
-    """Recompute action + topic tags for every stored item, then apply curated overrides."""
+def retag_all(conn: sqlite3.Connection, classify, tag, tag_impacts=None) -> int:
+    """Recompute action, domain tags and impact lenses for every stored item; then apply overrides."""
     rows = conn.execute("SELECT uid, month, sector, title, body, links, source_url FROM items").fetchall()
     ov = load_overrides()
     removed = {(u, topic) for topic, uids in ov["remove"].items() for u in uids}
+    so_whats: dict[str, dict] = {}
+    try:
+        for r in conn.execute("SELECT uid, so_what FROM enrichment WHERE so_what IS NOT NULL"):
+            so_whats[r["uid"]] = json.loads(r["so_what"])
+    except sqlite3.OperationalError:
+        pass
     with conn:
         conn.execute("DELETE FROM item_topics")
+        conn.execute("DELETE FROM item_impacts")
+        domains_of: dict[str, dict[str, int]] = {}
         for r in rows:
             it = Item(month=r["month"], sector=r["sector"], title=r["title"], body=r["body"],
                       links=json.loads(r["links"]), source_url=r["source_url"])
             conn.execute("UPDATE items SET action = ? WHERE uid = ?", (classify(it.title), r["uid"]))
-            for topic, hits in tag(it).items():
-                if (r["uid"], topic) not in removed:
-                    conn.execute("INSERT INTO item_topics VALUES (?,?,?)", (r["uid"], topic, hits))
+            tags = {topic: hits for topic, hits in tag(it).items() if (r["uid"], topic) not in removed}
+            domains_of[r["uid"]] = tags
+            for topic, hits in tags.items():
+                conn.execute("INSERT INTO item_topics VALUES (?,?,?)", (r["uid"], topic, hits))
         for topic, uids in ov["add"].items():
             for u in uids:
                 conn.execute("INSERT OR REPLACE INTO item_topics VALUES (?,?,?)", (u, topic, 99))
+                domains_of.setdefault(u, {})[topic] = 99
+        if tag_impacts is not None:
+            for r in rows:
+                if not domains_of.get(r["uid"]):
+                    continue  # impacts only matter for items that appear on the site
+                it = Item(month=r["month"], sector=r["sector"], title=r["title"], body=r["body"])
+                for imp in tag_impacts(it, domains_of[r["uid"]], so_whats.get(r["uid"])):
+                    conn.execute("INSERT OR IGNORE INTO item_impacts VALUES (?,?)", (r["uid"], imp))
     return len(rows)

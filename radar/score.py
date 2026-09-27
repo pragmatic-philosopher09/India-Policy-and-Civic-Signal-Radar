@@ -12,7 +12,7 @@ import re
 import sqlite3
 from dataclasses import dataclass, field
 
-from .config import ACTION_WEIGHTS, BASELINE_WINDOW, RECENT_WINDOW, TOPICS, Topic
+from .config import ACTION_WEIGHTS, BASELINE_WINDOW, IMPACTS, RECENT_WINDOW, TOPICS, Topic
 from .parse import Item
 
 # Ordered: first match wins. Patterns are applied to the item title.
@@ -49,12 +49,32 @@ def tag_topics(item: Item, threshold: int = 4) -> dict[str, int]:
     """
     out: dict[str, int] = {}
     for topic in TOPICS:
+        if topic.exclude and re.search(topic.exclude, item.title, re.I):
+            continue
         pat = _TOPIC_PATTERNS[topic.slug]
         score = 3 * len(pat.findall(item.title)) + len(pat.findall(item.body))
         if any(s.lower() in item.sector.lower() for s in topic.sectors):
             score += 1
         if score >= threshold:
             out[topic.slug] = score
+    return out
+
+
+_IMPACT_PATTERNS = {i.slug: re.compile("|".join(f"(?:{k})" for k in i.keywords), re.I) for i in IMPACTS}
+
+
+def tag_impacts(item: Item, domains: dict[str, int], so_what: dict | None = None, threshold: int = 3) -> list[str]:
+    """Who does this action reach? Domain defaults + keyword evidence + persona lines."""
+    out: list[str] = []
+    text = f"{item.title}\n{item.body}"
+    for imp in IMPACTS:
+        hit = any(d in domains for d in imp.domains)
+        hit = hit or (so_what and any(p in so_what for p in imp.personas))
+        if not hit:
+            n = 2 * len(_IMPACT_PATTERNS[imp.slug].findall(item.title)) + len(_IMPACT_PATTERNS[imp.slug].findall(item.body))
+            hit = n >= threshold
+        if hit:
+            out.append(imp.slug)
     return out
 
 
@@ -74,6 +94,7 @@ class Evidence:
     corroborations: list[dict] = field(default_factory=list)   # independent coverage (gov/news/other)
     hook: str | None = None                                      # editorial headline (enrichment)
     so_what: dict = field(default_factory=dict)                  # {persona: line}
+    impacts: list[str] = field(default_factory=list)             # impact lens slugs
 
     @property
     def date_hint(self) -> str | None:
@@ -111,6 +132,7 @@ class TopicScore:
     why_moving: dict = field(default_factory=dict)      # structured causal explanation of the label
     counter: tuple[str, dict] | None = None             # what would make this signal fade / flip
     connections: list[dict] = field(default_factory=list)  # other topics sharing recent evidence
+    impacts: dict[str, int] = field(default_factory=dict)  # impact slug -> count in recent window
 
     @property
     def total_items(self) -> int:
@@ -180,6 +202,8 @@ def _caveats(ts: TopicScore) -> list[tuple[str, dict]]:
         out.append(("caveat_concentrated", dict(month=busiest)))
     if ts.change_pct is None and ts.status == "heating":
         out.append(("caveat_no_baseline", {}))
+    elif ts.status == "heating" and ts.baseline_avg < 1.0:
+        out.append(("caveat_low_base", dict(base=ts.baseline_avg)))
     out.append(("caveat_not_importance", {}))
     return out
 
@@ -239,6 +263,12 @@ def score_topics(conn: sqlite3.Connection, corroborations: dict[str, list[dict]]
         return []
     corroborations = corroborations or {}
     enrichment = enrichment or {}
+    impacts_of: dict[str, list[str]] = {}
+    try:
+        for r in conn.execute("SELECT uid, impact FROM item_impacts"):
+            impacts_of.setdefault(r["uid"], []).append(r["impact"])
+    except sqlite3.OperationalError:
+        pass
     idx = {m: i for i, m in enumerate(months)}
     results: list[TopicScore] = []
 
@@ -262,13 +292,14 @@ def score_topics(conn: sqlite3.Connection, corroborations: dict[str, list[dict]]
                                      r["summary"], json.loads(r["links"]), r["source_url"],
                                      corroborations=corroborations.get(r["uid"], []),
                                      hook=(enrichment.get(r["uid"]) or {}).get("hook"),
-                                     so_what=(enrichment.get(r["uid"]) or {}).get("so_what") or {}))
+                                     so_what=(enrichment.get(r["uid"]) or {}).get("so_what") or {},
+                                     impacts=impacts_of.get(r["uid"], [])))
 
         recent = activity[-RECENT_WINDOW:]
         baseline = activity[-(RECENT_WINDOW + BASELINE_WINDOW):-RECENT_WINDOW]
         recent_avg = sum(recent) / max(len(recent), 1)
         baseline_avg = sum(baseline) / len(baseline) if baseline else 0.0
-        change = None if baseline_avg < 0.5 else round(100 * (recent_avg - baseline_avg) / baseline_avg)
+        change = None if baseline_avg < 0.5 else min(300, round(100 * (recent_avg - baseline_avg) / baseline_avg))
 
         recent_months = set(months[-RECENT_WINDOW:])
         breadth = len({e.sector for e in evidence if e.month in recent_months})
@@ -288,6 +319,10 @@ def score_topics(conn: sqlite3.Connection, corroborations: dict[str, list[dict]]
                 if h["kind"] != "other" and h["outlet"] not in seen:
                     seen.append(h["outlet"])
         ts.outlets_recent = seen
+        for e in recent_ev:
+            for imp in e.impacts:
+                ts.impacts[imp] = ts.impacts.get(imp, 0) + 1
+        ts.impacts = dict(sorted(ts.impacts.items(), key=lambda kv: -kv[1]))
         ts.confidence, ts.confidence_reasons = _confidence(ts)
         ts.caveats = _caveats(ts)
         ts.why_moving = _why_moving(ts)

@@ -46,8 +46,20 @@ def test_tag_topics():
     it = Item("2026-08", "Education", "Draft rules on public examinations released",
               "Rules to curb paper leaks in NEET.")
     tags = tag_topics(it)
-    assert "education-and-exams" in tags
-    assert "gig-work-and-labour-codes" not in tags
+    assert "education" in tags
+    assert "work" not in tags
+
+
+def test_tag_impacts_lens():
+    from radar.score import tag_impacts
+    it = Item("2026-03", "Information Technology", "Standing Committee submits report on Impact of AI",
+              "The committee examined artificial intelligence and jobs, skilling of workers and school curricula.")
+    imps = tag_impacts(it, {"digital-and-ai": 20}, {"student": "x", "founder": "y"})
+    assert "digital" in imps            # domain default
+    assert "education" in imps          # persona-derived
+    assert "business" in imps           # persona-derived
+    it2 = Item("2026-08", "Finance", "RBI maintains repo rate at 5.25%", "The MPC kept the policy repo rate unchanged.")
+    assert tag_impacts(it2, {"money": 9}) == ["money"]
 
 
 def test_extractive_summary_respects_abbreviations():

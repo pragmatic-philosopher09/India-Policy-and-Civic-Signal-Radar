@@ -703,5 +703,201 @@
    "student": "If you volunteer or intern with an NGO that gets foreign grants, its funding rules may change.",
    "founder": "Non-profit founders and social enterprises: FCRA compliance is about to get stricter."
   }
+ },
+ "2026-08:10": {
+  "hook": "What Parliament's own committee thinks of the India–US trade relationship.",
+  "so_what": {
+   "founder": "Exporters and D2C sellers: tariff and market-access recommendations that may shape the interim deal.",
+   "salaried": "Relevant if you work in IT services, pharma or textiles exposed to US demand."
+  }
+ },
+ "2026-08:11": {
+  "hook": "Parliament's committee reviewed how much easier doing business has actually become.",
+  "so_what": {
+   "founder": "A scorecard of compliance reforms — and the ones still stuck.",
+   "gig": "Self-employed: licensing and registration friction is on the list."
+  }
+ },
+ "2026-08:20": {
+  "hook": "A parliamentary audit of NHPC, the state hydropower company.",
+  "so_what": {
+   "founder": "Power and infra vendors: project pipeline and procurement findings."
+  }
+ },
+ "2026-08:23": {
+  "hook": "Tribunals get a new rulebook — the bodies that hear tax, company and consumer disputes.",
+  "so_what": {
+   "salaried": "Tax and consumer disputes may move faster (or slower) depending on how vacancies are filled.",
+   "founder": "NCLT and tax tribunals decide your appeals — tenure and appointment rules changed.",
+   "student": "Law students: this is the third attempt after the Supreme Court struck down parts of the 2021 Act."
+  }
+ },
+ "2026-08:36": {
+  "hook": "Drug rules changed again — labelling, licensing and quality checks.",
+  "so_what": {
+   "salaried": "How medicines are approved, labelled and recalled affects what's in your chemist's shelf.",
+   "founder": "Pharma and medical retail: licensing conditions updated."
+  }
+ },
+ "2026-08:37": {
+  "hook": "Can ordinary Indians afford healthcare? Parliament's committee says not yet.",
+  "so_what": {
+   "salaried": "Recommendations on out-of-pocket costs, insurance and public hospitals.",
+   "gig": "Informal workers pay the most out of pocket — this is about you.",
+   "student": "Public health and policy students: the definitive current-state report."
+  }
+ },
+ "2026-08:38": {
+  "hook": "Who caps medicine prices, and is it working? A committee report on the NPPA.",
+  "so_what": {
+   "salaried": "Price caps on essential medicines decide what you pay at the counter.",
+   "founder": "Pharma businesses: pricing regulation scrutiny."
+  }
+ },
+ "2026-08:39": {
+  "hook": "Parliament looks at India's chronic kidney disease burden.",
+  "so_what": {
+   "salaried": "Dialysis access and costs are on the table.",
+   "student": "Medical and public-health students: policy direction on non-communicable disease."
+  }
+ },
+ "2026-08:4": {
+  "hook": "Parliament changed the mining law — and clipped states' power to tax minerals.",
+  "so_what": {
+   "founder": "Mining and metals businesses: state levies curtailed, mineral-bearing land regulation centralised.",
+   "student": "Federalism students: a live Centre–state fight over who taxes what."
+  }
+ },
+ "2026-08:5": {
+  "hook": "India's overseas mineral-buying company gets a parliamentary review.",
+  "so_what": {
+   "founder": "EV, battery and electronics makers: critical-mineral supply strategy.",
+   "student": "Geopolitics and energy students: KABIL is the vehicle for lithium and cobalt abroad."
+  }
+ },
+ "2026-08:53": {
+  "hook": "Forest fires in the Himalayas — what Parliament's committee wants done.",
+  "so_what": {
+   "student": "Environment students and hill-state residents: prevention, funding and forest governance."
+  }
+ },
+ "2026-08:6": {
+  "hook": "MSME law amended — definitions and support for small businesses change.",
+  "so_what": {
+   "founder": "Check whether your turnover band, registration or delayed-payment protections changed.",
+   "gig": "Self-employed and micro businesses: Udyam benefits may shift."
+  }
+ },
+ "2026-08:7": {
+  "hook": "A joint committee has reported on the Corporate Laws Bill — company rules are about to change.",
+  "so_what": {
+   "founder": "CSR thresholds, decriminalised offences, LLP conversions — read before the Bill passes.",
+   "salaried": "Company secretaries and finance teams: compliance calendar changes ahead."
+  }
+ },
+ "2026-08:9": {
+  "hook": "Sell abroad from your own stock: a new inventory-based e-commerce export framework.",
+  "so_what": {
+   "founder": "D2C brands can export via warehouses abroad under a defined framework.",
+   "gig": "Small sellers on marketplaces: new export route."
+  }
+ },
+ "2026-07:13": {
+  "hook": "RBI wants to simplify the rules on foreign equity investment.",
+  "so_what": {
+   "founder": "Raising from foreign investors? The FEMA rulebook you file under is being rewritten.",
+   "student": "Finance students: NDI Rules 2019 to be replaced."
+  }
+ },
+ "2026-07:24": {
+  "hook": "The Supreme Court struck down backdated environmental clearances — again.",
+  "so_what": {
+   "founder": "Projects that started before clearance cannot be regularised after the fact.",
+   "student": "Environmental law students: a landmark on retrospective approvals."
+  }
+ },
+ "2026-07:25": {
+  "hook": "Cabinet backs floating solar on reservoirs.",
+  "so_what": {
+   "founder": "Solar developers and EPC firms: a new project category with central support.",
+   "student": "Energy students: land-light solar at scale."
+  }
+ },
+ "2026-07:27": {
+  "hook": "How to get more washed coal to power plants — a committee's plan.",
+  "so_what": {
+   "founder": "Coal washeries and thermal plant suppliers.",
+   "salaried": "Cleaner coal means marginally cleaner air near plants."
+  }
+ },
+ "2026-07:3": {
+  "hook": "A new credit guarantee fund is live for small borrowers.",
+  "so_what": {
+   "founder": "Collateral-free loans with government backing — check eligibility.",
+   "gig": "Self-employed: easier small-ticket credit."
+  }
+ },
+ "2026-07:30": {
+  "hook": "Drugs Rules amended.",
+  "so_what": {
+   "salaried": "Approval and labelling changes for medicines you buy.",
+   "founder": "Pharma manufacturers and retailers: updated licensing conditions."
+  }
+ },
+ "2026-07:6": {
+  "hook": "A Bill to amend the MSME Act was introduced.",
+  "so_what": {
+   "founder": "Definitions, delayed-payment protections and registration are up for change.",
+   "gig": "Micro businesses: Udyam benefits in play."
+  }
+ },
+ "2026-07:7": {
+  "hook": "Public sector companies must now pay small suppliers through TReDS.",
+  "so_what": {
+   "founder": "If you supply a CPSE, your invoices can be discounted and paid faster.",
+   "gig": "Small vendors to government companies: faster cash."
+  }
+ },
+ "2026-06:11": {
+  "hook": "Medical device rules are being amended — comment window was open.",
+  "so_what": {
+   "founder": "Device makers and importers: registration and quality norms.",
+   "salaried": "Affects what devices reach hospitals and at what price."
+  }
+ },
+ "2026-06:12": {
+  "hook": "Drug rules open for comment.",
+  "so_what": {
+   "founder": "Pharma: licensing and labelling changes proposed.",
+   "salaried": "Medicine quality and labelling."
+  }
+ },
+ "2026-06:14": {
+  "hook": "A coal exchange gets its rules — coal will trade like a commodity.",
+  "so_what": {
+   "founder": "Coal buyers and power producers: a market route to fuel.",
+   "student": "Energy economics students: price discovery for coal."
+  }
+ },
+ "2026-06:15": {
+  "hook": "Draft rules under mining laws released.",
+  "so_what": {
+   "founder": "Mining and quarrying: leasing and auction conditions.",
+   "student": "Federalism and resource-law students."
+  }
+ },
+ "2026-06:3": {
+  "hook": "Foreign funds get a tax exemption on Indian government bonds — by ordinance.",
+  "so_what": {
+   "salaried": "More foreign demand for G-secs can lower borrowing costs over time.",
+   "founder": "Treasury teams: bond yields and FII flows."
+  }
+ },
+ "2026-06:9": {
+  "hook": "A fuel price stabilisation fund for airlines.",
+  "so_what": {
+   "salaried": "Airfares may swing less with oil prices.",
+   "founder": "Aviation and travel businesses: cost predictability."
+  }
  }
 }

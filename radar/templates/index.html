@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_item.html" import sparkline, change, follow_btn, respond_card, why_moving, persona_block, states_line, photo, heatmap %}
+{% from "_item.html" import sparkline, change, follow_btn, respond_card, why_moving, persona_block, states_line, photo, heatmap, impact_chips %}
 {% block body %}
 <div class="wrap">
 <section class="hero">
@@ -36,6 +36,10 @@
   <div class="chips"><button type="button" class="chip" data-persona="">{{ t('persona_all') }}</button>{% for k in personas %}<button type="button" class="chip" data-persona="{{ k }}">{{ t('persona_' ~ k) }}</button>{% endfor %}</div>
 </section>
 {% endif %}
+<section class="strip reveal" role="group" aria-label="{{ t('lens_label') }}">
+  <span class="k">{{ t('lens_label') }}</span>
+  <div class="chips"><button type="button" class="chip" data-lens="">{{ t('lens_all') }}</button>{% for i in impacts %}<button type="button" class="chip" data-lens="{{ i.slug }}">{{ i.emoji }} {{ i.name_hi if lang == 'hi' else i.name }}</button>{% endfor %}</div>
+</section>
 <section class="since" id="since" hidden>
   <span class="k kicker"></span>
   <div><ul></ul><p class="hint"></p></div>
@@ -69,7 +73,7 @@
     {{ heatmap(scores) }}
     <div class="rows" style="margin-top:2.4rem">
       {% for ts in brief.moving %}
-      <article class="row sig reveal" style="--accent: {{ ts.topic.color }}" data-slug="{{ ts.topic.slug }}">
+      <article class="row sig reveal" style="--accent: {{ ts.topic.color }}" data-slug="{{ ts.topic.slug }}" data-impacts="{{ ts.impacts.keys() | join(' ') }}">
         <span class="sig-num">{{ '%02d' % loop.index }}</span>
         <div>
           <div class="sig-head">
@@ -77,6 +81,7 @@
             <span class="pill {{ ts.status }}" title="{{ ts.status | status_help }}">{{ ts.status | status }}</span>
             {{ follow_btn(ts) }}
           </div>
+          {{ impact_chips(ts.impacts.keys() | list, ts.impacts) }}
           {{ why_moving(ts) }}
           {% if lang == 'en' and (ts.why | selectattr('so_what') | list) %}
           <details class="acc"><summary>{{ t('for_you') }}</summary><div class="acc-body">{{ persona_block(ts) }}</div></details>
@@ -113,7 +118,7 @@
     <p class="lede reveal">{{ t('quiet_note') }}</p>
     <div class="rows">
       {% for ts in brief.quiet %}
-      <article class="row qrow reveal" style="--accent: {{ ts.topic.color }}">
+      <article class="row qrow reveal" style="--accent: {{ ts.topic.color }}" data-impacts="{{ ts.impacts.keys() | join(' ') }}">
         <span class="sig-num">{{ '%02d' % loop.index }}</span>
         <div>
           <h3><a href="topic/{{ ts.topic.slug }}.html">{{ ts.topic.label(lang) }}</a></h3>
@@ -135,15 +140,15 @@
     <h2 class="reveal">{{ t('all_topics_h2') }}</h2>
     <p class="lede reveal">{{ t('all_topics_note') }} {{ t('ordered_hint') }}</p>
     <table class="index reveal">
-      <thead><tr><th>{{ t('col_topic') }}</th><th>{{ t('col_status') }}</th><th>{{ t('col_change') }}</th><th class="hide-m">{{ t('col_trend') }}</th><th class="hide-m">{{ t('col_evidence') }}</th><th class="hide-m">{{ t('col_conf') }}</th></tr></thead>
+      <thead><tr><th>{{ t('col_topic') }}</th><th>{{ t('col_status') }}</th><th>{{ t('col_change') }}</th><th class="hide-m">{{ t('col_trend') }}</th><th class="hide-m">{{ t('col_impacts') }}</th><th class="hide-m">{{ t('col_conf') }}</th></tr></thead>
       <tbody>
         {% for ts in scores %}
-        <tr style="--accent: {{ ts.topic.color }}">
+        <tr style="--accent: {{ ts.topic.color }}" data-impacts="{{ ts.impacts.keys() | join(' ') }}">
           <td class="name"><a href="topic/{{ ts.topic.slug }}.html">{{ ts.topic.label(lang) }}</a><span class="k2 show-m">{{ t('card_meta', r=ts.recent_items, t=ts.total_items, b=ts.breadth) }}</span></td>
           <td><span class="pill {{ ts.status }}">{{ ts.status | status }}</span></td>
           <td class="pct {{ 'up' if ts.change_pct and ts.change_pct > 0 else 'down' if ts.change_pct and ts.change_pct < 0 else 'mute' }}">{% if ts.status == 'quiet' %}{{ ts.recent_items }}<span class="k2"> /{{ recent_window }}mo</span>{% elif ts.change_pct is not none %}{{ '+' if ts.change_pct > 0 else '' }}{{ ts.change_pct }}%{% else %}{{ t('new') }}{% endif %}</td>
           <td class="hide-m">{{ sparkline(ts.activity, 110, 28) }}</td>
-          <td class="k2 hide-m">{{ t('card_meta', r=ts.recent_items, t=ts.total_items, b=ts.breadth) }}</td>
+          <td class="hide-m emoji-cell">{% for i in impacts if i.slug in ts.impacts %}<span title="{{ i.name }}">{{ i.emoji }}</span>{% endfor %}<span class="k2 show-m"> {{ t('card_meta', r=ts.recent_items, t=ts.total_items, b=ts.breadth) }}</span></td>
           <td class="hide-m"><span class="conf conf-{{ ts.confidence }}">{{ ts.confidence | confidence }}</span></td>
         </tr>
         {% endfor %}

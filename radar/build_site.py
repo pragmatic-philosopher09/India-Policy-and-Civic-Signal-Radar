@@ -16,13 +16,13 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from markupsafe import Markup
 
 from . import db
-from .config import ACTION_WEIGHTS, BASELINE_WINDOW, CHANNEL_URL, PRS_ATTRIBUTION, RECENT_WINDOW, TOPIC_BY_SLUG
+from .config import ACTION_WEIGHTS, BASELINE_WINDOW, CHANNEL_URL, IMPACTS, OLD_TOPICS, PRS_ATTRIBUTION, RECENT_WINDOW, TOPIC_BY_SLUG
 from .crosscheck import lookup as corroborations_for
 from .enrich import PERSONAS, editor_note, load_chains, lookup as enrichment_for
 from . import notice
 from .states import by_topic as states_by_topic, totals as states_totals
 from .announcements import load as load_announcements
-from .score import tag_topics
+from .score import tag_impacts, tag_topics
 from .parse import Item
 from .i18n import DEFAULT_LANG, LANGS, nice_date, pretty_month, sector_label, state_label, t
 from .score import score_topics
@@ -76,6 +76,7 @@ def _env(lang: str) -> Environment:
     env.globals["lang"] = lang
     env.globals["langs"] = LANGS
     env.globals["personas"] = PERSONAS
+    env.globals["impacts"] = IMPACTS
     env.globals["t"] = lambda key, **kw: Markup(t(lang, key, **kw))
     env.filters["month"] = lambda ym: pretty_month(ym, lang)
     env.filters["nice_date"] = lambda d: nice_date(d, lang)
@@ -151,6 +152,9 @@ def _consultations(conn, months: list[str], topic_of: dict[str, str], today: dat
     """
     corr = corr or {}
     enr = enr or {}
+    impacts_of: dict[str, list[str]] = {}
+    for r in conn.execute("SELECT uid, impact FROM item_impacts"):
+        impacts_of.setdefault(r["uid"], []).append(r["impact"])
     buckets: dict[str, list[dict]] = {"open": [], "unknown": [], "closed": []}
     items_by_uid = {r["uid"]: r for r in conn.execute(
         "SELECT uid, month, sector, title, body, summary, action, links, source_url FROM items")}
@@ -161,7 +165,10 @@ def _consultations(conn, months: list[str], topic_of: dict[str, str], today: dat
         if not slug:
             tags = tag_topics(Item(month=month, sector=sector, title=title, body=body or ""), threshold=3)
             slug = max(tags, key=tags.get) if tags else None
-        return dict(uid=uid, title=title, month=month, sector=sector, summary=summary, links=links,
+        so_what = (enr.get(uid) or {}).get("so_what") or {}
+        imps = impacts_of.get(uid) or tag_impacts(Item(month=month, sector=sector, title=title, body=body or ""),
+                                                  {slug: 1} if slug else {}, so_what)
+        return dict(uid=uid, title=title, month=month, sector=sector, summary=summary, links=links, impacts=imps,
                     source_url=source_url, topic=TOPIC_BY_SLUG.get(slug) if slug else None,
                     route=respond_route(title, body or ""), corroborations=corr.get(uid, []),
                     hook=(enr.get(uid) or {}).get("hook"), so_what=(enr.get(uid) or {}).get("so_what") or {},
@@ -281,6 +288,11 @@ def _render_lang(lang: str, conn, scores, consultations, ctx: dict, n_items: int
                                                   topic_image=TOPIC_IMAGES.get(ts.topic.slug),
                                                   page=f"topic/{ts.topic.slug}.html", **ctx), encoding="utf-8")
 
+    for old, new in OLD_TOPICS.items():
+        (out / "topic" / f"{old}.html").write_text(
+            f'<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url={new}.html">'
+            f'<link rel="canonical" href="{new}.html"><title>Policy Pulse</title>'
+            f'<p style="font-family:system-ui;padding:2rem">Moved → <a href="{new}.html">{new}</a></p>', encoding="utf-8")
     (out / "method.html").write_text(env.get_template(f"method_{lang}.html").render(
         page="method.html", root=top, **ctx), encoding="utf-8")
     (out / "states.html").write_text(env.get_template("states.html").render(
@@ -319,7 +331,7 @@ def build() -> None:
         baseline_window=BASELINE_WINDOW, action_weights=ACTION_WEIGHTS, actions=ACTIONS,
         brief=brief(scores, consultations), channel_url=CHANNEL_URL, personas=PERSONAS,
         chains=load_chains(conn), states=states_by_topic(conn), states_totals=states_totals(conn),
-        images=load_images(),
+        images=load_images(), impacts=IMPACTS,
     )
 
     if OUT.exists():
@@ -344,6 +356,7 @@ def build() -> None:
             "recent_avg": ts.recent_avg, "baseline_avg": ts.baseline_avg,
             "total_actions": ts.total_items, "recent_actions": ts.recent_items, "breadth": ts.breadth,
             "recent_corroborated": ts.corroborated_recent, "recent_outlets": ts.outlets_recent,
+            "impacts": ts.impacts,
             "sort_score": ts.score, "months": ts.months, "activity": ts.activity, "counts": ts.counts,
         } for ts in scores],
         "consultations": [{
@@ -357,6 +370,10 @@ def build() -> None:
         "chains": [{"slug": c["slug"], "name": c["name"], "topics": c.get("topics", []), "next": c.get("next"),
                     "steps": [{"uid": st["uid"], "month": st["month"], "action": st["action"], "title": st["title"]} for st in c["steps"]]}
                    for c in ctx["chains"]],
+        "taxonomy": {"domains": [t.slug for t in scores and [x.topic for x in scores] or []],
+                     "impacts": [i.slug for i in IMPACTS],
+                     "stages": ["consultation", "committee", "introduced", "enacted", "rules", "implementation"],
+                     "old_topics": OLD_TOPICS},
         "attribution": PRS_ATTRIBUTION,
     }, indent=1, ensure_ascii=False), encoding="utf-8")
     print(f"built {len(scores)} topic pages x {len(LANGS)} languages -> {OUT}/")

@@ -18,7 +18,7 @@ from datetime import date
 from . import db
 from .fetch import fetch
 from .parse import iso_month, month_url, parse_month
-from .score import classify_action, tag_topics
+from .score import classify_action, tag_impacts, tag_topics
 from .summarize import summarise_missing
 from .translate import translate_missing, visible_uids
 from .crosscheck import crosscheck
@@ -61,7 +61,7 @@ def ingest(months: int, refresh_latest: int = 2) -> None:
         log.info("%s: %d items, %d tagged to a topic", ym, len(items), tagged)
 
     # Re-apply current keyword/action rules to everything so config edits propagate
-    n = db.retag_all(conn, classify_action, tag_topics)
+    n = db.retag_all(conn, classify_action, tag_topics, tag_impacts)
     log.info("retagged %d stored items", n)
 
 
@@ -88,7 +88,7 @@ def main(argv: list[str] | None = None) -> None:
     if args.cmd in ("ingest", "run"):
         ingest(args.months)
     if args.cmd == "retag":
-        log.info("retagged %d items", db.retag_all(db.connect(), classify_action, tag_topics))
+        log.info("retagged %d items", db.retag_all(db.connect(), classify_action, tag_topics, tag_impacts))
     if args.cmd in ("summarise", "run"):
         n = summarise_missing(db.connect())
         log.info("summarised %d items", n)

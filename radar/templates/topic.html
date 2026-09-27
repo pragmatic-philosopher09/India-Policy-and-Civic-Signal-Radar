@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_item.html" import sparkline, change, follow_btn, headline, for_you, corroboration, why_moving, persona_block, states_line, stage_bar, photo, tilemap %}
+{% from "_item.html" import sparkline, change, follow_btn, headline, for_you, corroboration, why_moving, persona_block, states_line, stage_bar, photo, tilemap, impact_chips %}
 {% block title %}{{ ts.topic.label(lang) }} — {{ t('site_title') }}{% endblock %}
 {% block desc %}{{ ts.topic.tag(lang) }} {{ ts.status | status }}, {{ ts.confidence | confidence }} {{ t('confidence_word') }}.{% endblock %}
 {% block nav %}
@@ -22,6 +22,8 @@
       {{ follow_btn(ts) }}
     </div>
     <h1>{{ ts.topic.label(lang) }}</h1>
+    <p class="lede">{{ ts.topic.tag(lang) }}</p>
+    <div class="reveal" style="margin-top:1rem"><span class="k">{{ t('reaches') }}</span> {{ impact_chips(ts.impacts.keys() | list, ts.impacts) }}</div>
     <div class="metrics reveal">
       <div class="metric">{{ change(ts) }}<small>{{ t('vs_prior', n=baseline_window) }}</small></div>
       <div class="metric"><b class="num">{{ ts.total_items }}</b><small>{{ t('metric_actions', m=ts.months | length) }}</small></div>
@@ -76,8 +78,8 @@
         <summary>{{ m | month }} <span class="count">· {{ t('n_actions', n=items | length) }}</span></summary>
         <div class="acc-body"><ul>
           {% for e in items %}
-          <li class="ev action-{{ e.action }}">
-            <div class="labels"><span class="tag action-{{ e.action }}" title="{{ e.action | action_help }}">{{ e.action | action }} <em>×{{ e.weight }}</em></span><span class="tag action-other">{{ e.sector | sector }}</span>{% if e.corroborated %}<span class="tag action-consultation" title="{{ t('corroborated') }}">✓ {{ t('corroborated') }}</span>{% endif %}</div>
+          <li class="ev action-{{ e.action }}" data-impacts="{{ e.impacts | join(' ') }}">
+            <div class="labels"><span class="tag action-{{ e.action }}" title="{{ e.action | action_help }}">{{ e.action | action }} <em>×{{ e.weight }}</em></span><span class="tag">{{ e.sector | sector }}</span>{% if e.corroborated %}<span class="tag action-consultation" title="{{ t('corroborated') }}">✓ {{ t('corroborated') }}</span>{% endif %}{% for i in impacts if i.slug in e.impacts %}<span class="tag imp-tag" title="{{ i.name_hi if lang == 'hi' else i.name }}">{{ i.emoji }}</span>{% endfor %}</div>
             {{ headline(e) }}
             {% set sm = e.summary_l if lang != 'en' else e.summary %}{% if sm %}<p>{{ sm }}</p>{% endif %}
             {{ for_you(e, ts.topic.color) }}

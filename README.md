@@ -47,6 +47,14 @@ The Telegram channel is the product; the site is where the receipts live.
 - **Act-now first** — deadlines parsed, closed items demoted, response templates included.
 - **Persistent, compounding** — SQLite committed to the repo; `docs/radar.json` is free to build on.
 
+## Taxonomy: domain × impact × stage
+
+Every action is classified on three independent axes so labels never fight each other:
+**Domain** (the part of government acting — 8 of them along ministry lines; these are scored),
+**Impact** (who it reaches — 💼 Jobs · 💰 Money · 🎓 Education · 📱 Digital · ⚖️ Rights · 🏭 Business ·
+🩺 Health; a lens for filtering, never a score), **Stage** (draft → committee → Parliament → law →
+rules → implementation), plus **Persona** lines. The original seven topic URLs redirect to their domain.
+
 ## Where the AI is (and isn't)
 
 Deterministic: scoring, confidence rules, deadline parsing, corroboration counting, reading

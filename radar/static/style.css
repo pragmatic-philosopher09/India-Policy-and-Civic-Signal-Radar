@@ -385,3 +385,16 @@ footer .wrap { display: grid; gap: .3rem; }
 body.lang-hi .sitemap a { font-family: var(--sans); text-transform: none; letter-spacing: 0; font-weight: 600; font-size: .8rem; }
 .show-m { display: none; }
 @media (max-width: 760px) { .show-m { display: block; margin-top: .3rem; } .tools .tool { padding: .45rem .5rem; } }
+
+/* ---------- impact lens ---------- */
+.impacts { display: inline-flex; flex-wrap: wrap; gap: .3rem; margin: .2rem 0 .6rem; }
+.imp { font: 500 .66rem/1 var(--mono); letter-spacing: .04em; padding: .3rem .5rem; border: 1px solid var(--rule); color: var(--ink-2); }
+.imp em { font-style: normal; color: var(--mute); }
+body.lang-hi .imp { font-family: var(--sans); font-weight: 600; font-size: .74rem; }
+.imp-tag { border-color: transparent; padding: .3rem .2rem; }
+.emoji-cell { font-size: 1rem; letter-spacing: .1em; }
+.lens-out { opacity: .28; filter: grayscale(.6); transition: opacity .3s, filter .3s; }
+.lens-out:hover { opacity: .6; }
+body[data-lens] .rows .lens-out { display: none; }
+body[data-lens] .index tbody tr.lens-out { display: none; }
+body[data-lens] .causal li.lens-out, body[data-lens] .ev.lens-out { display: none; }

@@ -4,8 +4,7 @@
   "name": "The four labour codes: from paper to payslip",
   "name_hi": "चार श्रम संहिताएँ: काग़ज़ से पे-स्लिप तक",
   "topics": [
-   "gig-work-and-labour-codes",
-   "jobs-and-employment"
+   "work"
   ],
   "steps": [
    "2025-10:10",
@@ -22,7 +21,7 @@
   "name": "Replacing the 1961 Income-Tax Act",
   "name_hi": "1961 के आय-कर अधिनियम की जगह",
   "topics": [
-   "personal-finance-and-tax"
+   "money"
   ],
   "steps": [
    "2025-07:3",
@@ -38,8 +37,7 @@
   "name": "Replacing MGNREGA",
   "name_hi": "मनरेगा की जगह",
   "topics": [
-   "jobs-and-employment",
-   "gig-work-and-labour-codes"
+   "work"
   ],
   "steps": [
    "2025-12:11",
@@ -53,8 +51,8 @@
   "name": "Banning real-money gaming",
   "name_hi": "रियल-मनी गेमिंग पर रोक",
   "topics": [
-   "digital-and-data",
-   "criminal-law-and-justice"
+   "digital-and-ai",
+   "justice"
   ],
   "steps": [
    "2025-08:31",
@@ -67,7 +65,7 @@
   "name": "More judges for the Supreme Court",
   "name_hi": "सुप्रीम कोर्ट में और जज",
   "topics": [
-   "criminal-law-and-justice"
+   "justice"
   ],
   "steps": [
    "2026-05:1",
@@ -80,7 +78,7 @@
   "name": "How telecom companies must identify you",
   "name_hi": "टेलीकॉम कंपनियाँ आपकी पहचान कैसे करेंगी",
   "topics": [
-   "digital-and-data"
+   "digital-and-ai"
   ],
   "steps": [
    "2025-06:15",
@@ -94,7 +92,7 @@
   "name": "One code for the securities market",
   "name_hi": "प्रतिभूति बाज़ार के लिए एक संहिता",
   "topics": [
-   "personal-finance-and-tax"
+   "money"
   ],
   "steps": [
    "2025-12:14",
@@ -107,7 +105,7 @@
   "name": "Decriminalising small offences (Jan Vishwas)",
   "name_hi": "छोटे अपराधों को ग़ैर-आपराधिक बनाना (जन विश्वास)",
   "topics": [
-   "criminal-law-and-justice"
+   "justice"
   ],
   "steps": [
    "2025-08:15",
@@ -120,7 +118,7 @@
   "name": "India's path to AI rules",
   "name_hi": "AI नियमों की ओर भारत की राह",
   "topics": [
-   "ai-regulation"
+   "digital-and-ai"
   ],
   "steps": [
    "2025-08:8",
@@ -136,7 +134,7 @@
   "name": "The IT Rules keep changing",
   "name_hi": "IT नियम बदलते रहते हैं",
   "topics": [
-   "digital-and-data"
+   "digital-and-ai"
   ],
   "steps": [
    "2025-10:11",
@@ -150,7 +148,7 @@
   "name": "Rewriting insurance law",
   "name_hi": "बीमा क़ानून का पुनर्लेखन",
   "topics": [
-   "personal-finance-and-tax"
+   "money"
   ],
   "steps": [
    "2025-12:13",
@@ -163,7 +161,7 @@
   "name": "The repo rate, meeting by meeting",
   "name_hi": "रेपो रेट, बैठक-दर-बैठक",
   "topics": [
-   "personal-finance-and-tax"
+   "money"
   ],
   "steps": [
    "2025-04:3",
@@ -183,7 +181,7 @@
   "name": "One regulator for higher education",
   "name_hi": "उच्च शिक्षा के लिए एक नियामक",
   "topics": [
-   "education-and-exams"
+   "education"
   ],
   "steps": [
    "2025-04:12",
@@ -198,8 +196,8 @@
   "name": "Cracking down on paper leaks",
   "name_hi": "पेपर लीक पर शिकंजा",
   "topics": [
-   "education-and-exams",
-   "criminal-law-and-justice"
+   "education",
+   "justice"
   ],
   "steps": [
    "2025-12:21",
@@ -212,7 +210,7 @@
   "name": "Public money for startups",
   "name_hi": "स्टार्टअप के लिए सार्वजनिक पूँजी",
   "topics": [
-   "jobs-and-employment"
+   "work"
   ],
   "steps": [
    "2025-05:5",
@@ -226,8 +224,8 @@
   "name": "Who pays when you're defrauded online",
   "name_hi": "ऑनलाइन ठगी का नुक़सान कौन उठाएगा",
   "topics": [
-   "personal-finance-and-tax",
-   "digital-and-data"
+   "digital-and-ai",
+   "money"
   ],
   "steps": [
    "2025-07:5",
