@@ -52,6 +52,10 @@ def ingest(months: int, refresh_latest: int = 2) -> None:
         tagged = sum(1 for t in topics.values() if t)
         log.info("%s: %d items, %d tagged to a topic", ym, len(items), tagged)
 
+    # Re-apply current keyword/action rules to everything so config edits propagate
+    n = db.retag_all(conn, classify_action, tag_topics)
+    log.info("retagged %d stored items", n)
+
 
 def main(argv: list[str] | None = None) -> None:
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
@@ -60,12 +64,15 @@ def main(argv: list[str] | None = None) -> None:
     for name in ("ingest", "run"):
         s = sub.add_parser(name)
         s.add_argument("--months", type=int, default=18)
+    sub.add_parser("retag", help="re-apply topic/action rules to stored items")
     sub.add_parser("summarise")
     sub.add_parser("build")
     args = p.parse_args(argv)
 
     if args.cmd in ("ingest", "run"):
         ingest(args.months)
+    if args.cmd == "retag":
+        log.info("retagged %d items", db.retag_all(db.connect(), classify_action, tag_topics))
     if args.cmd in ("summarise", "run"):
         n = summarise_missing(db.connect())
         log.info("summarised %d items", n)

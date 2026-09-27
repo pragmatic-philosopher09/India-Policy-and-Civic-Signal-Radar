@@ -17,13 +17,13 @@ from .parse import Item
 
 # Ordered: first match wins. Patterns are applied to the item title.
 _ACTION_RULES: list[tuple[str, re.Pattern[str]]] = [
-    ("enacted", re.compile(r"\b(passe[sd]|enacted|receives? (?:the )?president'?s assent|assent|brought into (?:effect|force)|comes? into (?:effect|force))\b", re.I)),
+    ("enacted", re.compile(r"\b(passe[sd]|enacted|receives? (?:the )?president'?s assent|brought into (?:effect|force)|comes? into (?:effect|force))\b", re.I)),
     ("introduced", re.compile(r"\bintroduced\b", re.I)),
-    ("court", re.compile(r"\b(supreme court|high court|tribunal|judg?ement|strikes down|upholds)\b", re.I)),
+    ("court", re.compile(r"\b(supreme court|high court|\bSC\b|judg?ement|str(?:ikes|uck) down|uph(?:olds|eld)|stays?)\b", re.I)),
     ("cabinet", re.compile(r"\bcabinet\b", re.I)),
     ("consultation", re.compile(r"\b(draft|comments? invited|for (?:public )?comments|consultation|white paper)\b", re.I)),
     ("committee", re.compile(r"\b(standing committee|committee (?:submits|presents|report)|joint parliamentary committee|\bJPC\b)\b", re.I)),
-    ("rules", re.compile(r"\b(notifie[sd]|notification|rules|regulations?|guidelines|amends? .*rules|circular)\b", re.I)),
+    ("rules", re.compile(r"\b(notifie[sd]|notification|ordinance|rules|regulations?|guidelines|amends? .*rules|circular)\b", re.I)),
     ("scheme", re.compile(r"\b(scheme|mission|launche[sd]|approve[sd]|yojana|programme)\b", re.I)),
 ]
 

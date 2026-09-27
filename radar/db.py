@@ -74,3 +74,17 @@ def upsert_month(conn: sqlite3.Connection, month: str, source_url: str, items: l
 
 def months_present(conn: sqlite3.Connection) -> list[str]:
     return [r["month"] for r in conn.execute("SELECT month FROM months ORDER BY month")]
+
+
+def retag_all(conn: sqlite3.Connection, classify, tag) -> int:
+    """Recompute action + topic tags for every stored item (after config changes)."""
+    rows = conn.execute("SELECT uid, month, sector, title, body, links, source_url FROM items").fetchall()
+    with conn:
+        conn.execute("DELETE FROM item_topics")
+        for r in rows:
+            it = Item(month=r["month"], sector=r["sector"], title=r["title"], body=r["body"],
+                      links=json.loads(r["links"]), source_url=r["source_url"])
+            conn.execute("UPDATE items SET action = ? WHERE uid = ?", (classify(it.title), r["uid"]))
+            for topic, hits in tag(it).items():
+                conn.execute("INSERT INTO item_topics VALUES (?,?,?)", (r["uid"], topic, hits))
+    return len(rows)

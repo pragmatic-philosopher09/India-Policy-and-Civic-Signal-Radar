@@ -4,7 +4,7 @@
 
 A free, open, no-login public site for 18–30 year-old Indians (students, first-time voters,
 early-career professionals) that tracks government activity on the issues that hit their lives —
-jobs, exams, taxes, digital rights, gig work — and shows how attention on each has built up
+jobs, exams, taxes, digital rights, gig work, AI regulation, criminal justice — and shows how attention on each has built up
 over time.
 
 ## What makes it different
@@ -50,10 +50,17 @@ of each item.
 
 ## Deploy
 
+**GitHub Pages (current, $0):**
+
 1. Push to `main`. The workflow in `.github/workflows/radar.yml` runs every Monday 09:00 IST,
    commits refreshed `data/` + `docs/`, and deploys to GitHub Pages.
 2. In repo **Settings → Pages**, set source to **GitHub Actions**.
 3. Optionally add `ANTHROPIC_API_KEY` under **Settings → Secrets**.
+
+**GCP (planned):** the output is a plain static folder, so moving is trivial — sync `docs/` to a
+Cloud Storage bucket behind Cloud CDN (or serve via Cloud Run + nginx), and trigger
+`python -m radar run` from Cloud Scheduler → Cloud Run Job. The SQLite file moves to the bucket
+or Cloud SQL when the dataset outgrows git.
 
 ## Roadmap
 
