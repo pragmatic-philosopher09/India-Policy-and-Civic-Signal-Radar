@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>डिजिटल अधिकार और डेटा सुरक्षा — पॉलिसी पल्स</title>
 <meta name="description" content="आपका डेटा, आपकी फ़ीड, आपका फ़ोन — नियम कौन तय करता है। शांत, कम भरोसा.">
-<meta name="theme-color" content="#f6f2ea" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0f0e0c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f1ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d0e11" media="(prefers-color-scheme: dark)">
 <link rel="alternate" hreflang="en" href="../../topic/digital-and-data.html">
 <link rel="alternate" hreflang="hi" href="../../hi/topic/digital-and-data.html">
+<script>(function(){try{var t=JSON.parse(localStorage.getItem('pulse-theme')||'null');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1&family=Manrope:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=DM+Mono:wght@400;500&family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../static/style.css">
 <script>
 (function(){try{
@@ -26,7 +27,7 @@
 <div class="progress" aria-hidden="true"></div>
 <header class="top">
   <div class="wrap top-inner">
-    <a class="brand" href="../../hi/index.html"><span class="live" aria-hidden="true"></span>पॉलिसी पल्स</a>
+    <a class="brand" href="../../hi/index.html">पॉलिसी पल्स <span class="issue">№ 39</span></a>
     
 <nav class="chapters" aria-label="डिजिटल अधिकार और डेटा सुरक्षा">
   <a href="#story"><span>01</span>कहानी</a>
@@ -36,10 +37,11 @@
 </nav>
 
     <div class="tools">
-      <a class="tool" href="../../hi/states.html">राज्य</a>
-      <a class="tool" href="../../hi/method.html">पद्धति</a>
+      <a class="tool hide-m" href="../../hi/states.html">राज्य</a>
+      <a class="tool hide-m" href="../../hi/method.html">पद्धति</a>
       <a class="tool lang-toggle" lang="en" href="../../topic/digital-and-data.html?lang=en">English</a>
-      <button type="button" class="tool" data-sound data-on="🔈 ध्वनि चालू" data-off="🔇 ध्वनि" aria-pressed="false" title="इंटरैक्शन पर हल्की सिंथेसाइज़्ड क्लिक। डिफ़ॉल्ट बंद; कुछ डाउनलोड नहीं होता।">🔇 ध्वनि</button>
+      <button type="button" class="tool" data-theme-toggle data-light="लाइट मोड" data-dark="डार्क मोड" title="लाइट / डार्क">◐</button>
+      <button type="button" class="tool hide-m" data-sound data-on="🔈 ध्वनि चालू" data-off="🔇 ध्वनि" aria-pressed="false" title="इंटरैक्शन पर हल्की सिंथेसाइज़्ड क्लिक। डिफ़ॉल्ट बंद; कुछ डाउनलोड नहीं होता।">🔇 ध्वनि</button>
     </div>
   </div>
 </header>
@@ -48,6 +50,8 @@
 <div class="wrap" style="--accent: #7c3aed">
   <a class="back" href="../index.html">← सभी विषय</a>
   <section class="thero">
+    <aside class="side reveal"><span class="k">विषय</span><br><span class="mute" style="font-size:.85rem">आपका डेटा, आपकी फ़ीड, आपका फ़ोन — नियम कौन तय करता है।</span></aside>
+    <div>
     <div class="top-row">
       <span class="pill quiet" title="पिछले तीन महीनों में लगभग कोई टैग की गई सरकारी कार्रवाई नहीं।">शांत</span>
       <span class="conf conf-low">कम भरोसा</span>
@@ -56,7 +60,6 @@
 
     </div>
     <h1>डिजिटल अधिकार और डेटा सुरक्षा</h1>
-    <p class="lede">आपका डेटा, आपकी फ़ीड, आपका फ़ोन — नियम कौन तय करता है।</p>
     <div class="metrics reveal">
       <div class="metric">
   <span class="big num muted">1</span>
@@ -66,17 +69,18 @@
       <div class="metric"><b class="num">1</b><small>मंत्रालय हाल में</small></div>
       <div class="metric"><b class="num">0/1</b><small>हालिया कार्रवाइयाँ पुष्ट</small></div>
     </div>
+    </div>
   </section>
+  
 
   
   <section class="chapter" id="story">
-    <div class="chapter-head reveal">
-      <span class="chapter-num">01</span>
+    <aside class="marg reveal"><span class="num">01</span><span class="k">कहानी</span><span class="hint">यह लेबल किससे बना, और इसका क्या मतलब नहीं।</span></aside>
+    <div class="body">
       <div><h2>यह शांत क्यों है?</h2>
         <p class="lede">पिछले 3 महीनों में इस विषय पर सरकारी गतिविधि औसतन <strong>0.7</strong> भारित अंक प्रति माह रही
           — उससे पहले के 6 महीनों (1.0/माह) की तुलना में <strong class="down">-32%</strong>।
           हाल में 1 अलग-अलग मंत्रालयों ने इस पर कार्रवाई की।</p></div>
-    </div>
     <div class="card reveal">
       <div class="bars" aria-label="बार = हर महीने की सबूत-भारित गतिविधि। हाइलाइट किए बार वह हालिया अवधि हैं जिससे लेबल तय होता है।">
         
@@ -143,14 +147,14 @@
         <div class="acc-body"><ul class="caveats"><li>17 महीनों में 15 टैग की गई कार्रवाइयाँ</li><li>पिछले 3 महीनों में 1, जो 1 महीने/महीनों में फैली हैं</li><li>हाल में 1 मंत्रालय सक्रिय</li><li>हाल की 1 कार्रवाइयों में से कोई भी अभी स्वतंत्र कवरेज में नहीं मिली</li></ul></div></details>
       
     </div>
+    </div>
   </section>
 
   
   <section class="chapter" id="evidence">
-    <div class="chapter-head reveal">
-      <span class="chapter-num">02</span>
+    <aside class="marg reveal"><span class="num">02</span><span class="k">सबूत</span><span class="hint">हर कार्रवाई, नया महीना पहले।</span></aside>
+    <div class="body">
       <div><h2>सबूत, महीने-दर-महीने</h2><p class="lede">इस विषय पर PRS द्वारा दर्ज हर कार्रवाई, नया महीना पहले। क्या बदला पढ़ने के लिए महीना खोलें।</p></div>
-    </div>
     <div class="card reveal month-acc">
       
       
@@ -483,26 +487,27 @@
       
       <details class="acc"><summary>लेबल का मतलब</summary><div class="acc-body"><dl><dt><span class="tag action-enacted">क़ानून पास</span></dt><dd>संसद ने इसे पास कर दिया (या राष्ट्रपति की मंज़ूरी मिल गई)। अब यह क़ानून है, हालाँकि लागू बाद में हो सकता है।</dd><dt><span class="tag action-introduced">विधेयक पेश</span></dt><dd>संसद में एक विधेयक रखा गया। यह अभी बदल सकता है, समिति को जा सकता है, या रद्द हो सकता है।</dd><dt><span class="tag action-rules">नियम अधिसूचित</span></dt><dd>सरकार ने किसी मौजूदा क़ानून के तहत बाध्यकारी नियम, विनियम या अधिसूचना जारी की। इसके लिए वोट की ज़रूरत नहीं।</dd><dt><span class="tag action-cabinet">कैबिनेट मंज़ूरी</span></dt><dd>केंद्रीय कैबिनेट ने एक प्रस्ताव मंज़ूर किया — आम तौर पर विधेयक पेश होने या योजना शुरू होने से पहले का क़दम।</dd><dt><span class="tag action-consultation">राय के लिए खुला</span></dt><dd>एक मसौदा जनता की राय के लिए प्रकाशित हुआ। समय-सीमा से पहले कोई भी जवाब दे सकता है।</dd><dt><span class="tag action-committee">समिति रिपोर्ट</span></dt><dd>सभी दलों के सांसदों की संसदीय समिति ने किसी मुद्दे की जाँच कर सिफ़ारिशें दीं। बाध्यकारी नहीं।</dd><dt><span class="tag action-scheme">योजना / कार्यक्रम</span></dt><dd>कोई सरकारी कार्यक्रम शुरू, मंज़ूर या विस्तारित हुआ।</dd><dt><span class="tag action-court">अदालत का फ़ैसला</span></dt><dd>अदालत का ऐसा फ़ैसला या रोक जो क़ानून के अमल को बदल देता है।</dd><dt><span class="tag action-other">अपडेट</span></dt><dd>कोई बयान, रिपोर्ट या घटनाक्रम जो ऊपर की श्रेणियों में नहीं आता।</dd></dl></div></details>
     </div>
+    </div>
   </section>
 
   
   <section class="chapter" id="states">
-    <div class="chapter-head reveal">
-      <span class="chapter-num">03</span>
+    <aside class="marg reveal"><span class="num">03</span><span class="k">राज्य</span><span class="hint">साल के हिसाब से, स्कोर के बग़ल में।</span></aside>
+    <div class="body">
       <div><h2>राज्यों में</h2><p class="lede">इस विषय पर राज्य विधानसभाओं में पेश विधेयक, PRS की राज्य विधेयक सूची से। साल के हिसाब से (PRS महीना नहीं, साल दर्ज करता है), इसलिए यह परत गति स्कोर के बग़ल में है, उसके अंदर नहीं।</p></div>
-    </div>
+    
     
     <div class="card reveal">
     <p class="empty">2025–2026 में इस विषय पर कोई राज्य विधेयक टैग नहीं।</p>
+    </div>
     </div>
   </section>
 
   
   <section class="chapter" id="journeys">
-    <div class="chapter-head reveal">
-      <span class="chapter-num">04</span>
+    <aside class="marg reveal"><span class="num">04</span><span class="k">यात्राएँ</span><span class="hint">एक उपकरण, महीनों तक ट्रैक।</span></aside>
+    <div class="body">
       <div><h2>नीति की यात्राएँ</h2><p class="lede">एक ही क़ानूनी उपकरण को महीनों तक ट्रैक किया गया — ऐसे एक विधेयक उन नियमों में बदलता है जो आप तक पहुँचते हैं।</p></div>
-    </div>
     
     <div class="stack">
       
@@ -560,6 +565,7 @@
       
     </div>
     
+    </div>
   </section>
 </div>
 
@@ -568,6 +574,7 @@
   <div class="wrap">
     <p>Source data © PRS Legislative Research (prsindia.org), licensed under CC BY 4.0. Summaries and scores are our own.</p>
     <p>अपडेट 2026-09-27 · ओपन सोर्स · न विज्ञापन, न ट्रैकिंग, न लॉगइन। · हुक, “आपके लिए” पंक्तियाँ और साप्ताहिक नोट मॉडल-प्रारूपित और स्रोत-लिंक्ड हैं; स्कोर और भरोसा नियम-आधारित हैं।</p>
+    <p>तस्वीरें: <a href="https://commons.wikimedia.org/wiki/File:Sansad_Bhavan,_New_Delhi.jpg">Nikhilb239</a> (CC BY-SA 4.0) · <a href="https://commons.wikimedia.org/wiki/File:Vidhana_Soudha,_Bengaluru,_February_2017_06.jpg">Ibrahim Husain Meraj</a> (CC BY-SA 4.0) · <a href="https://commons.wikimedia.org/wiki/File:Building_of_The_Supreme_Court_of_India.jpg">Pinakpani</a> (CC BY-SA 4.0)</p>
   </div>
 </footer>
 <script src="../../static/app.js" defer></script>

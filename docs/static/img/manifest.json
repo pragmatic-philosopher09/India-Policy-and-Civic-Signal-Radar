@@ -1,0 +1,41 @@
+{
+ "parliament": {
+  "title": "File:Sansad Bhavan, New Delhi.jpg",
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/07/Sansad_Bhavan%2C_New_Delhi.jpg/3840px-Sansad_Bhavan%2C_New_Delhi.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "page": "https://commons.wikimedia.org/wiki/File:Sansad_Bhavan,_New_Delhi.jpg",
+  "license": "CC BY-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+  "artist": "Nikhilb239",
+  "desc": "A view of Old Sansad Bhavan from Vijay Chowk in New Delhi",
+  "file": "static/img/parliament.jpg",
+  "w": 1600,
+  "h": 900,
+  "note": "cropped and resized"
+ },
+ "vidhana-soudha": {
+  "title": "File:Vidhana Soudha, Bengaluru, February 2017 06.jpg",
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Vidhana_Soudha%2C_Bengaluru%2C_February_2017_06.jpg/3840px-Vidhana_Soudha%2C_Bengaluru%2C_February_2017_06.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "page": "https://commons.wikimedia.org/wiki/File:Vidhana_Soudha,_Bengaluru,_February_2017_06.jpg",
+  "license": "CC BY-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+  "artist": "Ibrahim Husain Meraj",
+  "desc": "Vidhana Soudha, Bengaluru, February 2017",
+  "file": "static/img/vidhana-soudha.jpg",
+  "w": 1600,
+  "h": 900,
+  "note": "cropped and resized"
+ },
+ "supreme-court": {
+  "title": "File:Building of The Supreme Court of India.jpg",
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Building_of_The_Supreme_Court_of_India.jpg/3840px-Building_of_The_Supreme_Court_of_India.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "page": "https://commons.wikimedia.org/wiki/File:Building_of_The_Supreme_Court_of_India.jpg",
+  "license": "CC BY-SA 4.0",
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+  "artist": "Pinakpani",
+  "desc": "Building of The Supreme Court of India, New Delhi",
+  "file": "static/img/supreme-court.jpg",
+  "w": 1600,
+  "h": 900,
+  "note": "cropped and resized"
+ }
+}

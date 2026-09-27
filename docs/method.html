@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How scoring works — Policy Pulse</title>
 <meta name="description" content="Which Indian policy issues are gaining momentum right now — with the evidence, not just a score.">
-<meta name="theme-color" content="#f6f2ea" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0f0e0c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f1ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d0e11" media="(prefers-color-scheme: dark)">
 <link rel="alternate" hreflang="en" href="method.html">
 <link rel="alternate" hreflang="hi" href="hi/method.html">
+<script>(function(){try{var t=JSON.parse(localStorage.getItem('pulse-theme')||'null');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="static/style.css">
 <script>
 (function(){try{
@@ -26,13 +27,14 @@
 <div class="progress" aria-hidden="true"></div>
 <header class="top">
   <div class="wrap top-inner">
-    <a class="brand" href="index.html"><span class="live" aria-hidden="true"></span>Policy Pulse</a>
+    <a class="brand" href="index.html">Policy Pulse <span class="issue">№ 39</span></a>
     
     <div class="tools">
-      <a class="tool" href="states.html">States</a>
-      <a class="tool" href="method.html">Method</a>
+      <a class="tool hide-m" href="states.html">States</a>
+      <a class="tool hide-m" href="method.html">Method</a>
       <a class="tool lang-toggle" lang="hi" href="hi/method.html?lang=hi">हिन्दी</a>
-      <button type="button" class="tool" data-sound data-on="🔈 Sound on" data-off="🔇 Sound" aria-pressed="false" title="Tiny synthesized clicks on interactions. Off by default; nothing is downloaded.">🔇 Sound</button>
+      <button type="button" class="tool" data-theme-toggle data-light="Switch to light" data-dark="Switch to dark" title="Light / dark">◐</button>
+      <button type="button" class="tool hide-m" data-sound data-on="🔈 Sound on" data-off="🔇 Sound" aria-pressed="false" title="Tiny synthesized clicks on interactions. Off by default; nothing is downloaded.">🔇 Sound</button>
     </div>
   </div>
 </header>
@@ -119,6 +121,7 @@
   <div class="wrap">
     <p>Source data © PRS Legislative Research (prsindia.org), licensed under CC BY 4.0. Summaries and scores are our own.</p>
     <p>Updated 2026-09-27 · Open source · No ads, no tracking, no login. · Hooks, “For you” lines and the weekly note are model-drafted and source-linked; scores and confidence are rule-based.</p>
+    <p>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Sansad_Bhavan,_New_Delhi.jpg">Nikhilb239</a> (CC BY-SA 4.0) · <a href="https://commons.wikimedia.org/wiki/File:Vidhana_Soudha,_Bengaluru,_February_2017_06.jpg">Ibrahim Husain Meraj</a> (CC BY-SA 4.0) · <a href="https://commons.wikimedia.org/wiki/File:Building_of_The_Supreme_Court_of_India.jpg">Pinakpani</a> (CC BY-SA 4.0)</p>
   </div>
 </footer>
 <script src="static/app.js" defer></script>

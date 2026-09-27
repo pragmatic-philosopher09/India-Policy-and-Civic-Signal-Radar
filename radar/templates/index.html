@@ -1,53 +1,60 @@
 {% extends "base.html" %}
-{% from "_item.html" import sparkline, change, follow_btn, respond_card, why_moving, persona_block, states_line, due_box %}
+{% from "_item.html" import sparkline, change, follow_btn, respond_card, why_moving, persona_block, states_line, photo, heatmap %}
 {% block body %}
-<section class="hero wrap">
-  <p class="eyebrow"><span class="live" aria-hidden="true"></span>{{ t('eyebrow', d=today) }}</p>
-  <h1>{{ t('hero_h1') }}</h1>
-  <p class="lede">{{ t('hero_lede') }}</p>
-  <p class="meta">
-    {% if channel_url %}<a class="cta" href="{{ channel_url }}">✈ {{ t('get_telegram') }}</a>{% else %}<span class="cta ghost">✈ {{ t('telegram_soon') }}</span>{% endif %}
-    <span>{{ t('hero_meta', n=n_items, m=n_months, d=today) }}</span>
-  </p>
+<div class="wrap">
+<section class="hero">
+  <aside class="side reveal">
+    <span class="k">{{ t('issue_word') }}</span>
+    <span class="date">{{ t('issue_no', n=week[-2:] | int) }}<br>{{ today | nice_date_iso }}</span>
+    <span class="k" style="margin-top:.8rem">{{ t('source_word') }}</span>
+    <span class="mute" style="font-size:.85rem;line-height:1.4">{{ t('hero_meta_short', n=n_items, m=n_months) }}</span>
+  </aside>
+  <div>
+    <h1>{{ t('hero_h1_v3') }}</h1>
+    <p class="lede">{{ t('hero_lede') }}</p>
+    <p class="meta">
+      {% if channel_url %}<a class="cta" href="{{ channel_url }}">{{ t('get_telegram') }} →</a>{% else %}<span class="cta ghost">{{ t('telegram_soon') }}</span>{% endif %}
+      <span>{{ t('free_line') }}</span>
+    </p>
+  </div>
 </section>
+</div>
 
+<div class="wrap">{{ photo('parliament', t('photo_parliament'), images, root) }}</div>
+
+<div class="wrap">
 {% if editor_note %}
-<section class="note narrow reveal">
-  <p class="kicker">{{ t('note_kicker') }} <span class="ai" title="{{ t('ai_tag_help') }}">{{ t('ai_tag') }}</span></p>
-  <p class="text">{{ editor_note }}</p>
+<section class="note">
+  <aside class="reveal"><span class="k">{{ t('note_kicker') }}</span><br><span class="ai" title="{{ t('ai_tag_help') }}">{{ t('ai_tag') }}</span></aside>
+  <p class="text reveal">{{ editor_note }}</p>
 </section>
 {% endif %}
 
-<div class="narrow">
-  {% if lang == 'en' %}
-  <div class="strip reveal" role="group" aria-label="{{ t('persona_prompt') }}">
-    <span class="label">{{ t('reading_as') }}</span>
-    <button type="button" class="chip" data-persona="">{{ t('persona_all') }}</button>
-    {% for k in personas %}<button type="button" class="chip" data-persona="{{ k }}">{{ t('persona_' ~ k) }}</button>{% endfor %}
-  </div>
-  {% endif %}
-  <div class="since reveal" id="since" hidden>
-    <p class="kicker"></p>
-    <ul></ul>
-    <p class="hint"></p>
-  </div>
-</div>
+{% if lang == 'en' %}
+<section class="strip reveal" role="group" aria-label="{{ t('persona_prompt') }}">
+  <span class="k">{{ t('reading_as') }}</span>
+  <div class="chips"><button type="button" class="chip" data-persona="">{{ t('persona_all') }}</button>{% for k in personas %}<button type="button" class="chip" data-persona="{{ k }}">{{ t('persona_' ~ k) }}</button>{% endfor %}</div>
+</section>
+{% endif %}
+<section class="since" id="since" hidden>
+  <span class="k kicker"></span>
+  <div><ul></ul><p class="hint"></p></div>
+</section>
 
 {# ---------------- 01 Respond ---------------- #}
-<section class="chapter chapter-act" id="respond">
-  <div class="wrap">
-    <div class="chapter-head reveal">
-      <span class="chapter-num">01</span>
-      <div><h2>{{ t('respond_h2') }}</h2><p class="lede">{{ t('consult_lede') }}</p></div>
-    </div>
-    <div class="respond">
+<section class="chapter" id="respond">
+  <aside class="marg reveal"><span class="num">01</span><span class="k">{{ t('ch_respond') }}</span><span class="hint">{{ t('marg_respond') }}</span></aside>
+  <div class="body">
+    <h2 class="reveal">{{ t('respond_h2') }}</h2>
+    <p class="lede reveal">{{ t('consult_lede') }}</p>
+    <div class="rows">
       {% for e in brief.respond %}{{ respond_card(e) }}{% endfor %}
       {% if not brief.respond %}<p class="empty reveal">{{ t('respond_none') }}</p>{% endif %}
     </div>
     {% if consultations.closed %}
-    <details class="acc reveal">
+    <details class="acc reveal" style="max-width:none">
       <summary>{{ t('recently_closed', n=consultations.closed | length) }}</summary>
-      <div class="acc-body"><div class="respond">{% for e in consultations.closed[:6] %}{{ respond_card(e, closed=True) }}{% endfor %}</div></div>
+      <div class="acc-body"><div class="rows">{% for e in consultations.closed[:6] %}{{ respond_card(e, closed=True) }}{% endfor %}</div></div>
     </details>
     {% endif %}
   </div>
@@ -55,38 +62,40 @@
 
 {# ---------------- 02 Moving ---------------- #}
 <section class="chapter" id="moving">
-  <div class="wrap">
-    <div class="chapter-head reveal">
-      <span class="chapter-num">02</span>
-      <div><h2>{{ t('signals_h2') }}</h2><p class="lede">{{ t('moving_lede', w=recent_window, b=baseline_window) }}</p></div>
-    </div>
-    <div class="signals">
+  <aside class="marg reveal"><span class="num">02</span><span class="k">{{ t('ch_moving') }}</span><span class="hint">{{ t('marg_moving') }}</span></aside>
+  <div class="body">
+    <h2 class="reveal">{{ t('signals_h2') }}</h2>
+    <p class="lede reveal">{{ t('moving_lede', w=recent_window, b=baseline_window) }}</p>
+    {{ heatmap(scores) }}
+    <div class="rows" style="margin-top:2.4rem">
       {% for ts in brief.moving %}
-      <article class="card sig reveal" style="--accent: {{ ts.topic.color }}" data-slug="{{ ts.topic.slug }}">
-        <div class="sig-head">
-          <span class="sig-num">{{ '%02d' % loop.index }}</span>
-          <h3><a href="topic/{{ ts.topic.slug }}.html">{{ ts.topic.label(lang) }}</a></h3>
-          <span class="pill {{ ts.status }}" title="{{ ts.status | status_help }}">{{ ts.status | status }}</span>
-          {{ follow_btn(ts) }}
+      <article class="row sig reveal" style="--accent: {{ ts.topic.color }}" data-slug="{{ ts.topic.slug }}">
+        <span class="sig-num">{{ '%02d' % loop.index }}</span>
+        <div>
+          <div class="sig-head">
+            <h3><a href="topic/{{ ts.topic.slug }}.html">{{ ts.topic.label(lang) }}</a></h3>
+            <span class="pill {{ ts.status }}" title="{{ ts.status | status_help }}">{{ ts.status | status }}</span>
+            {{ follow_btn(ts) }}
+          </div>
+          {{ why_moving(ts) }}
+          {% if lang == 'en' and (ts.why | selectattr('so_what') | list) %}
+          <details class="acc"><summary>{{ t('for_you') }}</summary><div class="acc-body">{{ persona_block(ts) }}</div></details>
+          {% endif %}
+          {% set sd = states[ts.topic.slug] %}
+          {% if sd and sd.bills %}
+          <details class="acc"><summary>{{ t('states_h2') }} <span class="count">· {{ t('n_bills', n=sd.bills | length) }}</span></summary>
+            <div class="acc-body">{{ states_line(ts, states) }}
+              <ul class="blist" style="margin-top:.6rem">{% for b in sd.bills[:4] %}<li><span class="tag state-chip">{{ b.state | state }}</span><span class="tag">{{ b.year }}</span><span class="t">{{ b.title }}</span></li>{% endfor %}</ul>
+            </div></details>
+          {% endif %}
+          {% if ts.connections %}<p class="connections">{{ t('also_touches') }}: {% for c in ts.connections %}<a href="topic/{{ c.slug }}.html" class="tag topic">{{ c.topic.label(lang) }}</a>{% endfor %}</p>{% endif %}
+          <a class="more" href="topic/{{ ts.topic.slug }}.html">{{ t('explore') }}</a>
         </div>
-        <div class="sig-hero">
+        <div class="sig-side">
           {{ change(ts) }}
-          <p class="sub">{{ t('vs_prior', n=baseline_window) }} · <b>{{ ts.recent_items }}</b> {{ t('recent_actions_word') }} · <span class="conf conf-{{ ts.confidence }}">{{ ts.confidence | confidence }} {{ t('confidence_word') }}</span></p>
-          {{ sparkline(ts.activity) }}
+          <p class="sub">{{ t('vs_prior', n=baseline_window) }}<br><b>{{ ts.recent_items }}</b> {{ t('recent_actions_word') }} · <b>{{ ts.breadth }}</b> {{ t('metric_ministries') }}<br><span class="conf conf-{{ ts.confidence }}">{{ ts.confidence | confidence }} {{ t('confidence_word') }}</span></p>
+          {{ sparkline(ts.activity, 200, 48) }}
         </div>
-        {{ why_moving(ts) }}
-        {% if lang == 'en' and (ts.why | selectattr('so_what') | list) %}
-        <details class="acc"><summary>{{ t('for_you') }}</summary><div class="acc-body">{{ persona_block(ts) }}</div></details>
-        {% endif %}
-        {% set sd = states[ts.topic.slug] %}
-        {% if sd and sd.bills %}
-        <details class="acc"><summary>{{ t('states_h2') }} <span class="count">· {{ t('n_bills', n=sd.bills | length) }}</span></summary>
-          <div class="acc-body">{{ states_line(ts, states) }}
-            <ul class="blist">{% for b in sd.bills[:4] %}<li><span class="tag state-chip">{{ b.state | state }}</span><span class="t">{{ b.title }}</span></li>{% endfor %}</ul>
-          </div></details>
-        {% endif %}
-        {% if ts.connections %}<p class="connections">{{ t('also_touches') }}: {% for c in ts.connections %}<a href="topic/{{ c.slug }}.html" class="tag" style="--accent: {{ c.topic.color }}">{{ c.topic.label(lang) }}</a>{% endfor %}</p>{% endif %}
-        <a class="more" href="topic/{{ ts.topic.slug }}.html">{{ t('explore') }}</a>
       </article>
       {% endfor %}
     </div>
@@ -95,18 +104,20 @@
 
 {# ---------------- 03 Quiet ---------------- #}
 {% if brief.quiet %}
-<section class="chapter chapter-quiet" id="quiet">
-  <div class="wrap">
-    <div class="chapter-head reveal">
-      <span class="chapter-num">03</span>
-      <div><h2>{{ t('quiet_h2') }}</h2><p class="lede">{{ t('quiet_note') }}</p></div>
-    </div>
-    <div class="quiet-grid">
+<section class="chapter" id="quiet">
+  <aside class="marg reveal"><span class="num">03</span><span class="k">{{ t('ch_quiet') }}</span><span class="hint">{{ t('marg_quiet') }}</span></aside>
+  <div class="body">
+    <h2 class="reveal">{{ t('quiet_h2') }}</h2>
+    <p class="lede reveal">{{ t('quiet_note') }}</p>
+    <div class="rows">
       {% for ts in brief.quiet %}
-      <article class="card qcard reveal" style="--accent: {{ ts.topic.color }}">
-        <h3><a href="topic/{{ ts.topic.slug }}.html">{{ ts.topic.label(lang) }}</a></h3>
-        <p class="q">{{ t('quiet_line', n=ts.recent_items, w=recent_window) }}</p>
-        {{ states_line(ts, states) }}
+      <article class="row qrow reveal" style="--accent: {{ ts.topic.color }}">
+        <span class="sig-num">{{ '%02d' % loop.index }}</span>
+        <div>
+          <h3><a href="topic/{{ ts.topic.slug }}.html">{{ ts.topic.label(lang) }}</a></h3>
+          <p class="q">{{ t('quiet_line', n=ts.recent_items, w=recent_window) }}</p>
+          {{ states_line(ts, states) }}
+        </div>
         {{ follow_btn(ts) }}
       </article>
       {% endfor %}
@@ -116,28 +127,30 @@
 {% endif %}
 
 {# ---------------- 04 Everything ---------------- #}
-<section class="chapter chapter-all" id="all">
-  <div class="wrap">
-    <div class="chapter-head reveal">
-      <span class="chapter-num">04</span>
-      <div><h2>{{ t('all_topics_h2') }}</h2><p class="lede">{{ t('all_topics_note') }} {{ t('ordered_hint') }}</p></div>
-    </div>
-    <div class="grid">
-      {% for ts in scores %}
-      <a class="card tile reveal" href="topic/{{ ts.topic.slug }}.html" style="--accent: {{ ts.topic.color }}">
-        <span class="pill {{ ts.status }}">{{ ts.status | status }}</span>
-        <span class="name">{{ ts.topic.label(lang) }}</span>
-        <span class="row">
-          <span class="pct num {{ 'up' if ts.change_pct and ts.change_pct > 0 else 'down' if ts.change_pct and ts.change_pct < 0 else 'muted' }}">{% if ts.status == 'quiet' %}{{ ts.recent_items }}{% elif ts.change_pct is not none %}{{ '+' if ts.change_pct > 0 else '' }}{{ ts.change_pct }}%{% else %}{{ t('new') }}{% endif %}</span>
-          {{ sparkline(ts.activity, 90, 26) }}
-        </span>
-        <span class="foot">{{ t('card_meta', r=ts.recent_items, t=ts.total_items, b=ts.breadth) }} · <span class="conf conf-{{ ts.confidence }}">{{ ts.confidence | confidence }}</span></span>
-      </a>
-      {% endfor %}
-    </div>
-    <p class="lede reveal" style="margin-top:2rem;font-size:.95rem">{{ t('about_p', w=recent_window, b=baseline_window) }} <a href="method.html">{{ t('method_link') }}</a> · <a href="{{ root }}radar.json">{{ t('json_link') }}</a></p>
+<section class="chapter" id="all">
+  <aside class="marg reveal"><span class="num">04</span><span class="k">{{ t('ch_all') }}</span><span class="hint">{{ t('marg_all') }}</span></aside>
+  <div class="body">
+    <h2 class="reveal">{{ t('all_topics_h2') }}</h2>
+    <p class="lede reveal">{{ t('all_topics_note') }} {{ t('ordered_hint') }}</p>
+    <table class="index reveal">
+      <thead><tr><th>{{ t('col_topic') }}</th><th>{{ t('col_status') }}</th><th>{{ t('col_change') }}</th><th class="hide-m">{{ t('col_trend') }}</th><th class="hide-m">{{ t('col_evidence') }}</th><th class="hide-m">{{ t('col_conf') }}</th></tr></thead>
+      <tbody>
+        {% for ts in scores %}
+        <tr style="--accent: {{ ts.topic.color }}">
+          <td class="name"><a href="topic/{{ ts.topic.slug }}.html">{{ ts.topic.label(lang) }}</a></td>
+          <td><span class="pill {{ ts.status }}">{{ ts.status | status }}</span></td>
+          <td class="pct {{ 'up' if ts.change_pct and ts.change_pct > 0 else 'down' if ts.change_pct and ts.change_pct < 0 else 'mute' }}">{% if ts.status == 'quiet' %}{{ ts.recent_items }}<span class="k2"> /{{ recent_window }}mo</span>{% elif ts.change_pct is not none %}{{ '+' if ts.change_pct > 0 else '' }}{{ ts.change_pct }}%{% else %}{{ t('new') }}{% endif %}</td>
+          <td class="hide-m">{{ sparkline(ts.activity, 110, 28) }}</td>
+          <td class="k2 hide-m">{{ t('card_meta', r=ts.recent_items, t=ts.total_items, b=ts.breadth) }}</td>
+          <td class="hide-m"><span class="conf conf-{{ ts.confidence }}">{{ ts.confidence | confidence }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="lede reveal" style="margin-top:2rem;font-size:.95rem">{{ t('about_p', w=recent_window, b=baseline_window) }} <a class="u" href="method.html">{{ t('method_link') }}</a> · <a class="u" href="{{ root }}radar.json">{{ t('json_link') }}</a></p>
   </div>
 </section>
+</div>
 
 <script type="application/json" id="pulse-state">{{ state_json }}</script>
 <script type="application/json" id="pulse-strings">{{ strings_json }}</script>

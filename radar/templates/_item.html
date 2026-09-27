@@ -5,7 +5,8 @@
   {% set n = values | length %}
   {% set step = w / ([n - 1, 1] | max) %}
   <svg viewBox="0 0 {{ w }} {{ h }}" width="{{ w }}" height="{{ h }}" class="spark" aria-hidden="true">
-    <polyline points="{% for v in values %}{{ '%.1f' % (loop.index0 * step) }},{{ '%.1f' % (h - (v / mx) * (h - 6) - 3) }} {% endfor %}" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+    <polyline points="{% for v in values %}{{ '%.1f' % (loop.index0 * step) }},{{ '%.1f' % (h - (v / mx) * (h - 6) - 3) }} {% endfor %}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect class="last" x="{{ '%.1f' % ((n - 1) * step - 3) }}" y="{{ '%.1f' % (h - (values[-1] / mx) * (h - 6) - 6) }}" width="6" height="6" fill="currentColor"/>
   </svg>
 {% endmacro %}
 
@@ -21,7 +22,7 @@
 
 {% macro labels(e) %}
   <div class="labels">
-    {% if e.topic %}<span class="tag" style="--accent: {{ e.topic.color }}">{{ e.topic.label(lang) }}</span>{% else %}<span class="tag action-other">{{ e.sector | sector }}</span>{% endif %}
+    {% if e.topic %}<span class="tag topic">{{ e.topic.label(lang) }}</span>{% else %}<span class="tag">{{ e.sector | sector }}</span>{% endif %}
     {% if e.corroborations and (e.corroborations | selectattr('kind', 'ne', 'other') | list) %}<span class="tag action-consultation" title="{{ t('corroborated') }}">✓ {{ t('corroborated') }}</span>{% endif %}
   </div>
 {% endmacro %}
@@ -78,7 +79,7 @@
 {% endmacro %}
 
 {% macro respond_card(e, closed=False) %}
-  <article class="card rcard reveal {{ 'closed' if closed }}">
+  <article class="row rcard reveal {{ 'closed' if closed }}">
     {{ due_box(e) }}
     <div>
       {{ labels(e) }}
@@ -141,4 +142,50 @@
     {% for i in range(6) %}<li class="{{ 'done' if i < chain.stage else 'now' if i == chain.stage else '' }}">{{ t('stage_' ~ i) }}</li>{% endfor %}
   </ol>
   {% endif %}
+{% endmacro %}
+
+{% macro photo(key, caption, images, root='') %}
+  {% set im = images.get(key) %}
+  {% if im %}
+  <figure class="photo reveal">
+    <img src="{{ root }}{{ im.file }}" width="{{ im.w }}" height="{{ im.h }}" alt="{{ im.desc or caption }}" loading="lazy" decoding="async">
+    <figcaption><span>{{ caption }}</span><small>{{ t('photo') }}: <a href="{{ im.page }}">{{ im.artist }}</a> · <a href="{{ im.license_url or im.page }}">{{ im.license }}</a> · {{ t('via_commons') }}</small></figcaption>
+  </figure>
+  {% endif %}
+{% endmacro %}
+
+{% macro heatmap(scores) %}
+  {% set months = scores[0].months if scores else [] %}
+  <div class="heat reveal" role="img" aria-label="{{ t('heat_label') }}">
+    <div class="heat-row heat-head"><span></span>{% for m in months %}<span class="heat-m">{% if loop.index0 % 3 == 0 %}{{ (m | month).split(' ')[0] }}{% endif %}</span>{% endfor %}</div>
+    {% for ts in scores %}{% set mx = [ts.activity | max, 1.0] | max %}
+    <div class="heat-row" style="--accent: {{ ts.topic.color }}">
+      <a class="heat-name" href="topic/{{ ts.topic.slug }}.html">{{ ts.topic.label(lang) }}</a>
+      {% for v in ts.activity %}<span class="cell {{ 'recent' if loop.index > (months | length) - 3 }}" style="--v: {{ '%.2f' % (v / mx) }}" title="{{ ts.topic.label(lang) }} · {{ months[loop.index0] | month }} · {{ ts.counts[loop.index0] }}"></span>{% endfor %}
+    </div>
+    {% endfor %}
+    <p class="heat-note">{{ t('heat_note') }}</p>
+  </div>
+{% endmacro %}
+
+{% set TILES = {
+  'Jammu and Kashmir': (3,0,'JK'), 'Ladakh': (4,0,'LA'),
+  'Punjab': (2,1,'PB'), 'Himachal Pradesh': (3,1,'HP'), 'Uttarakhand': (4,1,'UK'),
+  'Rajasthan': (1,2,'RJ'), 'Haryana': (2,2,'HR'), 'Delhi': (3,2,'DL'), 'Uttar Pradesh': (4,2,'UP'), 'Sikkim': (6,2,'SK'), 'Arunachal Pradesh': (7,2,'AR'),
+  'Gujarat': (1,3,'GJ'), 'Madhya Pradesh': (2,3,'MP'), 'Chhattisgarh': (3,3,'CG'), 'Bihar': (4,3,'BR'), 'West Bengal': (5,3,'WB'), 'Assam': (6,3,'AS'), 'Nagaland': (7,3,'NL'), 'Manipur': (8,3,'MN'),
+  'Maharashtra': (2,4,'MH'), 'Telangana': (3,4,'TS'), 'Jharkhand': (4,4,'JH'), 'Odisha': (5,4,'OD'), 'Meghalaya': (6,4,'ML'), 'Mizoram': (7,4,'MZ'), 'Tripura': (8,4,'TR'),
+  'Goa': (1,5,'GA'), 'Karnataka': (2,5,'KA'), 'Andhra Pradesh': (3,5,'AP'),
+  'Kerala': (2,6,'KL'), 'Tamil Nadu': (3,6,'TN'), 'Puducherry': (4,6,'PY'), 'Andaman and Nicobar Islands': (8,6,'AN'), 'Chandigarh': (2,0,'CH')
+} %}
+{% macro tilemap(counts, caption) %}
+  {% set mx = [(counts.values() | list | max) if counts else 1, 1] | max %}
+  <figure class="tiles reveal" role="img" aria-label="{{ caption }}">
+    <div class="tile-grid">
+      {% for name, pos in TILES.items() %}{% set n = counts.get(name, 0) %}
+      <span class="tile {{ 'has' if n }}" style="grid-column: {{ pos[0] + 1 }}; grid-row: {{ pos[1] + 1 }}; --v: {{ '%.2f' % (n / mx) if n else 0 }}" title="{{ name | state }}: {{ n }}">
+        <b>{{ pos[2] }}</b>{% if n %}<i>{{ n }}</i>{% endif %}</span>
+      {% endfor %}
+    </div>
+    <figcaption>{{ caption }}</figcaption>
+  </figure>
 {% endmacro %}

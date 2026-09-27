@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_item.html" import sparkline, change, follow_btn, headline, for_you, corroboration, why_moving, persona_block, states_line, stage_bar %}
+{% from "_item.html" import sparkline, change, follow_btn, headline, for_you, corroboration, why_moving, persona_block, states_line, stage_bar, photo, tilemap %}
 {% block title %}{{ ts.topic.label(lang) }} — {{ t('site_title') }}{% endblock %}
 {% block desc %}{{ ts.topic.tag(lang) }} {{ ts.status | status }}, {{ ts.confidence | confidence }} {{ t('confidence_word') }}.{% endblock %}
 {% block nav %}
@@ -14,30 +14,32 @@
 <div class="wrap" style="--accent: {{ ts.topic.color }}">
   <a class="back" href="../index.html">{{ t('back') }}</a>
   <section class="thero">
+    <aside class="side reveal"><span class="k">{{ t('topic_word') }}</span><br><span class="mute" style="font-size:.85rem">{{ ts.topic.tag(lang) }}</span></aside>
+    <div>
     <div class="top-row">
       <span class="pill {{ ts.status }}" title="{{ ts.status | status_help }}">{{ ts.status | status }}</span>
       <span class="conf conf-{{ ts.confidence }}">{{ ts.confidence | confidence }} {{ t('confidence_word') }}</span>
       {{ follow_btn(ts) }}
     </div>
     <h1>{{ ts.topic.label(lang) }}</h1>
-    <p class="lede">{{ ts.topic.tag(lang) }}</p>
     <div class="metrics reveal">
       <div class="metric">{{ change(ts) }}<small>{{ t('vs_prior', n=baseline_window) }}</small></div>
       <div class="metric"><b class="num">{{ ts.total_items }}</b><small>{{ t('metric_actions', m=ts.months | length) }}</small></div>
       <div class="metric"><b class="num">{{ ts.breadth }}</b><small>{{ t('metric_ministries') }}</small></div>
       <div class="metric"><b class="num">{{ ts.corroborated_recent }}/{{ ts.recent_items }}</b><small>{{ t('metric_confirmed') }}</small></div>
     </div>
+    </div>
   </section>
+  {% if topic_image %}{{ photo(topic_image, t('photo_' ~ topic_image), images, root) }}{% endif %}
 
   {# ---- 01 The story ---- #}
   <section class="chapter" id="story">
-    <div class="chapter-head reveal">
-      <span class="chapter-num">01</span>
+    <aside class="marg reveal"><span class="num">01</span><span class="k">{{ t('ch_story') }}</span><span class="hint">{{ t('marg_story') }}</span></aside>
+    <div class="body">
       <div><h2>{{ t('why_moving_h2', status=(ts.status | status | lower)) }}</h2>
         <p class="lede">{{ t('story', w=recent_window, r=ts.recent_avg) }}
           {% if ts.change_pct is not none %}{{ t('story_change', cls=('up' if ts.change_pct > 0 else 'down' if ts.change_pct < 0 else ''), pct=(('+' if ts.change_pct > 0 else '') ~ ts.change_pct ~ '%'), b=baseline_window, base=ts.baseline_avg) }}{% else %}{{ t('story_nobase', b=baseline_window) }}{% endif %}
           {{ t('story_breadth', n=ts.breadth) }}</p></div>
-    </div>
     <div class="card reveal">
       <div class="bars" aria-label="{{ t('chart_hint') }}">
         {% set mx = (ts.activity | max) if ts.activity else 1 %}
@@ -57,16 +59,16 @@
         </div></details>
       <details class="acc"><summary>{{ t('why_conf', c=(ts.confidence | confidence)) }}</summary>
         <div class="acc-body"><ul class="caveats">{% for r in ts.confidence_reasons %}<li>{{ r | msg }}</li>{% endfor %}</ul></div></details>
-      {% if ts.connections %}<p class="connections">{{ t('connections_h') }}: {% for c in ts.connections %}<a href="{{ c.slug }}.html" class="tag" style="--accent: {{ c.topic.color }}" title="{{ t('shared_items', items=(c.shared | join('; '))) }}">{{ c.topic.label(lang) }}</a>{% endfor %}</p>{% endif %}
+      {% if ts.connections %}<p class="connections">{{ t('connections_h') }}: {% for c in ts.connections %}<a href="{{ c.slug }}.html" class="tag topic" title="{{ t('shared_items', items=(c.shared | join('; '))) }}">{{ c.topic.label(lang) }}</a>{% endfor %}</p>{% endif %}
+    </div>
     </div>
   </section>
 
   {# ---- 02 Evidence ---- #}
   <section class="chapter" id="evidence">
-    <div class="chapter-head reveal">
-      <span class="chapter-num">02</span>
+    <aside class="marg reveal"><span class="num">02</span><span class="k">{{ t('ch_evidence') }}</span><span class="hint">{{ t('marg_evidence') }}</span></aside>
+    <div class="body">
       <div><h2>{{ t('evidence_h2') }}</h2><p class="lede">{{ t('evidence_lede') }}</p></div>
-    </div>
     <div class="card reveal month-acc">
       {% set ns = namespace(first=True) %}
       {% for m, items in timeline %}{% if items %}
@@ -89,15 +91,16 @@
       {% endif %}{% endfor %}
       <details class="acc"><summary>{{ t('labels_mean') }}</summary><div class="acc-body"><dl>{% for k in actions %}<dt><span class="tag action-{{ k }}">{{ k | action }}</span></dt><dd>{{ k | action_help }}</dd>{% endfor %}</dl></div></details>
     </div>
+    </div>
   </section>
 
   {# ---- 03 States ---- #}
   <section class="chapter" id="states">
-    <div class="chapter-head reveal">
-      <span class="chapter-num">03</span>
+    <aside class="marg reveal"><span class="num">03</span><span class="k">{{ t('ch_states') }}</span><span class="hint">{{ t('marg_states') }}</span></aside>
+    <div class="body">
       <div><h2>{{ t('states_h2') }}</h2><p class="lede">{{ t('states_note') }}</p></div>
-    </div>
     {% set sd = states[ts.topic.slug] %}
+    {% if sd and sd.bills %}{{ tilemap(sd.states, t('tiles_caption_topic', n=sd.bills | length, t=ts.topic.label(lang))) }}{% endif %}
     <div class="card reveal">
     {% if sd and sd.bills %}
       <div class="state-stats">{% for y, n in sd.by_year | dictsort(reverse=true) %}<span class="stat-pill"><b>{{ n }}</b> {{ y }}</span>{% endfor %}
@@ -106,14 +109,14 @@
       {% if sd.bills | length > 8 %}<details class="acc"><summary>{{ t('show_all', n=sd.bills | length) }}</summary><div class="acc-body"><ul class="blist">{% for b in sd.bills[8:] %}<li><span class="tag state-chip">{{ b.state | state }}</span><span class="tag action-introduced">{{ b.year }}</span><span class="t">{{ b.title }}</span><small>{% if b.pdf_url %}<a href="{{ b.pdf_url }}">{{ t('bill_pdf') }}</a>{% endif %}</small></li>{% endfor %}</ul></div></details>{% endif %}
     {% else %}<p class="empty">{{ t('states_none', y0=states_totals.years[0], y1=states_totals.years[1]) }}</p>{% endif %}
     </div>
+    </div>
   </section>
 
   {# ---- 04 Journeys ---- #}
   <section class="chapter" id="journeys">
-    <div class="chapter-head reveal">
-      <span class="chapter-num">04</span>
+    <aside class="marg reveal"><span class="num">04</span><span class="k">{{ t('ch_journeys') }}</span><span class="hint">{{ t('marg_journeys') }}</span></aside>
+    <div class="body">
       <div><h2>{{ t('journeys_h2') }}</h2><p class="lede">{{ t('journeys_note') }}</p></div>
-    </div>
     {% if topic_chains %}
     <div class="stack">
       {% for c in topic_chains %}
@@ -126,6 +129,7 @@
       {% endfor %}
     </div>
     {% else %}<p class="empty reveal">{{ t('journeys_none') }}</p>{% endif %}
+    </div>
   </section>
 </div>
 {% endblock %}

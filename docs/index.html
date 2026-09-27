@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Policy Pulse</title>
 <meta name="description" content="Which Indian policy issues are gaining momentum right now — with the evidence, not just a score.">
-<meta name="theme-color" content="#f6f2ea" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0f0e0c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f1ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d0e11" media="(prefers-color-scheme: dark)">
 <link rel="alternate" hreflang="en" href="index.html">
 <link rel="alternate" hreflang="hi" href="hi/index.html">
+<script>(function(){try{var t=JSON.parse(localStorage.getItem('pulse-theme')||'null');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="static/style.css">
 <script>
 (function(){try{
@@ -26,7 +27,7 @@
 <div class="progress" aria-hidden="true"></div>
 <header class="top">
   <div class="wrap top-inner">
-    <a class="brand" href="index.html"><span class="live" aria-hidden="true"></span>Policy Pulse</a>
+    <a class="brand" href="index.html">Policy Pulse <span class="issue">№ 39</span></a>
     
     <nav class="chapters" aria-label="This week">
       <a href="index.html#respond"><span>01</span>Respond</a>
@@ -36,57 +37,73 @@
     </nav>
     
     <div class="tools">
-      <a class="tool" href="states.html">States</a>
-      <a class="tool" href="method.html">Method</a>
+      <a class="tool hide-m" href="states.html">States</a>
+      <a class="tool hide-m" href="method.html">Method</a>
       <a class="tool lang-toggle" lang="hi" href="hi/index.html?lang=hi">हिन्दी</a>
-      <button type="button" class="tool" data-sound data-on="🔈 Sound on" data-off="🔇 Sound" aria-pressed="false" title="Tiny synthesized clicks on interactions. Off by default; nothing is downloaded.">🔇 Sound</button>
+      <button type="button" class="tool" data-theme-toggle data-light="Switch to light" data-dark="Switch to dark" title="Light / dark">◐</button>
+      <button type="button" class="tool hide-m" data-sound data-on="🔈 Sound on" data-off="🔇 Sound" aria-pressed="false" title="Tiny synthesized clicks on interactions. Off by default; nothing is downloaded.">🔇 Sound</button>
     </div>
   </div>
 </header>
 <main>
 
-<section class="hero wrap">
-  <p class="eyebrow"><span class="live" aria-hidden="true"></span>The weekly brief · 2026-09-27</p>
-  <h1>See which policy issues are gaining momentum — before they become headlines.</h1>
-  <p class="lede">Track the evidence behind each signal, from Parliament to implementation. News tells you what happened today; this shows what has been <em>building</em> for months.</p>
-  <p class="meta">
-    <span class="cta ghost">✈ Weekly Telegram brief — coming soon</span>
-    <span>471 government actions · 17 months · source: <a href="https://prsindia.org/policy/monthly-policy-review">PRS Legislative Research</a> · updated 2026-09-27</span>
-  </p>
-</section>
-
-
-<section class="note narrow reveal">
-  <p class="kicker">This week in 60 seconds <span class="ai" title="Drafted by a language model from the items on this page, then checked against them. Every claim links to a government document.">AI-drafted · source-linked</span></p>
-  <p class="text">One thing you can still do this week: the Standing Committee on Finance is taking views on the Indian Statistical Institute Bill until Sunday, 28 September — email comfinance@lss.sansad.in. Otherwise the pipeline is in its post-session lull. Criminal law and justice is the only topic genuinely heating up, driven by three actions in July: the anti-paper-leak law passing, a Bill to add Supreme Court judges, and the Bar Council&#39;s draft to amend the Advocates Act. Personal finance is steady but busy — a tax-law amendment passed, IRDAI&#39;s insurance regulations went live, and the repo rate stayed at 5.25% for the fifth meeting running. Gig work, AI and digital rights recorded no new formal action; the labour-code rules are now in the implementation phase, where PRS stops watching and unions start.</p>
-</section>
-
-
-<div class="narrow">
-  
-  <div class="strip reveal" role="group" aria-label="I'm a…">
-    <span class="label">Reading as</span>
-    <button type="button" class="chip" data-persona="">Everyone</button>
-    <button type="button" class="chip" data-persona="student">Student</button><button type="button" class="chip" data-persona="gig">Gig worker</button><button type="button" class="chip" data-persona="founder">Founder / small business</button><button type="button" class="chip" data-persona="salaried">Salaried</button>
+<div class="wrap">
+<section class="hero">
+  <aside class="side reveal">
+    <span class="k">Issue</span>
+    <span class="date">№ 39<br>27 Sep 2026</span>
+    <span class="k" style="margin-top:.8rem">Source</span>
+    <span class="mute" style="font-size:.85rem;line-height:1.4">471 government actions across 17 months of PRS Legislative Research reviews, plus live consultations and state Bills.</span>
+  </aside>
+  <div>
+    <h1>Which policy issues are <em>gaining momentum</em> — before they become headlines.</h1>
+    <p class="lede">Track the evidence behind each signal, from Parliament to implementation. News tells you what happened today; this shows what has been <em>building</em> for months.</p>
+    <p class="meta">
+      <span class="cta ghost">Weekly Telegram brief — coming soon</span>
+      <span>Free · weekly · every claim linked to a government document</span>
+    </p>
   </div>
-  
-  <div class="since reveal" id="since" hidden>
-    <p class="kicker"></p>
-    <ul></ul>
-    <p class="hint"></p>
-  </div>
+</section>
 </div>
 
+<div class="wrap">
+  
+  
+  <figure class="photo reveal">
+    <img src="static/img/parliament.jpg" width="1600" height="900" alt="A view of Old Sansad Bhavan from Vijay Chowk in New Delhi" loading="lazy" decoding="async">
+    <figcaption><span>Sansad Bhavan, New Delhi — where most of the 471 actions in this issue began.</span><small>Photo: <a href="https://commons.wikimedia.org/wiki/File:Sansad_Bhavan,_New_Delhi.jpg">Nikhilb239</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a> · Wikimedia Commons, cropped</small></figcaption>
+  </figure>
+  
+</div>
 
-<section class="chapter chapter-act" id="respond">
-  <div class="wrap">
-    <div class="chapter-head reveal">
-      <span class="chapter-num">01</span>
-      <div><h2>You can still respond</h2><p class="lede">Drafts the government has published for public comment. Anyone can send feedback before the deadline — this is the window where citizen input gets read.</p></div>
-    </div>
-    <div class="respond">
+<div class="wrap">
+
+<section class="note">
+  <aside class="reveal"><span class="k">This week in 60 seconds</span><br><span class="ai" title="Drafted by a language model from the items on this page, then checked against them. Every claim links to a government document.">AI-drafted · source-linked</span></aside>
+  <p class="text reveal">One thing you can still do this week: the Standing Committee on Finance is taking views on the Indian Statistical Institute Bill until Sunday, 28 September — email comfinance@lss.sansad.in. Otherwise the pipeline is in its post-session lull. Criminal law and justice is the only topic genuinely heating up, driven by three actions in July: the anti-paper-leak law passing, a Bill to add Supreme Court judges, and the Bar Council&#39;s draft to amend the Advocates Act. Personal finance is steady but busy — a tax-law amendment passed, IRDAI&#39;s insurance regulations went live, and the repo rate stayed at 5.25% for the fifth meeting running. Gig work, AI and digital rights recorded no new formal action; the labour-code rules are now in the implementation phase, where PRS stops watching and unions start.</p>
+</section>
+
+
+
+<section class="strip reveal" role="group" aria-label="I'm a…">
+  <span class="k">Reading as</span>
+  <div class="chips"><button type="button" class="chip" data-persona="">Everyone</button><button type="button" class="chip" data-persona="student">Student</button><button type="button" class="chip" data-persona="gig">Gig worker</button><button type="button" class="chip" data-persona="founder">Founder / small business</button><button type="button" class="chip" data-persona="salaried">Salaried</button></div>
+</section>
+
+<section class="since" id="since" hidden>
+  <span class="k kicker"></span>
+  <div><ul></ul><p class="hint"></p></div>
+</section>
+
+
+<section class="chapter" id="respond">
+  <aside class="marg reveal"><span class="num">01</span><span class="k">Respond</span><span class="hint">Open drafts with exact deadlines, read from the notice itself.</span></aside>
+  <div class="body">
+    <h2 class="reveal">You can still respond</h2>
+    <p class="lede reveal">Drafts the government has published for public comment. Anyone can send feedback before the deadline — this is the window where citizen input gets read.</p>
+    <div class="rows">
       
-  <article class="card rcard reveal ">
+  <article class="row rcard reveal ">
     
   
     <div class="due soon">
@@ -99,7 +116,7 @@
     <div>
       
   <div class="labels">
-    <span class="tag action-other">Parliament</span>
+    <span class="tag">Parliament</span>
     
   </div>
 
@@ -153,10 +170,10 @@ Name · City · Contact</pre>
       
     </div>
     
-    <details class="acc reveal">
+    <details class="acc reveal" style="max-width:none">
       <summary>Recently closed (6)</summary>
-      <div class="acc-body"><div class="respond">
-  <article class="card rcard reveal closed">
+      <div class="acc-body"><div class="rows">
+  <article class="row rcard reveal closed">
     
   
     <div class="due"><b>—</b><small>Closed</small><small class="muted">25 Sep 2026</small></div>
@@ -165,7 +182,7 @@ Name · City · Contact</pre>
     <div>
       
   <div class="labels">
-    <span class="tag action-other">Parliament</span>
+    <span class="tag">Parliament</span>
     
   </div>
 
@@ -192,7 +209,7 @@ Name · City · Contact</pre>
     </div>
   </article>
 
-  <article class="card rcard reveal closed">
+  <article class="row rcard reveal closed">
     
   
     <div class="due"><b>—</b><small>Closed</small><small class="muted">4 Sep 2026</small></div>
@@ -201,7 +218,7 @@ Name · City · Contact</pre>
     <div>
       
   <div class="labels">
-    <span class="tag action-other">Energy</span>
+    <span class="tag">Energy</span>
     
   </div>
 
@@ -228,7 +245,7 @@ Name · City · Contact</pre>
     </div>
   </article>
 
-  <article class="card rcard reveal closed">
+  <article class="row rcard reveal closed">
     
   
     <div class="due"><b>—</b><small>Closed</small><small class="muted">7 Aug 2026</small></div>
@@ -237,7 +254,7 @@ Name · City · Contact</pre>
     <div>
       
   <div class="labels">
-    <span class="tag action-other">Health and Family Welfare</span>
+    <span class="tag">Health and Family Welfare</span>
     <span class="tag action-consultation" title="Independently confirmed">✓ Independently confirmed</span>
   </div>
 
@@ -263,7 +280,7 @@ Name · City · Contact</pre>
     </div>
   </article>
 
-  <article class="card rcard reveal closed">
+  <article class="row rcard reveal closed">
     
   
     <div class="due"><b>—</b><small>Closed</small><small class="muted">31 Jul 2026</small></div>
@@ -272,7 +289,7 @@ Name · City · Contact</pre>
     <div>
       
   <div class="labels">
-    <span class="tag" style="--accent: #4f46e5">Criminal law &amp; justice</span>
+    <span class="tag topic">Criminal law &amp; justice</span>
     
   </div>
 
@@ -299,7 +316,7 @@ Name · City · Contact</pre>
     </div>
   </article>
 
-  <article class="card rcard reveal closed">
+  <article class="row rcard reveal closed">
     
   
     <div class="due"><b>—</b><small>Closed</small><small class="muted">31 Jul 2026</small></div>
@@ -308,7 +325,7 @@ Name · City · Contact</pre>
     <div>
       
   <div class="labels">
-    <span class="tag action-other">Health and Family Welfare</span>
+    <span class="tag">Health and Family Welfare</span>
     <span class="tag action-consultation" title="Independently confirmed">✓ Independently confirmed</span>
   </div>
 
@@ -335,7 +352,7 @@ Name · City · Contact</pre>
     </div>
   </article>
 
-  <article class="card rcard reveal closed">
+  <article class="row rcard reveal closed">
     
   
     <div class="due"><b>—</b><small>Closed</small><small class="muted">13 Jul 2026</small></div>
@@ -344,7 +361,7 @@ Name · City · Contact</pre>
     <div>
       
   <div class="labels">
-    <span class="tag action-other">Parliament</span>
+    <span class="tag">Parliament</span>
     
   </div>
 
@@ -374,38 +391,66 @@ Name · City · Contact</pre>
 
 
 <section class="chapter" id="moving">
-  <div class="wrap">
-    <div class="chapter-head reveal">
-      <span class="chapter-num">02</span>
-      <div><h2>Three signals worth watching</h2><p class="lede">The topics where formal government action picked up most in the last 3 months against the 6 before. Every number links to the documents behind it.</p></div>
+  <aside class="marg reveal"><span class="num">02</span><span class="k">Moving</span><span class="hint">Formal action in the last three months against the six before.</span></aside>
+  <div class="body">
+    <h2 class="reveal">Three signals worth watching</h2>
+    <p class="lede reveal">The topics where formal government action picked up most in the last 3 months against the 6 before. Every number links to the documents behind it.</p>
+    
+  
+  <div class="heat reveal" role="img" aria-label="Activity by topic and month">
+    <div class="heat-row heat-head"><span></span><span class="heat-m">Apr</span><span class="heat-m"></span><span class="heat-m"></span><span class="heat-m">Jul</span><span class="heat-m"></span><span class="heat-m"></span><span class="heat-m">Oct</span><span class="heat-m"></span><span class="heat-m"></span><span class="heat-m">Jan</span><span class="heat-m"></span><span class="heat-m"></span><span class="heat-m">Apr</span><span class="heat-m"></span><span class="heat-m"></span><span class="heat-m">Jul</span><span class="heat-m"></span></div>
+    
+    <div class="heat-row" style="--accent: #4f46e5">
+      <a class="heat-name" href="topic/criminal-law-and-justice.html">Criminal law &amp; justice</a>
+      <span class="cell " style="--v: 0.00" title="Criminal law &amp; justice · Apr 2025 · 0"></span><span class="cell " style="--v: 0.00" title="Criminal law &amp; justice · May 2025 · 0"></span><span class="cell " style="--v: 0.00" title="Criminal law &amp; justice · Jun 2025 · 0"></span><span class="cell " style="--v: 0.00" title="Criminal law &amp; justice · Jul 2025 · 0"></span><span class="cell " style="--v: 0.95" title="Criminal law &amp; justice · Aug 2025 · 3"></span><span class="cell " style="--v: 0.00" title="Criminal law &amp; justice · Sep 2025 · 0"></span><span class="cell " style="--v: 0.00" title="Criminal law &amp; justice · Oct 2025 · 0"></span><span class="cell " style="--v: 0.00" title="Criminal law &amp; justice · Nov 2025 · 0"></span><span class="cell " style="--v: 0.00" title="Criminal law &amp; justice · Dec 2025 · 0"></span><span class="cell " style="--v: 0.00" title="Criminal law &amp; justice · Jan 2026 · 0"></span><span class="cell " style="--v: 0.00" title="Criminal law &amp; justice · Feb 2026 · 0"></span><span class="cell " style="--v: 0.80" title="Criminal law &amp; justice · Mar 2026 · 3"></span><span class="cell " style="--v: 0.00" title="Criminal law &amp; justice · Apr 2026 · 0"></span><span class="cell " style="--v: 0.23" title="Criminal law &amp; justice · May 2026 · 1"></span><span class="cell recent" style="--v: 0.00" title="Criminal law &amp; justice · Jun 2026 · 0"></span><span class="cell recent" style="--v: 1.00" title="Criminal law &amp; justice · Jul 2026 · 3"></span><span class="cell recent" style="--v: 0.00" title="Criminal law &amp; justice · Aug 2026 · 0"></span>
     </div>
-    <div class="signals">
+    
+    <div class="heat-row" style="--accent: #dc2626">
+      <a class="heat-name" href="topic/personal-finance-and-tax.html">Personal finance &amp; taxes</a>
+      <span class="cell " style="--v: 0.09" title="Personal finance &amp; taxes · Apr 2025 · 1"></span><span class="cell " style="--v: 0.18" title="Personal finance &amp; taxes · May 2025 · 1"></span><span class="cell " style="--v: 0.18" title="Personal finance &amp; taxes · Jun 2025 · 2"></span><span class="cell " style="--v: 0.46" title="Personal finance &amp; taxes · Jul 2025 · 4"></span><span class="cell " style="--v: 1.00" title="Personal finance &amp; taxes · Aug 2025 · 6"></span><span class="cell " style="--v: 0.11" title="Personal finance &amp; taxes · Sep 2025 · 1"></span><span class="cell " style="--v: 0.58" title="Personal finance &amp; taxes · Oct 2025 · 4"></span><span class="cell " style="--v: 0.11" title="Personal finance &amp; taxes · Nov 2025 · 1"></span><span class="cell " style="--v: 0.53" title="Personal finance &amp; taxes · Dec 2025 · 3"></span><span class="cell " style="--v: 0.16" title="Personal finance &amp; taxes · Jan 2026 · 1"></span><span class="cell " style="--v: 0.18" title="Personal finance &amp; taxes · Feb 2026 · 2"></span><span class="cell " style="--v: 0.27" title="Personal finance &amp; taxes · Mar 2026 · 2"></span><span class="cell " style="--v: 0.22" title="Personal finance &amp; taxes · Apr 2026 · 2"></span><span class="cell " style="--v: 0.22" title="Personal finance &amp; taxes · May 2026 · 2"></span><span class="cell recent" style="--v: 0.27" title="Personal finance &amp; taxes · Jun 2026 · 3"></span><span class="cell recent" style="--v: 0.46" title="Personal finance &amp; taxes · Jul 2026 · 3"></span><span class="cell recent" style="--v: 0.35" title="Personal finance &amp; taxes · Aug 2026 · 2"></span>
+    </div>
+    
+    <div class="heat-row" style="--accent: #059669">
+      <a class="heat-name" href="topic/jobs-and-employment.html">Jobs &amp; employment</a>
+      <span class="cell " style="--v: 0.00" title="Jobs &amp; employment · Apr 2025 · 0"></span><span class="cell " style="--v: 0.48" title="Jobs &amp; employment · May 2025 · 1"></span><span class="cell " style="--v: 0.00" title="Jobs &amp; employment · Jun 2025 · 0"></span><span class="cell " style="--v: 0.79" title="Jobs &amp; employment · Jul 2025 · 2"></span><span class="cell " style="--v: 0.36" title="Jobs &amp; employment · Aug 2025 · 1"></span><span class="cell " style="--v: 0.00" title="Jobs &amp; employment · Sep 2025 · 0"></span><span class="cell " style="--v: 0.36" title="Jobs &amp; employment · Oct 2025 · 1"></span><span class="cell " style="--v: 0.00" title="Jobs &amp; employment · Nov 2025 · 0"></span><span class="cell " style="--v: 1.00" title="Jobs &amp; employment · Dec 2025 · 2"></span><span class="cell " style="--v: 0.00" title="Jobs &amp; employment · Jan 2026 · 0"></span><span class="cell " style="--v: 0.43" title="Jobs &amp; employment · Feb 2026 · 1"></span><span class="cell " style="--v: 0.00" title="Jobs &amp; employment · Mar 2026 · 0"></span><span class="cell " style="--v: 0.00" title="Jobs &amp; employment · Apr 2026 · 0"></span><span class="cell " style="--v: 0.36" title="Jobs &amp; employment · May 2026 · 1"></span><span class="cell recent" style="--v: 0.00" title="Jobs &amp; employment · Jun 2026 · 0"></span><span class="cell recent" style="--v: 0.48" title="Jobs &amp; employment · Jul 2026 · 1"></span><span class="cell recent" style="--v: 0.57" title="Jobs &amp; employment · Aug 2026 · 2"></span>
+    </div>
+    
+    <div class="heat-row" style="--accent: #d97706">
+      <a class="heat-name" href="topic/education-and-exams.html">Education &amp; exam integrity</a>
+      <span class="cell " style="--v: 1.00" title="Education &amp; exam integrity · Apr 2025 · 2"></span><span class="cell " style="--v: 0.00" title="Education &amp; exam integrity · May 2025 · 0"></span><span class="cell " style="--v: 0.00" title="Education &amp; exam integrity · Jun 2025 · 0"></span><span class="cell " style="--v: 0.00" title="Education &amp; exam integrity · Jul 2025 · 0"></span><span class="cell " style="--v: 0.54" title="Education &amp; exam integrity · Aug 2025 · 2"></span><span class="cell " style="--v: 0.40" title="Education &amp; exam integrity · Sep 2025 · 1"></span><span class="cell " style="--v: 0.00" title="Education &amp; exam integrity · Oct 2025 · 0"></span><span class="cell " style="--v: 0.00" title="Education &amp; exam integrity · Nov 2025 · 0"></span><span class="cell " style="--v: 0.88" title="Education &amp; exam integrity · Dec 2025 · 3"></span><span class="cell " style="--v: 0.70" title="Education &amp; exam integrity · Jan 2026 · 2"></span><span class="cell " style="--v: 0.00" title="Education &amp; exam integrity · Feb 2026 · 0"></span><span class="cell " style="--v: 0.00" title="Education &amp; exam integrity · Mar 2026 · 0"></span><span class="cell " style="--v: 0.00" title="Education &amp; exam integrity · Apr 2026 · 0"></span><span class="cell " style="--v: 0.00" title="Education &amp; exam integrity · May 2026 · 0"></span><span class="cell recent" style="--v: 0.00" title="Education &amp; exam integrity · Jun 2026 · 0"></span><span class="cell recent" style="--v: 0.60" title="Education &amp; exam integrity · Jul 2026 · 1"></span><span class="cell recent" style="--v: 0.00" title="Education &amp; exam integrity · Aug 2026 · 0"></span>
+    </div>
+    
+    <div class="heat-row" style="--accent: #7c3aed">
+      <a class="heat-name" href="topic/digital-and-data.html">Digital rights &amp; data protection</a>
+      <span class="cell " style="--v: 0.00" title="Digital rights &amp; data protection · Apr 2025 · 0"></span><span class="cell " style="--v: 0.00" title="Digital rights &amp; data protection · May 2025 · 0"></span><span class="cell " style="--v: 0.30" title="Digital rights &amp; data protection · Jun 2025 · 1"></span><span class="cell " style="--v: 1.00" title="Digital rights &amp; data protection · Jul 2025 · 3"></span><span class="cell " style="--v: 0.60" title="Digital rights &amp; data protection · Aug 2025 · 1"></span><span class="cell " style="--v: 0.70" title="Digital rights &amp; data protection · Sep 2025 · 2"></span><span class="cell " style="--v: 0.70" title="Digital rights &amp; data protection · Oct 2025 · 2"></span><span class="cell " style="--v: 0.40" title="Digital rights &amp; data protection · Nov 2025 · 1"></span><span class="cell " style="--v: 0.00" title="Digital rights &amp; data protection · Dec 2025 · 0"></span><span class="cell " style="--v: 0.00" title="Digital rights &amp; data protection · Jan 2026 · 0"></span><span class="cell " style="--v: 0.00" title="Digital rights &amp; data protection · Feb 2026 · 0"></span><span class="cell " style="--v: 0.78" title="Digital rights &amp; data protection · Mar 2026 · 3"></span><span class="cell " style="--v: 0.40" title="Digital rights &amp; data protection · Apr 2026 · 1"></span><span class="cell " style="--v: 0.00" title="Digital rights &amp; data protection · May 2026 · 0"></span><span class="cell recent" style="--v: 0.00" title="Digital rights &amp; data protection · Jun 2026 · 0"></span><span class="cell recent" style="--v: 0.00" title="Digital rights &amp; data protection · Jul 2026 · 0"></span><span class="cell recent" style="--v: 0.40" title="Digital rights &amp; data protection · Aug 2026 · 1"></span>
+    </div>
+    
+    <div class="heat-row" style="--accent: #db2777">
+      <a class="heat-name" href="topic/ai-regulation.html">AI regulation</a>
+      <span class="cell " style="--v: 0.00" title="AI regulation · Apr 2025 · 0"></span><span class="cell " style="--v: 0.00" title="AI regulation · May 2025 · 0"></span><span class="cell " style="--v: 0.00" title="AI regulation · Jun 2025 · 0"></span><span class="cell " style="--v: 0.00" title="AI regulation · Jul 2025 · 0"></span><span class="cell " style="--v: 0.67" title="AI regulation · Aug 2025 · 1"></span><span class="cell " style="--v: 0.00" title="AI regulation · Sep 2025 · 0"></span><span class="cell " style="--v: 1.00" title="AI regulation · Oct 2025 · 1"></span><span class="cell " style="--v: 0.00" title="AI regulation · Nov 2025 · 0"></span><span class="cell " style="--v: 1.00" title="AI regulation · Dec 2025 · 1"></span><span class="cell " style="--v: 0.00" title="AI regulation · Jan 2026 · 0"></span><span class="cell " style="--v: 0.67" title="AI regulation · Feb 2026 · 1"></span><span class="cell " style="--v: 0.80" title="AI regulation · Mar 2026 · 1"></span><span class="cell " style="--v: 0.00" title="AI regulation · Apr 2026 · 0"></span><span class="cell " style="--v: 0.00" title="AI regulation · May 2026 · 0"></span><span class="cell recent" style="--v: 0.00" title="AI regulation · Jun 2026 · 0"></span><span class="cell recent" style="--v: 0.00" title="AI regulation · Jul 2026 · 0"></span><span class="cell recent" style="--v: 0.00" title="AI regulation · Aug 2026 · 0"></span>
+    </div>
+    
+    <div class="heat-row" style="--accent: #0891b2">
+      <a class="heat-name" href="topic/gig-work-and-labour-codes.html">Gig work &amp; labour codes</a>
+      <span class="cell " style="--v: 0.00" title="Gig work &amp; labour codes · Apr 2025 · 0"></span><span class="cell " style="--v: 0.00" title="Gig work &amp; labour codes · May 2025 · 0"></span><span class="cell " style="--v: 0.00" title="Gig work &amp; labour codes · Jun 2025 · 0"></span><span class="cell " style="--v: 0.44" title="Gig work &amp; labour codes · Jul 2025 · 1"></span><span class="cell " style="--v: 0.00" title="Gig work &amp; labour codes · Aug 2025 · 0"></span><span class="cell " style="--v: 0.00" title="Gig work &amp; labour codes · Sep 2025 · 0"></span><span class="cell " style="--v: 0.33" title="Gig work &amp; labour codes · Oct 2025 · 1"></span><span class="cell " style="--v: 0.67" title="Gig work &amp; labour codes · Nov 2025 · 1"></span><span class="cell " style="--v: 0.33" title="Gig work &amp; labour codes · Dec 2025 · 1"></span><span class="cell " style="--v: 0.00" title="Gig work &amp; labour codes · Jan 2026 · 0"></span><span class="cell " style="--v: 1.00" title="Gig work &amp; labour codes · Feb 2026 · 2"></span><span class="cell " style="--v: 0.00" title="Gig work &amp; labour codes · Mar 2026 · 0"></span><span class="cell " style="--v: 0.00" title="Gig work &amp; labour codes · Apr 2026 · 0"></span><span class="cell " style="--v: 0.44" title="Gig work &amp; labour codes · May 2026 · 1"></span><span class="cell recent" style="--v: 0.00" title="Gig work &amp; labour codes · Jun 2026 · 0"></span><span class="cell recent" style="--v: 0.00" title="Gig work &amp; labour codes · Jul 2026 · 0"></span><span class="cell recent" style="--v: 0.00" title="Gig work &amp; labour codes · Aug 2026 · 0"></span>
+    </div>
+    
+    <p class="heat-note">Seventeen months at a glance: darker cells mean more, and weightier, government action. The last three columns drive the labels.</p>
+  </div>
+
+    <div class="rows" style="margin-top:2.4rem">
       
-      <article class="card sig reveal" style="--accent: #4f46e5" data-slug="criminal-law-and-justice">
-        <div class="sig-head">
-          <span class="sig-num">01</span>
-          <h3><a href="topic/criminal-law-and-justice.html">Criminal law &amp; justice</a></h3>
-          <span class="pill heating" title="Recent activity is at least 50% above the prior six-month average.">Heating up</span>
-          
+      <article class="row sig reveal" style="--accent: #4f46e5" data-slug="criminal-law-and-justice">
+        <span class="sig-num">01</span>
+        <div>
+          <div class="sig-head">
+            <h3><a href="topic/criminal-law-and-justice.html">Criminal law &amp; justice</a></h3>
+            <span class="pill heating" title="Recent activity is at least 50% above the prior six-month average.">Heating up</span>
+            
   <button type="button" class="follow" data-slug="criminal-law-and-justice" data-follow="☆ Follow" data-following="★ Following" aria-pressed="false">☆ Follow</button>
 
-        </div>
-        <div class="sig-hero">
+          </div>
           
-  <span class="big num up" data-count="94" data-prefix="+" data-suffix="%">+94%</span>
-  
-
-          <p class="sub">vs prior 6 mo · <b>3</b> recent actions · <span class="conf conf-medium">Medium confidence</span></p>
-          
-  
-  
-  
-  <svg viewBox="0 0 180 44" width="180" height="44" class="spark" aria-hidden="true">
-    <polyline points="0.0,41.0 11.2,41.0 22.5,41.0 33.8,41.0 45.0,4.8 56.2,41.0 67.5,41.0 78.8,41.0 90.0,41.0 101.2,41.0 112.5,41.0 123.8,10.6 135.0,41.0 146.2,32.2 157.5,41.0 168.8,3.0 180.0,41.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-  </svg>
-
-        </div>
-        
   
   
   <p class="interp"><b>Signal interpretation.</b> Activity rose because 2 different ministries or bodies (Education, Law and Justice) acted on separate parts of this topic within 2026-07.</p>
@@ -433,8 +478,8 @@ Name · City · Contact</pre>
   </ol>
   
 
-        
-        <details class="acc"><summary>For you</summary><div class="acc-body">
+          
+          <details class="acc"><summary>For you</summary><div class="acc-body">
   
   
   
@@ -444,11 +489,11 @@ Name · City · Contact</pre>
   <p class="fy-empty">Nothing specific for this persona in the recent actions.</p>
   
 </div></details>
-        
-        
-        
-        <details class="acc"><summary>In the states <span class="count">· 50 Bills</span></summary>
-          <div class="acc-body">
+          
+          
+          
+          <details class="acc"><summary>In the states <span class="count">· 50 Bills</span></summary>
+            <div class="acc-body">
   
   
     
@@ -457,38 +502,41 @@ Name · City · Contact</pre>
     <a href="states.html#criminal-law-and-justice">→</a></p>
   
 
-            <ul class="blist"><li><span class="tag state-chip">Andhra Pradesh</span><span class="t">The Andhra Pradesh Prisons and Correctional Services Bill, 2026</span></li><li><span class="tag state-chip">Andhra Pradesh</span><span class="t">The Andhra Pradesh Jan Vishwas (Amendment of Provisions) Bill, 2026</span></li><li><span class="tag state-chip">Arunachal Pradesh</span><span class="t">The Arunachal Pradesh Jan Vishwas (Amendment of Provisions) Bill, 2026</span></li><li><span class="tag state-chip">Assam</span><span class="t">The Assam Jan Vishwas (Amendment of Provisions) Bill, 2026</span></li></ul>
-          </div></details>
-        
-        <p class="connections">Also touches: <a href="topic/education-and-exams.html" class="tag" style="--accent: #d97706">Education &amp; exam integrity</a></p>
-        <a class="more" href="topic/criminal-law-and-justice.html">Explore signal →</a>
-      </article>
-      
-      <article class="card sig reveal" style="--accent: #dc2626" data-slug="personal-finance-and-tax">
-        <div class="sig-head">
-          <span class="sig-num">02</span>
-          <h3><a href="topic/personal-finance-and-tax.html">Personal finance &amp; taxes</a></h3>
-          <span class="pill steady" title="Recent activity is roughly in line with the prior six months.">Steady</span>
+              <ul class="blist" style="margin-top:.6rem"><li><span class="tag state-chip">Andhra Pradesh</span><span class="tag">2026</span><span class="t">The Andhra Pradesh Prisons and Correctional Services Bill, 2026</span></li><li><span class="tag state-chip">Andhra Pradesh</span><span class="tag">2026</span><span class="t">The Andhra Pradesh Jan Vishwas (Amendment of Provisions) Bill, 2026</span></li><li><span class="tag state-chip">Arunachal Pradesh</span><span class="tag">2026</span><span class="t">The Arunachal Pradesh Jan Vishwas (Amendment of Provisions) Bill, 2026</span></li><li><span class="tag state-chip">Assam</span><span class="tag">2026</span><span class="t">The Assam Jan Vishwas (Amendment of Provisions) Bill, 2026</span></li></ul>
+            </div></details>
           
-  <button type="button" class="follow" data-slug="personal-finance-and-tax" data-follow="☆ Follow" data-following="★ Following" aria-pressed="false">☆ Follow</button>
-
+          <p class="connections">Also touches: <a href="topic/education-and-exams.html" class="tag topic">Education &amp; exam integrity</a></p>
+          <a class="more" href="topic/criminal-law-and-justice.html">Explore signal →</a>
         </div>
-        <div class="sig-hero">
+        <div class="sig-side">
           
-  <span class="big num up" data-count="37" data-prefix="+" data-suffix="%">+37%</span>
+  <span class="big num up" data-count="94" data-prefix="+" data-suffix="%">+94%</span>
   
 
-          <p class="sub">vs prior 6 mo · <b>8</b> recent actions · <span class="conf conf-high">High confidence</span></p>
+          <p class="sub">vs prior 6 mo<br><b>3</b> recent actions · <b>2</b> ministries recently<br><span class="conf conf-medium">Medium confidence</span></p>
           
   
   
   
-  <svg viewBox="0 0 180 44" width="180" height="44" class="spark" aria-hidden="true">
-    <polyline points="0.0,37.6 11.2,34.3 22.5,34.3 33.8,23.5 45.0,3.0 56.2,37.0 67.5,19.1 78.8,37.0 90.0,20.8 101.2,34.9 112.5,34.3 123.8,30.9 135.0,32.6 146.2,32.6 157.5,30.9 168.8,23.5 180.0,27.5 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <svg viewBox="0 0 200 48" width="200" height="48" class="spark" aria-hidden="true">
+    <polyline points="0.0,45.0 12.5,45.0 25.0,45.0 37.5,45.0 50.0,4.9 62.5,45.0 75.0,45.0 87.5,45.0 100.0,45.0 112.5,45.0 125.0,45.0 137.5,11.4 150.0,45.0 162.5,35.3 175.0,45.0 187.5,3.0 200.0,45.0 " fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect class="last" x="197.0" y="42.0" width="6" height="6" fill="currentColor"/>
   </svg>
 
         </div>
-        
+      </article>
+      
+      <article class="row sig reveal" style="--accent: #dc2626" data-slug="personal-finance-and-tax">
+        <span class="sig-num">02</span>
+        <div>
+          <div class="sig-head">
+            <h3><a href="topic/personal-finance-and-tax.html">Personal finance &amp; taxes</a></h3>
+            <span class="pill steady" title="Recent activity is roughly in line with the prior six months.">Steady</span>
+            
+  <button type="button" class="follow" data-slug="personal-finance-and-tax" data-follow="☆ Follow" data-following="★ Following" aria-pressed="false">☆ Follow</button>
+
+          </div>
+          
   
   
   <p class="interp"><b>Signal interpretation.</b> Activity continued at roughly the prior pace — 8 actions in the last 3 months, in line with the 6-month baseline.</p>
@@ -522,8 +570,8 @@ Name · City · Contact</pre>
   </ol>
   
 
-        
-        <details class="acc"><summary>For you</summary><div class="acc-body">
+          
+          <details class="acc"><summary>For you</summary><div class="acc-body">
   
   
   
@@ -533,11 +581,11 @@ Name · City · Contact</pre>
   <p class="fy-empty">Nothing specific for this persona in the recent actions.</p>
   
 </div></details>
-        
-        
-        
-        <details class="acc"><summary>In the states <span class="count">· 81 Bills</span></summary>
-          <div class="acc-body">
+          
+          
+          
+          <details class="acc"><summary>In the states <span class="count">· 81 Bills</span></summary>
+            <div class="acc-body">
   
   
     
@@ -546,38 +594,41 @@ Name · City · Contact</pre>
     <a href="states.html#personal-finance-and-tax">→</a></p>
   
 
-            <ul class="blist"><li><span class="tag state-chip">Andhra Pradesh</span><span class="t">The Andhra Pradesh Payment of Salaries and Pension and Removal of Disqualifications (Amendment) Bill, 2026</span></li><li><span class="tag state-chip">Arunachal Pradesh</span><span class="t">The Arunachal Pradesh Salary, Allowances and Pension of Members of (Amendment) Bill, 2026</span></li><li><span class="tag state-chip">Arunachal Pradesh</span><span class="t">The Arunachal Pradesh Goods and Services Tax (Amendment) Bill, 2026</span></li><li><span class="tag state-chip">Assam</span><span class="t">The Assam Goods and Services Tax (Amendment) Bill, 2026</span></li></ul>
-          </div></details>
-        
-        
-        <a class="more" href="topic/personal-finance-and-tax.html">Explore signal →</a>
-      </article>
-      
-      <article class="card sig reveal" style="--accent: #059669" data-slug="jobs-and-employment">
-        <div class="sig-head">
-          <span class="sig-num">03</span>
-          <h3><a href="topic/jobs-and-employment.html">Jobs &amp; employment</a></h3>
-          <span class="pill steady" title="Recent activity is roughly in line with the prior six months.">Steady</span>
+              <ul class="blist" style="margin-top:.6rem"><li><span class="tag state-chip">Andhra Pradesh</span><span class="tag">2026</span><span class="t">The Andhra Pradesh Payment of Salaries and Pension and Removal of Disqualifications (Amendment) Bill, 2026</span></li><li><span class="tag state-chip">Arunachal Pradesh</span><span class="tag">2026</span><span class="t">The Arunachal Pradesh Salary, Allowances and Pension of Members of (Amendment) Bill, 2026</span></li><li><span class="tag state-chip">Arunachal Pradesh</span><span class="tag">2026</span><span class="t">The Arunachal Pradesh Goods and Services Tax (Amendment) Bill, 2026</span></li><li><span class="tag state-chip">Assam</span><span class="tag">2026</span><span class="t">The Assam Goods and Services Tax (Amendment) Bill, 2026</span></li></ul>
+            </div></details>
           
-  <button type="button" class="follow" data-slug="jobs-and-employment" data-follow="☆ Follow" data-following="★ Following" aria-pressed="false">☆ Follow</button>
-
+          
+          <a class="more" href="topic/personal-finance-and-tax.html">Explore signal →</a>
         </div>
-        <div class="sig-hero">
+        <div class="sig-side">
           
-  <span class="big num up" data-count="17" data-prefix="+" data-suffix="%">+17%</span>
+  <span class="big num up" data-count="37" data-prefix="+" data-suffix="%">+37%</span>
   
 
-          <p class="sub">vs prior 6 mo · <b>3</b> recent actions · <span class="conf conf-medium">Medium confidence</span></p>
+          <p class="sub">vs prior 6 mo<br><b>8</b> recent actions · <b>2</b> ministries recently<br><span class="conf conf-high">High confidence</span></p>
           
   
   
   
-  <svg viewBox="0 0 180 44" width="180" height="44" class="spark" aria-hidden="true">
-    <polyline points="0.0,41.0 11.2,22.9 22.5,41.0 33.8,11.1 45.0,27.4 56.2,41.0 67.5,27.4 78.8,41.0 90.0,3.0 101.2,41.0 112.5,24.7 123.8,41.0 135.0,41.0 146.2,27.4 157.5,41.0 168.8,22.9 180.0,19.3 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <svg viewBox="0 0 200 48" width="200" height="48" class="spark" aria-hidden="true">
+    <polyline points="0.0,41.3 12.5,37.6 25.0,37.6 37.5,25.7 50.0,3.0 62.5,40.5 75.0,20.8 87.5,40.5 100.0,22.7 112.5,38.3 125.0,37.6 137.5,33.8 150.0,35.7 162.5,35.7 175.0,33.8 187.5,25.7 200.0,30.1 " fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect class="last" x="197.0" y="27.1" width="6" height="6" fill="currentColor"/>
   </svg>
 
         </div>
-        
+      </article>
+      
+      <article class="row sig reveal" style="--accent: #059669" data-slug="jobs-and-employment">
+        <span class="sig-num">03</span>
+        <div>
+          <div class="sig-head">
+            <h3><a href="topic/jobs-and-employment.html">Jobs &amp; employment</a></h3>
+            <span class="pill steady" title="Recent activity is roughly in line with the prior six months.">Steady</span>
+            
+  <button type="button" class="follow" data-slug="jobs-and-employment" data-follow="☆ Follow" data-following="★ Following" aria-pressed="false">☆ Follow</button>
+
+          </div>
+          
   
   
   <p class="interp"><b>Signal interpretation.</b> Activity continued at roughly the prior pace — 3 actions in the last 3 months, in line with the 6-month baseline.</p>
@@ -605,8 +656,8 @@ Name · City · Contact</pre>
   </ol>
   
 
-        
-        <details class="acc"><summary>For you</summary><div class="acc-body">
+          
+          <details class="acc"><summary>For you</summary><div class="acc-body">
   
   
   
@@ -616,11 +667,11 @@ Name · City · Contact</pre>
   <p class="fy-empty">Nothing specific for this persona in the recent actions.</p>
   
 </div></details>
-        
-        
-        
-        <details class="acc"><summary>In the states <span class="count">· 20 Bills</span></summary>
-          <div class="acc-body">
+          
+          
+          
+          <details class="acc"><summary>In the states <span class="count">· 20 Bills</span></summary>
+            <div class="acc-body">
   
   
     
@@ -629,11 +680,28 @@ Name · City · Contact</pre>
     <a href="states.html#jobs-and-employment">→</a></p>
   
 
-            <ul class="blist"><li><span class="tag state-chip">Bihar</span><span class="t">The Bihar Shops and Establishments (Employment Regulation and Terms of Service) (Repeal) Bill, 2026</span></li><li><span class="tag state-chip">Bihar</span><span class="t">The Bihar Shops and Establishments (Regulation of Employment and Conditions of Service) (Repeal) Ordinance, 2026</span></li><li><span class="tag state-chip">Gujarat</span><span class="t">The Gujarat Shops and Establishments (Regulation of Employment and Conditions of Service) (Amendment) Bill, 2026</span></li><li><span class="tag state-chip">Karnataka</span><span class="t">The Karnataka Tax on Profession, Trades, Callings and Employments (Amendment) Bill, 2026</span></li></ul>
-          </div></details>
-        
-        
-        <a class="more" href="topic/jobs-and-employment.html">Explore signal →</a>
+              <ul class="blist" style="margin-top:.6rem"><li><span class="tag state-chip">Bihar</span><span class="tag">2026</span><span class="t">The Bihar Shops and Establishments (Employment Regulation and Terms of Service) (Repeal) Bill, 2026</span></li><li><span class="tag state-chip">Bihar</span><span class="tag">2026</span><span class="t">The Bihar Shops and Establishments (Regulation of Employment and Conditions of Service) (Repeal) Ordinance, 2026</span></li><li><span class="tag state-chip">Gujarat</span><span class="tag">2026</span><span class="t">The Gujarat Shops and Establishments (Regulation of Employment and Conditions of Service) (Amendment) Bill, 2026</span></li><li><span class="tag state-chip">Karnataka</span><span class="tag">2026</span><span class="t">The Karnataka Tax on Profession, Trades, Callings and Employments (Amendment) Bill, 2026</span></li></ul>
+            </div></details>
+          
+          
+          <a class="more" href="topic/jobs-and-employment.html">Explore signal →</a>
+        </div>
+        <div class="sig-side">
+          
+  <span class="big num up" data-count="17" data-prefix="+" data-suffix="%">+17%</span>
+  
+
+          <p class="sub">vs prior 6 mo<br><b>3</b> recent actions · <b>2</b> ministries recently<br><span class="conf conf-medium">Medium confidence</span></p>
+          
+  
+  
+  
+  <svg viewBox="0 0 200 48" width="200" height="48" class="spark" aria-hidden="true">
+    <polyline points="0.0,45.0 12.5,25.0 25.0,45.0 37.5,12.0 50.0,30.0 62.5,45.0 75.0,30.0 87.5,45.0 100.0,3.0 112.5,45.0 125.0,27.0 137.5,45.0 150.0,45.0 162.5,30.0 175.0,45.0 187.5,25.0 200.0,21.0 " fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect class="last" x="197.0" y="18.0" width="6" height="6" fill="currentColor"/>
+  </svg>
+
+        </div>
       </article>
       
     </div>
@@ -642,30 +710,34 @@ Name · City · Contact</pre>
 
 
 
-<section class="chapter chapter-quiet" id="quiet">
-  <div class="wrap">
-    <div class="chapter-head reveal">
-      <span class="chapter-num">03</span>
-      <div><h2>Confirmed quiet</h2><p class="lede">No new formal government action recorded on these. That is information too — it means nothing has moved in the legislative pipeline, not that nothing is happening.</p></div>
-    </div>
-    <div class="quiet-grid">
+<section class="chapter" id="quiet">
+  <aside class="marg reveal"><span class="num">03</span><span class="k">Quiet</span><span class="hint">Absence is information too.</span></aside>
+  <div class="body">
+    <h2 class="reveal">Confirmed quiet</h2>
+    <p class="lede reveal">No new formal government action recorded on these. That is information too — it means nothing has moved in the legislative pipeline, not that nothing is happening.</p>
+    <div class="rows">
       
-      <article class="card qcard reveal" style="--accent: #7c3aed">
-        <h3><a href="topic/digital-and-data.html">Digital rights &amp; data protection</a></h3>
-        <p class="q">1 formal actions in the last 3 months.</p>
-        
+      <article class="row qrow reveal" style="--accent: #7c3aed">
+        <span class="sig-num">01</span>
+        <div>
+          <h3><a href="topic/digital-and-data.html">Digital rights &amp; data protection</a></h3>
+          <p class="q">1 formal actions in the last 3 months.</p>
+          
   
   
 
+        </div>
         
   <button type="button" class="follow" data-slug="digital-and-data" data-follow="☆ Follow" data-following="★ Following" aria-pressed="false">☆ Follow</button>
 
       </article>
       
-      <article class="card qcard reveal" style="--accent: #db2777">
-        <h3><a href="topic/ai-regulation.html">AI regulation</a></h3>
-        <p class="q">0 formal actions in the last 3 months.</p>
-        
+      <article class="row qrow reveal" style="--accent: #db2777">
+        <span class="sig-num">02</span>
+        <div>
+          <h3><a href="topic/ai-regulation.html">AI regulation</a></h3>
+          <p class="q">0 formal actions in the last 3 months.</p>
+          
   
   
     
@@ -674,15 +746,18 @@ Name · City · Contact</pre>
     <a href="states.html#ai-regulation">→</a></p>
   
 
+        </div>
         
   <button type="button" class="follow" data-slug="ai-regulation" data-follow="☆ Follow" data-following="★ Following" aria-pressed="false">☆ Follow</button>
 
       </article>
       
-      <article class="card qcard reveal" style="--accent: #0891b2">
-        <h3><a href="topic/gig-work-and-labour-codes.html">Gig work &amp; labour codes</a></h3>
-        <p class="q">0 formal actions in the last 3 months.</p>
-        
+      <article class="row qrow reveal" style="--accent: #0891b2">
+        <span class="sig-num">03</span>
+        <div>
+          <h3><a href="topic/gig-work-and-labour-codes.html">Gig work &amp; labour codes</a></h3>
+          <p class="q">0 formal actions in the last 3 months.</p>
+          
   
   
     
@@ -691,6 +766,7 @@ Name · City · Contact</pre>
     <a href="states.html#gig-work-and-labour-codes">→</a></p>
   
 
+        </div>
         
   <button type="button" class="follow" data-slug="gig-work-and-labour-codes" data-follow="☆ Follow" data-following="★ Following" aria-pressed="false">☆ Follow</button>
 
@@ -702,137 +778,140 @@ Name · City · Contact</pre>
 
 
 
-<section class="chapter chapter-all" id="all">
-  <div class="wrap">
-    <div class="chapter-head reveal">
-      <span class="chapter-num">04</span>
-      <div><h2>All topics</h2><p class="lede">Every topic we track, with the full 17-month evidence trail. Ordered by a combination of momentum, recent volume and breadth. Activity is not importance — a topic with three high-stakes actions can matter more than one with ten routine ones.</p></div>
-    </div>
-    <div class="grid">
-      
-      <a class="card tile reveal" href="topic/criminal-law-and-justice.html" style="--accent: #4f46e5">
-        <span class="pill heating">Heating up</span>
-        <span class="name">Criminal law &amp; justice</span>
-        <span class="row">
-          <span class="pct num up">+94%</span>
-          
+<section class="chapter" id="all">
+  <aside class="marg reveal"><span class="num">04</span><span class="k">Everything</span><span class="hint">Every topic, sortable by nothing but honesty.</span></aside>
+  <div class="body">
+    <h2 class="reveal">All topics</h2>
+    <p class="lede reveal">Every topic we track, with the full 17-month evidence trail. Ordered by a combination of momentum, recent volume and breadth. Activity is not importance — a topic with three high-stakes actions can matter more than one with ten routine ones.</p>
+    <table class="index reveal">
+      <thead><tr><th>Topic</th><th>Status</th><th>Change</th><th class="hide-m">17 months</th><th class="hide-m">Evidence</th><th class="hide-m">Confidence</th></tr></thead>
+      <tbody>
+        
+        <tr style="--accent: #4f46e5">
+          <td class="name"><a href="topic/criminal-law-and-justice.html">Criminal law &amp; justice</a></td>
+          <td><span class="pill heating">Heating up</span></td>
+          <td class="pct up">+94%</td>
+          <td class="hide-m">
   
   
   
-  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
-    <polyline points="0.0,23.0 5.6,23.0 11.2,23.0 16.9,23.0 22.5,3.9 28.1,23.0 33.8,23.0 39.4,23.0 45.0,23.0 50.6,23.0 56.2,23.0 61.9,7.0 67.5,23.0 73.1,18.4 78.8,23.0 84.4,3.0 90.0,23.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <svg viewBox="0 0 110 28" width="110" height="28" class="spark" aria-hidden="true">
+    <polyline points="0.0,25.0 6.9,25.0 13.8,25.0 20.6,25.0 27.5,4.0 34.4,25.0 41.2,25.0 48.1,25.0 55.0,25.0 61.9,25.0 68.8,25.0 75.6,7.4 82.5,25.0 89.4,19.9 96.2,25.0 103.1,3.0 110.0,25.0 " fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect class="last" x="107.0" y="22.0" width="6" height="6" fill="currentColor"/>
   </svg>
-
-        </span>
-        <span class="foot">3 actions recently · 10 total · 2 ministries · <span class="conf conf-medium">Medium</span></span>
-      </a>
-      
-      <a class="card tile reveal" href="topic/personal-finance-and-tax.html" style="--accent: #dc2626">
-        <span class="pill steady">Steady</span>
-        <span class="name">Personal finance &amp; taxes</span>
-        <span class="row">
-          <span class="pct num up">+37%</span>
-          
+</td>
+          <td class="k2 hide-m">3 actions recently · 10 total · 2 ministries</td>
+          <td class="hide-m"><span class="conf conf-medium">Medium</span></td>
+        </tr>
+        
+        <tr style="--accent: #dc2626">
+          <td class="name"><a href="topic/personal-finance-and-tax.html">Personal finance &amp; taxes</a></td>
+          <td><span class="pill steady">Steady</span></td>
+          <td class="pct up">+37%</td>
+          <td class="hide-m">
   
   
   
-  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
-    <polyline points="0.0,21.2 5.6,19.5 11.2,19.5 16.9,13.8 22.5,3.0 28.1,20.9 33.8,11.5 39.4,20.9 45.0,12.4 50.6,19.8 56.2,19.5 61.9,17.7 67.5,18.6 73.1,18.6 78.8,17.7 84.4,13.8 90.0,15.9 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <svg viewBox="0 0 110 28" width="110" height="28" class="spark" aria-hidden="true">
+    <polyline points="0.0,23.1 6.9,21.1 13.8,21.1 20.6,14.9 27.5,3.0 34.4,22.7 41.2,12.3 48.1,22.7 55.0,13.3 61.9,21.5 68.8,21.1 75.6,19.2 82.5,20.1 89.4,20.1 96.2,19.2 103.1,14.9 110.0,17.2 " fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect class="last" x="107.0" y="14.2" width="6" height="6" fill="currentColor"/>
   </svg>
-
-        </span>
-        <span class="foot">8 actions recently · 40 total · 2 ministries · <span class="conf conf-high">High</span></span>
-      </a>
-      
-      <a class="card tile reveal" href="topic/jobs-and-employment.html" style="--accent: #059669">
-        <span class="pill steady">Steady</span>
-        <span class="name">Jobs &amp; employment</span>
-        <span class="row">
-          <span class="pct num up">+17%</span>
-          
+</td>
+          <td class="k2 hide-m">8 actions recently · 40 total · 2 ministries</td>
+          <td class="hide-m"><span class="conf conf-high">High</span></td>
+        </tr>
+        
+        <tr style="--accent: #059669">
+          <td class="name"><a href="topic/jobs-and-employment.html">Jobs &amp; employment</a></td>
+          <td><span class="pill steady">Steady</span></td>
+          <td class="pct up">+17%</td>
+          <td class="hide-m">
   
   
   
-  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
-    <polyline points="0.0,23.0 5.6,13.5 11.2,23.0 16.9,7.3 22.5,15.9 28.1,23.0 33.8,15.9 39.4,23.0 45.0,3.0 50.6,23.0 56.2,14.4 61.9,23.0 67.5,23.0 73.1,15.9 78.8,23.0 84.4,13.5 90.0,11.6 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <svg viewBox="0 0 110 28" width="110" height="28" class="spark" aria-hidden="true">
+    <polyline points="0.0,25.0 6.9,14.5 13.8,25.0 20.6,7.7 27.5,17.1 34.4,25.0 41.2,17.1 48.1,25.0 55.0,3.0 61.9,25.0 68.8,15.6 75.6,25.0 82.5,25.0 89.4,17.1 96.2,25.0 103.1,14.5 110.0,12.4 " fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect class="last" x="107.0" y="9.4" width="6" height="6" fill="currentColor"/>
   </svg>
-
-        </span>
-        <span class="foot">3 actions recently · 12 total · 2 ministries · <span class="conf conf-medium">Medium</span></span>
-      </a>
-      
-      <a class="card tile reveal" href="topic/education-and-exams.html" style="--accent: #d97706">
-        <span class="pill steady">Steady</span>
-        <span class="name">Education &amp; exam integrity</span>
-        <span class="row">
-          <span class="pct num down">-24%</span>
-          
+</td>
+          <td class="k2 hide-m">3 actions recently · 12 total · 2 ministries</td>
+          <td class="hide-m"><span class="conf conf-medium">Medium</span></td>
+        </tr>
+        
+        <tr style="--accent: #d97706">
+          <td class="name"><a href="topic/education-and-exams.html">Education &amp; exam integrity</a></td>
+          <td><span class="pill steady">Steady</span></td>
+          <td class="pct down">-24%</td>
+          <td class="hide-m">
   
   
   
-  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
-    <polyline points="0.0,3.0 5.6,23.0 11.2,23.0 16.9,23.0 22.5,12.2 28.1,15.0 33.8,23.0 39.4,23.0 45.0,5.4 50.6,9.0 56.2,23.0 61.9,23.0 67.5,23.0 73.1,23.0 78.8,23.0 84.4,11.0 90.0,23.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <svg viewBox="0 0 110 28" width="110" height="28" class="spark" aria-hidden="true">
+    <polyline points="0.0,3.0 6.9,25.0 13.8,25.0 20.6,25.0 27.5,13.1 34.4,16.2 41.2,25.0 48.1,25.0 55.0,5.6 61.9,9.6 68.8,25.0 75.6,25.0 82.5,25.0 89.4,25.0 96.2,25.0 103.1,11.8 110.0,25.0 " fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect class="last" x="107.0" y="22.0" width="6" height="6" fill="currentColor"/>
   </svg>
-
-        </span>
-        <span class="foot">1 actions recently · 11 total · 1 ministries · <span class="conf conf-low">Low</span></span>
-      </a>
-      
-      <a class="card tile reveal" href="topic/digital-and-data.html" style="--accent: #7c3aed">
-        <span class="pill quiet">Quiet</span>
-        <span class="name">Digital rights &amp; data protection</span>
-        <span class="row">
-          <span class="pct num down">1</span>
-          
+</td>
+          <td class="k2 hide-m">1 actions recently · 11 total · 1 ministries</td>
+          <td class="hide-m"><span class="conf conf-low">Low</span></td>
+        </tr>
+        
+        <tr style="--accent: #7c3aed">
+          <td class="name"><a href="topic/digital-and-data.html">Digital rights &amp; data protection</a></td>
+          <td><span class="pill quiet">Quiet</span></td>
+          <td class="pct down">1<span class="k2"> /3mo</span></td>
+          <td class="hide-m">
   
   
   
-  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
-    <polyline points="0.0,23.0 5.6,23.0 11.2,17.0 16.9,3.0 22.5,11.0 28.1,9.0 33.8,9.0 39.4,15.0 45.0,23.0 50.6,23.0 56.2,23.0 61.9,7.4 67.5,15.0 73.1,23.0 78.8,23.0 84.4,23.0 90.0,15.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <svg viewBox="0 0 110 28" width="110" height="28" class="spark" aria-hidden="true">
+    <polyline points="0.0,25.0 6.9,25.0 13.8,18.4 20.6,3.0 27.5,11.8 34.4,9.6 41.2,9.6 48.1,16.2 55.0,25.0 61.9,25.0 68.8,25.0 75.6,7.8 82.5,16.2 89.4,25.0 96.2,25.0 103.1,25.0 110.0,16.2 " fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect class="last" x="107.0" y="13.2" width="6" height="6" fill="currentColor"/>
   </svg>
-
-        </span>
-        <span class="foot">1 actions recently · 15 total · 1 ministries · <span class="conf conf-low">Low</span></span>
-      </a>
-      
-      <a class="card tile reveal" href="topic/ai-regulation.html" style="--accent: #db2777">
-        <span class="pill quiet">Quiet</span>
-        <span class="name">AI regulation</span>
-        <span class="row">
-          <span class="pct num down">0</span>
-          
+</td>
+          <td class="k2 hide-m">1 actions recently · 15 total · 1 ministries</td>
+          <td class="hide-m"><span class="conf conf-low">Low</span></td>
+        </tr>
+        
+        <tr style="--accent: #db2777">
+          <td class="name"><a href="topic/ai-regulation.html">AI regulation</a></td>
+          <td><span class="pill quiet">Quiet</span></td>
+          <td class="pct down">0<span class="k2"> /3mo</span></td>
+          <td class="hide-m">
   
   
   
-  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
-    <polyline points="0.0,23.0 5.6,23.0 11.2,23.0 16.9,23.0 22.5,9.7 28.1,23.0 33.8,3.0 39.4,23.0 45.0,3.0 50.6,23.0 56.2,9.7 61.9,7.0 67.5,23.0 73.1,23.0 78.8,23.0 84.4,23.0 90.0,23.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <svg viewBox="0 0 110 28" width="110" height="28" class="spark" aria-hidden="true">
+    <polyline points="0.0,25.0 6.9,25.0 13.8,25.0 20.6,25.0 27.5,10.3 34.4,25.0 41.2,3.0 48.1,25.0 55.0,3.0 61.9,25.0 68.8,10.3 75.6,7.4 82.5,25.0 89.4,25.0 96.2,25.0 103.1,25.0 110.0,25.0 " fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect class="last" x="107.0" y="22.0" width="6" height="6" fill="currentColor"/>
   </svg>
-
-        </span>
-        <span class="foot">0 actions recently · 5 total · 0 ministries · <span class="conf conf-low">Low</span></span>
-      </a>
-      
-      <a class="card tile reveal" href="topic/gig-work-and-labour-codes.html" style="--accent: #0891b2">
-        <span class="pill quiet">Quiet</span>
-        <span class="name">Gig work &amp; labour codes</span>
-        <span class="row">
-          <span class="pct num down">0</span>
-          
+</td>
+          <td class="k2 hide-m">0 actions recently · 5 total · 0 ministries</td>
+          <td class="hide-m"><span class="conf conf-low">Low</span></td>
+        </tr>
+        
+        <tr style="--accent: #0891b2">
+          <td class="name"><a href="topic/gig-work-and-labour-codes.html">Gig work &amp; labour codes</a></td>
+          <td><span class="pill quiet">Quiet</span></td>
+          <td class="pct down">0<span class="k2"> /3mo</span></td>
+          <td class="hide-m">
   
   
   
-  <svg viewBox="0 0 90 26" width="90" height="26" class="spark" aria-hidden="true">
-    <polyline points="0.0,23.0 5.6,23.0 11.2,23.0 16.9,14.1 22.5,23.0 28.1,23.0 33.8,16.3 39.4,9.7 45.0,16.3 50.6,23.0 56.2,3.0 61.9,23.0 67.5,23.0 73.1,14.1 78.8,23.0 84.4,23.0 90.0,23.0 " fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+  <svg viewBox="0 0 110 28" width="110" height="28" class="spark" aria-hidden="true">
+    <polyline points="0.0,25.0 6.9,25.0 13.8,25.0 20.6,15.2 27.5,25.0 34.4,25.0 41.2,17.7 48.1,10.3 55.0,17.7 61.9,25.0 68.8,3.0 75.6,25.0 82.5,25.0 89.4,15.2 96.2,25.0 103.1,25.0 110.0,25.0 " fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+    <rect class="last" x="107.0" y="22.0" width="6" height="6" fill="currentColor"/>
   </svg>
-
-        </span>
-        <span class="foot">0 actions recently · 7 total · 0 ministries · <span class="conf conf-low">Low</span></span>
-      </a>
-      
-    </div>
-    <p class="lede reveal" style="margin-top:2rem;font-size:.95rem">Each card is one topic. <strong>Heating up / Steady / Cooling / Quiet</strong> compares the last 3 months of government action to the 6 before. <strong>Confidence</strong> tells you how much evidence sits behind that label — a handful of documents can swing a percentage, and we currently rely on one source. Open a topic to see every action that produced the signal, and what the signal does <em>not</em> mean. <a href="method.html">Full method &amp; glossary →</a> · <a href="radar.json">Download the data (JSON)</a></p>
+</td>
+          <td class="k2 hide-m">0 actions recently · 7 total · 0 ministries</td>
+          <td class="hide-m"><span class="conf conf-low">Low</span></td>
+        </tr>
+        
+      </tbody>
+    </table>
+    <p class="lede reveal" style="margin-top:2rem;font-size:.95rem">Each card is one topic. <strong>Heating up / Steady / Cooling / Quiet</strong> compares the last 3 months of government action to the 6 before. <strong>Confidence</strong> tells you how much evidence sits behind that label — a handful of documents can swing a percentage, and we currently rely on one source. Open a topic to see every action that produced the signal, and what the signal does <em>not</em> mean. <a class="u" href="method.html">Full method &amp; glossary →</a> · <a class="u" href="radar.json">Download the data (JSON)</a></p>
   </div>
 </section>
+</div>
 
 <script type="application/json" id="pulse-state">{"today": "2026-09-27", "topics": {"criminal-law-and-justice": {"name": "Criminal law & justice", "status": "heating", "status_label": "Heating up", "url": "topic/criminal-law-and-justice.html", "latest": ["2026-07:2", "2026-07:4", "2026-07:5"]}, "personal-finance-and-tax": {"name": "Personal finance & taxes", "status": "steady", "status_label": "Steady", "url": "topic/personal-finance-and-tax.html", "latest": ["2026-06:1", "2026-06:5", "2026-06:6", "2026-07:14", "2026-07:15", "2026-07:16", "2026-08:14", "2026-08:3"]}, "jobs-and-employment": {"name": "Jobs & employment", "status": "steady", "status_label": "Steady", "url": "topic/jobs-and-employment.html", "latest": ["2026-07:8", "2026-08:13", "2026-08:42"]}, "education-and-exams": {"name": "Education & exam integrity", "status": "steady", "status_label": "Steady", "url": "topic/education-and-exams.html", "latest": ["2026-07:2"]}, "digital-and-data": {"name": "Digital rights & data protection", "status": "quiet", "status_label": "Quiet", "url": "topic/digital-and-data.html", "latest": ["2026-08:34"]}, "ai-regulation": {"name": "AI regulation", "status": "quiet", "status_label": "Quiet", "url": "topic/ai-regulation.html", "latest": []}, "gig-work-and-labour-codes": {"name": "Gig work & labour codes", "status": "quiet", "status_label": "Quiet", "url": "topic/gig-work-and-labour-codes.html", "latest": []}}}</script>
 <script type="application/json" id="pulse-strings">{"since_h": "Since your last visit ({d})", "since_new": "{n} new action(s)", "since_status": "now {status}, was {old}", "since_same": "no change", "since_none_followed": "Follow topics and this box will show what changed for them when you come back. Nothing leaves your browser.", "since_first": "Welcome. Next time you visit, this box will show what changed since today."}</script>
@@ -842,6 +921,7 @@ Name · City · Contact</pre>
   <div class="wrap">
     <p>Source data © PRS Legislative Research (prsindia.org), licensed under CC BY 4.0. Summaries and scores are our own.</p>
     <p>Updated 2026-09-27 · Open source · No ads, no tracking, no login. · Hooks, “For you” lines and the weekly note are model-drafted and source-linked; scores and confidence are rule-based.</p>
+    <p>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Sansad_Bhavan,_New_Delhi.jpg">Nikhilb239</a> (CC BY-SA 4.0) · <a href="https://commons.wikimedia.org/wiki/File:Vidhana_Soudha,_Bengaluru,_February_2017_06.jpg">Ibrahim Husain Meraj</a> (CC BY-SA 4.0) · <a href="https://commons.wikimedia.org/wiki/File:Building_of_The_Supreme_Court_of_India.jpg">Pinakpani</a> (CC BY-SA 4.0)</p>
   </div>
 </footer>
 <script src="static/app.js" defer></script>

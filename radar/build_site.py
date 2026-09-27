@@ -32,6 +32,12 @@ OUT = Path("docs")
 HERE = Path(__file__).parent
 
 ACTIONS = ("enacted", "introduced", "rules", "cabinet", "consultation", "committee", "scheme", "court", "other")
+TOPIC_IMAGES = {"criminal-law-and-justice": "supreme-court", "gig-work-and-labour-codes": "vidhana-soudha"}
+
+
+def load_images() -> dict:
+    path = HERE / "static" / "img" / "manifest.json"
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
 
 _DATE_FORMATS = ("%B %d, %Y", "%B %d %Y", "%d %B %Y", "%d %B, %Y")
 
@@ -73,6 +79,7 @@ def _env(lang: str) -> Environment:
     env.globals["t"] = lambda key, **kw: Markup(t(lang, key, **kw))
     env.filters["month"] = lambda ym: pretty_month(ym, lang)
     env.filters["nice_date"] = lambda d: nice_date(d, lang)
+    env.filters["nice_date_iso"] = lambda s: nice_date(date.fromisoformat(s), lang)
     env.filters["sector"] = lambda x: sector_label(x, lang)
     env.filters["state"] = lambda x: state_label(x, lang)
     env.filters["spark"] = sparkline
@@ -271,6 +278,7 @@ def _render_lang(lang: str, conn, scores, consultations, ctx: dict, n_items: int
         topic_chains = [c for c in ctx["chains"] if ts.topic.slug in c.get("topics", [])]
         (out / "topic" / f"{ts.topic.slug}.html").write_text(
             env.get_template("topic.html").render(ts=ts, timeline=timeline, root=top + "../", topic_chains=topic_chains,
+                                                  topic_image=TOPIC_IMAGES.get(ts.topic.slug),
                                                   page=f"topic/{ts.topic.slug}.html", **ctx), encoding="utf-8")
 
     (out / "method.html").write_text(env.get_template(f"method_{lang}.html").render(
@@ -311,6 +319,7 @@ def build() -> None:
         baseline_window=BASELINE_WINDOW, action_weights=ACTION_WEIGHTS, actions=ACTIONS,
         brief=brief(scores, consultations), channel_url=CHANNEL_URL, personas=PERSONAS,
         chains=load_chains(conn), states=states_by_topic(conn), states_totals=states_totals(conn),
+        images=load_images(),
     )
 
     if OUT.exists():

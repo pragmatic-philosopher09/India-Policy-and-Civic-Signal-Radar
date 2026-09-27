@@ -119,6 +119,16 @@ or Cloud SQL when the dataset outgrows git.
 - [ ] Phase 3d — email digest, exam (GS-paper) tags, Hindi hooks/"For you", Hindi audio, location relevance, PIB RSS direct feed
 - [ ] Phase 4 — model-structured notice reading (format, page limits, addressee); PIB RSS as a direct feed
 
+## Design
+
+"The weekly issue": an editorial index rather than a dashboard — hairline rules, a sticky marginalia
+column numbering each section, oversized italic Instrument Serif, DM Mono for every number, one
+Klein-blue accent; light and dark themes. Visuals are built from the data itself (a 17-month ×
+7-topic heatmap, a tile-grid cartogram of India for state Bills, self-drawing sparklines, journey
+steppers) plus three photographs from Wikimedia Commons (CC BY-SA 4.0, credited in the footer and
+`radar/static/img/manifest.json`). No AI-generated imagery. Motion respects `prefers-reduced-motion`;
+sound is opt-in and synthesized.
+
 ## Attribution
 
 Source data © [PRS Legislative Research](https://prsindia.org), licensed under

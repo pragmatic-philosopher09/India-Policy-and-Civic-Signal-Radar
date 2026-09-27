@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 {% block title %}{{ t('states_page_h1') }} — {{ t('site_title') }}{% endblock %}
+{% from "_item.html" import photo, tilemap %}
 {% block nav %}{% endblock %}
 {% block body %}
 <article class="prose wide">
   <a class="back" href="index.html">{{ t('back') }}</a>
   <h1>{{ t('states_page_h1') }}</h1>
   <p class="lede">{{ t('states_page_lede', n=(states.values() | map(attribute='bills') | map('length') | sum), s=states_totals.states, y0=states_totals.years[0], y1=states_totals.years[1]) }}</p>
+  {{ photo('vidhana-soudha', t('photo_vidhana-soudha'), images, root) }}
+  {% set totals = {} %}{% for sd in states.values() %}{% for st, n in sd.states.items() %}{% set _ = totals.update({st: totals.get(st, 0) + n}) %}{% endfor %}{% endfor %}
+  {{ tilemap(totals, t('tiles_caption_all', y0=states_totals.years[0], y1=states_totals.years[1])) }}
   {% for ts in scores %}{% set sd = states[ts.topic.slug] %}{% if sd.bills %}
   <section class="states-topic reveal" id="{{ ts.topic.slug }}" style="--accent: {{ ts.topic.color }}">
     <h2><a href="topic/{{ ts.topic.slug }}.html">{{ ts.topic.label(lang) }}</a> <span class="pill {{ ts.status }}">{{ ts.status | status }}</span></h2>

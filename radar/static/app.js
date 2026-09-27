@@ -25,6 +25,12 @@
   function paintSound() { if (!soundBtn) return; soundBtn.classList.toggle('on', soundOn); soundBtn.textContent = soundOn ? soundBtn.dataset.on : soundBtn.dataset.off; soundBtn.setAttribute('aria-pressed', soundOn); }
   if (soundBtn) { soundBtn.addEventListener('click', function () { soundOn = !soundOn; put('pulse-sound', soundOn); paintSound(); tick(soundOn ? 880 : 440, 0.12, 0.1); }); paintSound(); }
 
+  /* ---- theme: light / dark (system default) ---- */
+  var tbtn = d.querySelector('[data-theme-toggle]'), root = d.documentElement;
+  function effective() { var t = root.getAttribute('data-theme'); if (t) return t; return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light'; }
+  function paintTheme() { if (!tbtn) return; var e = effective(); tbtn.textContent = e === 'dark' ? '☾' : '☀'; tbtn.setAttribute('aria-label', e === 'dark' ? tbtn.dataset.light : tbtn.dataset.dark); }
+  if (tbtn) { tbtn.addEventListener('click', function () { var next = effective() === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', next); put('pulse-theme', next); paintTheme(); tick(next === 'dark' ? 392 : 784, 0.12, 0.07); }); paintTheme(); }
+
   /* ---- reading progress + sticky header state ---- */
   var prog = d.querySelector('.progress'), top = d.querySelector('.top');
   function onScroll() {

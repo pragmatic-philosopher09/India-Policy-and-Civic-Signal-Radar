@@ -5,12 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}{{ t('site_title') }}{% endblock %}</title>
 <meta name="description" content="{% block desc %}{{ t('site_desc') }}{% endblock %}">
-<meta name="theme-color" content="#f6f2ea" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0f0e0c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f1ec" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d0e11" media="(prefers-color-scheme: dark)">
 {% for l in langs %}<link rel="alternate" hreflang="{{ l }}" href="{{ root }}{{ '' if l == 'en' else l ~ '/' }}{{ page }}">
-{% endfor %}<link rel="preconnect" href="https://fonts.googleapis.com">
+{% endfor %}<script>(function(){try{var t=JSON.parse(localStorage.getItem('pulse-theme')||'null');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1&family=Manrope:wght@400;500;600;700;800{% if lang == 'hi' %}&family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@400;500;600;700{% endif %}&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=DM+Mono:wght@400;500{% if lang == 'hi' %}&family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@400;500;600;700{% endif %}&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ root }}static/style.css">
 <script>
 (function(){try{
@@ -25,7 +26,7 @@
 <div class="progress" aria-hidden="true"></div>
 <header class="top">
   <div class="wrap top-inner">
-    <a class="brand" href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}index.html"><span class="live" aria-hidden="true"></span>{{ t('site_title') }}</a>
+    <a class="brand" href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}index.html">{{ t('site_title') }} <span class="issue">{{ t('issue_no', n=week[-2:] | int) }}</span></a>
     {% block nav %}
     <nav class="chapters" aria-label="{{ t('this_week') }}">
       <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}index.html#respond"><span>01</span>{{ t('ch_respond') }}</a>
@@ -35,10 +36,11 @@
     </nav>
     {% endblock %}
     <div class="tools">
-      <a class="tool" href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}states.html">{{ t('nav_states') }}</a>
-      <a class="tool" href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}method.html">{{ t('nav_method_short') }}</a>
+      <a class="tool hide-m" href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}states.html">{{ t('nav_states') }}</a>
+      <a class="tool hide-m" href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}method.html">{{ t('nav_method_short') }}</a>
       {% for l in other_langs %}<a class="tool lang-toggle" lang="{{ l }}" href="{{ root }}{{ '' if l == 'en' else l ~ '/' }}{{ page }}?lang={{ l }}">{{ langs[l] }}</a>{% endfor %}
-      <button type="button" class="tool" data-sound data-on="{{ t('sound_on') }}" data-off="{{ t('sound_off') }}" aria-pressed="false" title="{{ t('sound_help') }}">{{ t('sound_off') }}</button>
+      <button type="button" class="tool" data-theme-toggle data-light="{{ t('theme_light') }}" data-dark="{{ t('theme_dark') }}" title="{{ t('theme_help') }}">◐</button>
+      <button type="button" class="tool hide-m" data-sound data-on="{{ t('sound_on') }}" data-off="{{ t('sound_off') }}" aria-pressed="false" title="{{ t('sound_help') }}">{{ t('sound_off') }}</button>
     </div>
   </div>
 </header>
@@ -49,6 +51,7 @@
   <div class="wrap">
     <p>{{ attribution }}</p>
     <p>{{ t('footer_line', d=today) }} · {{ t('editorial_note') }}</p>
+    <p>{{ t('photo_credits') }}: {% for k, im in images.items() %}<a href="{{ im.page }}">{{ im.artist }}</a> ({{ im.license }}){{ ' · ' if not loop.last }}{% endfor %}</p>
   </div>
 </footer>
 <script src="{{ root }}static/app.js" defer></script>
