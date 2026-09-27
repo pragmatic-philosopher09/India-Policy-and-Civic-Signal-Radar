@@ -117,3 +117,45 @@
   </ol>
   {% endif %}
 {% endmacro %}
+
+{% macro states_line(ts, states) %}
+  {% set sd = states[ts.topic.slug] %}
+  {% if sd and sd.bills %}
+    {% set y = sd.by_year.keys() | max %}
+    {% set names = sd.by_year_states[y].keys() | list %}
+    <p class="states-line">🏛 {% if ts.status == 'quiet' %}{{ t('centre_quiet_states', n=sd.by_year[y], y=y, names=(names[:3] | map('state') | join(', ')) ~ (' +' ~ (names | length - 3) if names | length > 3 else '')) }}{% else %}{{ t('states_line', n=sd.by_year[y], y=y, names=(names[:3] | map('state') | join(', ')) ~ (' +' ~ (names | length - 3) if names | length > 3 else '')) }}{% endif %}
+    <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}states.html#{{ ts.topic.slug }}">→</a></p>
+  {% endif %}
+{% endmacro %}
+
+{% macro states_section(ts, states, states_totals) %}
+  {% set sd = states[ts.topic.slug] %}
+  <section class="states-box" id="states">
+    <h2>{{ t('states_h2') }}</h2>
+    <p class="hint">{{ t('states_note') }}</p>
+    {% if sd and sd.bills %}
+    <div class="state-stats">
+      {% for y, n in sd.by_year | dictsort(reverse=true) %}<span class="stat-pill"><b>{{ n }}</b> {{ y }}</span>{% endfor %}
+      <span class="state-chips">{% for st, n in sd.states.items() %}<span class="tag state-chip">{{ st | state }} <em>{{ n }}</em></span>{% endfor %}</span>
+    </div>
+    <ul class="evidence state-bills">
+      {% for b in sd.bills[:12] %}
+      <li>
+        <span class="tag state-chip">{{ b.state | state }}</span> <span class="tag action-introduced">{{ b.year }}</span>
+        <strong>{{ b.title }}</strong>
+        <small>{% if b.pdf_url %}<a href="{{ b.pdf_url }}">{{ t('bill_pdf') }}</a>{% endif %}{% if b.brief_url %} · <a href="{{ b.brief_url }}">{{ t('prs_brief') }}</a>{% endif %}</small>
+      </li>
+      {% endfor %}
+    </ul>
+    {% if sd.bills | length > 12 %}
+    <details class="more"><summary>{{ t('show_all', n=sd.bills | length) }}</summary>
+      <ul class="evidence state-bills muted-list">
+        {% for b in sd.bills[12:] %}<li><span class="tag state-chip">{{ b.state | state }}</span> <span class="tag action-introduced">{{ b.year }}</span> <strong>{{ b.title }}</strong> <small>{% if b.pdf_url %}<a href="{{ b.pdf_url }}">{{ t('bill_pdf') }}</a>{% endif %}</small></li>{% endfor %}
+      </ul>
+    </details>
+    {% endif %}
+    {% else %}
+    <p class="empty">{{ t('states_none', y0=states_totals.years[0], y1=states_totals.years[1]) }}</p>
+    {% endif %}
+  </section>
+{% endmacro %}

@@ -41,7 +41,10 @@
   <h2>7. "You can still respond"</h2>
   <p>Open consultations come primarily from PRS's live <a href="https://prsindia.org/announcements">Announcements</a> table, which lists exact deadlines and the official notice. We then read the notice itself (PDF or ministry page) to pull out the submission email and the body that takes comments — a regex today, a language model later. Monthly-review items add anything the table misses; their deadlines come from PRS's text, or failing that from headlines of independent coverage (shown as "via SCC Online"). A draft older than two months with no deadline anywhere is labelled <em>likely closed</em>, because the Pre-Legislative Consultation Policy prescribes 30-day windows. Always verify on the notice — deadlines get extended.</p>
 
-  <h2>8. What the model writes, and what it doesn't</h2>
+  <h2>8. The states</h2>
+  <p>PRS also lists every Bill introduced in state legislatures (<a href="https://prsindia.org/bills/states">bills/states</a>) and writes plain-English <a href="https://prsindia.org/bills/state-legislative-briefs">State Legislative Briefs</a> on selected ones. We ingest this and last year's Bills, tag them to our topics with the same keyword rules, and show them beside each topic — "Centre quiet, states moving" is often the real story. PRS records the <em>year</em> of a state Bill, not the month, so this layer is counted per year and never blended into the monthly momentum arithmetic. From now on we also record when each Bill first appeared in our weekly fetch, so the brief can flag what is new in the states.</p>
+
+  <h2>9. What the model writes, and what it doesn't</h2>
   <p>A language model drafts the hook headlines, the persona "For you" lines, the weekly "This week in 60 seconds" note, summaries and Hindi translations — always from the items on the page, and labelled <em>AI-drafted · source-linked</em>. It does <strong>not</strong> touch the momentum arithmetic, the confidence rules, deadline dates or corroboration counts. Until an API key is configured, those drafts are written by a model in the editor's session and committed as seed files you can inspect in the repository.</p>
 
   <h2>Glossary</h2>

@@ -26,6 +26,10 @@ publishes a brief — opened by a model-drafted **"This week in 60 seconds"** �
 **Follow** any topic and the next visit opens with *"Since your last visit: 2 new actions · now
 Heating up, was Steady"* — computed in your browser from a local snapshot; nothing is sent anywhere.
 
+Each topic also shows **what the states are legislating** — Bills from 37 state legislatures tagged
+to the same topics (a separate `/states.html` index lists them all). This is where "Centre quiet"
+topics like gig work often turn out to be very much alive.
+
 The website (English + Hindi) is the archive: every topic's 17-month evidence trail, policy
 **journeys** (the same Bill tracked committee → draft → law → rules, with its current lifecycle
 stage), what would make each signal fade, connected topics, and the full method.
@@ -61,6 +65,7 @@ PRS Monthly Policy Review + PRS Announcements (CC BY 4.0)
         ▼
   radar/parse.py         → structured items (month, ministry, title, body, links)
   radar/announcements.py → live drafts open for comment, exact deadlines, notice links
+  radar/states.py        → state legislature Bills (37 states, this + last year) + PRS state briefs
   radar/notice.py        → reads the notice: submission email, addressee, deadline; "likely closed" inference
   radar/score.py       → action type · topic tags (+ overrides) · momentum · confidence
   radar/crosscheck.py  → independent coverage per item (Google News RSS → PIB / newspapers)
@@ -110,7 +115,8 @@ or Cloud SQL when the dataset outgrows git.
 - [x] Phase 2 — independent cross-check (PIB / newspapers via Google News), policy journeys
 - [x] Phase 3a — live consultations feed with exact deadlines; notices read for submission address; persona lens; editor's note
 - [x] Phase 3b — follow topics + "since your last visit", "why is this moving?", counter-signals, connected topics, lifecycle stages
-- [ ] Phase 3c — email digest, exam (GS-paper) tags, Hindi hooks/"For you", Hindi audio, location relevance, state legislatures
+- [x] Phase 3c — state legislatures layer (PRS state Bills + briefs), states index page
+- [ ] Phase 3d — email digest, exam (GS-paper) tags, Hindi hooks/"For you", Hindi audio, location relevance, PIB RSS direct feed
 - [ ] Phase 4 — model-structured notice reading (format, page limits, addressee); PIB RSS as a direct feed
 
 ## Attribution

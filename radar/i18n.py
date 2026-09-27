@@ -152,6 +152,19 @@ STRINGS: dict[str, dict[str, str]] = {
         "editorial_note": "Hooks, “For you” lines and the weekly note are model-drafted and source-linked; scores and confidence are rule-based.",
         "persona_prompt": "I'm a…",
         "signals_h2": "Three signals worth watching",
+        "nav_states": "States",
+        "states_h2": "In the states",
+        "states_note": "Bills introduced in state legislatures on this topic, from PRS's state Bill list. Listed by year (PRS records the year, not the month), so this layer sits beside the momentum score rather than inside it.",
+        "states_line": "States: {n} Bills in {y} ({names})",
+        "states_none": "No state Bills tagged to this topic in {y0}–{y1}.",
+        "centre_quiet_states": "Centre quiet — but {n} state Bills in {y}: {names}",
+        "states_page_h1": "What the states are legislating",
+        "states_page_lede": "{n} Bills across {s} state legislatures in {y0}–{y1}, tagged to the topics we track. The Centre gets the headlines; much of what touches daily life — exams, gig work, policing, universities — is written here.",
+        "states_page_untagged": "Bills outside our topics are not shown; the full list is on PRS.",
+        "prs_brief": "PRS brief",
+        "bill_pdf": "Bill (PDF)",
+        "new_in_states": "New in the states",
+        "all_states": "All states", "show_all": "Show all {n}",
         "metric_actions": "actions in {m} months", "metric_ministries": "ministries recently",
         "explore": "Explore signal →",
         "why_moving_h2": "Why is this {status}?",
@@ -313,6 +326,19 @@ STRINGS: dict[str, dict[str, str]] = {
         "editorial_note": "हुक, “आपके लिए” पंक्तियाँ और साप्ताहिक नोट मॉडल-प्रारूपित और स्रोत-लिंक्ड हैं; स्कोर और भरोसा नियम-आधारित हैं।",
         "persona_prompt": "मैं हूँ…",
         "signals_h2": "नज़र रखने लायक तीन संकेत",
+        "nav_states": "राज्य",
+        "states_h2": "राज्यों में",
+        "states_note": "इस विषय पर राज्य विधानसभाओं में पेश विधेयक, PRS की राज्य विधेयक सूची से। साल के हिसाब से (PRS महीना नहीं, साल दर्ज करता है), इसलिए यह परत गति स्कोर के बग़ल में है, उसके अंदर नहीं।",
+        "states_line": "राज्य: {y} में {n} विधेयक ({names})",
+        "states_none": "{y0}–{y1} में इस विषय पर कोई राज्य विधेयक टैग नहीं।",
+        "centre_quiet_states": "केंद्र शांत — पर {y} में {n} राज्य विधेयक: {names}",
+        "states_page_h1": "राज्य क्या क़ानून बना रहे हैं",
+        "states_page_lede": "{y0}–{y1} में {s} राज्य विधानसभाओं के {n} विधेयक, हमारे विषयों से टैग किए हुए। सुर्खियाँ केंद्र की बनती हैं; पर रोज़मर्रा को छूने वाला बहुत कुछ — परीक्षाएँ, गिग वर्क, पुलिसिंग, विश्वविद्यालय — यहाँ लिखा जाता है।",
+        "states_page_untagged": "हमारे विषयों से बाहर के विधेयक नहीं दिखाए गए; पूरी सूची PRS पर है।",
+        "prs_brief": "PRS ब्रीफ़",
+        "bill_pdf": "विधेयक (PDF)",
+        "new_in_states": "राज्यों में नया",
+        "all_states": "सभी राज्य", "show_all": "सभी {n} दिखाएँ",
         "metric_actions": "कार्रवाइयाँ {m} महीनों में", "metric_ministries": "मंत्रालय हाल में",
         "explore": "संकेत देखें →",
         "why_moving_h2": "यह {status} क्यों है?",
@@ -375,6 +401,22 @@ SECTORS_HI = {
     "Skill Development": "कौशल विकास", "Corporate Affairs": "कॉरपोरेट मामले", "Tribal Affairs": "जनजातीय मामले",
     "Petroleum and Natural Gas": "पेट्रोलियम और प्राकृतिक गैस", "Culture": "संस्कृति", "Tourism": "पर्यटन", "General": "सामान्य",
 }
+
+
+STATES_HI = {
+    "Andhra Pradesh": "आंध्र प्रदेश", "Arunachal Pradesh": "अरुणाचल प्रदेश", "Assam": "असम", "Bihar": "बिहार",
+    "Chhattisgarh": "छत्तीसगढ़", "Delhi": "दिल्ली", "Goa": "गोवा", "Gujarat": "गुजरात", "Haryana": "हरियाणा",
+    "Himachal Pradesh": "हिमाचल प्रदेश", "Jharkhand": "झारखंड", "Karnataka": "कर्नाटक", "Kerala": "केरल",
+    "Madhya Pradesh": "मध्य प्रदेश", "Maharashtra": "महाराष्ट्र", "Manipur": "मणिपुर", "Meghalaya": "मेघालय",
+    "Mizoram": "मिज़ोरम", "Nagaland": "नागालैंड", "Odisha": "ओडिशा", "Punjab": "पंजाब", "Rajasthan": "राजस्थान",
+    "Sikkim": "सिक्किम", "Tamil Nadu": "तमिलनाडु", "Telangana": "तेलंगाना", "Tripura": "त्रिपुरा",
+    "Uttar Pradesh": "उत्तर प्रदेश", "Uttarakhand": "उत्तराखंड", "West Bengal": "पश्चिम बंगाल",
+    "Jammu and Kashmir": "जम्मू और कश्मीर", "Puducherry": "पुदुचेरी", "Ladakh": "लद्दाख",
+}
+
+
+def state_label(name: str, lang: str = "en") -> str:
+    return STATES_HI.get(name, name) if lang == "hi" else name
 
 
 def sector_label(name: str, lang: str = "en") -> str:

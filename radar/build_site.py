@@ -20,10 +20,11 @@ from .config import ACTION_WEIGHTS, BASELINE_WINDOW, CHANNEL_URL, PRS_ATTRIBUTIO
 from .crosscheck import lookup as corroborations_for
 from .enrich import PERSONAS, editor_note, load_chains, lookup as enrichment_for
 from . import notice
+from .states import by_topic as states_by_topic, totals as states_totals
 from .announcements import load as load_announcements
 from .score import tag_topics
 from .parse import Item
-from .i18n import DEFAULT_LANG, LANGS, nice_date, pretty_month, sector_label, t
+from .i18n import DEFAULT_LANG, LANGS, nice_date, pretty_month, sector_label, state_label, t
 from .score import score_topics
 from .translate import lookup as translations_for
 
@@ -73,6 +74,7 @@ def _env(lang: str) -> Environment:
     env.filters["month"] = lambda ym: pretty_month(ym, lang)
     env.filters["nice_date"] = lambda d: nice_date(d, lang)
     env.filters["sector"] = lambda x: sector_label(x, lang)
+    env.filters["state"] = lambda x: state_label(x, lang)
     env.filters["spark"] = sparkline
     env.filters["action"] = lambda a: t(lang, f"act_{a}")
     env.filters["action_help"] = lambda a: t(lang, f"gl_{a}")
@@ -273,6 +275,8 @@ def _render_lang(lang: str, conn, scores, consultations, ctx: dict, n_items: int
 
     (out / "method.html").write_text(env.get_template(f"method_{lang}.html").render(
         page="method.html", root=top, **ctx), encoding="utf-8")
+    (out / "states.html").write_text(env.get_template("states.html").render(
+        page="states.html", root=top, scores=scores, **ctx), encoding="utf-8")
 
 
 def brief(scores, consultations, k: int = 3) -> dict:
@@ -306,7 +310,7 @@ def build() -> None:
         attribution=PRS_ATTRIBUTION, today=today, recent_window=RECENT_WINDOW,
         baseline_window=BASELINE_WINDOW, action_weights=ACTION_WEIGHTS, actions=ACTIONS,
         brief=brief(scores, consultations), channel_url=CHANNEL_URL, personas=PERSONAS,
-        chains=load_chains(conn),
+        chains=load_chains(conn), states=states_by_topic(conn), states_totals=states_totals(conn),
     )
 
     if OUT.exists():
@@ -338,6 +342,9 @@ def build() -> None:
             "status": k, "days_left": c["days_left"], "source": c["source_url"], "links": c["links"],
             "respond_via": c["route"]["body"] or None,
         } for k in ("open", "unknown", "closed") for c in consultations[k]],
+        "states": {slug: {"by_year": d["by_year"], "states": d["states"],
+                          "bills": [{"title": b["title"], "state": b["state"], "year": b["year"], "pdf": b["pdf_url"], "brief": b["brief_url"]} for b in d["bills"]]}
+                   for slug, d in ctx["states"].items()},
         "chains": [{"slug": c["slug"], "name": c["name"], "topics": c.get("topics", []), "next": c.get("next"),
                     "steps": [{"uid": st["uid"], "month": st["month"], "action": st["action"], "title": st["title"]} for st in c["steps"]]}
                    for c in ctx["chains"]],

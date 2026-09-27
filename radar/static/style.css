@@ -285,3 +285,20 @@ body.lang-hi .signal-title strong { font-family: "Noto Serif Devanagari", serif;
 .stages li.done { background: color-mix(in srgb, var(--accent) 18%, var(--bg)); color: var(--fg); border-color: transparent; }
 .stages li.now { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 700; }
 @media (max-width: 640px) { .stages { flex-wrap: wrap; } .stages li { flex: 1 1 30%; } .signal-metrics, .signal-why, .signal .why, .connections, .explore { margin-left: 0; } }
+
+/* --- states layer --- */
+.states-line { margin: .4rem 0 0 2.4rem; font-size: .85rem; color: var(--fg); }
+.quiet-block .states-line { margin-left: 0; }
+.states-line a { text-decoration: none; color: var(--accent); font-weight: 600; }
+.states-box { background: var(--card); border: 1px solid var(--line); border-left: 4px solid #0f766e; border-radius: 14px; padding: 1.1rem 1.3rem; margin-bottom: 2rem; }
+.state-stats { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: .6rem 0 .8rem; }
+.stat-pill { border: 1px solid var(--line); border-radius: 999px; padding: .2rem .7rem; font-size: .85rem; }
+.stat-pill b { font-size: 1rem; }
+.state-chips { display: flex; flex-wrap: wrap; gap: .3rem; }
+.state-chip { --accent: #0f766e; }
+.state-chip em { font-style: normal; opacity: .7; }
+.state-bills li strong { font-weight: 500; }
+.prose.wide { max-width: 900px; }
+.states-topic { margin-top: 2rem; }
+.states-topic h2 a { text-decoration: none; }
+@media (max-width: 640px) { .states-line { margin-left: 0; } }

@@ -127,3 +127,15 @@ def test_notice_headline_deadline_and_likely_closed():
     e = dict(uid="x", month="2026-07", deadline=None, corroborations=[], route=dict(body="", url="", how="generic"))
     apply(e, date(2026, 9, 27))
     assert e["likely_closed"] is True and e["deadline"] is None
+
+
+def test_state_bills_parse():
+    from radar.states import parse_list
+    html = """<div class="view-content">
+    <div class="views-row"><div class="views-field views-field-title-field"><span><h3 class="file">
+    <a href="/files/bills_acts/bills_states/karnataka/2025/Bill1of2025KA.pdf">The Karnataka Platform Based Gig Workers (Social Security and Welfare) Bill, 2025</a>
+    </h3></span></div><div class="views-field views-field-field-bill-status"><span class="status-pending">Karnataka</span></div></div>
+    </div>"""
+    rows = parse_list(html)
+    assert rows[0]["state"] == "Karnataka" and rows[0]["year"] == 2025
+    assert rows[0]["url"].startswith("https://prsindia.org/files/") and rows[0]["title"].startswith("The Karnataka Platform")

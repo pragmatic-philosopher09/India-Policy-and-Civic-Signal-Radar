@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_item.html" import consultation_item, corroboration, deadline_tag, follow_btn, why_moving %}
+{% from "_item.html" import consultation_item, corroboration, deadline_tag, follow_btn, why_moving, states_line %}
 {% set L = '' if lang == 'en' else lang ~ '/' %}
 {% block body %}
 <section class="hero compact">
@@ -93,6 +93,7 @@
             </span></li>
           {% endfor %}
         </ul>
+        {{ states_line(ts, states) }}
         {% if ts.connections %}<p class="connections"><span class="label">{{ t('also_touches') }}:</span> {% for c in ts.connections %}<a href="topic/{{ c.slug }}.html" class="tag" style="--accent: {{ c.topic.color }}">{{ c.topic.label(lang) }}</a>{% endfor %}</p>{% endif %}
         <a class="explore" href="topic/{{ ts.topic.slug }}.html">{{ t('explore') }}</a>
       </li>
@@ -104,6 +105,7 @@
   <div class="block quiet-block">
     <h3>😴 {{ t('quiet_h2') }}</h3>
     <p class="quiet-list">{% for ts in brief.quiet %}<a href="topic/{{ ts.topic.slug }}.html">{{ ts.topic.label(lang) }}</a>{{ ' · ' if not loop.last }}{% endfor %}</p>
+    {% for ts in brief.quiet %}{{ states_line(ts, states) }}{% endfor %}
     <p class="hint">{{ t('quiet_note') }}</p>
   </div>
   {% endif %}

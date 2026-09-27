@@ -143,7 +143,7 @@ TOPICS: list[Topic] = [
             r"industrial relations code", r"social security code", r"code on social security",
             r"occupational safety", r"\bOSH\b", r"minimum wage", r"\bESIC?\b",
             r"contract labour", r"trade union", r"working hours", r"aggregator",
-            r"delivery (?:worker|partner)", r"maternity", r"wage", r"\blabour\b",
+            r"delivery (?:worker|partner)", r"maternity", r"\bwages?\b", r"\blabour\b",
         ),
         sectors=("Labour and Employment",),
         color="#0891b2",

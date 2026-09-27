@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_item.html" import corroboration, headline, for_you, follow_btn, why_moving, stage_bar %}
+{% from "_item.html" import corroboration, headline, for_you, follow_btn, why_moving, stage_bar, states_section, states_line %}
 {% block title %}{{ ts.topic.label(lang) }} — {{ t('site_title') }}{% endblock %}
 {% block desc %}{{ ts.topic.tag(lang) }} {{ ts.status | status }}, {{ ts.confidence | confidence }} {{ t('confidence_word') }}.{% endblock %}
 {% block body %}
@@ -67,6 +67,8 @@
       </details>
     </section>
   </div>
+
+  {{ states_section(ts, states, states_totals) }}
 
   {% if topic_chains %}
   <section class="journeys">

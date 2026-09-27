@@ -24,6 +24,7 @@
     <span class="dot"></span> {{ t('site_title') }} <span class="beta">{{ t('beta') }}</span>
   </a>
   <nav>
+    <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}states.html">{{ t('nav_states') }}</a>
     <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}method.html">{{ t('nav_method') }}</a>
     {% for l in other_langs %}
     <a class="lang-toggle" lang="{{ l }}" href="{{ root }}{{ '' if l == 'en' else l ~ '/' }}{{ page }}?lang={{ l }}" onclick="try{localStorage.setItem('radar-lang','{{ l }}')}catch(e){}">{{ langs[l] }}</a>
