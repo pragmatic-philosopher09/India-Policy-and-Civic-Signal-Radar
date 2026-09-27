@@ -68,3 +68,35 @@ def test_parse_deadline_variants():
     assert parse_deadline(None) is None
     assert _deadline("Comments are invited till August 7, 2026.") == "August 7, 2026"
     assert _deadline("The draft was released.") is None
+
+
+def test_crosscheck_query_and_relevance():
+    from radar.crosscheck import build_query, classify, _relevant
+    q, tok = build_query("Parliament passed the Public Examinations (Prevention of Unfair Means) Amendment Bill, 2026")
+    assert q.startswith('"') and "Unfair Means" in q
+    assert {"public", "examinations", "unfair", "means"} <= tok
+    assert _relevant(tok, "Lok Sabha passes anti-paper-leak Public Examinations Bill")
+    assert not _relevant(tok, "Formula 2 rules and regulations updated for 2026")
+    assert classify("https://pib.gov.in/PressReleasePage.aspx?PRID=1")[0] == "government"
+    assert classify("https://www.thehindu.com/news/x.ece") == ("news", "The Hindu")
+    assert classify("https://prsindia.org/billtrack/x")[0] == "exclude"
+    assert classify("https://someblog.example.com/post")[0] == "other"
+
+
+def test_digest_composes_without_network():
+    from datetime import date
+    from radar.config import TOPICS
+    from radar.notify import compose_digest, compose_pings
+    from radar.score import TopicScore, Evidence
+    ev = Evidence("u1", "2026-08", "Finance", "RBI maintains repo rate", "other", 1.0, None, [], "https://prsindia.org/x",
+                  hook="Repo on hold — your EMI isn't moving.")
+    ev.corroborations = [{"kind": "government", "outlet": "PIB", "url": "https://pib.gov.in", "title": "", "published": None}]
+    ts = TopicScore(TOPICS[0], ["2026-07", "2026-08"], [0, 1.0], [0, 1], 0.5, 0.2, 150, 1, 50, "heating", [ev],
+                    confidence="low", why=[ev])
+    cons = {"open": [dict(uid="c1", title="Draft X", hook="Should X change?", deadline=date(2026, 10, 9), days_left=5,
+                          links=["https://example.gov.in/draft.pdf"], source_url="https://prsindia.org/y",
+                          route=dict(body="RBI", url="", how="rbi"))], "unknown": [], "closed": []}
+    text = compose_digest([ts], cons, date(2026, 9, 28))
+    assert "Policy Pulse" in text and "Should X change?" in text and "Repo on hold" in text and "✓" in text
+    pings = compose_pings(cons)
+    assert len(pings) == 1 and pings[0][0] == "ping:c1:7d" and "5 days left" in pings[0][1]

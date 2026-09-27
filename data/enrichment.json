@@ -1,0 +1,693 @@
+{
+ "2026-08:13": {
+  "hook": "What does Parliament's own committee think is wrong with India's startup ecosystem?",
+  "so_what": {
+   "founder": "Committee recommendations often become the next scheme or compliance tweak — worth a skim if you're raising or hiring.",
+   "student": "Useful context if you're eyeing a startup job or an entrepreneurship course."
+  }
+ },
+ "2026-08:14": {
+  "hook": "A tax-law amendment just passed. Which of your deductions or deadlines changed?",
+  "so_what": {
+   "salaried": "Check whether any filing timelines, TDS provisions or deductions you use were touched.",
+   "founder": "Amendments to tax procedure usually mean new compliance dates — check with your CA.",
+   "gig": "If you file as a freelancer, look for changes to presumptive taxation or TDS on payouts."
+  }
+ },
+ "2026-08:17": {
+  "hook": "India is writing the rulebook for private nuclear power. You had until 4 September to weigh in.",
+  "so_what": {
+   "student": "Relevant if you study energy, engineering or law — this is a whole new regulatory field opening up.",
+   "founder": "Energy and deep-tech founders: liability and licensing rules here decide who can play."
+  }
+ },
+ "2026-08:3": {
+  "hook": "Repo rate on hold at 5.25% — your EMI isn't moving this quarter.",
+  "so_what": {
+   "salaried": "Home and car loan EMIs stay where they are; no rate cut to wait for right now.",
+   "student": "Education loan rates linked to the repo stay flat.",
+   "founder": "Working-capital borrowing costs unchanged."
+  }
+ },
+ "2026-08:34": {
+  "hook": "New rules on how telecom companies must verify who you are.",
+  "so_what": {
+   "salaried": "Expect changes to SIM issuance and identity checks — possibly re-verification requests.",
+   "gig": "Multiple SIMs for work? Check the new limits and verification steps.",
+   "student": "Getting a SIM as a new adult or hosteller may involve new ID steps."
+  }
+ },
+ "2026-08:42": {
+  "hook": "Do rural skilling schemes actually lead to jobs? Parliament's committee checked.",
+  "so_what": {
+   "student": "If you're from a rural district, this is the audit of the training schemes meant for you.",
+   "founder": "Placement partners of DDU-GKY: expect scrutiny of outcomes."
+  }
+ },
+ "2026-07:14": {
+  "hook": "SEBI wants to rewrite the rules for people who manage rich clients' money.",
+  "so_what": {
+   "salaried": "Only matters if you use a portfolio manager (₹50 lakh+ minimum); mutual fund investors unaffected.",
+   "founder": "Fintechs building PMS products: read the consultation paper."
+  }
+ },
+ "2026-07:15": {
+  "hook": "The 2025 insurance overhaul is now live in the fine print.",
+  "so_what": {
+   "salaried": "New regulations on who can own insurers and how they merge — long-run effect on choice and pricing.",
+   "founder": "Insurtech founders: entry, capital and shareholding rules just got detailed."
+  }
+ },
+ "2026-07:16": {
+  "hook": "Parliament's finance committee has reviewed the Bill that would merge SEBI's rulebooks.",
+  "so_what": {
+   "salaried": "If you invest in stocks or mutual funds, this is the law that will govern the market for decades.",
+   "founder": "Startups planning to list: the Code changes disclosure and offering rules."
+  }
+ },
+ "2026-07:2": {
+  "hook": "Paper leaks just became a much bigger crime.",
+  "so_what": {
+   "student": "Tougher penalties and faster probes for cheating in NEET, UPSC and other public exams — protects honest candidates.",
+   "founder": "Coaching and exam-services businesses face new liability."
+  }
+ },
+ "2026-07:29": {
+  "hook": "A new regulator for pharmacy education and practice is on the drawing board.",
+  "so_what": {
+   "student": "Pharmacy students: the body that will license you is being redesigned — comment while you can.",
+   "founder": "Pharmacy chains and colleges: the regulatory structure changes."
+  }
+ },
+ "2026-07:31": {
+  "hook": "The rules for opening new medical colleges are being tweaked.",
+  "so_what": {
+   "student": "Affects how many MBBS seats appear and how colleges are rated — indirectly, your NEET odds.",
+   "founder": "Healthcare education founders: assessment and rating norms change."
+  }
+ },
+ "2026-07:4": {
+  "hook": "Parliament wants more Supreme Court judges. Would that speed up your case?",
+  "so_what": {
+   "salaried": "More judges means marginally faster disposal at the top court — a slow-burn fix for pendency.",
+   "student": "Law students: this is the ordinance-to-Bill route in action."
+  }
+ },
+ "2026-07:5": {
+  "hook": "The law governing lawyers is being amended — and you can comment.",
+  "so_what": {
+   "student": "Law students and juniors: enrolment, discipline and practice rules may change; read the draft.",
+   "salaried": "Affects how complaints against lawyers are handled."
+  }
+ },
+ "2026-07:8": {
+  "hook": "The scheme replacing MGNREGA now has operating rules.",
+  "so_what": {
+   "gig": "If you or your family rely on rural wage work, these rules decide days, wages and payment timelines.",
+   "student": "Rural households: check what changed from MGNREGA's guarantees."
+  }
+ },
+ "2026-06:1": {
+  "hook": "Repo rate stays at 5.25% — no change to your loan costs.",
+  "so_what": {
+   "salaried": "EMIs unchanged; fixed-deposit rates unlikely to rise either.",
+   "student": "Education loan rates steady."
+  }
+ },
+ "2026-06:5": {
+  "hook": "RBI tightens how banks are allowed to sell you products.",
+  "so_what": {
+   "salaried": "Rules on mis-selling and bundling — relevant if a bank pushed you into insurance with your loan.",
+   "gig": "Applies to how lenders market credit to you too."
+  }
+ },
+ "2026-06:6": {
+  "hook": "SEBI is reviewing margin trading — borrowing to buy stocks.",
+  "so_what": {
+   "salaried": "If you use MTF on your broker app, eligibility and limits may change.",
+   "student": "Young traders using leverage: this is about you."
+  }
+ },
+ "2026-05:1": {
+  "hook": "More Supreme Court judges, by ordinance — Parliament wasn't in session.",
+  "so_what": {
+   "student": "Law students: an ordinance is a temporary law; Parliament must ratify it within six weeks of sitting.",
+   "salaried": "A modest step against court backlog."
+  }
+ },
+ "2026-05:2": {
+  "hook": "The four labour codes finally have rules. Your payslip and working hours are about to change.",
+  "so_what": {
+   "salaried": "Wage definition changes can raise your PF deduction and lower take-home; check your CTC structure.",
+   "gig": "Platform workers get a legal definition and a social security fund — the first time ever.",
+   "founder": "Compliance under all four codes now has concrete forms, registers and timelines."
+  }
+ },
+ "2026-05:3": {
+  "hook": "Draft rules for MGNREGA's replacement — the details that decide who gets work.",
+  "so_what": {
+   "gig": "Rural wage-seekers: eligibility, wage payment and grievance rules were open for comment.",
+   "student": "Rural households: compare with the old guarantee."
+  }
+ },
+ "2026-05:8": {
+  "hook": "RBI wants to rein in loan recovery agents.",
+  "so_what": {
+   "gig": "If you've taken app-based loans, this sets limits on calls, timing and harassment by recovery agents.",
+   "salaried": "Applies to all retail loans — know your rights when an agent calls.",
+   "student": "Student loan borrowers included."
+  }
+ },
+ "2026-05:9": {
+  "hook": "Can someone else pay for your mutual fund? SEBI is loosening a rule.",
+  "so_what": {
+   "salaried": "Parents or spouses paying for your SIP may become allowed in specific cases.",
+   "student": "Relevant if a family member funds your investments."
+  }
+ },
+ "2026-04:2": {
+  "hook": "Repo rate unchanged at 5.25%.",
+  "so_what": {
+   "salaried": "No EMI change; deposit rates flat.",
+   "founder": "Borrowing costs steady."
+  }
+ },
+ "2026-04:4": {
+  "hook": "New draft rules for wallets and prepaid cards — Paytm, PhonePe wallets, gift cards.",
+  "so_what": {
+   "salaried": "Wallet limits, KYC and refund rules may change; comment window was open.",
+   "gig": "If you get paid into a wallet, KYC and transfer limits matter.",
+   "founder": "Fintechs issuing PPIs: this is your rulebook."
+  }
+ },
+ "2026-04:9": {
+  "hook": "The online gaming law now has rules. Here's what's banned and what isn't.",
+  "so_what": {
+   "student": "Real-money games are out; e-sports and social games get a framework — check before you deposit.",
+   "founder": "Gaming startups: registration and classification rules are now live.",
+   "gig": "Anyone earning via gaming platforms: legality depends on the game's category."
+  }
+ },
+ "2026-03:11": {
+  "hook": "Scammed on UPI? RBI wants banks to refund you — up to ₹50,000, within 5 days.",
+  "so_what": {
+   "salaried": "A compensation mechanism for small-value fraud; once per lifetime, 85% of loss or ₹25,000.",
+   "gig": "You take payments by UPI all day — this changes who bears fraud losses.",
+   "student": "First-time bank customers are the most common fraud victims."
+  }
+ },
+ "2026-03:13": {
+  "hook": "SEBI floated several ideas at once — including gift cards for mutual funds.",
+  "so_what": {
+   "salaried": "Gifting a mutual fund investment may become as easy as a voucher.",
+   "student": "Could make your first investment a birthday gift."
+  }
+ },
+ "2026-03:2": {
+  "hook": "Parliament's committee on women looked at online abuse. Its fixes could change how platforms respond.",
+  "so_what": {
+   "student": "Reporting, takedown speed and police capacity for cyber harassment — directly relevant to young women online.",
+   "founder": "Platform founders: expect pressure for faster grievance handling."
+  }
+ },
+ "2026-03:3": {
+  "hook": "80 laws are about to stop treating small mistakes as crimes.",
+  "so_what": {
+   "founder": "Jan Vishwas decriminalises minor business lapses — fines instead of jail for paperwork errors.",
+   "gig": "Fewer criminal provisions for small compliance slips if you're self-employed."
+  }
+ },
+ "2026-03:32": {
+  "hook": "What Parliament's IT committee wants done about AI.",
+  "so_what": {
+   "student": "Jobs, deepfakes, copyright — this is the map of what regulation might come next.",
+   "founder": "AI startups: the committee's recommendations often become draft rules within a year.",
+   "salaried": "Workplace AI and job displacement get official attention."
+  }
+ },
+ "2026-03:33": {
+  "hook": "The IT Rules are being amended again. Comment period: about 15 days.",
+  "so_what": {
+   "student": "Rules on takedowns and platform duties shape what you can post and see.",
+   "founder": "Platforms and creators: new compliance duties may apply.",
+   "gig": "Creators earning on platforms: moderation rules affect your reach."
+  }
+ },
+ "2026-03:8": {
+  "hook": "A single law to run the CAPFs — CRPF, BSF, CISF and others.",
+  "so_what": {
+   "student": "Relevant if you're preparing for CAPF or paramilitary recruitment — service conditions may be standardised."
+  }
+ },
+ "2026-02:11": {
+  "hook": "₹10,000 crore more for startups — via funds, not directly.",
+  "so_what": {
+   "founder": "Fund of Funds 2.0 backs VC funds that back you; expect more early-stage capital over 2–3 years.",
+   "student": "More funded startups means more early hiring."
+  }
+ },
+ "2026-02:15": {
+  "hook": "Industrial Relations Code amended — the law on hiring, firing and strikes.",
+  "so_what": {
+   "salaried": "Rules on layoffs, notice and fixed-term contracts changed; check your employment terms.",
+   "founder": "Thresholds for standing orders and retrenchment approvals may have shifted.",
+   "gig": "Fixed-term employment rules affect contract workers."
+  }
+ },
+ "2026-02:16": {
+  "hook": "Draft safety regulations under the OSH Code — comment window opened.",
+  "so_what": {
+   "gig": "Working-condition standards for contract and platform-adjacent work.",
+   "founder": "Factory and office safety compliance under the new code.",
+   "salaried": "Working hours, leave and safety norms."
+  }
+ },
+ "2026-02:17": {
+  "hook": "India hosted the world's AI summit. What did it actually agree to?",
+  "so_what": {
+   "student": "The New Delhi declaration sets the tone for AI rules and skilling programmes you'll see next.",
+   "founder": "Signals on compute access, safety norms and international cooperation."
+  }
+ },
+ "2026-02:2": {
+  "hook": "Repo rate held at 5.25% after the Budget.",
+  "so_what": {
+   "salaried": "EMIs unchanged.",
+   "founder": "Borrowing costs steady."
+  }
+ },
+ "2026-02:4": {
+  "hook": "Union Budget 2026-27: what changed for your money.",
+  "so_what": {
+   "salaried": "Tax slabs, deductions, TDS — the one document that resets your take-home.",
+   "student": "Education and skilling allocations, scholarships, loan schemes.",
+   "gig": "Social security and platform-worker provisions, if any.",
+   "founder": "Startup tax, MSME credit and compliance changes."
+  }
+ },
+ "2026-01:10": {
+  "hook": "Every college must now have a mental health policy — UGC says so.",
+  "so_what": {
+   "student": "Counselling access, anti-ragging links and well-being cells become a requirement you can demand."
+  }
+ },
+ "2026-01:22": {
+  "hook": "Atal Pension Yojana extended to 2031.",
+  "so_what": {
+   "gig": "The ₹1,000–₹5,000/month guaranteed pension for informal workers continues — enrol if you haven't.",
+   "student": "Relevant for family members in informal work."
+  }
+ },
+ "2026-01:9": {
+  "hook": "UGC's equity regulations for campuses — released, then stayed by the Supreme Court.",
+  "so_what": {
+   "student": "Rules against caste and other discrimination on campus are in legal limbo; watch the court."
+  }
+ },
+ "2025-12:1": {
+  "hook": "Repo rate cut to 5.25% — EMIs should ease a little.",
+  "so_what": {
+   "salaried": "Floating-rate home loans should reprice down; ask your bank when.",
+   "student": "Education loan rates may fall.",
+   "founder": "Cheaper working capital."
+  }
+ },
+ "2025-12:11": {
+  "hook": "MGNREGA is gone. Parliament passed its replacement.",
+  "so_what": {
+   "gig": "Rural wage guarantee redesigned — days, wages and funding pattern change.",
+   "student": "Rural households: the safety net your family may rely on has a new law."
+  }
+ },
+ "2025-12:13": {
+  "hook": "Insurance law overhaul passed — including foreign ownership changes.",
+  "so_what": {
+   "salaried": "More insurers and products likely over time; watch for pricing and claims changes.",
+   "founder": "Insurtech entry rules loosened."
+  }
+ },
+ "2025-12:14": {
+  "hook": "One code to replace SEBI's many laws — introduced in Lok Sabha.",
+  "so_what": {
+   "salaried": "The future rulebook for your demat account and mutual funds.",
+   "founder": "IPO and fundraising rules will be rewritten."
+  }
+ },
+ "2025-12:20": {
+  "hook": "A single regulator for all of higher education — the Bill is in.",
+  "so_what": {
+   "student": "UGC, AICTE and NCTE would merge; degree recognition, fees and standards would change hands."
+  }
+ },
+ "2025-12:21": {
+  "hook": "Parliament's committee audited NTA, NAAC and UGC.",
+  "so_what": {
+   "student": "The bodies that run your exams and rank your college got a report card."
+  }
+ },
+ "2025-12:22": {
+  "hook": "Education loans: Parliament's committee says the schemes need fixing.",
+  "so_what": {
+   "student": "Interest subsidy, collateral-free limits and processing delays are all on the table."
+  }
+ },
+ "2025-12:27": {
+  "hook": "Draft rules for all four labour codes — the biggest labour consultation in years.",
+  "so_what": {
+   "salaried": "Wage definitions, overtime and PF math were being set here.",
+   "gig": "The first draft of platform-worker social security rules.",
+   "founder": "Registers, returns and licences under the codes."
+  }
+ },
+ "2025-12:28": {
+  "hook": "The CAG audited PM Kaushal Vikas Yojana. Did the skilling money work?",
+  "so_what": {
+   "student": "If you did a PMKVY course, this is the official verdict on placements and quality."
+  }
+ },
+ "2025-12:37": {
+  "hook": "Should AI companies pay to train on Indian creators' work? The government asked.",
+  "so_what": {
+   "student": "Writers, musicians, designers: copyright rules for training data were open for comment.",
+   "founder": "AI startups: licensing obligations for training data may follow."
+  }
+ },
+ "2025-11:3": {
+  "hook": "The four labour codes are in force. Your employment law just changed.",
+  "so_what": {
+   "salaried": "New wage definition, gratuity after one year for fixed-term staff, national floor wage.",
+   "gig": "Gig and platform workers are legally recognised for social security for the first time.",
+   "founder": "Single registration and returns replace dozens of old laws."
+  }
+ },
+ "2025-11:4": {
+  "hook": "Employers who skipped PF for staff get a one-time window to fix it.",
+  "so_what": {
+   "salaried": "If your past employer never enrolled you in EPF, they can now — ask.",
+   "founder": "Regularise old non-compliance without full penalties."
+  }
+ },
+ "2025-11:6": {
+  "hook": "India's data protection law is now operational. Here's what companies owe you.",
+  "so_what": {
+   "student": "Consent notices, the right to erase data, and complaints to a Data Protection Board.",
+   "salaried": "Your employer and your bank now have legal duties over your data.",
+   "founder": "Consent, breach notification and children's data rules apply to your app."
+  }
+ },
+ "2025-10:0": {
+  "hook": "Repo rate held at 5.5%.",
+  "so_what": {
+   "salaried": "EMIs unchanged."
+  }
+ },
+ "2025-10:10": {
+  "hook": "A national labour and employment policy — the first draft, open for comment.",
+  "so_what": {
+   "gig": "Sets direction on gig work, informal jobs and social security.",
+   "student": "Signals which skills and sectors the government will push.",
+   "salaried": "Long-run framing for formalisation and worker rights."
+  }
+ },
+ "2025-10:11": {
+  "hook": "Who can order your post taken down? The IT Rules changed the answer.",
+  "so_what": {
+   "student": "Content removal orders now come through a specified process — affects what disappears from your feed.",
+   "founder": "Platforms: new procedure for handling takedown orders."
+  }
+ },
+ "2025-10:12": {
+  "hook": "Deepfakes must be labelled — the government's draft rule.",
+  "so_what": {
+   "student": "AI-generated content would carry mandatory labels; matters for creators and for spotting fakes.",
+   "founder": "Platforms and AI tools: labelling and detection duties."
+  }
+ },
+ "2025-10:3": {
+  "hook": "RBI announced a bundle of banking changes.",
+  "so_what": {
+   "salaried": "Loan and deposit norms shift; details matter for large borrowers more than savers.",
+   "founder": "Credit rules for businesses eased in places."
+  }
+ },
+ "2025-10:4": {
+  "hook": "SEBI is changing mutual fund rules — fees and structure.",
+  "so_what": {
+   "salaried": "Expense ratios and fund categories may change; check what your SIP pays.",
+   "student": "First-time investors: cheaper funds if this goes through."
+  }
+ },
+ "2025-10:5": {
+  "hook": "PFRDA wants an NPS with assured returns.",
+  "so_what": {
+   "salaried": "A pension option with predictable payouts could join the market-linked NPS.",
+   "gig": "Flexible pension products aimed at irregular incomes."
+  }
+ },
+ "2025-09:1": {
+  "hook": "GST just got simpler: two main slabs, cheaper essentials.",
+  "so_what": {
+   "salaried": "Everyday goods and insurance premiums got cheaper; luxury and sin goods pricier.",
+   "founder": "Fewer slabs means simpler invoicing; check your product's new rate.",
+   "gig": "Two-wheelers and small appliances moved slabs.",
+   "student": "Stationery, food and several daily items cheaper."
+  }
+ },
+ "2025-09:10": {
+  "hook": "New procedure for the government to intercept your calls and messages.",
+  "so_what": {
+   "student": "Rules on lawful interception — who authorises it and how — were amended.",
+   "salaried": "Privacy safeguards on surveillance changed."
+  }
+ },
+ "2025-09:15": {
+  "hook": "Anganwadis to sit inside primary schools.",
+  "so_what": {
+   "student": "Early-childhood care linked to schooling — relevant for families with small children."
+  }
+ },
+ "2025-09:9": {
+  "hook": "How telecom companies verify you — draft rules opened for comment.",
+  "so_what": {
+   "salaried": "SIM issuance and identity checks.",
+   "gig": "Multiple work SIMs: verification rules.",
+   "student": "Getting your first SIM."
+  }
+ },
+ "2025-08:1": {
+  "hook": "Repo rate held at 5.5%.",
+  "so_what": {
+   "salaried": "EMIs unchanged."
+  }
+ },
+ "2025-08:14": {
+  "hook": "Parliament's home affairs committee on cybercrime: what it wants fixed.",
+  "so_what": {
+   "student": "Reporting, police capacity and platform cooperation on online fraud and abuse.",
+   "salaried": "UPI and phishing fraud handling."
+  }
+ },
+ "2025-08:15": {
+  "hook": "Fewer jail terms for small business slips — Jan Vishwas 2.0 introduced.",
+  "so_what": {
+   "founder": "17 laws decriminalised or rationalised for minor offences.",
+   "gig": "Self-employed: fewer criminal provisions for paperwork errors."
+  }
+ },
+ "2025-08:16": {
+  "hook": "Street vendor loans extended to 2030.",
+  "so_what": {
+   "gig": "PM SVANidhi working-capital loans for vendors continue, with restructuring.",
+   "founder": "Micro-enterprise credit access."
+  }
+ },
+ "2025-08:31": {
+  "hook": "Real-money gaming is banned. Parliament passed the online gaming law.",
+  "so_what": {
+   "student": "Fantasy sports, rummy and poker apps for money are prohibited; e-sports promoted.",
+   "founder": "Real-money gaming startups: business model outlawed.",
+   "gig": "Anyone earning on RMG platforms loses that income."
+  }
+ },
+ "2025-08:39": {
+  "hook": "UGC's new undergraduate curriculum framework — open for comment.",
+  "so_what": {
+   "student": "Learning-outcome based courses reshape what your degree covers."
+  }
+ },
+ "2025-08:4": {
+  "hook": "A new Income-Tax Act after 64 years — passed.",
+  "so_what": {
+   "salaried": "Simpler language, 'tax year' replaces assessment year; rates unchanged for now.",
+   "founder": "Compliance forms and timelines will be re-issued under the new Act.",
+   "gig": "Presumptive taxation provisions restated."
+  }
+ },
+ "2025-08:40": {
+  "hook": "Reservation in higher education: Parliament's committee reviewed how Article 15(5) works.",
+  "so_what": {
+   "student": "OBC/SC/ST reservation implementation in colleges got scrutiny."
+  }
+ },
+ "2025-08:42": {
+  "hook": "Private placement agencies may be regulated for the first time.",
+  "so_what": {
+   "gig": "Agencies that place you in jobs abroad or domestic work would need licences.",
+   "student": "Fresh graduates using placement agencies: protection against fraud.",
+   "founder": "Staffing firms: licensing regime coming."
+  }
+ },
+ "2025-08:5": {
+  "hook": "A quick tax-law amendment passed alongside the new Income-Tax Act.",
+  "so_what": {
+   "salaried": "Transitional provisions; check with your CA at filing time.",
+   "founder": "Same."
+  }
+ },
+ "2025-08:7": {
+  "hook": "RBI is rethinking how it sets interest rates.",
+  "so_what": {
+   "salaried": "The inflation target framework decides your EMI path for years.",
+   "student": "Macro students: the monetary policy framework review."
+  }
+ },
+ "2025-08:8": {
+  "hook": "RBI's plan for responsible AI in banking.",
+  "so_what": {
+   "salaried": "How banks may use AI for lending decisions and fraud checks — and your rights when they do.",
+   "founder": "Fintechs: the FREE-AI framework is the compliance direction."
+  }
+ },
+ "2025-08:9": {
+  "hook": "SEBI floated several changes at once for listed companies.",
+  "so_what": {
+   "salaried": "Minimum public shareholding rules affect how many shares are available to retail investors.",
+   "founder": "IPO-bound: MPO/MPS thresholds may change."
+  }
+ },
+ "2025-07:10": {
+  "hook": "₹99,446 crore to reward companies that hire first-timers.",
+  "so_what": {
+   "student": "ELI scheme: your first formal job may come with a government-funded bonus.",
+   "founder": "Incentives for adding formal employees.",
+   "salaried": "First-time EPFO joiners get a direct benefit."
+  }
+ },
+ "2025-07:11": {
+  "hook": "A new national skilling policy — draft out for feedback.",
+  "so_what": {
+   "student": "Which skills get funded, certified and recognised.",
+   "founder": "Apprenticeship and training incentives."
+  }
+ },
+ "2025-07:12": {
+  "hook": "National Telecom Policy 2025 draft: 5G, satellites and your data plan.",
+  "so_what": {
+   "student": "Broadband access and pricing goals.",
+   "founder": "Spectrum and telecom-startup rules."
+  }
+ },
+ "2025-07:13": {
+  "hook": "Who measures TV ratings? Draft changes to the rulebook.",
+  "so_what": {
+   "founder": "Media and ad-tech: rating agency entry rules."
+  }
+ },
+ "2025-07:22": {
+  "hook": "CERT-In's cybersecurity audit guidelines for organisations.",
+  "so_what": {
+   "founder": "If you run a digital service, audits and reporting obligations are set here.",
+   "salaried": "Your employer's security duties."
+  }
+ },
+ "2025-07:24": {
+  "hook": "New rules for Ola, Uber and Rapido — including surge pricing and driver pay.",
+  "so_what": {
+   "gig": "Driver payout floors, surge caps and licensing — your earnings math changes.",
+   "salaried": "Fares and cancellation charges regulated.",
+   "student": "Bike taxis and pooling rules."
+  }
+ },
+ "2025-07:3": {
+  "hook": "Parliament's committee reviewed the new Income-Tax Bill.",
+  "so_what": {
+   "salaried": "Recommendations before the law was passed — context for what changed."
+  }
+ },
+ "2025-07:4": {
+  "hook": "Prepaying your loan? RBI scrapped foreclosure charges for individuals.",
+  "so_what": {
+   "salaried": "No penalty for early repayment of floating-rate loans — refinance freely.",
+   "gig": "Applies to small business loans too.",
+   "founder": "MSE borrowers included."
+  }
+ },
+ "2025-07:5": {
+  "hook": "RBI's draft rules for mobile and internet banking.",
+  "so_what": {
+   "salaried": "Security, consent and liability norms for your banking app.",
+   "student": "Digital-only accounts."
+  }
+ },
+ "2025-07:6": {
+  "hook": "SEBI wants to reorganise mutual fund categories.",
+  "so_what": {
+   "salaried": "Fund names and categories may change; your SIP might be reclassified.",
+   "student": "Simpler categories for first-time investors."
+  }
+ },
+ "2025-06:0": {
+  "hook": "Repo rate cut to 5.5% — a big move.",
+  "so_what": {
+   "salaried": "50 basis points off: EMIs should fall noticeably.",
+   "student": "Education loans cheaper.",
+   "founder": "Cheaper credit."
+  }
+ },
+ "2025-06:15": {
+  "hook": "Telecom cyber security rules — draft amendments.",
+  "so_what": {
+   "salaried": "How operators must handle fraud and identity checks.",
+   "founder": "Telecom and fintech compliance."
+  }
+ },
+ "2025-06:6": {
+  "hook": "Borrowing against gold? RBI set new rules.",
+  "so_what": {
+   "gig": "Gold loans are the go-to for informal workers — limits and valuation norms changed.",
+   "salaried": "Loan-to-value caps and documentation."
+  }
+ },
+ "2025-05:10": {
+  "hook": "A new board to regulate payments — UPI included.",
+  "so_what": {
+   "salaried": "Governance of the systems behind your UPI and card payments.",
+   "founder": "Fintechs: your regulator's structure changed."
+  }
+ },
+ "2025-05:5": {
+  "hook": "Credit guarantees for startups revised.",
+  "so_what": {
+   "founder": "Collateral-free loans up to higher limits with government backing."
+  }
+ },
+ "2025-04:11": {
+  "hook": "A national cooperative university — IRMA becomes Tribhuvan Sahkari University.",
+  "so_what": {
+   "student": "New degrees and research in cooperatives and rural management."
+  }
+ },
+ "2025-04:12": {
+  "hook": "UGC's new degree rules: flexible entry, two degrees at once.",
+  "so_what": {
+   "student": "Minimum standards for UG and PG degrees changed — duration, multiple entry-exit."
+  }
+ },
+ "2025-04:3": {
+  "hook": "Repo rate cut to 6%.",
+  "so_what": {
+   "salaried": "EMIs eased.",
+   "student": "Education loans cheaper."
+  }
+ }
+}

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "_item.html" import corroboration, headline, for_you %}
 {% block title %}{{ ts.topic.label(lang) }} — {{ t('site_title') }}{% endblock %}
 {% block desc %}{{ ts.topic.tag(lang) }} {{ ts.status | status }}, {{ ts.confidence | confidence }} {{ t('confidence_word') }}.{% endblock %}
 {% block body %}
@@ -50,7 +51,7 @@
       {% if ts.why %}
       <ul class="plain">
         {% for e in ts.why %}
-        <li><span class="tag action-{{ e.action }}" title="{{ e.action | action_help }}">{{ e.action | action }}</span> {{ e.title_l or e.title }}{% if lang != 'en' and not e.title_l %} <small class="en-tag">{{ t('english_only') }}</small>{% endif %} <small>({{ e.month | month }})</small></li>
+        <li><span class="tag action-{{ e.action }}" title="{{ e.action | action_help }}">{{ e.action | action }}</span> {{ (e.hook if lang == 'en' and e.hook else (e.title_l or e.title)) }}{% if lang != 'en' and not e.title_l %} <small class="en-tag">{{ t('english_only') }}</small>{% endif %}{% if e.corroborated %} <span class="corr-check" title="{{ t('corroborated') }}">{{ t('corr_check') }}</span>{% endif %} <small>({{ e.month | month }})</small></li>
         {% endfor %}
       </ul>
       {% else %}
@@ -71,6 +72,28 @@
     </section>
   </div>
 
+  {% if topic_chains %}
+  <section class="journeys">
+    <h2>{{ t('journeys_h2') }}</h2>
+    <p class="hint">{{ t('journeys_note') }}</p>
+    {% for c in topic_chains %}
+    <div class="journey">
+      <h3>{{ c.name_hi if lang == 'hi' and c.name_hi else c.name }}</h3>
+      <ol class="steps">
+        {% for st in c.steps %}
+        <li class="step action-{{ st.action }}">
+          <span class="step-month">{{ st.month | month }}</span>
+          <span class="tag action-{{ st.action }}" title="{{ st.action | action_help }}">{{ st.action | action }}</span>
+          <a href="{{ st.source_url }}">{{ st.title }}</a>
+        </li>
+        {% endfor %}
+      </ol>
+      {% if c.next and lang == 'en' %}<p class="next"><b>{{ t('what_next') }}:</b> {{ c.next }}</p>{% endif %}
+    </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+
   <section class="timeline">
     <h2>{{ t('evidence_h2') }}</h2>
     <details class="legend">
@@ -87,11 +110,14 @@
           {% for e in items %}
           <li>
             <span class="tag action-{{ e.action }}" title="{{ e.action | action_help }}">{{ e.action | action }} <em>×{{ e.weight }}</em></span>
-            <strong>{{ e.title_l or e.title }}{% if lang != 'en' and not e.title_l %} <small class="en-tag">{{ t('english_only') }}</small>{% endif %}</strong>
+            {{ headline(e) }}
             {% set sm = e.summary_l if lang != 'en' else e.summary %}
             {% if sm %}<p>{{ sm }}</p>{% endif %}
+            {{ for_you(e) }}
             <small>{{ e.sector | sector }} · <a href="{{ e.source_url }}">{{ t('prs_review') }}</a>
-            {% for l in e.links[:3] %} · <a href="{{ l }}">{{ t('source_n', n=loop.index) }}</a>{% endfor %}</small>
+            {% for l in e.links[:3] %} · <a href="{{ l }}">{{ t('source_n', n=loop.index) }}</a>{% endfor %}
+            {% if e.corroborated %} · <span class="corr-check" title="{{ t('corroborated') }}">{{ t('corr_check') }} {{ t('corroborated') }}</span>{% endif %}</small>
+            {{ corroboration(e.corroborations) }}
           </li>
           {% endfor %}
         </ul>

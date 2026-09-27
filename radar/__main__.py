@@ -3,7 +3,9 @@
   python -m radar ingest --months 18      # backfill / refresh PRS monthly reviews
   python -m radar summarise               # fill missing plain-English summaries
   python -m radar translate               # Hindi (etc.) titles/summaries via Claude, cached
+  python -m radar crosscheck              # independent coverage per item (Google News: PIB, newspapers)
   python -m radar build                   # render static site into docs/
+  python -m radar notify --digest|--pings # Telegram channel
   python -m radar run --months 18         # all three
 """
 
@@ -18,7 +20,9 @@ from .fetch import fetch
 from .parse import iso_month, month_url, parse_month
 from .score import classify_action, tag_topics
 from .summarize import summarise_missing
-from .translate import translate_missing
+from .translate import translate_missing, visible_uids
+from .crosscheck import crosscheck
+from .enrich import enrich_missing
 
 log = logging.getLogger("radar")
 
@@ -69,7 +73,12 @@ def main(argv: list[str] | None = None) -> None:
     sub.add_parser("retag", help="re-apply topic/action rules to stored items")
     sub.add_parser("summarise")
     sub.add_parser("translate", help="translate visible items into other languages (needs ANTHROPIC_API_KEY)")
+    sub.add_parser("enrich", help="hook headlines + persona 'so what' lines (seed file, Claude for new items)")
+    sub.add_parser("crosscheck", help="look for independent coverage (govt releases, newspapers) of visible items")
     sub.add_parser("build")
+    n = sub.add_parser("notify", help="post to Telegram (dry run without TELEGRAM_BOT_TOKEN)")
+    n.add_argument("--digest", action="store_true")
+    n.add_argument("--pings", action="store_true")
     args = p.parse_args(argv)
 
     if args.cmd in ("ingest", "run"):
@@ -85,9 +94,21 @@ def main(argv: list[str] | None = None) -> None:
         for lang in LANGS:
             if lang != DEFAULT_LANG:
                 log.info("translated %d items into %s", translate_missing(conn, lang), lang)
+    if args.cmd in ("enrich", "run"):
+        conn = db.connect()
+        log.info("enriched %d items", enrich_missing(conn, visible_uids(conn)))
+    if args.cmd in ("crosscheck", "run"):
+        conn = db.connect()
+        log.info("cross-checked %d items", crosscheck(conn, visible_uids(conn)))
     if args.cmd in ("build", "run"):
         from .build_site import build
         build()
+    if args.cmd == "notify":
+        from .build_site import assemble
+        from .notify import notify
+        conn = db.connect()
+        scores, consultations = assemble(conn, lang="en")
+        log.info("sent %d message(s)", notify(conn, scores, consultations, digest=args.digest, pings=args.pings))
 
 
 if __name__ == "__main__":

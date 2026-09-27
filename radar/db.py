@@ -92,9 +92,21 @@ def months_present(conn: sqlite3.Connection) -> list[str]:
     return [r["month"] for r in conn.execute("SELECT month FROM months ORDER BY month")]
 
 
+OVERRIDES_PATH = Path("data/tag_overrides.json")
+
+
+def load_overrides(path: Path = OVERRIDES_PATH) -> dict:
+    if not path.exists():
+        return {"remove": {}, "add": {}}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    return {"remove": data.get("remove", {}), "add": data.get("add", {})}
+
+
 def retag_all(conn: sqlite3.Connection, classify, tag) -> int:
-    """Recompute action + topic tags for every stored item (after config changes)."""
+    """Recompute action + topic tags for every stored item, then apply curated overrides."""
     rows = conn.execute("SELECT uid, month, sector, title, body, links, source_url FROM items").fetchall()
+    ov = load_overrides()
+    removed = {(u, topic) for topic, uids in ov["remove"].items() for u in uids}
     with conn:
         conn.execute("DELETE FROM item_topics")
         for r in rows:
@@ -102,5 +114,9 @@ def retag_all(conn: sqlite3.Connection, classify, tag) -> int:
                       links=json.loads(r["links"]), source_url=r["source_url"])
             conn.execute("UPDATE items SET action = ? WHERE uid = ?", (classify(it.title), r["uid"]))
             for topic, hits in tag(it).items():
-                conn.execute("INSERT INTO item_topics VALUES (?,?,?)", (r["uid"], topic, hits))
+                if (r["uid"], topic) not in removed:
+                    conn.execute("INSERT INTO item_topics VALUES (?,?,?)", (r["uid"], topic, hits))
+        for topic, uids in ov["add"].items():
+            for u in uids:
+                conn.execute("INSERT OR REPLACE INTO item_topics VALUES (?,?,?)", (u, topic, 99))
     return len(rows)

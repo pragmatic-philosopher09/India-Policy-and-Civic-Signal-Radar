@@ -1,13 +1,85 @@
 {% extends "base.html" %}
+{% from "_item.html" import consultation_item, corroboration %}
 {% set L = '' if lang == 'en' else lang ~ '/' %}
 {% block body %}
-<section class="hero">
+<section class="hero compact">
   <h1>{{ t('hero_h1') }}</h1>
   <p class="lede">{{ t('hero_lede') }}</p>
-  <p class="meta">{{ t('hero_meta', n=n_items, m=n_months, d=today) }}</p>
+  <p class="cta-row">
+    {% if channel_url %}<a class="cta" href="{{ channel_url }}">✈ {{ t('get_telegram') }}</a>
+    {% else %}<span class="cta muted">✈ {{ t('telegram_soon') }}</span>{% endif %}
+    <span class="meta">{{ t('hero_meta', n=n_items, m=n_months, d=today) }}</span>
+  </p>
 </section>
 
-<section class="radar">
+<section class="week">
+  <h2 class="kicker">{{ t('this_week') }}</h2>
+
+  <div class="block respond-block">
+    <h3>🗣 {{ t('respond_h2') }}</h3>
+    {% if brief.respond %}
+    <ul class="evidence">
+      {% for e in brief.respond %}{{ consultation_item(e) }}{% endfor %}
+    </ul>
+    {% else %}
+    <p class="empty">{{ t('respond_none') }}</p>
+    {% endif %}
+    {% if consultations.closed %}
+    <details class="closed">
+      <summary>{{ t('recently_closed', n=consultations.closed | length) }}</summary>
+      <ul class="evidence muted-list">
+        {% for e in consultations.closed %}
+        <li>
+          <span class="tag due-closed">{{ t('closed_on', d=(e.deadline | nice_date)) }}</span>
+          <strong>{{ e.title_l or e.title }}</strong>
+          <small>{{ e.sector | sector }} · <a href="{{ e.source_url }}">{{ t('prs_month', m=(e.month | month)) }}</a></small>
+        </li>
+        {% endfor %}
+      </ul>
+    </details>
+    {% endif %}
+  </div>
+
+  <div class="block moving-block">
+    <h3>🔥 {{ t('moving_h2') }}</h3>
+    <ul class="moving">
+      {% for ts in brief.moving %}
+      <li style="--accent: {{ ts.topic.color }}">
+        <a class="moving-head" href="topic/{{ ts.topic.slug }}.html">
+          <span class="pill status-{{ ts.status }}" title="{{ ts.status | status_help }}">{{ ts.status | status }}</span>
+          <strong>{{ ts.topic.label(lang) }}</strong>
+          <span class="stat-inline">
+            {% if ts.change_pct is not none %}<b class="{{ 'up' if ts.change_pct > 0 else 'down' if ts.change_pct < 0 else '' }}">{{ '+' if ts.change_pct > 0 else '' }}{{ ts.change_pct }}%</b>{% else %}<b>{{ t('new') }}</b>{% endif %}
+            · <span class="conf conf-{{ ts.confidence }}">{{ ts.confidence | confidence }} {{ t('confidence_word') }}</span>
+          </span>
+        </a>
+        <ul class="why">
+          {% for e in ts.why[:3] %}
+          <li><span class="dot-{{ e.action }}"></span>
+            <span class="tag action-{{ e.action }}" title="{{ e.action | action_help }}">{{ e.action | action }}</span>
+            {{ (e.hook if lang == 'en' and e.hook else (e.title_l or e.title)) }}{% if e.corroborated %} <span class="corr-check" title="{{ t('corroborated') }}">{{ t('corr_check') }}</span>{% endif %}
+            <small>({{ e.month | month }})</small></li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% if brief.quiet %}
+  <div class="block quiet-block">
+    <h3>😴 {{ t('quiet_h2') }}</h3>
+    <p class="quiet-list">{% for ts in brief.quiet %}<a href="topic/{{ ts.topic.slug }}.html">{{ ts.topic.label(lang) }}</a>{{ ' · ' if not loop.last }}{% endfor %}</p>
+    <p class="hint">{{ t('quiet_note') }}</p>
+  </div>
+  {% endif %}
+  <p class="hint brief-footer">{{ t('brief_footer') }} <a href="method.html">{{ t('how_this_works') }}</a></p>
+</section>
+
+<section class="all-topics">
+  <h2 class="kicker">{{ t('all_topics_h2') }}</h2>
+  <p class="lede small">{{ t('all_topics_note') }}</p>
+  <div class="radar">
   {% for ts in scores %}
   <a class="card status-{{ ts.status }}" href="topic/{{ ts.topic.slug }}.html" style="--accent: {{ ts.topic.color }}">
     <div class="card-head">
@@ -22,8 +94,7 @@
         {% if ts.status == 'quiet' %}
           <strong class="muted">{{ ts.recent_items }}</strong><small>{{ t('actions_in', n=recent_window) }}</small>
         {% elif ts.change_pct is not none %}
-          <strong class="{{ 'up' if ts.change_pct > 0 else 'down' if ts.change_pct < 0 else '' }}">
-            {{ '+' if ts.change_pct > 0 else '' }}{{ ts.change_pct }}%</strong>
+          <strong class="{{ 'up' if ts.change_pct > 0 else 'down' if ts.change_pct < 0 else '' }}">{{ '+' if ts.change_pct > 0 else '' }}{{ ts.change_pct }}%</strong>
           <small>{{ t('vs_prior', n=baseline_window) }}</small>
         {% else %}
           <strong>{{ t('new') }}</strong><small>{{ t('little_prior') }}</small>
@@ -31,65 +102,11 @@
       </div>
     </div>
     <p class="meta">{{ t('card_meta', r=ts.recent_items, t=ts.total_items, b=ts.breadth) }}</p>
-    {% if ts.why %}
-    <ul class="why">
-      {% for e in ts.why[:2] %}<li><span class="dot-{{ e.action }}"></span>{{ (e.title_l or e.title) | truncate(90) }}{% if lang != 'en' and not e.title_l %} <small class="en-tag">{{ t('english_only') }}</small>{% endif %}</li>{% endfor %}
-    </ul>
-    {% elif ts.status == 'quiet' %}
-    <p class="why-empty">{{ t('why_empty_some' if ts.recent_items else 'why_empty_none') }} <span class="linkish">{{ t('read_caveat') }}</span></p>
-    {% endif %}
   </a>
   {% endfor %}
+  </div>
+  <p class="hint center">{{ t('ordered_hint') }}</p>
 </section>
-<p class="hint center">{{ t('ordered_hint') }} <a href="method.html">{{ t('how_this_works') }}</a></p>
-
-{% set open = consultations.open %}{% set unknown = consultations.unknown %}{% set closed = consultations.closed %}
-{% if open or unknown or closed %}
-<section class="consult">
-  <h2>{{ t('consult_h2') }}</h2>
-  <p class="lede small">{{ t('consult_lede') }}</p>
-
-  {% if open or unknown %}
-  <ul class="evidence">
-    {% for e in open + unknown %}
-    <li>
-      {% if e.topic %}<span class="tag" style="--accent: {{ e.topic.color }}">{{ e.topic.label(lang) }}</span>
-      {% else %}<span class="tag action-other">{{ e.sector | sector }}</span>{% endif %}
-      {% if e.deadline %}
-        <span class="tag due {{ 'due-soon' if e.days_left <= 7 else '' }}">
-          {% if e.days_left == 0 %}{{ t('closes_today') }}{% elif e.days_left == 1 %}{{ t('one_day_left') }}{% else %}{{ t('days_left', n=e.days_left) }}{% endif %} · {{ e.deadline | nice_date }}
-        </span>
-      {% else %}
-        <span class="tag due-unknown" title="{{ t('deadline_unknown_help') }}">{{ t('deadline_unknown') }}</span>
-      {% endif %}
-      <strong>{{ e.title_l or e.title }}{% if lang != 'en' and not e.title_l %} <small class="en-tag">{{ t('english_only') }}</small>{% endif %}</strong>
-      {% set sm = e.summary_l if lang != 'en' else e.summary %}
-      {% if sm %}<p>{{ sm }}</p>{% endif %}
-      <small><a href="{{ e.source_url }}">{{ t('prs_month', m=(e.month | month)) }}</a>
-      {% for l in e.links[:2] %} · <a href="{{ l }}">{{ t('read_draft') }}</a>{% endfor %}</small>
-    </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-  <p class="empty">{{ t('nothing_open') }}</p>
-  {% endif %}
-
-  {% if closed %}
-  <details class="closed">
-    <summary>{{ t('recently_closed', n=closed | length) }}</summary>
-    <ul class="evidence muted-list">
-      {% for e in closed %}
-      <li>
-        <span class="tag due-closed">{{ t('closed_on', d=(e.deadline | nice_date)) }}</span>
-        <strong>{{ e.title_l or e.title }}{% if lang != 'en' and not e.title_l %} <small class="en-tag">{{ t('english_only') }}</small>{% endif %}</strong>
-        <small>{{ e.sector | sector }} · <a href="{{ e.source_url }}">{{ t('prs_month', m=(e.month | month)) }}</a></small>
-      </li>
-      {% endfor %}
-    </ul>
-  </details>
-  {% endif %}
-</section>
-{% endif %}
 
 <section class="about">
   <h2>{{ t('about_h2') }}</h2>

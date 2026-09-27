@@ -178,5 +178,8 @@ PRS_ATTRIBUTION = (
     "licensed under CC BY 4.0. Summaries and scores are our own."
 )
 PRS_BASE = "https://prsindia.org"
-USER_AGENT = "PolicySignalRadar/0.1 (+https://github.com; civic research, CC BY reuse)"
+# Public Telegram channel (set POLICY_PULSE_CHANNEL_URL in CI once the channel exists)
+import os
+CHANNEL_URL = os.environ.get("POLICY_PULSE_CHANNEL_URL", "")
+USER_AGENT = "PolicyPulse/0.2 (+https://github.com; civic research, CC BY reuse)"
 CRAWL_DELAY_SECONDS = 10  # matches prsindia.org robots.txt

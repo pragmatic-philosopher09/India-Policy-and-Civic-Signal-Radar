@@ -71,6 +71,15 @@ class Evidence:
     source_url: str
     title_l: str | None = None    # localised title (set at build time)
     summary_l: str | None = None
+    corroborations: list[dict] = field(default_factory=list)   # independent coverage (gov/news/other)
+    hook: str | None = None                                      # editorial headline (enrichment)
+    so_what: dict = field(default_factory=dict)                  # {persona: line}
+
+    @property
+    def corroborated(self) -> bool:
+        gov = sum(1 for h in self.corroborations if h["kind"] == "government")
+        news = len({h["outlet"] for h in self.corroborations if h["kind"] == "news"})
+        return gov >= 1 or news >= 2
 
 
 @dataclass
@@ -90,6 +99,8 @@ class TopicScore:
     confidence_reasons: list[tuple[str, dict]] = field(default_factory=list)
     caveats: list[tuple[str, dict]] = field(default_factory=list)  # (key, params) — rendered per language
     why: list[Evidence] = field(default_factory=list)  # top recent actions driving the signal
+    corroborated_recent: int = 0           # recent evidence items confirmed by independent coverage
+    outlets_recent: list[str] = field(default_factory=list)
 
     @property
     def total_items(self) -> int:
@@ -125,13 +136,23 @@ def _confidence(ts: TopicScore) -> tuple[str, list[tuple[str, dict]]]:
     reasons.append(("conf_total", dict(n=n_total, m=len(ts.months))))
     reasons.append(("conf_recent", dict(n=n_recent, w=RECENT_WINDOW, a=active_months)))
     reasons.append(("conf_breadth", dict(b=ts.breadth)))
-    reasons.append(("conf_single_source", {}))
+    if n_recent and ts.corroborated_recent:
+        reasons.append(("conf_corroborated", dict(k=ts.corroborated_recent, n=n_recent,
+                                                  outlets=", ".join(ts.outlets_recent[:4]))))
+    elif n_recent:
+        reasons.append(("conf_uncorroborated", dict(n=n_recent)))
+    else:
+        reasons.append(("conf_single_source", {}))
 
     level = "high"
     if n_total < 8 or n_recent < 2:
         level = "low"
     elif n_total < 20 or ts.breadth < 3 or concentration > 0.8:
         level = "medium"
+    # Independent confirmation of most recent evidence lifts confidence one step
+    if n_recent >= 2 and ts.corroborated_recent / n_recent >= 0.7 and level != "high":
+        level = {"low": "medium", "medium": "high"}[level]
+        reasons.append(("conf_lifted", {}))
     if concentration > 0.8 and n_recent >= 2:
         reasons.append(("conf_concentrated", {}))
     return level, reasons
@@ -163,10 +184,13 @@ def _composite(recent: float, change: float | None, breadth: int) -> int:
     return round(100 * (0.45 * mom + 0.40 * vol + 0.15 * brd))
 
 
-def score_topics(conn: sqlite3.Connection) -> list[TopicScore]:
+def score_topics(conn: sqlite3.Connection, corroborations: dict[str, list[dict]] | None = None,
+                 enrichment: dict[str, dict] | None = None) -> list[TopicScore]:
     months = [r["month"] for r in conn.execute("SELECT month FROM months ORDER BY month")]
     if not months:
         return []
+    corroborations = corroborations or {}
+    enrichment = enrichment or {}
     idx = {m: i for i, m in enumerate(months)}
     results: list[TopicScore] = []
 
@@ -187,7 +211,10 @@ def score_topics(conn: sqlite3.Connection) -> list[TopicScore]:
             activity[i] += w
             counts[i] += 1
             evidence.append(Evidence(r["uid"], r["month"], r["sector"], r["title"], r["action"], w,
-                                     r["summary"], json.loads(r["links"]), r["source_url"]))
+                                     r["summary"], json.loads(r["links"]), r["source_url"],
+                                     corroborations=corroborations.get(r["uid"], []),
+                                     hook=(enrichment.get(r["uid"]) or {}).get("hook"),
+                                     so_what=(enrichment.get(r["uid"]) or {}).get("so_what") or {}))
 
         recent = activity[-RECENT_WINDOW:]
         baseline = activity[-(RECENT_WINDOW + BASELINE_WINDOW):-RECENT_WINDOW]
@@ -205,6 +232,14 @@ def score_topics(conn: sqlite3.Connection) -> list[TopicScore]:
             score=_composite(recent_avg, change, breadth),
             status=_status(recent_avg, change), evidence=evidence,
         )
+        recent_ev = [e for e in evidence if e.month in recent_months]
+        ts.corroborated_recent = sum(1 for e in recent_ev if e.corroborated)
+        seen: list[str] = []
+        for e in recent_ev:
+            for h in e.corroborations:
+                if h["kind"] != "other" and h["outlet"] not in seen:
+                    seen.append(h["outlet"])
+        ts.outlets_recent = seen
         ts.confidence, ts.confidence_reasons = _confidence(ts)
         ts.caveats = _caveats(ts)
         ts.why = sorted((e for e in evidence if e.month in recent_months),

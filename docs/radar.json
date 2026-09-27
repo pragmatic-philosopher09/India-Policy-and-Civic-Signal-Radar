@@ -10,9 +10,18 @@
    "change_pct": 94,
    "recent_avg": 2.2,
    "baseline_avg": 1.1,
-   "total_actions": 9,
+   "total_actions": 10,
    "recent_actions": 3,
    "breadth": 2,
+   "recent_corroborated": 2,
+   "recent_outlets": [
+    "PIB",
+    "News On AIR",
+    "The Hindu",
+    "LiveLaw",
+    "Indian Express",
+    "Law Beat"
+   ],
    "sort_score": 50,
    "months": [
     "2025-04",
@@ -38,7 +47,7 @@
     0.0,
     0.0,
     0.0,
-    3.2,
+    6.2,
     0.0,
     0.0,
     0.0,
@@ -57,7 +66,7 @@
     0,
     0,
     0,
-    2,
+    3,
     0,
     0,
     0,
@@ -77,14 +86,34 @@
    "name": "Personal finance & taxes",
    "name_hi": "व्यक्तिगत वित्त और टैक्स",
    "status": "steady",
-   "confidence": "medium",
-   "change_pct": -20,
-   "recent_avg": 4.7,
-   "baseline_avg": 5.9,
-   "total_actions": 62,
-   "recent_actions": 9,
+   "confidence": "high",
+   "change_pct": 37,
+   "recent_avg": 4.1,
+   "baseline_avg": 3.0,
+   "total_actions": 40,
+   "recent_actions": 8,
    "breadth": 2,
-   "sort_score": 41,
+   "recent_corroborated": 6,
+   "recent_outlets": [
+    "News On AIR",
+    "The Hindu",
+    "NDTV",
+    "Business Standard",
+    "SCC Online",
+    "ANI",
+    "New Indian Express",
+    "Economic Times",
+    "LiveLaw",
+    "India Today",
+    "Reuters",
+    "Mint",
+    "Moneycontrol",
+    "Indian Express",
+    "Times Now",
+    "BusinessLine",
+    "CNBC-TV18"
+   ],
+   "sort_score": 50,
    "months": [
     "2025-04",
     "2025-05",
@@ -106,40 +135,118 @@
    ],
    "activity": [
     1.0,
+    2.0,
+    2.0,
+    5.2,
+    11.3,
+    1.2,
+    6.5,
+    1.2,
+    6.0,
+    1.8,
+    2.0,
+    3.0,
+    2.5,
+    2.5,
     3.0,
     5.2,
-    7.2,
-    12.3,
-    3.5999999999999996,
-    6.5,
-    2.2,
-    9.0,
-    2.8,
-    7.0,
-    7.5,
-    4.5,
-    4.5,
-    3.0,
-    7.2,
     4.0
    ],
    "counts": [
     1,
-    2,
-    5,
-    5,
-    7,
-    3,
-    4,
+    1,
     2,
     4,
-    2,
     6,
-    6,
-    3,
-    3,
-    3,
+    1,
     4,
+    1,
+    3,
+    1,
+    2,
+    2,
+    2,
+    2,
+    3,
+    3,
+    2
+   ]
+  },
+  {
+   "slug": "jobs-and-employment",
+   "name": "Jobs & employment",
+   "name_hi": "नौकरियाँ और रोज़गार",
+   "status": "steady",
+   "confidence": "medium",
+   "change_pct": 17,
+   "recent_avg": 1.5,
+   "baseline_avg": 1.2,
+   "total_actions": 12,
+   "recent_actions": 3,
+   "breadth": 2,
+   "recent_corroborated": 2,
+   "recent_outlets": [
+    "News On AIR",
+    "Times of India",
+    "Economic Times",
+    "Business Standard"
+   ],
+   "sort_score": 38,
+   "months": [
+    "2025-04",
+    "2025-05",
+    "2025-06",
+    "2025-07",
+    "2025-08",
+    "2025-09",
+    "2025-10",
+    "2025-11",
+    "2025-12",
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08"
+   ],
+   "activity": [
+    0.0,
+    2.0,
+    0.0,
+    3.3,
+    1.5,
+    0.0,
+    1.5,
+    0.0,
+    4.2,
+    0.0,
+    1.8,
+    0.0,
+    0.0,
+    1.5,
+    0.0,
+    2.0,
+    2.4
+   ],
+   "counts": [
+    0,
+    1,
+    0,
+    2,
+    1,
+    0,
+    1,
+    0,
+    2,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    1,
     2
    ]
   },
@@ -148,14 +255,20 @@
    "name": "Education & exam integrity",
    "name_hi": "शिक्षा और परीक्षा की शुचिता",
    "status": "steady",
-   "confidence": "medium",
-   "change_pct": 22,
-   "recent_avg": 1.6,
+   "confidence": "low",
+   "change_pct": -24,
+   "recent_avg": 1.0,
    "baseline_avg": 1.3,
-   "total_actions": 12,
-   "recent_actions": 2,
-   "breadth": 2,
-   "sort_score": 40,
+   "total_actions": 11,
+   "recent_actions": 1,
+   "breadth": 1,
+   "recent_corroborated": 1,
+   "recent_outlets": [
+    "PIB",
+    "News On AIR",
+    "The Hindu"
+   ],
+   "sort_score": 24,
    "months": [
     "2025-04",
     "2025-05",
@@ -191,7 +304,7 @@
     0.0,
     0.0,
     0.0,
-    4.8,
+    3.0,
     0.0
    ],
    "counts": [
@@ -210,79 +323,8 @@
     0,
     0,
     0,
-    2,
+    1,
     0
-   ]
-  },
-  {
-   "slug": "jobs-and-employment",
-   "name": "Jobs & employment",
-   "name_hi": "नौकरियाँ और रोज़गार",
-   "status": "steady",
-   "confidence": "medium",
-   "change_pct": 4,
-   "recent_avg": 1.5,
-   "baseline_avg": 1.4,
-   "total_actions": 13,
-   "recent_actions": 3,
-   "breadth": 2,
-   "sort_score": 36,
-   "months": [
-    "2025-04",
-    "2025-05",
-    "2025-06",
-    "2025-07",
-    "2025-08",
-    "2025-09",
-    "2025-10",
-    "2025-11",
-    "2025-12",
-    "2026-01",
-    "2026-02",
-    "2026-03",
-    "2026-04",
-    "2026-05",
-    "2026-06",
-    "2026-07",
-    "2026-08"
-   ],
-   "activity": [
-    0.0,
-    2.0,
-    0.0,
-    3.3,
-    1.5,
-    0.0,
-    1.5,
-    0.0,
-    4.2,
-    1.0,
-    1.8,
-    0.0,
-    0.0,
-    1.5,
-    0.0,
-    2.0,
-    2.4
-   ],
-   "counts": [
-    0,
-    1,
-    0,
-    2,
-    1,
-    0,
-    1,
-    0,
-    2,
-    1,
-    1,
-    0,
-    0,
-    1,
-    0,
-    1,
-    2
    ]
   },
   {
@@ -294,9 +336,11 @@
    "change_pct": -32,
    "recent_avg": 0.7,
    "baseline_avg": 1.0,
-   "total_actions": 17,
+   "total_actions": 15,
    "recent_actions": 1,
    "breadth": 1,
+   "recent_corroborated": 0,
+   "recent_outlets": [],
    "sort_score": 20,
    "months": [
     "2025-04",
@@ -318,8 +362,8 @@
     "2026-08"
    ],
    "activity": [
-    1.0,
-    1.0,
+    0.0,
+    0.0,
     1.5,
     5.0,
     3.0,
@@ -337,8 +381,8 @@
     2.0
    ],
    "counts": [
-    1,
-    1,
+    0,
+    0,
     1,
     3,
     1,
@@ -362,13 +406,15 @@
    "name_hi": "AI का नियमन",
    "status": "quiet",
    "confidence": "low",
-   "change_pct": -46,
-   "recent_avg": 0.3,
+   "change_pct": -100,
+   "recent_avg": 0.0,
    "baseline_avg": 0.6,
-   "total_actions": 6,
-   "recent_actions": 1,
-   "breadth": 1,
-   "sort_score": 15,
+   "total_actions": 5,
+   "recent_actions": 0,
+   "breadth": 0,
+   "recent_corroborated": 0,
+   "recent_outlets": [],
+   "sort_score": 0,
    "months": [
     "2025-04",
     "2025-05",
@@ -404,7 +450,7 @@
     0.0,
     0.0,
     0.0,
-    1.0,
+    0.0,
     0.0
    ],
    "counts": [
@@ -423,7 +469,7 @@
     0,
     0,
     0,
-    1,
+    0,
     0
    ]
   },
@@ -435,10 +481,12 @@
    "confidence": "low",
    "change_pct": -100,
    "recent_avg": 0.0,
-   "baseline_avg": 1.6,
-   "total_actions": 9,
+   "baseline_avg": 1.3,
+   "total_actions": 7,
    "recent_actions": 0,
    "breadth": 0,
+   "recent_corroborated": 0,
+   "recent_outlets": [],
    "sort_score": 0,
    "months": [
     "2025-04",
@@ -467,13 +515,13 @@
     0.0,
     0.0,
     1.5,
-    4.5,
+    3.0,
     1.5,
     0.0,
     4.5,
     0.0,
     0.0,
-    3.5,
+    2.0,
     0.0,
     0.0,
     0.0
@@ -486,13 +534,13 @@
     0,
     0,
     1,
-    2,
+    1,
     1,
     0,
     2,
     0,
     0,
-    2,
+    1,
     0,
     0,
     0
@@ -505,32 +553,549 @@
    "sector": "Health and Family Welfare",
    "deadline": null,
    "status": "unknown",
+   "days_left": null,
    "source": "https://prsindia.org/policy/monthly-policy-review/july-2026",
-   "links": []
+   "links": [],
+   "respond_via": "Ministry of Health and Family Welfare"
   },
   {
    "title": "Draft Advocate (Amendment) Bill released for comments",
    "sector": "Law and Justice",
    "deadline": null,
    "status": "unknown",
+   "days_left": null,
    "source": "https://prsindia.org/policy/monthly-policy-review/july-2026",
-   "links": []
+   "links": [],
+   "respond_via": "Ministry of Law and Justice"
   },
   {
    "title": "Comments invited on the draft Rules and Regulations under the SHANTI Act, 2025",
    "sector": "Energy",
    "deadline": "2026-09-04",
    "status": "closed",
+   "days_left": -23,
    "source": "https://prsindia.org/policy/monthly-policy-review/august-2026",
-   "links": []
+   "links": [],
+   "respond_via": null
   },
   {
    "title": "Draft amendments to Establishment of New Medical Institution Regulations, 2023 released",
    "sector": "Health and Family Welfare",
    "deadline": "2026-08-07",
    "status": "closed",
+   "days_left": -51,
    "source": "https://prsindia.org/policy/monthly-policy-review/july-2026",
-   "links": []
+   "links": [],
+   "respond_via": null
+  }
+ ],
+ "chains": [
+  {
+   "slug": "labour-codes",
+   "name": "The four labour codes: from paper to payslip",
+   "topics": [
+    "gig-work-and-labour-codes",
+    "jobs-and-employment"
+   ],
+   "next": "Implementation and state rules; first social-security fund contributions for platform workers.",
+   "steps": [
+    {
+     "uid": "2025-10:10",
+     "month": "2025-10",
+     "action": "consultation",
+     "title": "Draft National Labour and Employment Policy released for public consultation"
+    },
+    {
+     "uid": "2025-11:3",
+     "month": "2025-11",
+     "action": "enacted",
+     "title": "The four Labour Codes brought into effect"
+    },
+    {
+     "uid": "2025-12:27",
+     "month": "2025-12",
+     "action": "consultation",
+     "title": "Comments invited on draft Rules under the four Labour Codes"
+    },
+    {
+     "uid": "2026-02:15",
+     "month": "2026-02",
+     "action": "enacted",
+     "title": "Parliament passes the Industrial Relations Code (Amendment) Bill, 2026"
+    },
+    {
+     "uid": "2026-02:16",
+     "month": "2026-02",
+     "action": "consultation",
+     "title": "Comments invited on draft Regulations under the Occupational Safety, Health, and Working Conditions Code, 2020"
+    },
+    {
+     "uid": "2026-05:2",
+     "month": "2026-05",
+     "action": "rules",
+     "title": "Rules notified under the four labour codes"
+    }
+   ]
+  },
+  {
+   "slug": "income-tax-act",
+   "name": "Replacing the 1961 Income-Tax Act",
+   "topics": [
+    "personal-finance-and-tax"
+   ],
+   "next": "New forms and rules under the 2025 Act; the first filing season under the new law.",
+   "steps": [
+    {
+     "uid": "2025-07:3",
+     "month": "2025-07",
+     "action": "committee",
+     "title": "Select Committee submits report on the Income-Tax Bill, 2025"
+    },
+    {
+     "uid": "2025-08:4",
+     "month": "2025-08",
+     "action": "enacted",
+     "title": "The Income-Tax (No.2) Bill, 2025 passed by Parliament"
+    },
+    {
+     "uid": "2025-08:5",
+     "month": "2025-08",
+     "action": "enacted",
+     "title": "The Taxation Laws (Amendment) Bill, 2025 passed by Parliament"
+    },
+    {
+     "uid": "2026-02:4",
+     "month": "2026-02",
+     "action": "other",
+     "title": "Union Budget 2026-27 presented"
+    },
+    {
+     "uid": "2026-08:14",
+     "month": "2026-08",
+     "action": "enacted",
+     "title": "Parliament passes the Taxation and Other Laws (Amendment) Bill, 2026"
+    }
+   ]
+  },
+  {
+   "slug": "mgnrega-replacement",
+   "name": "Replacing MGNREGA",
+   "topics": [
+    "jobs-and-employment",
+    "gig-work-and-labour-codes"
+   ],
+   "next": "State-level rollout and the first wage-payment cycles under the new Act.",
+   "steps": [
+    {
+     "uid": "2025-12:11",
+     "month": "2025-12",
+     "action": "enacted",
+     "title": "Parliament passes a Bill to replace MGNREGA"
+    },
+    {
+     "uid": "2026-05:3",
+     "month": "2026-05",
+     "action": "consultation",
+     "title": "Comments invited on draft Rules under the VB G RAM G Act, 2025"
+    },
+    {
+     "uid": "2026-07:8",
+     "month": "2026-07",
+     "action": "rules",
+     "title": "Rules notified under the VB - G RAM G Act, 2025"
+    }
+   ]
+  },
+  {
+   "slug": "online-gaming",
+   "name": "Banning real-money gaming",
+   "topics": [
+    "digital-and-data",
+    "criminal-law-and-justice"
+   ],
+   "next": "Enforcement against offshore apps; court challenges by the industry.",
+   "steps": [
+    {
+     "uid": "2025-08:31",
+     "month": "2025-08",
+     "action": "enacted",
+     "title": "The Promotion and Regulation of Online Gaming Bill, 2025 passed by Parliament"
+    },
+    {
+     "uid": "2026-04:9",
+     "month": "2026-04",
+     "action": "rules",
+     "title": "Rules regarding online gaming notified"
+    }
+   ]
+  },
+  {
+   "slug": "sc-judges",
+   "name": "More judges for the Supreme Court",
+   "topics": [
+    "criminal-law-and-justice"
+   ],
+   "next": "Passage of the Bill to replace the ordinance; appointments through the collegium.",
+   "steps": [
+    {
+     "uid": "2026-05:1",
+     "month": "2026-05",
+     "action": "court",
+     "title": "Ordinance issued to increase the number of Supreme Court judges"
+    },
+    {
+     "uid": "2026-07:4",
+     "month": "2026-07",
+     "action": "introduced",
+     "title": "Bill introduced to increase number of Supreme Court judges"
+    }
+   ]
+  },
+  {
+   "slug": "telecom-user-id",
+   "name": "How telecom companies must identify you",
+   "topics": [
+    "digital-and-data"
+   ],
+   "next": "Operator compliance deadlines; possible re-verification drives.",
+   "steps": [
+    {
+     "uid": "2025-06:15",
+     "month": "2025-06",
+     "action": "consultation",
+     "title": "Comments invited on draft amendments to telecom cyber security rules"
+    },
+    {
+     "uid": "2025-09:9",
+     "month": "2025-09",
+     "action": "consultation",
+     "title": "Comments invited on the draft rules for telecommunication user identification"
+    },
+    {
+     "uid": "2026-08:34",
+     "month": "2026-08",
+     "action": "rules",
+     "title": "Rules for telecommunication user identification notified"
+    }
+   ]
+  },
+  {
+   "slug": "securities-markets-code",
+   "name": "One code for the securities market",
+   "topics": [
+    "personal-finance-and-tax"
+   ],
+   "next": "Government response to the committee; passage in a coming session.",
+   "steps": [
+    {
+     "uid": "2025-12:14",
+     "month": "2025-12",
+     "action": "introduced",
+     "title": "The Securities Markets Code, 2025 introduced in Lok Sabha"
+    },
+    {
+     "uid": "2026-07:16",
+     "month": "2026-07",
+     "action": "committee",
+     "title": "Standing Committee on Finance submits report on the Securities Markets Code, 2025"
+    }
+   ]
+  },
+  {
+   "slug": "jan-vishwas",
+   "name": "Decriminalising small offences (Jan Vishwas)",
+   "topics": [
+    "criminal-law-and-justice"
+   ],
+   "next": "Passage of the 2026 Bill covering 80 Acts.",
+   "steps": [
+    {
+     "uid": "2025-08:15",
+     "month": "2025-08",
+     "action": "introduced",
+     "title": "The Jan Vishwas (Amendment of Provisions) Bill, 2025 introduced in Lok Sabha"
+    },
+    {
+     "uid": "2026-03:3",
+     "month": "2026-03",
+     "action": "introduced",
+     "title": "The Jan Vishwas Bill, 2026 introduced in Lok Sabha"
+    }
+   ]
+  },
+  {
+   "slug": "ai-governance",
+   "name": "India's path to AI rules",
+   "topics": [
+    "ai-regulation"
+   ],
+   "next": "Final deepfake-labelling rules; a possible AI governance framework or Bill.",
+   "steps": [
+    {
+     "uid": "2025-08:8",
+     "month": "2025-08",
+     "action": "other",
+     "title": "RBI releases a report on framework to guide use of AI in the financial sector"
+    },
+    {
+     "uid": "2025-10:12",
+     "month": "2025-10",
+     "action": "consultation",
+     "title": "Comments invited on draft amendments to IT rules on synthetically generated information"
+    },
+    {
+     "uid": "2025-12:37",
+     "month": "2025-12",
+     "action": "consultation",
+     "title": "Comments invited on working paper on Generative AI and copyright"
+    },
+    {
+     "uid": "2026-02:17",
+     "month": "2026-02",
+     "action": "other",
+     "title": "AI Impact Summit 2026 concludes with adoption of New Delhi declaration"
+    },
+    {
+     "uid": "2026-03:32",
+     "month": "2026-03",
+     "action": "committee",
+     "title": "Standing Committee submits report on Impact of AI"
+    }
+   ]
+  },
+  {
+   "slug": "it-rules",
+   "name": "The IT Rules keep changing",
+   "topics": [
+    "digital-and-data"
+   ],
+   "next": "Notification of the 2026 second amendment; litigation over takedown powers.",
+   "steps": [
+    {
+     "uid": "2025-10:11",
+     "month": "2025-10",
+     "action": "rules",
+     "title": "IT Rules on issuance of content removal orders amended"
+    },
+    {
+     "uid": "2025-10:12",
+     "month": "2025-10",
+     "action": "consultation",
+     "title": "Comments invited on draft amendments to IT rules on synthetically generated information"
+    },
+    {
+     "uid": "2026-03:33",
+     "month": "2026-03",
+     "action": "consultation",
+     "title": "Comments invited on draft amendments to the IT Rules, 2021"
+    }
+   ]
+  },
+  {
+   "slug": "insurance-overhaul",
+   "name": "Rewriting insurance law",
+   "topics": [
+    "personal-finance-and-tax"
+   ],
+   "next": "New entrants and products under the amended regime.",
+   "steps": [
+    {
+     "uid": "2025-12:13",
+     "month": "2025-12",
+     "action": "enacted",
+     "title": "The Sabka Bima Sabki Raksha (Amendment of Insurance Laws) Bill, 2025 passed by Parliament"
+    },
+    {
+     "uid": "2026-07:15",
+     "month": "2026-07",
+     "action": "rules",
+     "title": "IRDAI notifies Regulations to give effect to 2025 Amendments to Insurance Laws"
+    }
+   ]
+  },
+  {
+   "slug": "repo-rate",
+   "name": "The repo rate, meeting by meeting",
+   "topics": [
+    "personal-finance-and-tax"
+   ],
+   "next": "Next MPC meeting; a cut only if inflation stays low.",
+   "steps": [
+    {
+     "uid": "2025-04:3",
+     "month": "2025-04",
+     "action": "other",
+     "title": "Repo rate cut from 6.25% to 6%"
+    },
+    {
+     "uid": "2025-06:0",
+     "month": "2025-06",
+     "action": "other",
+     "title": "Repo rate cut from 6% to 5.5%"
+    },
+    {
+     "uid": "2025-08:1",
+     "month": "2025-08",
+     "action": "other",
+     "title": "Repo rate kept unchanged at 5.5%"
+    },
+    {
+     "uid": "2025-10:0",
+     "month": "2025-10",
+     "action": "other",
+     "title": "RBI maintains repo rate at 5.5%"
+    },
+    {
+     "uid": "2025-12:1",
+     "month": "2025-12",
+     "action": "other",
+     "title": "RBI reduces repo rate to 5.25%"
+    },
+    {
+     "uid": "2026-02:2",
+     "month": "2026-02",
+     "action": "other",
+     "title": "RBI maintains repo rate at 5.25%"
+    },
+    {
+     "uid": "2026-04:2",
+     "month": "2026-04",
+     "action": "other",
+     "title": "RBI maintains repo rate at 5.25%"
+    },
+    {
+     "uid": "2026-06:1",
+     "month": "2026-06",
+     "action": "other",
+     "title": "Repo rate unchanged at 5.25%"
+    },
+    {
+     "uid": "2026-08:3",
+     "month": "2026-08",
+     "action": "other",
+     "title": "RBI maintains repo rate at 5.25%"
+    }
+   ]
+  },
+  {
+   "slug": "higher-ed-regulator",
+   "name": "One regulator for higher education",
+   "topics": [
+    "education-and-exams"
+   ],
+   "next": "Committee scrutiny of the VBSA Bill; outcome of the Supreme Court stay on UGC equity rules.",
+   "steps": [
+    {
+     "uid": "2025-04:12",
+     "month": "2025-04",
+     "action": "rules",
+     "title": "UGC notifies regulations for changes in higher education"
+    },
+    {
+     "uid": "2025-12:20",
+     "month": "2025-12",
+     "action": "introduced",
+     "title": "The Viksit Bharat Shiksha Adhishthan Bill, 2025 introduced in Lok Sabha"
+    },
+    {
+     "uid": "2025-12:21",
+     "month": "2025-12",
+     "action": "committee",
+     "title": "Standing Committee submits report on autonomous bodies in higher education"
+    },
+    {
+     "uid": "2026-01:9",
+     "month": "2026-01",
+     "action": "court",
+     "title": "UGC (Promotion of Equity in Higher Education Institutions) Regulations, 2026 released; SC orders stay"
+    }
+   ]
+  },
+  {
+   "slug": "exam-integrity",
+   "name": "Cracking down on paper leaks",
+   "topics": [
+    "education-and-exams",
+    "criminal-law-and-justice"
+   ],
+   "next": "Rules under the amended Act; NTA reforms.",
+   "steps": [
+    {
+     "uid": "2025-12:21",
+     "month": "2025-12",
+     "action": "committee",
+     "title": "Standing Committee submits report on autonomous bodies in higher education"
+    },
+    {
+     "uid": "2026-07:2",
+     "month": "2026-07",
+     "action": "enacted",
+     "title": "Parliament passed the Public Examinations (Prevention of Unfair Means) Amendment Bill, 2026"
+    }
+   ]
+  },
+  {
+   "slug": "startup-capital",
+   "name": "Public money for startups",
+   "topics": [
+    "jobs-and-employment"
+   ],
+   "next": "Deployment of Fund of Funds 2.0 through SEBI-registered funds.",
+   "steps": [
+    {
+     "uid": "2025-05:5",
+     "month": "2025-05",
+     "action": "rules",
+     "title": "Commerce Ministry notifies revised credit guarantee scheme for startups"
+    },
+    {
+     "uid": "2026-02:11",
+     "month": "2026-02",
+     "action": "cabinet",
+     "title": "Cabinet approves Startup India Fund of Funds 2.0 to mobilise venture capital"
+    },
+    {
+     "uid": "2026-08:13",
+     "month": "2026-08",
+     "action": "committee",
+     "title": "Standing Committee submits report on ecosystem of startups"
+    }
+   ]
+  },
+  {
+   "slug": "digital-fraud-liability",
+   "name": "Who pays when you're defrauded online",
+   "topics": [
+    "personal-finance-and-tax",
+    "digital-and-data"
+   ],
+   "next": "Final RBI framework on customer liability; recovery-agent conduct directions.",
+   "steps": [
+    {
+     "uid": "2025-07:5",
+     "month": "2025-07",
+     "action": "consultation",
+     "title": "Comments invited on draft Directions on Digital Banking Channels"
+    },
+    {
+     "uid": "2025-08:14",
+     "month": "2025-08",
+     "action": "committee",
+     "title": "Standing Committee on Home Affairs submits report on cybercrime"
+    },
+    {
+     "uid": "2026-03:11",
+     "month": "2026-03",
+     "action": "consultation",
+     "title": "RBI releases draft framework to limit customer liability in digital transactions"
+    },
+    {
+     "uid": "2026-05:8",
+     "month": "2026-05",
+     "action": "other",
+     "title": "RBI invites comments on directions on conduct of loan recovery agents"
+    }
+   ]
   }
  ],
  "attribution": "Source data © PRS Legislative Research (prsindia.org), licensed under CC BY 4.0. Summaries and scores are our own."

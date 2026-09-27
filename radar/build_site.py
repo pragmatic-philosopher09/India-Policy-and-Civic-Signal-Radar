@@ -16,7 +16,9 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from markupsafe import Markup
 
 from . import db
-from .config import ACTION_WEIGHTS, BASELINE_WINDOW, PRS_ATTRIBUTION, RECENT_WINDOW, TOPIC_BY_SLUG
+from .config import ACTION_WEIGHTS, BASELINE_WINDOW, CHANNEL_URL, PRS_ATTRIBUTION, RECENT_WINDOW, TOPIC_BY_SLUG
+from .crosscheck import lookup as corroborations_for
+from .enrich import PERSONAS, load_chains, lookup as enrichment_for
 from .i18n import DEFAULT_LANG, LANGS, nice_date, pretty_month, sector_label, t
 from .score import score_topics
 from .translate import lookup as translations_for
@@ -62,6 +64,7 @@ def _env(lang: str) -> Environment:
                       autoescape=select_autoescape(["html"]))
     env.globals["lang"] = lang
     env.globals["langs"] = LANGS
+    env.globals["personas"] = PERSONAS
     env.globals["t"] = lambda key, **kw: Markup(t(lang, key, **kw))
     env.filters["month"] = lambda ym: pretty_month(ym, lang)
     env.filters["nice_date"] = lambda d: nice_date(d, lang)
@@ -86,6 +89,33 @@ def _render_msg(lang: str, pair: tuple[str, dict]) -> str:
     return t(lang, key, **params)
 
 
+# Where comments on a draft normally go, by issuing body. The exact address is always in the
+# notice itself, so every route also says "check the draft".
+RESPOND_ROUTES = [
+    (re.compile(r"\bRBI\b|Reserve Bank", re.I), dict(body="RBI", url="https://www.rbi.org.in", how="rbi")),
+    (re.compile(r"\bSEBI\b", re.I), dict(body="SEBI", url="https://www.sebi.gov.in/reports-and-statistics/reports/reports-for-public-comments.html", how="sebi")),
+    (re.compile(r"\bTRAI\b", re.I), dict(body="TRAI", url="https://www.trai.gov.in/release-publication/consultation", how="trai")),
+    (re.compile(r"\bIRDAI\b", re.I), dict(body="IRDAI", url="https://irdai.gov.in", how="generic")),
+    (re.compile(r"\bPFRDA\b", re.I), dict(body="PFRDA", url="https://www.pfrda.org.in", how="generic")),
+    (re.compile(r"\bUGC\b|University Grants", re.I), dict(body="UGC", url="https://www.ugc.gov.in", how="generic")),
+    (re.compile(r"\bMeitY\b|Electronics and Information Technology|IT Rules", re.I), dict(body="MeitY", url="https://www.meity.gov.in", how="email")),
+    (re.compile(r"Department of Telecommunication|\bDoT\b|Telecom(?:munications)? \(", re.I), dict(body="DoT", url="https://dot.gov.in", how="email")),
+    (re.compile(r"Ministry of ([A-Z][\w ,&]+?)(?: has| released| invited| notified|\.|,)", re.I), dict(body="ministry", url="https://www.mygov.in/group-issue/", how="email")),
+]
+
+
+def respond_route(title: str, body: str) -> dict:
+    text = f"{title}\n{body[:600]}"
+    for pat, route in RESPOND_ROUTES:
+        m = pat.search(text)
+        if m:
+            r = dict(route)
+            if r["body"] == "ministry":
+                r["body"] = "Ministry of " + m.group(1).strip()
+            return r
+    return dict(body="", url="", how="generic")
+
+
 _DEADLINE = re.compile(
     r"(?:comments?|suggestions?|feedback|objections?|responses?)[^.]{0,80}?\b(?:by|till|until|before|up to|latest by|on or before)\s+"
     r"((?:\d{1,2}(?:st|nd|rd|th)?\s+)?(?:January|February|March|April|May|June|July|August|September|October|November|December)"
@@ -99,8 +129,11 @@ def _deadline(body: str) -> str | None:
     return m.group(1).strip() if m else None
 
 
-def _consultations(conn, months: list[str], topic_of: dict[str, str], today: date) -> dict[str, list[dict]]:
+def _consultations(conn, months: list[str], topic_of: dict[str, str], today: date,
+                   corr: dict[str, list[dict]] | None = None, enr: dict[str, dict] | None = None) -> dict[str, list[dict]]:
     """Drafts released for comment in the last two reviews, split into open / unknown-deadline / closed."""
+    corr = corr or {}
+    enr = enr or {}
     buckets: dict[str, list[dict]] = {"open": [], "unknown": [], "closed": []}
     if not months:
         return buckets
@@ -121,6 +154,8 @@ def _consultations(conn, months: list[str], topic_of: dict[str, str], today: dat
             links=json.loads(r["links"]), source_url=r["source_url"],
             deadline=due, deadline_raw=raw, days_left=days_left,
             topic=TOPIC_BY_SLUG.get(slug) if slug else None,
+            route=respond_route(r["title"], r["body"]), corroborations=corr.get(r["uid"], []),
+            hook=(enr.get(r["uid"]) or {}).get("hook"), so_what=(enr.get(r["uid"]) or {}).get("so_what") or {},
         )
         if due is None:
             buckets["unknown"].append(entry)
@@ -163,22 +198,47 @@ def _render_lang(lang: str, conn, scores, consultations, ctx: dict, n_items: int
         for e in ts.evidence:
             by_month.setdefault(e.month, []).append(e)
         timeline = [(m, by_month.get(m, [])) for m in reversed(ts.months)]
+        topic_chains = [c for c in ctx["chains"] if ts.topic.slug in c.get("topics", [])]
         (out / "topic" / f"{ts.topic.slug}.html").write_text(
-            env.get_template("topic.html").render(ts=ts, timeline=timeline, root=top + "../",
+            env.get_template("topic.html").render(ts=ts, timeline=timeline, root=top + "../", topic_chains=topic_chains,
                                                   page=f"topic/{ts.topic.slug}.html", **ctx), encoding="utf-8")
 
     (out / "method.html").write_text(env.get_template(f"method_{lang}.html").render(
         page="method.html", root=top, **ctx), encoding="utf-8")
 
 
+def brief(scores, consultations, k: int = 3) -> dict:
+    """The week's edit: what to respond to, what's moving, what's confirmed quiet."""
+    moving = [ts for ts in scores if ts.status != "quiet"][:k]
+    quiet = [ts for ts in scores if ts.status == "quiet"]
+    return dict(respond=consultations["open"] + consultations["unknown"], moving=moving, quiet=quiet)
+
+
+def assemble(conn, today_d: date | None = None, lang: str | None = None):
+    """Everything the site, the JSON and the Telegram digest are built from."""
+    today_d = today_d or date.today()
+    corr = corroborations_for(conn)
+    enr = enrichment_for(conn)
+    scores = score_topics(conn, corr, enr)
+    months = scores[0].months if scores else db.months_present(conn)
+    topic_of = {r["uid"]: r["topic"] for r in conn.execute(
+        "SELECT uid, topic FROM item_topics ORDER BY hits")}  # highest-hit topic wins
+    consultations = _consultations(conn, months, topic_of, today_d, corr, enr)
+    if lang:
+        _localise(scores, consultations, {} if lang == DEFAULT_LANG else translations_for(conn, lang))
+    return scores, consultations
+
+
 def build() -> None:
     conn = db.connect()
-    scores = score_topics(conn)
     today_d = date.today()
     today = today_d.isoformat()
+    scores, consultations = assemble(conn, today_d)
     ctx = dict(
         attribution=PRS_ATTRIBUTION, today=today, recent_window=RECENT_WINDOW,
         baseline_window=BASELINE_WINDOW, action_weights=ACTION_WEIGHTS, actions=ACTIONS,
+        brief=brief(scores, consultations), channel_url=CHANNEL_URL, personas=PERSONAS,
+        chains=load_chains(conn),
     )
 
     if OUT.exists():
@@ -189,10 +249,6 @@ def build() -> None:
 
     n_months = len(scores[0].months) if scores else 0
     n_items = conn.execute("SELECT COUNT(*) FROM items").fetchone()[0]
-    months = scores[0].months if scores else db.months_present(conn)
-    topic_of = {r["uid"]: r["topic"] for r in conn.execute(
-        "SELECT uid, topic FROM item_topics ORDER BY hits")}  # highest-hit topic wins
-    consultations = _consultations(conn, months, topic_of, today_d)
 
     for lang in LANGS:
         _localise(scores, consultations, {} if lang == DEFAULT_LANG else translations_for(conn, lang))
@@ -206,12 +262,17 @@ def build() -> None:
             "confidence": ts.confidence, "change_pct": ts.change_pct,
             "recent_avg": ts.recent_avg, "baseline_avg": ts.baseline_avg,
             "total_actions": ts.total_items, "recent_actions": ts.recent_items, "breadth": ts.breadth,
+            "recent_corroborated": ts.corroborated_recent, "recent_outlets": ts.outlets_recent,
             "sort_score": ts.score, "months": ts.months, "activity": ts.activity, "counts": ts.counts,
         } for ts in scores],
         "consultations": [{
             "title": c["title"], "sector": c["sector"], "deadline": c["deadline"].isoformat() if c["deadline"] else None,
-            "status": k, "source": c["source_url"], "links": c["links"],
+            "status": k, "days_left": c["days_left"], "source": c["source_url"], "links": c["links"],
+            "respond_via": c["route"]["body"] or None,
         } for k in ("open", "unknown", "closed") for c in consultations[k]],
+        "chains": [{"slug": c["slug"], "name": c["name"], "topics": c.get("topics", []), "next": c.get("next"),
+                    "steps": [{"uid": st["uid"], "month": st["month"], "action": st["action"], "title": st["title"]} for st in c["steps"]]}
+                   for c in ctx["chains"]],
         "attribution": PRS_ATTRIBUTION,
     }, indent=1, ensure_ascii=False), encoding="utf-8")
     print(f"built {len(scores)} topic pages x {len(LANGS)} languages -> {OUT}/")
