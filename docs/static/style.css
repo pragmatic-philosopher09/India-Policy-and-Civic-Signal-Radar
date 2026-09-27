@@ -377,3 +377,11 @@ footer .wrap { display: grid; gap: .3rem; }
 
 /* topic hero side */
 .thero .side { display: grid; gap: .4rem; align-content: start; }
+
+/* footer site map + mobile helpers */
+.sitemap { display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; margin-bottom: 1.2rem; }
+.sitemap a { font: 500 .66rem/1.8 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); border-bottom: 1px solid transparent; }
+.sitemap a:hover { border-bottom-color: var(--ink); color: var(--ink); }
+body.lang-hi .sitemap a { font-family: var(--sans); text-transform: none; letter-spacing: 0; font-weight: 600; font-size: .8rem; }
+.show-m { display: none; }
+@media (max-width: 760px) { .show-m { display: block; margin-top: .3rem; } .tools .tool { padding: .45rem .5rem; } }

@@ -83,9 +83,11 @@
           {% endif %}
           {% set sd = states[ts.topic.slug] %}
           {% if sd and sd.bills %}
+          <div style="margin-top:.9rem">{{ states_line(ts, states) }}</div>
           <details class="acc"><summary>{{ t('states_h2') }} <span class="count">· {{ t('n_bills', n=sd.bills | length) }}</span></summary>
-            <div class="acc-body">{{ states_line(ts, states) }}
-              <ul class="blist" style="margin-top:.6rem">{% for b in sd.bills[:4] %}<li><span class="tag state-chip">{{ b.state | state }}</span><span class="tag">{{ b.year }}</span><span class="t">{{ b.title }}</span></li>{% endfor %}</ul>
+            <div class="acc-body">
+              <ul class="blist">{% for b in sd.bills[:5] %}<li><span class="tag state-chip">{{ b.state | state }}</span><span class="tag">{{ b.year }}</span><span class="t">{{ b.title }}</span>{% if b.pdf_url %}<small><a href="{{ b.pdf_url }}">{{ t('bill_pdf') }}</a></small>{% endif %}</li>{% endfor %}</ul>
+              <a class="more" href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}states.html#{{ ts.topic.slug }}">{{ t('all_states') }} →</a>
             </div></details>
           {% endif %}
           {% if ts.connections %}<p class="connections">{{ t('also_touches') }}: {% for c in ts.connections %}<a href="topic/{{ c.slug }}.html" class="tag topic">{{ c.topic.label(lang) }}</a>{% endfor %}</p>{% endif %}
@@ -137,7 +139,7 @@
       <tbody>
         {% for ts in scores %}
         <tr style="--accent: {{ ts.topic.color }}">
-          <td class="name"><a href="topic/{{ ts.topic.slug }}.html">{{ ts.topic.label(lang) }}</a></td>
+          <td class="name"><a href="topic/{{ ts.topic.slug }}.html">{{ ts.topic.label(lang) }}</a><span class="k2 show-m">{{ t('card_meta', r=ts.recent_items, t=ts.total_items, b=ts.breadth) }}</span></td>
           <td><span class="pill {{ ts.status }}">{{ ts.status | status }}</span></td>
           <td class="pct {{ 'up' if ts.change_pct and ts.change_pct > 0 else 'down' if ts.change_pct and ts.change_pct < 0 else 'mute' }}">{% if ts.status == 'quiet' %}{{ ts.recent_items }}<span class="k2"> /{{ recent_window }}mo</span>{% elif ts.change_pct is not none %}{{ '+' if ts.change_pct > 0 else '' }}{{ ts.change_pct }}%{% else %}{{ t('new') }}{% endif %}</td>
           <td class="hide-m">{{ sparkline(ts.activity, 110, 28) }}</td>

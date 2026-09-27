@@ -257,7 +257,7 @@ def _render_lang(lang: str, conn, scores, consultations, ctx: dict, n_items: int
         moving=[dict(topic=ts.topic.name, status=ts.status, change=ts.change_pct, confidence=ts.confidence,
                      why=[e.title for e in ts.why[:3]]) for ts in ctx["brief"]["moving"]],
         quiet=[ts.topic.name for ts in ctx["brief"]["quiet"]])
-    ctx = dict(ctx, other_langs=[l for l in LANGS if l != lang], editor_note=editor_note(conn, week, lang, payload), week=week)
+    ctx = dict(ctx, other_langs=[l for l in LANGS if l != lang], editor_note=editor_note(conn, week, lang, payload), week=week, scores=scores)
     recent_set = set(scores[0].months[-RECENT_WINDOW:]) if scores else set()
     state = {"today": ctx["today"], "topics": {ts.topic.slug: dict(
         name=ts.topic.label(lang), status=ts.status, status_label=t(lang, f"status_{ts.status}"),
@@ -267,7 +267,7 @@ def _render_lang(lang: str, conn, scores, consultations, ctx: dict, n_items: int
     ctx.update(state_json=Markup(json.dumps(state, ensure_ascii=False)), strings_json=Markup(json.dumps(strings, ensure_ascii=False)))
 
     (out / "index.html").write_text(env.get_template("index.html").render(
-        scores=scores, consultations=consultations, n_months=n_months, n_items=n_items,
+        consultations=consultations, n_months=n_months, n_items=n_items,
         page="index.html", root=top, **ctx), encoding="utf-8")
 
     for ts in scores:
@@ -284,7 +284,7 @@ def _render_lang(lang: str, conn, scores, consultations, ctx: dict, n_items: int
     (out / "method.html").write_text(env.get_template(f"method_{lang}.html").render(
         page="method.html", root=top, **ctx), encoding="utf-8")
     (out / "states.html").write_text(env.get_template("states.html").render(
-        page="states.html", root=top, scores=scores, **ctx), encoding="utf-8")
+        page="states.html", root=top, **ctx), encoding="utf-8")
 
 
 def brief(scores, consultations, k: int = 3) -> dict:

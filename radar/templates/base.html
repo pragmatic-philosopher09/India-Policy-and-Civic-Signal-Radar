@@ -36,8 +36,8 @@
     </nav>
     {% endblock %}
     <div class="tools">
-      <a class="tool hide-m" href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}states.html">{{ t('nav_states') }}</a>
-      <a class="tool hide-m" href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}method.html">{{ t('nav_method_short') }}</a>
+      <a class="tool" href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}states.html">{{ t('nav_states') }}</a>
+      <a class="tool" href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}method.html">{{ t('nav_method_short') }}</a>
       {% for l in other_langs %}<a class="tool lang-toggle" lang="{{ l }}" href="{{ root }}{{ '' if l == 'en' else l ~ '/' }}{{ page }}?lang={{ l }}">{{ langs[l] }}</a>{% endfor %}
       <button type="button" class="tool" data-theme-toggle data-light="{{ t('theme_light') }}" data-dark="{{ t('theme_dark') }}" title="{{ t('theme_help') }}">◐</button>
       <button type="button" class="tool hide-m" data-sound data-on="{{ t('sound_on') }}" data-off="{{ t('sound_off') }}" aria-pressed="false" title="{{ t('sound_help') }}">{{ t('sound_off') }}</button>
@@ -49,6 +49,17 @@
 </main>
 <footer>
   <div class="wrap">
+    <nav class="sitemap" aria-label="{{ t('site_title') }}">
+      <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}index.html">{{ t('this_week') }}</a>
+      <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}index.html#respond">01 {{ t('ch_respond') }}</a>
+      <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}index.html#moving">02 {{ t('ch_moving') }}</a>
+      <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}index.html#quiet">03 {{ t('ch_quiet') }}</a>
+      <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}index.html#all">04 {{ t('ch_all') }}</a>
+      <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}states.html">{{ t('nav_states') }}</a>
+      <a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}method.html">{{ t('nav_method') }}</a>
+      <a href="{{ root }}radar.json">radar.json</a>
+      {% for ts in scores %}<a href="{{ root }}{{ '' if lang == 'en' else lang ~ '/' }}topic/{{ ts.topic.slug }}.html">{{ ts.topic.label(lang) }}</a>{% endfor %}
+    </nav>
     <p>{{ attribution }}</p>
     <p>{{ t('footer_line', d=today) }} · {{ t('editorial_note') }}</p>
     <p>{{ t('photo_credits') }}: {% for k, im in images.items() %}<a href="{{ im.page }}">{{ im.artist }}</a> ({{ im.license }}){{ ' · ' if not loop.last }}{% endfor %}</p>
