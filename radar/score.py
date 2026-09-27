@@ -76,6 +76,13 @@ class Evidence:
     so_what: dict = field(default_factory=dict)                  # {persona: line}
 
     @property
+    def date_hint(self) -> str | None:
+        """Approximate day from independent coverage (PRS only gives the month)."""
+        dates = sorted(h["published"] for h in self.corroborations
+                       if h.get("published") and h.get("kind") != "other" and h["published"][:7] >= self.month)
+        return dates[0] if dates else None
+
+    @property
     def corroborated(self) -> bool:
         gov = sum(1 for h in self.corroborations if h["kind"] == "government")
         news = len({h["outlet"] for h in self.corroborations if h["kind"] == "news"})
@@ -101,6 +108,9 @@ class TopicScore:
     why: list[Evidence] = field(default_factory=list)  # top recent actions driving the signal
     corroborated_recent: int = 0           # recent evidence items confirmed by independent coverage
     outlets_recent: list[str] = field(default_factory=list)
+    why_moving: dict = field(default_factory=dict)      # structured causal explanation of the label
+    counter: tuple[str, dict] | None = None             # what would make this signal fade / flip
+    connections: list[dict] = field(default_factory=list)  # other topics sharing recent evidence
 
     @property
     def total_items(self) -> int:
@@ -174,6 +184,44 @@ def _caveats(ts: TopicScore) -> list[tuple[str, dict]]:
     return out
 
 
+def _why_moving(ts: TopicScore) -> dict:
+    recent_months = ts.months[-RECENT_WINDOW:]
+    recent_ev = [e for e in ts.evidence if e.month in set(recent_months)]
+    by_month = {m: [e for e in recent_ev if e.month == m] for m in recent_months}
+    active = [m for m in recent_months if by_month[m]]
+    institutions = sorted({e.sector for e in recent_ev})
+    kinds: dict[str, int] = {}
+    for e in recent_ev:
+        kinds[e.action] = kinds.get(e.action, 0) + 1
+    steps = sorted(recent_ev, key=lambda e: (e.date_hint or e.month + "-99", -e.weight))
+    if ts.status == "quiet":
+        key, params = "why_quiet", dict(w=RECENT_WINDOW)
+    elif ts.status == "heating":
+        if len(institutions) >= 2:
+            key, params = "why_multi_inst", dict(k=len(institutions), inst=", ".join(institutions[:3]),
+                                                 months=" & ".join(active) if len(active) <= 2 else f"{active[0]}–{active[-1]}")
+        else:
+            key, params = "why_single_inst", dict(inst=institutions[0] if institutions else "one body", n=len(recent_ev),
+                                                  months=" & ".join(active))
+    elif ts.status == "cooling":
+        key, params = "why_cooling", dict(n=len(recent_ev), w=RECENT_WINDOW, base=ts.baseline_avg)
+    else:
+        key, params = "why_steady", dict(n=len(recent_ev), w=RECENT_WINDOW, b=BASELINE_WINDOW)
+    return dict(interpretation=(key, params), months=[dict(month=m, n=len(by_month[m]),
+                weighted=round(sum(e.weight for e in by_month[m]), 1)) for m in recent_months],
+                institutions=institutions, kinds=kinds, steps=steps[:6], single_month=len(active) == 1)
+
+
+def _counter(ts: TopicScore) -> tuple[str, dict]:
+    if ts.status == "heating":
+        return "counter_heating", dict(n=ts.recent_items)
+    if ts.status == "quiet":
+        return "counter_quiet", {}
+    if ts.status == "cooling":
+        return "counter_cooling", {}
+    return "counter_steady", {}
+
+
 def _composite(recent: float, change: float | None, breadth: int) -> int:
     # Volume: saturates around ~12 weighted points/month
     vol = min(recent / 12.0, 1.0)
@@ -242,9 +290,32 @@ def score_topics(conn: sqlite3.Connection, corroborations: dict[str, list[dict]]
         ts.outlets_recent = seen
         ts.confidence, ts.confidence_reasons = _confidence(ts)
         ts.caveats = _caveats(ts)
+        ts.why_moving = _why_moving(ts)
+        ts.counter = _counter(ts)
         ts.why = sorted((e for e in evidence if e.month in recent_months),
                         key=lambda e: (-e.weight, e.month))[:3]
         results.append(ts)
+
+    # cross-topic connections: recent evidence shared by two topics
+    recent_set = set(months[-RECENT_WINDOW:])
+    owner: dict[str, list[TopicScore]] = {}
+    for ts in results:
+        for e in ts.evidence:
+            if e.month in recent_set:
+                owner.setdefault(e.uid, []).append(ts)
+    for uid, owners in owner.items():
+        if len(owners) < 2:
+            continue
+        title = next(e.hook or e.title for e in owners[0].evidence if e.uid == uid)
+        for ts in owners:
+            for other in owners:
+                if other is ts:
+                    continue
+                c = next((c for c in ts.connections if c["slug"] == other.topic.slug), None)
+                if c is None:
+                    c = dict(slug=other.topic.slug, topic=other.topic, shared=[])
+                    ts.connections.append(c)
+                c["shared"].append(title)
 
     results.sort(key=lambda t: t.score, reverse=True)
     return results

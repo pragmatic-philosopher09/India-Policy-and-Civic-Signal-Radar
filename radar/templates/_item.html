@@ -82,3 +82,38 @@
     {% if with_respond %}{{ respond_block(e) }}{% endif %}
   </li>
 {% endmacro %}
+
+{% macro follow_btn(ts) %}
+  <button type="button" class="follow" data-slug="{{ ts.topic.slug }}" data-follow="{{ t('follow') }}" data-following="{{ t('following') }}" aria-pressed="false">{{ t('follow') }}</button>
+{% endmacro %}
+
+{% macro why_moving(ts, compact=False) %}
+  {% set wm = ts.why_moving %}
+  {% if not compact %}<h2>{{ t('why_moving_h2', status=(ts.status | status | lower)) }}</h2>{% endif %}
+  {% set active = wm.months | selectattr('n', 'gt', 0) | list %}
+  {% if active %}
+  <p class="why-count"><b>{{ t('actions_in_months', n=(active | sum(attribute='n')), months=(active | map(attribute='month') | map('month') | join(' & '))) }}</b>
+    {% if wm.institutions %} · {{ wm.institutions | map('sector') | join(', ') }}{% endif %}</p>
+  {% endif %}
+  {% if wm.steps %}
+  <ol class="causal">
+    {% for e in wm.steps[:4] %}
+    <li class="action-{{ e.action }}">
+      <span class="when">{% if e.date_hint %}{{ t('approx') }}{{ e.date_hint[8:10] | int }} {{ (e.month | month).split(' ')[0] }}{% else %}{{ e.month | month }}{% endif %}</span>
+      <span class="tag action-{{ e.action }}" title="{{ e.action | action_help }}">{{ e.action | action }}</span>
+      <span class="what">{{ e.hook if lang == 'en' and e.hook else (e.title_l or e.title) }}{% if e.corroborated %} <span class="corr-check" title="{{ t('corroborated') }}">✓</span>{% endif %}</span>
+    </li>
+    {% endfor %}
+  </ol>
+  {% endif %}
+  <p class="interp"><b>{{ t('interpretation') }}:</b> {{ wm.interpretation | msg }}</p>
+{% endmacro %}
+
+{% macro stage_bar(chain) %}
+  {% set idx = chain.stage %}
+  {% if idx is not none %}
+  <ol class="stages" aria-label="{{ t('stage_h') }}">
+    {% for i in range(6) %}<li class="{{ 'done' if i < idx else 'now' if i == idx else '' }}">{{ t('stage_' ~ i) }}</li>{% endfor %}
+  </ol>
+  {% endif %}
+{% endmacro %}

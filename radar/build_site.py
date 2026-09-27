@@ -249,6 +249,13 @@ def _render_lang(lang: str, conn, scores, consultations, ctx: dict, n_items: int
                      why=[e.title for e in ts.why[:3]]) for ts in ctx["brief"]["moving"]],
         quiet=[ts.topic.name for ts in ctx["brief"]["quiet"]])
     ctx = dict(ctx, other_langs=[l for l in LANGS if l != lang], editor_note=editor_note(conn, week, lang, payload), week=week)
+    recent_set = set(scores[0].months[-RECENT_WINDOW:]) if scores else set()
+    state = {"topics": {ts.topic.slug: dict(
+        name=ts.topic.label(lang), status=ts.status, status_label=t(lang, f"status_{ts.status}"),
+        url=f"topic/{ts.topic.slug}.html",
+        latest=sorted(e.uid for e in ts.evidence if e.month in recent_set)) for ts in scores}}
+    strings = {k: t(lang, k) for k in ("since_h", "since_new", "since_status", "since_same", "since_none_followed", "since_first")}
+    ctx.update(state_json=Markup(json.dumps(state, ensure_ascii=False)), strings_json=Markup(json.dumps(strings, ensure_ascii=False)))
 
     (out / "index.html").write_text(env.get_template("index.html").render(
         scores=scores, consultations=consultations, n_months=n_months, n_items=n_items,

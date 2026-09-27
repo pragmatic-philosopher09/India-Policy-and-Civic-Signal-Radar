@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_item.html" import consultation_item, corroboration, deadline_tag %}
+{% from "_item.html" import consultation_item, corroboration, deadline_tag, follow_btn, why_moving %}
 {% set L = '' if lang == 'en' else lang ~ '/' %}
 {% block body %}
 <section class="hero compact">
@@ -21,6 +21,12 @@
     <p class="note">{{ editor_note }}</p>
   </div>
   {% endif %}
+
+  <div class="block since-block" id="since" hidden>
+    <p class="note-kicker" id="since-h"></p>
+    <ul class="since" id="since-list"></ul>
+    <p class="hint" id="since-hint"></p>
+  </div>
 
   {% if lang == 'en' %}
   <div class="persona-bar" role="group" aria-label="{{ t('persona_prompt') }}">
@@ -56,32 +62,42 @@
   </div>
 
   <div class="block moving-block">
-    <h3>🔥 {{ t('moving_h2') }}</h3>
-    <ul class="moving">
+    <h3>🔥 {{ t('signals_h2') }}</h3>
+    <ol class="signals">
       {% for ts in brief.moving %}
-      <li style="--accent: {{ ts.topic.color }}">
-        <a class="moving-head" href="topic/{{ ts.topic.slug }}.html">
-          <span class="pill status-{{ ts.status }}" title="{{ ts.status | status_help }}">{{ ts.status | status }}</span>
-          <strong>{{ ts.topic.label(lang) }}</strong>
-          <span class="stat-inline">
-            {% if ts.change_pct is not none %}<b class="{{ 'up' if ts.change_pct > 0 else 'down' if ts.change_pct < 0 else '' }}">{{ '+' if ts.change_pct > 0 else '' }}{{ ts.change_pct }}%</b>{% else %}<b>{{ t('new') }}</b>{% endif %}
-            · <span class="conf conf-{{ ts.confidence }}">{{ ts.confidence | confidence }} {{ t('confidence_word') }}</span>
-          </span>
-        </a>
+      <li class="signal" style="--accent: {{ ts.topic.color }}" data-slug="{{ ts.topic.slug }}">
+        <div class="signal-head">
+          <span class="rank">{{ loop.index }}</span>
+          <div class="signal-title">
+            <a href="topic/{{ ts.topic.slug }}.html"><strong>{{ ts.topic.label(lang) }}</strong></a>
+            <span class="pill status-{{ ts.status }}" title="{{ ts.status | status_help }}">{{ ts.status | status }}</span>
+          </div>
+          {{ follow_btn(ts) }}
+        </div>
+        <div class="signal-metrics">
+          <span>{% if ts.change_pct is not none %}<b class="{{ 'up' if ts.change_pct > 0 else 'down' if ts.change_pct < 0 else '' }}">{{ '+' if ts.change_pct > 0 else '' }}{{ ts.change_pct }}%</b>{% else %}<b>{{ t('new') }}</b>{% endif %} <small>{{ t('vs_prior', n=baseline_window) }}</small></span>
+          <span><b>{{ ts.total_items }}</b> <small>{{ t('metric_actions', m=ts.months | length) }}</small></span>
+          <span><b>{{ ts.breadth }}</b> <small>{{ t('metric_ministries') }}</small></span>
+          <span class="conf conf-{{ ts.confidence }}">{{ ts.confidence | confidence }} {{ t('confidence_word') }}</span>
+        </div>
+        <div class="signal-why">
+          <p class="label">{{ t('why_moving_card') }}</p>
+          {{ why_moving(ts, compact=True) }}
+        </div>
         <ul class="why">
           {% for e in ts.why[:3] %}
           <li class="action-{{ e.action }}"><span class="dot"></span>
             <span class="why-text">
-              <span class="tag action-{{ e.action }}" title="{{ e.action | action_help }}">{{ e.action | action }}</span>
               <a class="why-link" href="{{ e.links[0] if e.links else e.source_url }}">{{ (e.hook if lang == 'en' and e.hook else (e.title_l or e.title)) }}</a>{% if e.corroborated %} <span class="corr-check" title="{{ t('corroborated') }}">{{ t('corr_check') }}</span>{% endif %}
-              <small>({{ e.month | month }})</small>
               {% if lang == 'en' and e.so_what %}{% for k in personas if e.so_what.get(k) %}<span class="fy" data-persona="{{ k }}"><b>{{ t('persona_' ~ k) }}:</b> {{ e.so_what[k] }}</span>{% endfor %}{% endif %}
             </span></li>
           {% endfor %}
         </ul>
+        {% if ts.connections %}<p class="connections"><span class="label">{{ t('also_touches') }}:</span> {% for c in ts.connections %}<a href="topic/{{ c.slug }}.html" class="tag" style="--accent: {{ c.topic.color }}">{{ c.topic.label(lang) }}</a>{% endfor %}</p>{% endif %}
+        <a class="explore" href="topic/{{ ts.topic.slug }}.html">{{ t('explore') }}</a>
       </li>
       {% endfor %}
-    </ul>
+    </ol>
   </div>
 
   {% if brief.quiet %}
@@ -93,6 +109,39 @@
   {% endif %}
   <p class="hint brief-footer">{{ t('brief_footer') }} {{ t('editorial_note') }} <a href="method.html">{{ t('how_this_works') }}</a></p>
 </section>
+<script type="application/json" id="pulse-state">{{ state_json }}</script>
+<script>
+(function(){
+  var S=JSON.parse(document.getElementById('pulse-state').textContent), L={{ strings_json }};
+  var FK='pulse-follow', SK='pulse-snapshot';
+  function get(k,d){try{return JSON.parse(localStorage.getItem(k))||d;}catch(e){return d;}}
+  function put(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+  var follows=get(FK,[]);
+  function paint(){document.querySelectorAll('.follow').forEach(function(b){var on=follows.indexOf(b.dataset.slug)>=0;b.textContent=on?b.dataset.following:b.dataset.follow;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);});}
+  document.querySelectorAll('.follow').forEach(function(b){b.addEventListener('click',function(){var i=follows.indexOf(b.dataset.slug);if(i>=0){follows.splice(i,1);}else{follows.push(b.dataset.slug);}put(FK,follows);paint();});});
+  paint();
+  var box=document.getElementById('since'), list=document.getElementById('since-list'), h=document.getElementById('since-h'), hint=document.getElementById('since-hint');
+  var snap=get(SK,null);
+  if(box){
+    box.hidden=false;
+    if(!snap){ h.textContent=L.since_first; hint.textContent=L.since_none_followed; }
+    else{
+      h.textContent=L.since_h.replace('{d}', snap.date);
+      var slugs=follows.length?follows:Object.keys(S.topics), any=false;
+      slugs.forEach(function(sl){var now=S.topics[sl], was=snap.topics[sl]; if(!now) return;
+        var newN=was?now.latest.filter(function(u){return was.latest.indexOf(u)<0;}).length:0;
+        var parts=[]; if(newN) parts.push(L.since_new.replace('{n}',newN));
+        if(was&&was.status!==now.status) parts.push(L.since_status.replace('{status}',now.status_label).replace('{old}',was.status_label));
+        if(!parts.length){ if(follows.length){parts.push(L.since_same);} else return; }
+        any=true; var li=document.createElement('li'); li.innerHTML='<a href="'+now.url+'"><b>'+now.name+'</b></a> — '+parts.join(' · '); list.appendChild(li);});
+      if(!any){ var li=document.createElement('li'); li.textContent=L.since_same; list.appendChild(li); }
+      hint.textContent=follows.length?'':L.since_none_followed;
+    }
+    var today={{ today | tojson }}; var t={}; Object.keys(S.topics).forEach(function(k){t[k]={status:S.topics[k].status,status_label:S.topics[k].status_label,latest:S.topics[k].latest};});
+    put(SK,{date:today,topics:t});
+  }
+})();
+</script>
 {% if lang == 'en' %}
 <script>
 (function(){

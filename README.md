@@ -17,13 +17,18 @@ publishes a brief — opened by a model-drafted **"This week in 60 seconds"** �
    table (exact deadlines), with the submission email and addressee **read out of the notice
    itself**, the regulator's usual channel, and a copy-paste comment template. Daily reminders at
    7 days and 48 hours.
-2. **🔥 What's moving** — the three topics with the most momentum, each with a hook headline,
+2. **🔥 Three signals worth watching** — each with a *why it's moving* mini-explanation (dated actions,
+   institutions involved, a rule-based interpretation), a hook headline,
    "For you →" lines per persona (student / gig worker / founder / salaried — pick yours once and
    the page filters to you), a confidence label, and ✓ marks where the action was independently reported.
 3. **😴 Confirmed quiet** — topics with no formal action, stated explicitly.
 
+**Follow** any topic and the next visit opens with *"Since your last visit: 2 new actions · now
+Heating up, was Steady"* — computed in your browser from a local snapshot; nothing is sent anywhere.
+
 The website (English + Hindi) is the archive: every topic's 17-month evidence trail, policy
-**journeys** (the same Bill tracked committee → draft → law → rules), and the full method.
+**journeys** (the same Bill tracked committee → draft → law → rules, with its current lifecycle
+stage), what would make each signal fade, connected topics, and the full method.
 The Telegram channel is the product; the site is where the receipts live.
 
 ## What makes it different
@@ -104,7 +109,8 @@ or Cloud SQL when the dataset outgrows git.
 - [x] Phase 1 — Hindi edition, confidence + caveats, this-week brief, Telegram digest + deadline pings
 - [x] Phase 2 — independent cross-check (PIB / newspapers via Google News), policy journeys
 - [x] Phase 3a — live consultations feed with exact deadlines; notices read for submission address; persona lens; editor's note
-- [ ] Phase 3b — email digest, exam (GS-paper) tags, Hindi hooks/"For you", Hindi audio, state legislatures
+- [x] Phase 3b — follow topics + "since your last visit", "why is this moving?", counter-signals, connected topics, lifecycle stages
+- [ ] Phase 3c — email digest, exam (GS-paper) tags, Hindi hooks/"For you", Hindi audio, location relevance, state legislatures
 - [ ] Phase 4 — model-structured notice reading (format, page limits, addressee); PIB RSS as a direct feed
 
 ## Attribution

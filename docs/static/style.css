@@ -244,3 +244,44 @@ body[data-persona="gig"] .moving .why li:not(:has(.fy[data-persona="gig"])),
 body[data-persona="founder"] .moving .why li:not(:has(.fy[data-persona="founder"])),
 body[data-persona="salaried"] .moving .why li:not(:has(.fy[data-persona="salaried"])) { opacity: .5; }
 body[data-persona] .for-you:not(:has(dd[data-persona])) { display: none; }
+
+/* --- signal cards, follow, since, causal, stages --- */
+.signals { list-style: none; margin: 0; padding: 0; counter-reset: sig; }
+.signal { padding: 1rem 0 1.1rem; border-top: 1px solid var(--line); position: relative; }
+.signal:first-child { border-top: 0; padding-top: .3rem; }
+.signal-head { display: flex; align-items: center; gap: .7rem; flex-wrap: wrap; }
+.rank { width: 1.7rem; height: 1.7rem; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; font-size: .85rem; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.signal-title { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; flex: 1; }
+.signal-title a { text-decoration: none; }
+.signal-title strong { font-family: Newsreader, Georgia, serif; font-size: 1.3rem; font-weight: 600; }
+body.lang-hi .signal-title strong { font-family: "Noto Serif Devanagari", serif; }
+.signal-metrics { display: flex; flex-wrap: wrap; gap: 1.1rem; margin: .5rem 0 .6rem 2.4rem; font-size: .85rem; color: var(--muted); align-items: baseline; }
+.signal-metrics b { font-size: 1.05rem; color: var(--fg); }
+.signal-why { margin: 0 0 .5rem 2.4rem; padding: .6rem .9rem; background: color-mix(in srgb, var(--accent) 6%, var(--bg)); border-radius: 10px; font-size: .88rem; }
+.signal-why .label, .connections .label { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 .3rem; font-weight: 600; }
+.why-count { margin: 0 0 .4rem; }
+.causal { list-style: none; margin: .2rem 0 .4rem; padding: 0 0 0 .3rem; border-left: 2px solid var(--line); }
+.causal li { display: flex; flex-wrap: wrap; gap: .5rem; align-items: baseline; padding: .2rem 0 .2rem .8rem; position: relative; font-size: .88rem; }
+.causal li::before { content: ""; position: absolute; left: -6px; top: .65rem; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.causal .when { color: var(--muted); font-size: .78rem; min-width: 4rem; font-variant-numeric: tabular-nums; }
+.causal .what { flex: 1; min-width: 12rem; }
+.interp { margin: .3rem 0 0; font-size: .88rem; }
+.signal .why { margin-left: 2.4rem; border-top: 0; padding-top: .2rem; }
+.connections { margin: .3rem 0 0 2.4rem; font-size: .85rem; display: flex; gap: .4rem; flex-wrap: wrap; align-items: center; }
+.connections .tag { text-decoration: none; }
+.explore { display: inline-block; margin: .6rem 0 0 2.4rem; font-weight: 600; text-decoration: none; color: var(--accent); }
+.explore:hover { text-decoration: underline; }
+.follow { font: inherit; font-size: .78rem; font-weight: 600; border: 1px solid var(--line); background: var(--card); color: var(--fg); border-radius: 999px; padding: .25rem .7rem; cursor: pointer; margin-left: auto; }
+.follow.on { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.topic-head .follow { margin-left: .5rem; vertical-align: middle; }
+.since-block { border-left: 4px solid #2563eb; }
+.since { list-style: none; margin: .2rem 0; padding: 0; }
+.since li { padding: .3rem 0; border-bottom: 1px solid var(--line); font-size: .92rem; }
+.since li:last-child { border-bottom: 0; }
+.since a { text-decoration: none; }
+.counter { margin: .8rem 0 0; font-size: .9rem; padding-top: .6rem; border-top: 1px dashed var(--line); }
+.stages { list-style: none; display: flex; gap: 4px; padding: 0; margin: .3rem 0 .8rem; font-size: .7rem; text-transform: uppercase; letter-spacing: .04em; }
+.stages li { flex: 1; text-align: center; padding: .35rem .2rem; background: var(--bg); border: 1px solid var(--line); color: var(--muted); border-radius: 6px; }
+.stages li.done { background: color-mix(in srgb, var(--accent) 18%, var(--bg)); color: var(--fg); border-color: transparent; }
+.stages li.now { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 700; }
+@media (max-width: 640px) { .stages { flex-wrap: wrap; } .stages li { flex: 1 1 30%; } .signal-metrics, .signal-why, .signal .why, .connections, .explore { margin-left: 0; } }

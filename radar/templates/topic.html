@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_item.html" import corroboration, headline, for_you %}
+{% from "_item.html" import corroboration, headline, for_you, follow_btn, why_moving, stage_bar %}
 {% block title %}{{ ts.topic.label(lang) }} — {{ t('site_title') }}{% endblock %}
 {% block desc %}{{ ts.topic.tag(lang) }} {{ ts.status | status }}, {{ ts.confidence | confidence }} {{ t('confidence_word') }}.{% endblock %}
 {% block body %}
@@ -7,7 +7,7 @@
   <a class="back" href="../index.html">{{ t('back') }}</a>
   <div class="topic-head">
     <div>
-      <span class="pill status-{{ ts.status }}" title="{{ ts.status | status_help }}">{{ ts.status | status }}</span>
+      <span class="pill status-{{ ts.status }}" title="{{ ts.status | status_help }}">{{ ts.status | status }}</span> {{ follow_btn(ts) }}
       <h1>{{ ts.topic.label(lang) }}</h1>
       <p class="lede">{{ ts.topic.tag(lang) }}</p>
     </div>
@@ -47,15 +47,10 @@
 
   <div class="two-col">
     <section class="why-box">
-      <h2>{{ t('why_h2') }}</h2>
-      {% if ts.why %}
-      <ul class="plain">
-        {% for e in ts.why %}
-        <li><span class="tag action-{{ e.action }}" title="{{ e.action | action_help }}">{{ e.action | action }}</span> {{ (e.hook if lang == 'en' and e.hook else (e.title_l or e.title)) }}{% if lang != 'en' and not e.title_l %} <small class="en-tag">{{ t('english_only') }}</small>{% endif %}{% if e.corroborated %} <span class="corr-check" title="{{ t('corroborated') }}">{{ t('corr_check') }}</span>{% endif %} <small>({{ e.month | month }})</small></li>
-        {% endfor %}
-      </ul>
-      {% else %}
-      <p>{{ t('why_none', w=recent_window) }}</p>
+      {{ why_moving(ts) }}
+      {% if ts.connections %}
+      <p class="connections"><span class="label">{{ t('connections_h') }}:</span>
+        {% for c in ts.connections %}<a href="{{ c.slug }}.html" class="tag" style="--accent: {{ c.topic.color }}" title="{{ t('shared_items', items=(c.shared | join('; '))) }}">{{ c.topic.label(lang) }}</a>{% endfor %}</p>
       {% endif %}
     </section>
     <section class="caveat-box">
@@ -63,6 +58,7 @@
       <ul class="plain">
         {% for c in ts.caveats %}<li>{{ c | msg }}</li>{% endfor %}
       </ul>
+      {% if ts.counter %}<p class="counter"><b>{{ t('counter_h') }}:</b> {{ ts.counter | msg }}</p>{% endif %}
       <details>
         <summary>{{ t('why_conf', c=(ts.confidence | confidence)) }}</summary>
         <ul class="plain small">
@@ -79,6 +75,7 @@
     {% for c in topic_chains %}
     <div class="journey">
       <h3>{{ c.name_hi if lang == 'hi' and c.name_hi else c.name }}</h3>
+      {{ stage_bar(c) }}
       <ol class="steps">
         {% for st in c.steps %}
         <li class="step action-{{ st.action }}">

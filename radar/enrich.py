@@ -114,6 +114,19 @@ def lookup(conn: sqlite3.Connection) -> dict[str, dict]:
     return out
 
 
+# Lifecycle stage index for a chain, from its latest step's action type
+_STAGE = {"consultation": 0, "committee": 1, "cabinet": 1, "introduced": 2, "court": 2, "enacted": 3,
+          "rules": 4, "scheme": 4, "other": None}
+
+
+def chain_stage(steps: list[dict]) -> int | None:
+    for st in reversed(steps):
+        idx = _STAGE.get(st["action"])
+        if idx is not None:
+            return idx
+    return None
+
+
 def load_chains(conn: sqlite3.Connection) -> list[dict]:
     """Chains are curated lists of uids for one instrument; steps missing from the DB are dropped."""
     if not CHAINS.exists():
@@ -124,7 +137,7 @@ def load_chains(conn: sqlite3.Connection) -> list[dict]:
         steps = [dict(existing[u], uid=u) for u in c.get("steps", []) if u in existing]
         steps.sort(key=lambda s: (s["month"], s["uid"]))
         if len(steps) >= 2:
-            chains.append(dict(c, steps=steps))
+            chains.append(dict(c, steps=steps, stage=chain_stage(steps)))
     return chains
 
 
