@@ -549,34 +549,43 @@
  ],
  "consultations": [
   {
-   "title": "Draft National Pharmacy Commission Bill, 2026 released",
-   "sector": "Health and Family Welfare",
-   "deadline": null,
-   "status": "unknown",
-   "days_left": null,
-   "source": "https://prsindia.org/policy/monthly-policy-review/july-2026",
-   "links": [],
-   "respond_via": "Ministry of Health and Family Welfare"
+   "title": "The Indian Statistical Institute Bill, 2026",
+   "sector": "Parliament",
+   "deadline": "2026-09-28",
+   "status": "open",
+   "days_left": 1,
+   "source": "https://prsindia.org/announcements",
+   "links": [
+    "https://prsindia.org/files/parliamentry-announcement/2026-09-28/Press release for ISI Bill, 2026.pdf",
+    "https://prsindia.org/files/parliamentry-announcement/2026-09-28/Press release for ISI Bill, 2026.pdf"
+   ],
+   "respond_via": "Parliamentary Standing Committee on Finance"
   },
   {
-   "title": "Draft Advocate (Amendment) Bill released for comments",
-   "sector": "Law and Justice",
-   "deadline": null,
-   "status": "unknown",
-   "days_left": null,
-   "source": "https://prsindia.org/policy/monthly-policy-review/july-2026",
-   "links": [],
-   "respond_via": "Ministry of Law and Justice"
+   "title": "The Foreign Contribution (Regulation) Amendment Bill, 2026",
+   "sector": "Parliament",
+   "deadline": "2026-09-25",
+   "status": "closed",
+   "days_left": -2,
+   "source": "https://prsindia.org/announcements",
+   "links": [
+    "https://prsindia.org/files/parliamentry-announcement/2026-09-25/FCRA_press release.pdf",
+    "https://prsindia.org/files/parliamentry-announcement/2026-09-25/FCRA_press release.pdf"
+   ],
+   "respond_via": "Joint Committee on the Foreign Contribution"
   },
   {
-   "title": "Comments invited on the draft Rules and Regulations under the SHANTI Act, 2025",
+   "title": "Draft SHANTI Rules and Draft SHANTI Regulations",
    "sector": "Energy",
    "deadline": "2026-09-04",
    "status": "closed",
    "days_left": -23,
    "source": "https://prsindia.org/policy/monthly-policy-review/august-2026",
-   "links": [],
-   "respond_via": null
+   "links": [
+    "https://dae.gov.in/public-consultation-on-draft-shanti-rules-and-draft-shanti-regulations/",
+    "https://dae.gov.in/public-consultation-on-draft-shanti-rules-and-draft-shanti-regulations/"
+   ],
+   "respond_via": "Department of Atomic Energy"
   },
   {
    "title": "Draft amendments to Establishment of New Medical Institution Regulations, 2023 released",
@@ -586,6 +595,45 @@
    "days_left": -51,
    "source": "https://prsindia.org/policy/monthly-policy-review/july-2026",
    "links": [],
+   "respond_via": null
+  },
+  {
+   "title": "Draft Advocates (Amendment) Bill, 2026",
+   "sector": "Law and Justice",
+   "deadline": "2026-07-31",
+   "status": "closed",
+   "days_left": -58,
+   "source": "https://prsindia.org/policy/monthly-policy-review/july-2026",
+   "links": [
+    "https://prsindia.org/files/parliamentry-announcement/2026-07-31/Draft_Advocate_(A)_Bill_2026.pdf",
+    "https://www.barcouncilofindia.org/info/req-for-su-ch2hbe"
+   ],
+   "respond_via": "Bar Council of India"
+  },
+  {
+   "title": "The Draft National Pharmacy Commission Bill, 2026",
+   "sector": "Health and Family Welfare",
+   "deadline": "2026-07-31",
+   "status": "closed",
+   "days_left": -58,
+   "source": "https://prsindia.org/policy/monthly-policy-review/july-2026",
+   "links": [
+    "https://prsindia.org/files/parliamentry-announcement/2026-07-31/Draft_National_Pharmacy_Commission_(NPC)_Bill_2026.pdf",
+    "https://www.mohfw-dohfw.gov.in/static/uploads/2026/07/e09761311aa45a6e996226aa33b2d87f.pdf"
+   ],
+   "respond_via": "Ministry of Health and Family Welfare"
+  },
+  {
+   "title": "The Draft National Food Security (Amendment) Bill, 2026",
+   "sector": "Parliament",
+   "deadline": "2026-07-13",
+   "status": "closed",
+   "days_left": -76,
+   "source": "https://prsindia.org/announcements",
+   "links": [
+    "https://prsindia.org/files/parliamentry-announcement/2026-07-13/National_Food_Security_(Amendment)_Bill_2026.pdf",
+    "https://dfpd.gov.in/WriteReadData/Notices/87b4c79f-0200-4a16-b6c4-1b841d8cb1bb_Inviting%20comments%20on%20NFS%20(Amendment)%20Bill,%202026.pdf"
+   ],
    "respond_via": null
   }
  ],

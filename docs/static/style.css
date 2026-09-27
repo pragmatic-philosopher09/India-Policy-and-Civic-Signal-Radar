@@ -108,8 +108,14 @@ footer p { margin: .25rem 0; }
 .conf-low { color: #b45309; } .conf-medium { color: #2563eb; } .conf-high { color: #059669; }
 .stat strong.muted { color: var(--muted); }
 .why { list-style: none; margin: .7rem 0 0; padding: .7rem 0 0; border-top: 1px dashed var(--line); font-size: .82rem; color: var(--fg); }
-.why li { display: flex; gap: .5rem; align-items: baseline; margin: .25rem 0; line-height: 1.35; }
-.why li span { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); transform: translateY(-1px); }
+.why li { display: flex; gap: .55rem; align-items: baseline; margin: .3rem 0; line-height: 1.4; }
+.why .dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); transform: translateY(-1px); }
+.why .why-text { flex: 1; min-width: 0; }
+.why .why-text .tag { margin-right: .25rem; vertical-align: baseline; }
+.why-link { color: inherit; text-decoration: none; }
+.why-link:hover { text-decoration: underline; }
+.why .fy { display: none; margin: .25rem 0 0; padding: .35rem .6rem; border-radius: 6px; background: color-mix(in srgb, var(--accent) 8%, var(--bg)); font-size: .8rem; line-height: 1.4; }
+.why .fy b { color: var(--accent); font-weight: 600; }
 .why-empty { margin: .7rem 0 0; padding: .7rem 0 0; border-top: 1px dashed var(--line); font-size: .8rem; color: var(--muted); }
 .linkish { color: var(--accent); }
 .hint.center { text-align: center; max-width: 720px; margin: -1rem auto 2.5rem; }
@@ -181,7 +187,8 @@ body.lang-hi .moving-head strong { font-family: "Noto Serif Devanagari", serif; 
 .stat-inline { font-size: .85rem; color: var(--muted); }
 .stat-inline b { font-size: 1rem; }
 .moving .why { border-top: 0; padding-top: .3rem; margin-top: .2rem; }
-.moving .why li span:first-child { background: var(--accent); }
+.moving .why li .dot { background: var(--accent); }
+.moving .why li { font-size: .92rem; }
 .quiet-list { margin: 0 0 .4rem; font-weight: 500; }
 .quiet-list a { text-decoration: none; border-bottom: 1px dotted var(--muted); }
 .brief-footer { margin: .4rem 0 0; }
@@ -213,3 +220,27 @@ body.lang-hi .hook { font-family: "Noto Serif Devanagari", serif; }
 .step-month { font-size: .78rem; color: var(--muted); min-width: 4.2rem; }
 .step a { text-decoration: none; border-bottom: 1px dotted var(--muted); }
 .journey .next { font-size: .86rem; color: var(--muted); margin: .6rem 0 0; }
+.related { display: block; color: var(--muted); font-size: .78rem; margin-top: .3rem; }
+blockquote.excerpt { margin: .5rem 0; padding: .4rem .8rem; border-left: 3px solid var(--line); color: var(--muted); font-size: .82rem; font-style: italic; }
+
+/* --- editor's note, AI tag, persona lens --- */
+.note-block { border-left: 4px solid var(--fg); }
+.note-kicker { margin: 0 0 .4rem; font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
+.ai-tag { text-transform: none; letter-spacing: 0; font-size: .7rem; border: 1px solid var(--line); border-radius: 999px; padding: .05rem .5rem; cursor: help; }
+.note { margin: 0; font-family: Newsreader, Georgia, serif; font-size: 1.12rem; line-height: 1.5; }
+body.lang-hi .note { font-family: "Noto Serif Devanagari", serif; }
+.persona-bar { display: flex; flex-wrap: wrap; gap: .45rem; align-items: center; margin: .2rem 0 1rem; }
+.persona-prompt { font-size: .85rem; color: var(--muted); margin-right: .2rem; }
+.chip { font: inherit; font-size: .82rem; font-weight: 600; padding: .3rem .8rem; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--fg); cursor: pointer; }
+.chip:hover { border-color: var(--muted); }
+.chip.on { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+body[data-persona] .for-you dd { display: none; }
+body[data-persona="student"] .for-you dd[data-persona="student"], body[data-persona="gig"] .for-you dd[data-persona="gig"],
+body[data-persona="founder"] .for-you dd[data-persona="founder"], body[data-persona="salaried"] .for-you dd[data-persona="salaried"] { display: block; }
+body[data-persona="student"] .why .fy[data-persona="student"], body[data-persona="gig"] .why .fy[data-persona="gig"],
+body[data-persona="founder"] .why .fy[data-persona="founder"], body[data-persona="salaried"] .why .fy[data-persona="salaried"] { display: block; }
+body[data-persona="student"] .moving .why li:not(:has(.fy[data-persona="student"])),
+body[data-persona="gig"] .moving .why li:not(:has(.fy[data-persona="gig"])),
+body[data-persona="founder"] .moving .why li:not(:has(.fy[data-persona="founder"])),
+body[data-persona="salaried"] .moving .why li:not(:has(.fy[data-persona="salaried"])) { opacity: .5; }
+body[data-persona] .for-you:not(:has(dd[data-persona])) { display: none; }

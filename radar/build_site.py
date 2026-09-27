@@ -18,7 +18,11 @@ from markupsafe import Markup
 from . import db
 from .config import ACTION_WEIGHTS, BASELINE_WINDOW, CHANNEL_URL, PRS_ATTRIBUTION, RECENT_WINDOW, TOPIC_BY_SLUG
 from .crosscheck import lookup as corroborations_for
-from .enrich import PERSONAS, load_chains, lookup as enrichment_for
+from .enrich import PERSONAS, editor_note, load_chains, lookup as enrichment_for
+from . import notice
+from .announcements import load as load_announcements
+from .score import tag_topics
+from .parse import Item
 from .i18n import DEFAULT_LANG, LANGS, nice_date, pretty_month, sector_label, t
 from .score import score_topics
 from .translate import lookup as translations_for
@@ -130,42 +134,92 @@ def _deadline(body: str) -> str | None:
 
 
 def _consultations(conn, months: list[str], topic_of: dict[str, str], today: date,
-                   corr: dict[str, list[dict]] | None = None, enr: dict[str, dict] | None = None) -> dict[str, list[dict]]:
-    """Drafts released for comment in the last two reviews, split into open / unknown-deadline / closed."""
+                   corr: dict[str, list[dict]] | None = None, enr: dict[str, dict] | None = None,
+                   lookback_days: int = 120) -> dict[str, list[dict]]:
+    """Drafts open for comment: PRS Announcements (exact deadlines) first, monthly-review items as fallback.
+
+    Buckets: open / unknown-deadline / closed (incl. 'likely closed').
+    """
     corr = corr or {}
     enr = enr or {}
     buckets: dict[str, list[dict]] = {"open": [], "unknown": [], "closed": []}
-    if not months:
-        return buckets
-    window = months[-2:]
-    rows = conn.execute(
-        f"""SELECT uid, month, sector, title, body, summary, links, source_url FROM items
-            WHERE action = 'consultation' AND month IN ({','.join('?' * len(window))})
-            ORDER BY month DESC, sector""",
-        window,
-    ).fetchall()
-    for r in rows:
-        slug = topic_of.get(r["uid"])
-        raw = _deadline(r["body"])
-        due = parse_deadline(raw)
-        days_left = (due - today).days if due else None
-        entry = dict(
-            uid=r["uid"], title=r["title"], month=r["month"], sector=r["sector"], summary=r["summary"],
-            links=json.loads(r["links"]), source_url=r["source_url"],
-            deadline=due, deadline_raw=raw, days_left=days_left,
-            topic=TOPIC_BY_SLUG.get(slug) if slug else None,
-            route=respond_route(r["title"], r["body"]), corroborations=corr.get(r["uid"], []),
-            hook=(enr.get(r["uid"]) or {}).get("hook"), so_what=(enr.get(r["uid"]) or {}).get("so_what") or {},
-        )
-        if due is None:
-            buckets["unknown"].append(entry)
-        elif days_left >= 0:
-            buckets["open"].append(entry)
+    items_by_uid = {r["uid"]: r for r in conn.execute(
+        "SELECT uid, month, sector, title, body, summary, action, links, source_url FROM items")}
+    covered: set[str] = set()
+
+    def base_entry(uid: str, title: str, month: str, sector: str, body: str, summary, links, source_url) -> dict:
+        slug = topic_of.get(uid)
+        if not slug:
+            tags = tag_topics(Item(month=month, sector=sector, title=title, body=body or ""), threshold=3)
+            slug = max(tags, key=tags.get) if tags else None
+        return dict(uid=uid, title=title, month=month, sector=sector, summary=summary, links=links,
+                    source_url=source_url, topic=TOPIC_BY_SLUG.get(slug) if slug else None,
+                    route=respond_route(title, body or ""), corroborations=corr.get(uid, []),
+                    hook=(enr.get(uid) or {}).get("hook"), so_what=(enr.get(uid) or {}).get("so_what") or {},
+                    deadline=None, deadline_raw=None, days_left=None, deadline_source=None)
+
+    # 1) live announcements
+    for a in load_announcements(conn):
+        if a["deadline"] and (today - a["deadline"]).days > lookback_days:
+            continue
+        it = items_by_uid.get(a["item_uid"]) if a["item_uid"] else None
+        month = it["month"] if it else (a["first_seen"][:7] if a.get("first_seen") else today.strftime("%Y-%m"))
+        links = [u for u in (a["draft_url"], a["press_url"], a["analysis_url"]) if u]
+        if it and it["action"] == "consultation":   # same draft in the review: borrow its editorial layer
+            e = base_entry(it["uid"], a["title"], it["month"], it["sector"], it["body"], it["summary"],
+                           links + [l for l in json.loads(it["links"]) if l not in links], it["source_url"])
         else:
-            buckets["closed"].append(entry)
+            e = base_entry(f"ann:{a['key']}", a["title"], month, "Parliament" if "Bill" in a["title"] else "Government",
+                           it["body"] if it else "", None, links, URL_ANNOUNCEMENTS)
+            if it:  # related item at another stage (e.g. the Bill later introduced) — keep as context
+                e["related"] = dict(uid=it["uid"], title=it["title"], month=it["month"], action=it["action"])
+        if it:
+            covered.add(it["uid"])
+        e["deadline"], e["deadline_source"] = a["deadline"], "prs-announcements"
+        e["press_url"], e["draft_url"] = a["press_url"], a["draft_url"]
+        e["from_announcements"] = True
+        facts = notice.facts_for(conn, [a["press_url"], a["draft_url"]])
+        if facts:
+            if facts["emails"]:
+                e["email"] = facts["emails"][0]
+            if facts["addressee"]:
+                e["route"] = dict(e["route"], body=facts["addressee"], how="email")
+            e["notice_excerpt"] = facts["excerpt"]
+        notice.apply(e, today)
+        _bucket(buckets, e)
+
+    # 2) monthly-review consultations not covered above
+    if months:
+        window = months[-2:]
+        for r in conn.execute(
+                f"""SELECT uid, month, sector, title, body, summary, links, source_url FROM items
+                    WHERE action = 'consultation' AND month IN ({','.join('?' * len(window))})
+                    ORDER BY month DESC, sector""", window):
+            if r["uid"] in covered:
+                continue
+            e = base_entry(r["uid"], r["title"], r["month"], r["sector"], r["body"], r["summary"],
+                           json.loads(r["links"]), r["source_url"])
+            raw = _deadline(r["body"])
+            e["deadline"], e["deadline_raw"] = parse_deadline(raw), raw
+            e["deadline_source"] = "prs" if e["deadline"] else None
+            notice.apply(e, today)
+            _bucket(buckets, e)
+
     buckets["open"].sort(key=lambda e: e["days_left"])
-    buckets["closed"].sort(key=lambda e: e["days_left"], reverse=True)
+    buckets["closed"].sort(key=lambda e: (e["days_left"] is None, -(e["days_left"] or 0)))
     return buckets
+
+
+def _bucket(buckets: dict, e: dict) -> None:
+    if e["deadline"] is None:
+        buckets["closed" if e["likely_closed"] else "unknown"].append(e)
+    elif e["days_left"] >= 0:
+        buckets["open"].append(e)
+    else:
+        buckets["closed"].append(e)
+
+
+URL_ANNOUNCEMENTS = "https://prsindia.org/announcements"
 
 
 def _localise(scores, consultations, tr: dict[str, dict]) -> None:
@@ -187,7 +241,14 @@ def _render_lang(lang: str, conn, scores, consultations, ctx: dict, n_items: int
     out = OUT if lang == DEFAULT_LANG else OUT / lang
     (out / "topic").mkdir(parents=True, exist_ok=True)
     top = "" if lang == DEFAULT_LANG else "../"          # from a top-level page back to docs/
-    ctx = dict(ctx, other_langs=[l for l in LANGS if l != lang])
+    iso = date.fromisoformat(ctx["today"]).isocalendar()
+    week = f"{iso[0]}-W{iso[1]:02d}"
+    payload = dict(
+        respond=[dict(title=c["title"], deadline=c["deadline"].isoformat() if c["deadline"] else None, email=c.get("email")) for c in ctx["brief"]["respond"]],
+        moving=[dict(topic=ts.topic.name, status=ts.status, change=ts.change_pct, confidence=ts.confidence,
+                     why=[e.title for e in ts.why[:3]]) for ts in ctx["brief"]["moving"]],
+        quiet=[ts.topic.name for ts in ctx["brief"]["quiet"]])
+    ctx = dict(ctx, other_langs=[l for l in LANGS if l != lang], editor_note=editor_note(conn, week, lang, payload), week=week)
 
     (out / "index.html").write_text(env.get_template("index.html").render(
         scores=scores, consultations=consultations, n_months=n_months, n_items=n_items,

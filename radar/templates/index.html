@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_item.html" import consultation_item, corroboration %}
+{% from "_item.html" import consultation_item, corroboration, deadline_tag %}
 {% set L = '' if lang == 'en' else lang ~ '/' %}
 {% block body %}
 <section class="hero compact">
@@ -14,6 +14,21 @@
 
 <section class="week">
   <h2 class="kicker">{{ t('this_week') }}</h2>
+
+  {% if editor_note %}
+  <div class="block note-block">
+    <p class="note-kicker">{{ t('note_kicker') }} <span class="ai-tag" title="{{ t('ai_tag_help') }}">{{ t('ai_tag') }}</span></p>
+    <p class="note">{{ editor_note }}</p>
+  </div>
+  {% endif %}
+
+  {% if lang == 'en' %}
+  <div class="persona-bar" role="group" aria-label="{{ t('persona_prompt') }}">
+    <span class="persona-prompt">{{ t('persona_prompt') }}</span>
+    {% for k in personas %}<button type="button" class="chip" data-persona="{{ k }}">{{ t('persona_' ~ k) }}</button>{% endfor %}
+    <button type="button" class="chip" data-persona="">{{ t('persona_all') }}</button>
+  </div>
+  {% endif %}
 
   <div class="block respond-block">
     <h3>🗣 {{ t('respond_h2') }}</h3>
@@ -30,8 +45,8 @@
       <ul class="evidence muted-list">
         {% for e in consultations.closed %}
         <li>
-          <span class="tag due-closed">{{ t('closed_on', d=(e.deadline | nice_date)) }}</span>
-          <strong>{{ e.title_l or e.title }}</strong>
+          {{ deadline_tag(e) }}
+          <strong>{{ e.hook if lang == 'en' and e.hook else (e.title_l or e.title) }}</strong>
           <small>{{ e.sector | sector }} · <a href="{{ e.source_url }}">{{ t('prs_month', m=(e.month | month)) }}</a></small>
         </li>
         {% endfor %}
@@ -55,10 +70,13 @@
         </a>
         <ul class="why">
           {% for e in ts.why[:3] %}
-          <li><span class="dot-{{ e.action }}"></span>
-            <span class="tag action-{{ e.action }}" title="{{ e.action | action_help }}">{{ e.action | action }}</span>
-            {{ (e.hook if lang == 'en' and e.hook else (e.title_l or e.title)) }}{% if e.corroborated %} <span class="corr-check" title="{{ t('corroborated') }}">{{ t('corr_check') }}</span>{% endif %}
-            <small>({{ e.month | month }})</small></li>
+          <li class="action-{{ e.action }}"><span class="dot"></span>
+            <span class="why-text">
+              <span class="tag action-{{ e.action }}" title="{{ e.action | action_help }}">{{ e.action | action }}</span>
+              <a class="why-link" href="{{ e.links[0] if e.links else e.source_url }}">{{ (e.hook if lang == 'en' and e.hook else (e.title_l or e.title)) }}</a>{% if e.corroborated %} <span class="corr-check" title="{{ t('corroborated') }}">{{ t('corr_check') }}</span>{% endif %}
+              <small>({{ e.month | month }})</small>
+              {% if lang == 'en' and e.so_what %}{% for k in personas if e.so_what.get(k) %}<span class="fy" data-persona="{{ k }}"><b>{{ t('persona_' ~ k) }}:</b> {{ e.so_what[k] }}</span>{% endfor %}{% endif %}
+            </span></li>
           {% endfor %}
         </ul>
       </li>
@@ -73,8 +91,20 @@
     <p class="hint">{{ t('quiet_note') }}</p>
   </div>
   {% endif %}
-  <p class="hint brief-footer">{{ t('brief_footer') }} <a href="method.html">{{ t('how_this_works') }}</a></p>
+  <p class="hint brief-footer">{{ t('brief_footer') }} {{ t('editorial_note') }} <a href="method.html">{{ t('how_this_works') }}</a></p>
 </section>
+{% if lang == 'en' %}
+<script>
+(function(){
+  var KEY='pulse-persona', body=document.body;
+  function set(p){ if(p){body.setAttribute('data-persona',p);}else{body.removeAttribute('data-persona');}
+    document.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('on',(c.dataset.persona||'')===(p||''));});
+    try{ if(p){localStorage.setItem(KEY,p);}else{localStorage.removeItem(KEY);} }catch(e){} }
+  document.querySelectorAll('.chip').forEach(function(c){c.addEventListener('click',function(){set(c.dataset.persona);});});
+  try{ set(localStorage.getItem(KEY)||''); }catch(e){ set(''); }
+})();
+</script>
+{% endif %}
 
 <section class="all-topics">
   <h2 class="kicker">{{ t('all_topics_h2') }}</h2>

@@ -689,5 +689,19 @@
    "salaried": "EMIs eased.",
    "student": "Education loans cheaper."
   }
+ },
+ "ann:d3103590dd1991c8": {
+  "hook": "Parliament's finance committee wants your views on the new ISI Bill — closes 28 September.",
+  "so_what": {
+   "student": "Statistics, maths and data-science students: this Bill rewrites how the Indian Statistical Institute is governed and what degrees it grants.",
+   "founder": "Data and AI companies that hire from ISI: governance and autonomy of the institute are on the table."
+  }
+ },
+ "ann:ebc08a80c261df26": {
+  "hook": "Foreign funding rules for NGOs are being tightened again — a joint committee took suggestions till 25 September.",
+  "so_what": {
+   "student": "If you volunteer or intern with an NGO that gets foreign grants, its funding rules may change.",
+   "founder": "Non-profit founders and social enterprises: FCRA compliance is about to get stricter."
+  }
  }
 }

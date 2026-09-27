@@ -26,7 +26,7 @@ BATCH = 10
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS enrichment (
-    uid     TEXT PRIMARY KEY REFERENCES items(uid) ON DELETE CASCADE,
+    uid     TEXT PRIMARY KEY,           -- item uid, or ann:<key> for live announcements
     hook    TEXT,
     so_what TEXT,                        -- JSON {persona: line}
     source  TEXT NOT NULL DEFAULT 'llm'  -- llm | seed
@@ -57,7 +57,7 @@ def load_seed(conn: sqlite3.Connection) -> int:
     n = 0
     with conn:
         for uid, e in data.items():
-            if uid.startswith("_") or uid not in existing:
+            if uid.startswith("_") or (uid not in existing and not uid.startswith("ann:")):
                 continue
             so_what = {k: v for k, v in (e.get("so_what") or {}).items() if k in PERSONAS and v}
             cur = conn.execute(
@@ -126,3 +126,38 @@ def load_chains(conn: sqlite3.Connection) -> list[dict]:
         if len(steps) >= 2:
             chains.append(dict(c, steps=steps))
     return chains
+
+
+NOTES = Path("data/editor_notes.json")
+
+_NOTE_PROMPT = """You are the editor of Policy Pulse. Write this week's note (max 120 words, one paragraph, plain English,
+no hype) for readers aged 18-30 in India. Lead with anything they can still act on (open consultations with deadlines),
+then what is genuinely moving and why, then what is quiet. Every claim must come from the data below; do not invent.
+Return ONLY the paragraph.
+
+Data:
+{payload}"""
+
+
+def editor_note(conn: sqlite3.Connection, week: str, lang: str, payload: dict | None = None) -> str | None:
+    """Seeded note for the ISO week if present; else Claude (English only) when a key exists."""
+    if NOTES.exists():
+        data = json.loads(NOTES.read_text(encoding="utf-8"))
+        note = (data.get(week) or {}).get(lang)
+        if note:
+            return note
+    if lang != "en" or payload is None or not os.environ.get("ANTHROPIC_API_KEY"):
+        return None
+    try:
+        import anthropic
+        client = anthropic.Anthropic()
+        resp = client.messages.create(model=os.environ.get("RADAR_MODEL", "claude-3-5-haiku-latest"), max_tokens=400,
+                                      messages=[{"role": "user", "content": _NOTE_PROMPT.format(payload=json.dumps(payload, ensure_ascii=False))}])
+        text = resp.content[0].text.strip()
+        data = json.loads(NOTES.read_text(encoding="utf-8")) if NOTES.exists() else {}
+        data.setdefault(week, {})[lang] = text
+        NOTES.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+        return text
+    except Exception as exc:  # pragma: no cover
+        log.warning("editor note failed: %s", exc)
+        return None

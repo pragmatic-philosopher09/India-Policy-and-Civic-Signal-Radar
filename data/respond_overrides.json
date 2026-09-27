@@ -1,0 +1,11 @@
+{
+ "_comment": "Per-consultation facts recovered by reading the notice or its coverage. deadline ISO date; body = who takes comments.",
+ "2026-07:5": {
+  "body": "Bar Council of India",
+  "url": "https://www.barcouncilofindia.org",
+  "how": "email",
+  "deadline": "2026-07-31",
+  "source_name": "SCC Online",
+  "note": "The draft was released by the Bar Council of India, not the Ministry; BCI invited suggestions till 31 July 2026."
+ }
+}

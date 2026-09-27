@@ -11,13 +11,15 @@ over time.
 
 Every Monday, Policy Pulse reads PRS Legislative Research's record of formal government action,
 scores which everyday topics are moving, cross-checks each item against independent coverage, and
-publishes a brief in three parts:
+publishes a brief — opened by a model-drafted **"This week in 60 seconds"** — in three parts:
 
-1. **🗣 You can still respond** — drafts open for public comment, with the deadline, the regulator's
-   usual channel, and a copy-paste comment template.
+1. **🗣 You can still respond** — drafts open for public comment from PRS's live *Announcements*
+   table (exact deadlines), with the submission email and addressee **read out of the notice
+   itself**, the regulator's usual channel, and a copy-paste comment template. Daily reminders at
+   7 days and 48 hours.
 2. **🔥 What's moving** — the three topics with the most momentum, each with a hook headline,
-   "For you →" lines per persona (student / gig worker / founder / salaried), a confidence label,
-   and ✓ marks where the action was independently reported.
+   "For you →" lines per persona (student / gig worker / founder / salaried — pick yours once and
+   the page filters to you), a confidence label, and ✓ marks where the action was independently reported.
 3. **😴 Confirmed quiet** — topics with no formal action, stated explicitly.
 
 The website (English + Hindi) is the archive: every topic's 17-month evidence trail, policy
@@ -38,18 +40,23 @@ The Telegram channel is the product; the site is where the receipts live.
 
 ## Where the AI is (and isn't)
 
-Deterministic: scoring, confidence rules, deadline parsing, corroboration counting.
-Model-generated (Claude when `ANTHROPIC_API_KEY` is set; hand-written seeds in `data/` until then):
-plain-English summaries, hook headlines, persona "For you" lines, Hindi translations.
-Curated: topic tag corrections (`data/tag_overrides.json`) and policy journeys (`data/chains.json`).
+Deterministic: scoring, confidence rules, deadline parsing, corroboration counting, reading
+submission emails/addressees out of notices (regex over PDF/HTML text).
+Model-generated (Claude when `ANTHROPIC_API_KEY` is set; model-written seeds in `data/` until then):
+plain-English summaries, hook headlines, persona "For you" lines, the weekly editor's note,
+Hindi translations. Everything model-drafted is labelled "AI-drafted · source-linked" on the page.
+Curated: topic tag corrections (`data/tag_overrides.json`), policy journeys (`data/chains.json`),
+per-consultation facts a human verified (`data/respond_overrides.json`).
 
 ## How it works
 
 ```
-PRS Monthly Policy Review (CC BY 4.0)
-        │  weekly GitHub Actions cron, 10s crawl-delay
+PRS Monthly Policy Review + PRS Announcements (CC BY 4.0)
+        │  weekly GitHub Actions cron (daily for deadlines), 10s crawl-delay
         ▼
-  radar/parse.py       → structured items (month, ministry, title, body, links)
+  radar/parse.py         → structured items (month, ministry, title, body, links)
+  radar/announcements.py → live drafts open for comment, exact deadlines, notice links
+  radar/notice.py        → reads the notice: submission email, addressee, deadline; "likely closed" inference
   radar/score.py       → action type · topic tags (+ overrides) · momentum · confidence
   radar/crosscheck.py  → independent coverage per item (Google News RSS → PIB / newspapers)
   radar/summarize.py   → one-line summary          ┐
@@ -96,8 +103,9 @@ or Cloud SQL when the dataset outgrows git.
 - [x] Phase 0 — PRS pipeline → momentum score → public site
 - [x] Phase 1 — Hindi edition, confidence + caveats, this-week brief, Telegram digest + deadline pings
 - [x] Phase 2 — independent cross-check (PIB / newspapers via Google News), policy journeys
-- [ ] Phase 3 — email digest, exam (GS-paper) tags, Hindi audio "For you", state legislatures
-- [ ] Phase 4 — read the draft notice itself for the exact submission address; PIB RSS as a direct feed
+- [x] Phase 3a — live consultations feed with exact deadlines; notices read for submission address; persona lens; editor's note
+- [ ] Phase 3b — email digest, exam (GS-paper) tags, Hindi hooks/"For you", Hindi audio, state legislatures
+- [ ] Phase 4 — model-structured notice reading (format, page limits, addressee); PIB RSS as a direct feed
 
 ## Attribution
 

@@ -23,6 +23,7 @@ from .summarize import summarise_missing
 from .translate import translate_missing, visible_uids
 from .crosscheck import crosscheck
 from .enrich import enrich_missing
+from .announcements import refresh as refresh_announcements
 
 log = logging.getLogger("radar")
 
@@ -73,6 +74,7 @@ def main(argv: list[str] | None = None) -> None:
     sub.add_parser("retag", help="re-apply topic/action rules to stored items")
     sub.add_parser("summarise")
     sub.add_parser("translate", help="translate visible items into other languages (needs ANTHROPIC_API_KEY)")
+    sub.add_parser("announcements", help="refresh the live list of drafts open for comment (prsindia.org/announcements)")
     sub.add_parser("enrich", help="hook headlines + persona 'so what' lines (seed file, Claude for new items)")
     sub.add_parser("crosscheck", help="look for independent coverage (govt releases, newspapers) of visible items")
     sub.add_parser("build")
@@ -94,6 +96,8 @@ def main(argv: list[str] | None = None) -> None:
         for lang in LANGS:
             if lang != DEFAULT_LANG:
                 log.info("translated %d items into %s", translate_missing(conn, lang), lang)
+    if args.cmd in ("announcements", "run"):
+        log.info("announcements: %d rows", refresh_announcements(db.connect()))
     if args.cmd in ("enrich", "run"):
         conn = db.connect()
         log.info("enriched %d items", enrich_missing(conn, visible_uids(conn)))
@@ -107,6 +111,8 @@ def main(argv: list[str] | None = None) -> None:
         from .build_site import assemble
         from .notify import notify
         conn = db.connect()
+        if args.pings:
+            refresh_announcements(conn)  # new drafts appear between weekly runs
         scores, consultations = assemble(conn, lang="en")
         log.info("sent %d message(s)", notify(conn, scores, consultations, digest=args.digest, pings=args.pings))
 

@@ -100,3 +100,30 @@ def test_digest_composes_without_network():
     assert "Policy Pulse" in text and "Should X change?" in text and "Repo on hold" in text and "✓" in text
     pings = compose_pings(cons)
     assert len(pings) == 1 and pings[0][0] == "ping:c1:7d" and "5 days left" in pings[0][1]
+
+
+def test_announcements_parse():
+    from datetime import date
+    from radar.announcements import parse
+    html = """<div class="view-content"><table><thead><tr><th>Comments invited on</th><th>Deadline for submission</th>
+    <th>Press Release</th><th>PRS Analysis</th></tr></thead><tbody>
+    <tr><td><a href="/files/x.pdf">The Indian Statistical Institute Bill, 2026</a></td><td>Sep 28,2026</td>
+    <td><a href="https://sansad.in/pr">Press Release</a></td><td></td></tr>
+    <tr><td>Draft SHANTI Rules</td><td>Sep 04,2026</td><td><a href="https://dae.gov.in/x">Press Release</a></td><td><a href="">   </a></td></tr>
+    </tbody></table></div>"""
+    rows = parse(html)
+    assert rows[0]["title"] == "The Indian Statistical Institute Bill, 2026"
+    assert rows[0]["deadline"] == date(2026, 9, 28)
+    assert rows[0]["draft_url"] == "https://prsindia.org/files/x.pdf" and rows[0]["press_url"] == "https://sansad.in/pr"
+    assert rows[1]["analysis_url"] is None
+
+
+def test_notice_headline_deadline_and_likely_closed():
+    from datetime import date
+    from radar.notice import deadline_from_headlines, apply
+    hits = [{"kind": "news", "outlet": "SCC Online", "title": "BCI Releases Draft Advocates (Amendment) Bill, 2026; Invites Suggestions Till 31 July"}]
+    d, src = deadline_from_headlines(hits, "2026-07")
+    assert d == date(2026, 7, 31) and src == "SCC Online"
+    e = dict(uid="x", month="2026-07", deadline=None, corroborations=[], route=dict(body="", url="", how="generic"))
+    apply(e, date(2026, 9, 27))
+    assert e["likely_closed"] is True and e["deadline"] is None

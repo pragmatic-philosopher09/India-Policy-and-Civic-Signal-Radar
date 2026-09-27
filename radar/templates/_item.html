@@ -14,7 +14,7 @@
   <dl class="for-you">
     <dt>{{ t('for_you') }} →</dt>
     {% for k in personas if e.so_what.get(k) %}
-    <dd><b>{{ t('persona_' ~ k) }}:</b> {{ e.so_what[k] }}</dd>
+    <dd data-persona="{{ k }}"><b>{{ t('persona_' ~ k) }}:</b> {{ e.so_what[k] }}</dd>
     {% endfor %}
   </dl>
   {% endif %}
@@ -33,7 +33,10 @@
     <summary>{{ t('how_to_respond') }}</summary>
     <div class="respond-body">
       {% if e.route.body %}<p><strong>{{ t('respond_via', body=e.route.body) }}</strong>{% if e.route.url %} · <a href="{{ e.route.url }}">{{ e.route.body }} ↗</a>{% endif %}</p>{% endif %}
-      <p>{{ t('route_' ~ e.route.how) }} {{ t('respond_check') }}</p>
+      {% if e.route_note %}<p class="note">{{ e.route_note }}</p>{% endif %}
+      {% if e.email %}<p><b>{{ t('email_to') }}:</b> <a href="mailto:{{ e.email }}?subject={{ t('tpl_subject', title=e.title) | replace('Subject: ', '') | urlencode }}">{{ e.email }}</a></p>{% endif %}
+      {% if e.notice_excerpt %}<blockquote class="excerpt">“{{ e.notice_excerpt | truncate(320) }}”</blockquote>{% endif %}
+      <p>{{ t('route_' ~ e.route.how) }} {% if not e.email %}{{ t('respond_check') }}{% endif %}</p>
       {% set tpl = t('tpl_subject', title=e.title) ~ '\n\n' ~ t('tpl_body', title=e.title, body=(e.route.body or '…')) %}
       <pre class="tpl">{{ tpl }}</pre>
       <button type="button" class="copy" data-copied="{{ t('copied') }}" onclick="navigator.clipboard&&navigator.clipboard.writeText(this.previousElementSibling.innerText).then(()=>{this.textContent=this.dataset.copied})">{{ t('copy_template') }}</button>
@@ -42,10 +45,14 @@
 {% endmacro %}
 
 {% macro deadline_tag(e) %}
-  {% if e.deadline %}
-    <span class="tag due {{ 'due-soon' if e.days_left <= 7 else '' }}">
-      {% if e.days_left == 0 %}{{ t('closes_today') }}{% elif e.days_left == 1 %}{{ t('one_day_left') }}{% else %}{{ t('days_left', n=e.days_left) }}{% endif %} · {{ e.deadline | nice_date }}
+  {% if e.deadline and e.days_left >= 0 %}
+    <span class="tag due {{ 'due-soon' if e.days_left <= 7 else '' }}" {% if e.deadline_source and e.deadline_source not in ('prs', 'prs-announcements') %}title="{{ t('deadline_via', src=e.deadline_source) }}"{% endif %}>
+      {% if e.days_left == 0 %}{{ t('closes_today') }}{% elif e.days_left == 1 %}{{ t('one_day_left') }}{% else %}{{ t('days_left', n=e.days_left) }}{% endif %} · {{ e.deadline | nice_date }}{% if e.deadline_source and e.deadline_source not in ('prs', 'prs-announcements') %} <em>· {{ t('via', src=e.deadline_source) }}</em>{% endif %}
     </span>
+  {% elif e.deadline %}
+    <span class="tag due-closed">{{ t('closed_on', d=(e.deadline | nice_date)) }}{% if e.deadline_source and e.deadline_source not in ('prs', 'prs-announcements') %} <em>· {{ t('via', src=e.deadline_source) }}</em>{% endif %}</span>
+  {% elif e.likely_closed %}
+    <span class="tag due-closed" title="{{ t('likely_closed_help') }}">{{ t('likely_closed', m=(e.month | month)) }}</span>
   {% else %}
     <span class="tag due-unknown" title="{{ t('deadline_unknown_help') }}">{{ t('deadline_unknown') }}</span>
   {% endif %}
@@ -60,8 +67,17 @@
     {% set sm = e.summary_l if lang != 'en' else e.summary %}
     {% if sm %}<p>{{ sm }}</p>{% endif %}
     {{ for_you(e) }}
-    <small><a href="{{ e.source_url }}">{{ t('prs_month', m=(e.month | month)) }}</a>
-    {% for l in e.links[:2] %} · <a href="{{ l }}">{{ t('read_draft') }}</a>{% endfor %}</small>
+    {% if e.related %}<small class="related">{{ t('related_stage', title=e.related.title, m=(e.related.month | month)) }}</small>{% endif %}
+    <small>
+    {% if e.from_announcements %}
+      <a href="{{ e.source_url }}">{{ t('source_announcements') }}</a>
+      {% if e.draft_url %} · <a href="{{ e.draft_url }}">{{ t('read_draft') }}</a>{% endif %}
+      {% if e.press_url and e.press_url != e.draft_url %} · <a href="{{ e.press_url }}">{{ t('official_notice') }} ↗</a>{% endif %}
+    {% else %}
+      <a href="{{ e.source_url }}">{{ t('prs_month', m=(e.month | month)) }}</a>
+      {% for l in e.links[:2] %} · <a href="{{ l }}">{{ t('read_draft') }}</a>{% endfor %}
+    {% endif %}
+    </small>
     {{ corroboration(e.corroborations) }}
     {% if with_respond %}{{ respond_block(e) }}{% endif %}
   </li>

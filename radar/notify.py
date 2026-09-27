@@ -23,7 +23,7 @@ from .i18n import nice_date, pretty_month, t
 
 log = logging.getLogger(__name__)
 
-SITE = os.environ.get("POLICY_PULSE_SITE_URL", "https://pragmatic-philosopher09.github.io/India-Policy-and-Civic-Signal-Radar/")
+SITE = os.environ.get("POLICY_PULSE_SITE_URL", "https://pragmatic-philosopher09.github.io/policy-pulse/")
 API = "https://api.telegram.org/bot{token}/sendMessage"
 
 SCHEMA = """
@@ -41,17 +41,20 @@ def _esc(s: str) -> str:
     return html.escape(s or "", quote=False)
 
 
-def compose_digest(scores, consultations: dict, today: date, lang: str = "en") -> str:
+def compose_digest(scores, consultations: dict, today: date, lang: str = "en", note: str | None = None) -> str:
     brief_moving = [ts for ts in scores if ts.status != "quiet"][:3]
     quiet = [ts for ts in scores if ts.status == "quiet"]
     lines = [f"<b>📡 Policy Pulse · {nice_date(today, lang)}</b>", ""]
+    if note:
+        lines += [_esc(note), ""]
 
     open_items = consultations["open"] + consultations["unknown"]
     lines.append("<b>🗣 " + _esc(t(lang, "respond_h2")) + "</b>")
     if open_items:
         for c in open_items[:5]:
             if c["deadline"]:
-                due = (t(lang, "closes_today") if c["days_left"] == 0 else t(lang, "days_left", n=c["days_left"])) \
+                d = c["days_left"]
+                due = (t(lang, "closes_today") if d == 0 else t(lang, "one_day_left") if d == 1 else t(lang, "days_left", n=d)) \
                       + f" · {nice_date(c['deadline'], lang)}"
             else:
                 due = t(lang, "deadline_unknown")
@@ -137,7 +140,9 @@ def notify(conn: sqlite3.Connection, scores, consultations: dict, *, digest: boo
         if _already(conn, key):
             log.info("digest %s already posted", key)
         else:
-            text = compose_digest(scores, consultations, today, lang)
+            from .enrich import editor_note
+            iso = today.isocalendar()
+            text = compose_digest(scores, consultations, today, lang, note=editor_note(conn, f"{iso[0]}-W{iso[1]:02d}", lang))
             if send(text):
                 _record(conn, key, text)
                 sent += 1
